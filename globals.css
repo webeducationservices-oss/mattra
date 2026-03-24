@@ -583,7 +583,12 @@ p { margin-bottom: 1rem; }
 }
 
 /* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .container { padding: 0 40px; }
+}
+
 @media (max-width: 1024px) {
+  .container { padding: 0 32px; }
   .header-inner { height: 70px; }
   .main-nav { display: none; }
   .mobile-toggle { display: flex; }
