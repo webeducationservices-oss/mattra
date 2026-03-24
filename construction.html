@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- ===== SEO ===== -->
+  <title>General Contractor in Lewiston-Auburn, ME | Mattra</title>
+  <meta name="description" content="Need a reliable general contractor in Lewiston-Auburn, ME? Mattra delivers clear scope, clean jobsites, and managed remodel and rebuild work." />
+  <meta name="keywords" content="general contractor lewiston auburn maine, remodeling contractors maine, kitchen remodel lewiston, bathroom renovation maine, home construction maine" />
+  <link rel="canonical" href="https://www.mattrainc.com/construction" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="General Contractor in Lewiston-Auburn, ME | Mattra" />
+  <meta property="og:description" content="Clear scope, clean jobsites, and managed remodel and rebuild work for Lewiston-Auburn homeowners." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.mattrainc.com/construction" />
+
+  <!-- Schema.org Service -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "General Contracting & Remodeling",
+    "provider": {
+      "@type": "HomeAndConstructionBusiness",
+      "name": "Mattra Inc.",
+      "url": "https://www.mattrainc.com",
+      "telephone": "+12077776020",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "68 Whipple St",
+        "addressLocality": "Lewiston",
+        "addressRegion": "ME",
+        "postalCode": "04240",
+        "addressCountry": "US"
+      }
+    },
+    "areaServed": {
+      "@type": "State",
+      "name": "Maine"
+    },
+    "description": "Mattra helps Lewiston-Auburn homeowners plan, price, and complete construction projects with clear scope, clean jobsites, and one point of contact.",
+    "serviceType": "General Contracting"
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/globals.css" />
+  <style>
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2;
+    }
+    .hero .container {
+      position: relative;
+      z-index: 2;
+      padding-top: 100px;
+      padding-bottom: 80px;
+    }
+    .hero-content { max-width: 720px; }
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      margin-bottom: 20px;
+    }
+    .hero .subtitle {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+    .hero-phone {
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .hero-phone:hover { color: var(--gold-accent); }
+    .hero-trust { margin-top: 40px; }
+
+    /* ===== 2-COLUMN IMAGES ===== */
+    .col-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .col-img img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+
+    /* ===== CHECK LIST ===== */
+    .check-list { list-style: none; padding: 0; }
+    .check-list li {
+      padding: 6px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .check-list li::before {
+      content: '\2714';
+      color: var(--green-primary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ===== SERVICE CARDS ===== */
+    .con-service-card {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .con-service-card h3 { margin-bottom: 8px; }
+    .con-service-card p { flex: 1; margin-bottom: 16px; }
+
+    /* ===== PROCESS STEPS ===== */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      counter-reset: step;
+    }
+    .process-step {
+      text-align: center;
+      position: relative;
+    }
+    .process-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--green-primary);
+      color: var(--white);
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .process-step h3 {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+    .process-step p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* ===== SLIDER ===== */
+    .con-slider .slide-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .con-slider .slide-visual {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+    .con-slider .slide-visual h4 {
+      font-size: 1rem;
+      margin-bottom: 16px;
+      color: var(--green-primary);
+    }
+    .con-slider .slide-visual p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .con-slider .slide-text h3 { margin-bottom: 12px; }
+    .con-slider .slide-text p { margin-bottom: 12px; }
+
+    /* ===== FAQ ACCORDION ===== */
+    .faq-list { max-width: 800px; }
+    .faq-item {
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 0;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-question:hover { color: var(--green-primary); }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(49,107,67,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+      padding-bottom: 20px;
+    }
+    .faq-answer p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ===== INTERNAL LINKS LIST ===== */
+    .link-list { list-style: none; padding: 0; }
+    .link-list li {
+      padding: 6px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .link-list li::before {
+      content: '\2192';
+      color: var(--green-primary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .link-list a {
+      color: var(--green-primary);
+      font-weight: 600;
+    }
+    .link-list a:hover { text-decoration: underline; }
+
+    /* ===== TRUST ICONS ===== */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .trust-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(49,107,67,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ===== CTA LINKS ===== */
+    .cta-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    /* ===== FINAL CTA ===== */
+    .final-cta {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .final-cta h2 { color: var(--white); margin-bottom: 16px; }
+    .final-cta p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+      margin-bottom: 32px;
+    }
+    .final-cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+    .final-cta-address {
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+    .final-cta-address a { color: rgba(255,255,255,0.7); }
+    .final-cta-address a:hover { color: var(--gold-accent); }
+    .final-cta-reassurance {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      font-style: italic;
+    }
+
+    /* ===== RELATED SERVICES GRID ===== */
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .related-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      text-decoration: none;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .related-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      color: var(--green-primary);
+    }
+    .related-card::before {
+      content: '\2192';
+      color: var(--green-primary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .con-slider .slide-inner { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .hero { min-height: 420px; }
+      .hero-content { padding: 72px 0 56px; }
+      .col-img img { height: 280px; }
+      .process-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== TOPBAR + HEADER ===== -->
+<div id="topbar"></div>
+<div id="header"></div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg" style="background-image:url('/Images/construction-hero.jpg')"></div>
+  <div class="container">
+    <div class="hero-content">
+      <h1>General Contractor for Remodeling and Home Construction in Lewiston-Auburn, Maine</h1>
+      <p class="subtitle">Mattra helps Lewiston-Auburn homeowners and property managers plan, price, and complete construction projects with clear scope, clean jobsites, and one point of contact.</p>
+      <div class="hero-ctas">
+        <a href="/diagnostic.html" class="btn btn-gold btn-arrow">Get a Project Estimate</a>
+        <a href="tel:+12077776020" class="hero-phone">Call (207) 777-6020</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-bar">
+          <span>Clear Scope &amp; Clean Jobsites</span>
+          <span>30+ Years Serving Maine</span>
+          <span>One Point of Contact</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PREMIUM CONTENT: DIAGNOSTIC + FORM ===== -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <h2>Not Sure If This Is a Repair, a Remodel, or Hidden Damage?</h2>
+        <p>Most construction projects do not start with perfect information.</p>
+        <p style="margin-top:12px;">Maybe you want a kitchen remodel, but you are concerned about older framing. Maybe a bathroom update turns into a bigger rebuild after you discover rot or water damage. Or maybe something just feels off and you want to know whether the right next step is demolition, repair and rebuild, or a full remodeling plan.</p>
+        <p style="margin-top:16px;">Tell us what you are seeing, what you want to change, and what matters most:</p>
+        <ul class="check-list" style="margin-top:12px;">
+          <li>Timeline</li>
+          <li>Budget range</li>
+          <li>Finish level</li>
+          <li>Access</li>
+        </ul>
+        <p style="margin-top:16px;color:var(--text-light);font-size:0.9rem;font-style:italic;">Fast response, clear next steps, no pressure</p>
+      </div>
+      <div class="diagnostic-form"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FULL-SERVICE GC (Image Left | Text Right) ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="grid-2">
+      <div class="col-img">
+        <img src="/Images/construction-structural.jpg" alt="Professional construction and structural framing work in Maine home" loading="lazy" />
+      </div>
+      <div>
+        <span class="section-label">Why Mattra</span>
+        <h2>A Full-Service General Contractor for Remodels and Rebuilds</h2>
+        <p>When you hire a general contractor, you are not just paying for labor. You are paying for coordination, planning, and accountability.</p>
+        <p style="margin-top:12px;">Mattra is a whole-home team. That means we can manage construction work while also paying attention to the <em>why</em> behind the project &mdash; including moisture, ventilation, and building performance.</p>
+        <p style="margin-top:16px;"><strong>What that looks like for you:</strong></p>
+        <ul class="check-list">
+          <li>One point of contact from discovery to walkthrough</li>
+          <li>A trusted subcontractor network for specialized trades</li>
+          <li>Organized scheduling and predictable communication</li>
+          <li>Clean jobsite standards and practical site protection</li>
+          <li>Clear scope writing so you know what&rsquo;s included</li>
+        </ul>
+        <ul class="link-list" style="margin-top:20px;">
+          <li><a href="/mold.html">Mold services for healthier indoor air</a></li>
+          <li><a href="/insulation.html">Insulation &amp; air sealing for comfort</a></li>
+          <li><a href="/consulting.html">Consulting before you renovate</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICE CARDS ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Our Services</span>
+      <h2>Construction Paths We Handle Most Often</h2>
+    </div>
+    <div class="grid-2">
+
+      <div class="card con-service-card">
+        <h3>Remodeling Services for Kitchens &amp; Bathrooms</h3>
+        <p>Plan-first remodels with smart ventilation and moisture control.</p>
+        <a href="/construction/remodeling.html" class="card-link">Learn More</a>
+      </div>
+
+      <div class="card con-service-card">
+        <h3>Repairs &amp; Rebuilds After Damage</h3>
+        <p>Fix the cause first, then rebuild with clean trade handoffs.</p>
+        <a href="/construction/repair-rebuild.html" class="card-link">Learn More</a>
+      </div>
+
+      <div class="card con-service-card">
+        <h3>What to Expect From Your Estimate</h3>
+        <p>Clear scope, assumptions, and timeline guidance you can trust.</p>
+        <a href="/construction/estimates.html" class="card-link">Learn More</a>
+      </div>
+
+      <div class="card con-service-card">
+        <h3>Popular Projects We Manage</h3>
+        <p>Quick examples of common buildouts and coordinated upgrades.</p>
+        <a href="/construction/projects.html" class="card-link">Learn More</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== REMODELING DETAIL (Text Left | Image Right) ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <span class="section-label">Remodeling</span>
+        <h2>Remodeling Services for Kitchens and Bathrooms</h2>
+        <p>Most remodeling projects succeed or fail in the planning stage. Finishes matter, but layout decisions, ventilation, and moisture control are what keep the work looking good long term.</p>
+        <p style="margin-top:16px;"><strong>Kitchen remodel projects often include:</strong></p>
+        <ul class="check-list">
+          <li>Layout changes and workflow improvements</li>
+          <li>Flooring, lighting, and finish updates</li>
+          <li>Drywall repair, trim, paint, and carpentry details</li>
+          <li>Coordination with plumbing and electrical trades</li>
+        </ul>
+        <p style="margin-top:16px;"><strong>Bathroom remodel projects often include:</strong></p>
+        <ul class="check-list">
+          <li>Tub or shower conversions and surround updates</li>
+          <li>Jacuzzi bath remodel planning and coordination</li>
+          <li>Moisture-smart materials and detail work</li>
+          <li>Ventilation planning to prevent humidity issues</li>
+        </ul>
+      </div>
+      <div class="col-img">
+        <img src="/Images/construction-whole-home.jpg" alt="Beautifully renovated Maine home interior" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REPAIRS & REBUILDS (Image Left | Text Right) ===== -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+      <div class="col-img">
+        <img src="/Images/construction-moisture.jpg" alt="Water damage repair and moisture correction in Maine home" loading="lazy" />
+      </div>
+      <div>
+        <span class="section-label">Repair &amp; Rebuild</span>
+        <h2>Repairs and Rebuilds After Damage or Demolition</h2>
+        <p>Sometimes remodeling is really a repair and rebuild project. If you have water intrusion, visible rot, or a failed assembly, the smartest plan is usually to fix the root cause first, then rebuild correctly.</p>
+        <p style="margin-top:12px;">We coordinate contained demolition when needed, then manage the rebuild with clean transitions between trades so the project stays organized.</p>
+        <p style="margin-top:16px;"><strong>Common scopes include:</strong></p>
+        <ul class="check-list">
+          <li>Rot repair for structural damage</li>
+          <li>Water damage repair and rebuild after leaks or storms</li>
+          <li>Demolition that supports a clean rebuild plan</li>
+          <li>Restoration, reframing, and refinishing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COST & TIMELINE SLIDER ===== -->
+<section class="section section--gray con-slider">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Planning</span>
+      <h2>What Influences Construction Cost and Timeline Most</h2>
+    </div>
+    <div class="slider-container">
+      <div class="slider-track">
+
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Hidden Damage</h4>
+              <p>Behind walls or under floors can change scope fast. That&rsquo;s why we recommend a diagnostic before finalizing any estimate.</p>
+            </div>
+            <div class="slide-text">
+              <h3>What You Can&rsquo;t See Matters Most</h3>
+              <p>Rot, moisture intrusion, and structural issues behind finished surfaces are the most common source of scope changes during construction.</p>
+              <p>Our whole-home approach identifies these risks early &mdash; before they become expensive surprises.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Material Selections</h4>
+              <p>Finish level and product availability affect both pricing and lead times. We help you balance quality with budget.</p>
+            </div>
+            <div class="slide-text">
+              <h3>Selections Drive Cost and Schedule</h3>
+              <p>Custom tile, specialty fixtures, and premium finishes require longer lead times and higher material costs.</p>
+              <p>We help you make smart selections that match your finish level without unnecessary delays.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Layout &amp; Permits</h4>
+              <p>Moving plumbing or electrical increases coordination needs. Permits and inspections can extend timelines depending on scope.</p>
+            </div>
+            <div class="slide-text">
+              <h3>Layout Changes Add Complexity</h3>
+              <p>Moving plumbing, electrical, or structural elements requires additional trade coordination and often triggers permit requirements.</p>
+              <p>We flag these needs during discovery and build them into the timeline from the start.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="slider-dots">
+        <button class="slider-dot active" aria-label="Slide 1"></button>
+        <button class="slider-dot" aria-label="Slide 2"></button>
+        <button class="slider-dot" aria-label="Slide 3"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS STEPS ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Our Process</span>
+      <h2>Our Process From Demo to Rebuild</h2>
+    </div>
+    <div class="process-grid">
+
+      <div class="process-step">
+        <div class="process-num">1</div>
+        <h3>Discovery &amp; Goals</h3>
+        <p>We learn what you want, what is driving the project, and what success looks like.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="process-num">2</div>
+        <h3>Site Review &amp; Diagnostics</h3>
+        <p>We assess conditions and identify likely risks &mdash; moisture, ventilation, structural concerns.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="process-num">3</div>
+        <h3>Scope &amp; Estimate</h3>
+        <p>You receive a clear scope with pricing direction and next-step options.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="process-num">4</div>
+        <h3>Schedule &amp; Pre-Construction</h3>
+        <p>We confirm timeline, materials, trades, and the site protection plan.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="process-num">5</div>
+        <h3>Build &amp; Coordination</h3>
+        <p>We manage sequencing, communication, and jobsite standards.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="process-num">6</div>
+        <h3>Walkthrough &amp; Closeout</h3>
+        <p>We review the finished work and confirm the details match the scope.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUST / LOCAL ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Local Expertise</span>
+      <h2>Serving Lewiston, Auburn, and Surrounding Communities</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        Clear Scope &amp; No-Pressure Communication
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        Professional Standards &amp; Proper Insurance
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        Trusted Subcontractor Network
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        Organized Project Documentation
+      </div>
+    </div>
+    <p style="max-width:680px;">If you are a homeowner, landlord, or property manager trying to coordinate a reliable remodel or repair plan, we&rsquo;ll help you clarify the scope, understand the timeline, and move forward with confidence.</p>
+  </div>
+</section>
+
+<!-- ===== RELATED CONSTRUCTION SERVICES ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Related Services</span>
+      <h2>Related Construction Services</h2>
+    </div>
+    <div class="related-grid">
+      <a href="/construction/rot-repair.html" class="related-card">Rot Repair</a>
+      <a href="/construction/demolition.html" class="related-card">Demolition</a>
+      <a href="/construction/water-damage-repair.html" class="related-card">Water Damage Repair</a>
+      <a href="/construction/basement-waterproofing.html" class="related-card">Basement Waterproofing</a>
+      <a href="/construction/roofing.html" class="related-card">Roofing</a>
+      <a href="/construction/siding.html" class="related-card">Siding</a>
+      <a href="/construction/repair-rebuild.html" class="related-card">Repair &amp; Rebuild</a>
+      <a href="/construction/ventilation.html" class="related-card">Ventilation</a>
+      <a href="/other-services.html" class="related-card">General Contracting</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Common Questions</span>
+      <h2>FAQs</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question">
+          How much does a kitchen remodel cost in Lewiston-Auburn?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Costs vary based on layout changes, finish selections, and whether there is hidden damage. The fastest way to get a realistic range is to share your goals and current conditions through the <a href="/diagnostic.html" style="color:var(--green-primary);font-weight:600;">Diagnostic Form</a> so we can scope the right estimate approach.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Do I need permits for a bathroom renovation?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Often, yes &mdash; especially if you change plumbing locations, add new electrical circuits, modify ventilation, or alter structure. We flag likely permitting needs during discovery and explain what that means for timeline.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Can you handle demolition and rebuild as part of the same project?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. If a project requires contained demolition, we can coordinate that work and then manage the rebuild with clear sequencing between trades so the project stays organized.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          How long does a bathroom remodel take?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Timelines depend on scope, materials, and trade scheduling. Simple updates can move faster than full renovations that include tile, plumbing changes, or ventilation improvements. We give timeline expectations during your estimate process.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          What should I prepare before requesting an estimate?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Helpful details include photos, approximate room dimensions, your must-haves, your preferred timeline, and whether you&rsquo;ve seen signs of water damage, rot, or ventilation issues. If you don&rsquo;t have everything, that&rsquo;s fine &mdash; start with the <a href="/diagnostic.html" style="color:var(--green-primary);font-weight:600;">Diagnostic Form</a> and we&rsquo;ll guide the next step.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Are you licensed and insured?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Mattra maintains professional standards for construction work, including proper insurance and organized project documentation. If your project requires specialty licensed trades, we coordinate those partners within our trusted subcontractor network.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="section section--green">
+  <div class="container">
+    <div class="final-cta">
+      <h2>Get a Project Estimate</h2>
+      <p>If you are comparing contractors, you deserve a plan that is clear, organized, and built to last. Tell us what you are working on and we&rsquo;ll respond with next steps that make sense.</p>
+      <div class="final-cta-buttons">
+        <a href="/diagnostic.html" class="btn btn-gold btn-arrow">Get a Project Estimate</a>
+        <a href="tel:+12077776020" class="btn btn-white">Call (207) 777-6020</a>
+      </div>
+      <p class="final-cta-reassurance">Clear scope, clean jobsite standards, and no-pressure communication from the first call.</p>
+      <div class="final-cta-address">
+        Mattra Inc. &middot; 68 Whipple St &middot; Lewiston, ME 04240<br>
+        <a href="mailto:info.mattra@gmail.com">info.mattra@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<div id="footer"></div>
+
+<script src="/components.js"></script>
+<script src="/diagnostic-form.js"></script>
+<script>
+  // FAQ Accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      // Toggle clicked
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
