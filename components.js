@@ -5,9 +5,7 @@
    ============================================================= */
 
 (function () {
-  const inSub = window.location.pathname.split('/').filter(Boolean).length > 1
-                && !window.location.pathname.endsWith('/');
-  const b = inSub ? '../' : '';
+  const b = '/';
 
   /* ── Active nav helper ──────────────────────────────────── */
   const path = window.location.pathname;
