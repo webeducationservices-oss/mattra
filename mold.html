@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ===== SEO ===== -->
+  <title>Certified Mold Remediation Maine | Mattra</title>
+  <meta name="description" content="Certified mold remediation in Maine with inspection, removal, and moisture correction. Serving Lewiston, Auburn, and Central Maine." />
+  <meta name="keywords" content="mold remediation maine, mold removal maine, mold contractors near me, mold inspection maine, mold testing maine" />
+  <link rel="canonical" href="https://www.mattrainc.com/mold" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Certified Mold Remediation Maine | Mattra" />
+  <meta property="og:description" content="Certified mold remediation in Maine with inspection, removal, and moisture correction. Serving Lewiston, Auburn, and Central Maine." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.mattrainc.com/mold" />
+
+  <!-- Schema.org Service -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Mold Remediation",
+    "provider": {
+      "@type": "HomeAndConstructionBusiness",
+      "name": "Mattra Inc.",
+      "url": "https://www.mattrainc.com",
+      "telephone": "+12077776020",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "68 Whipple St",
+        "addressLocality": "Lewiston",
+        "addressRegion": "ME",
+        "postalCode": "04240",
+        "addressCountry": "US"
+      }
+    },
+    "areaServed": {
+      "@type": "State",
+      "name": "Maine"
+    },
+    "description": "Certified mold remediation in Maine with inspection, removal, and root-cause moisture correction.",
+    "serviceType": "Mold Remediation"
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="globals.css" />
+  <style>
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2;
+    }
+    .hero .container {
+      position: relative;
+      z-index: 2;
+      padding-top: 100px;
+      padding-bottom: 80px;
+    }
+    .hero-content {
+      max-width: 720px;
+    }
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      margin-bottom: 20px;
+    }
+    .hero .subtitle {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+    .hero-phone {
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .hero-phone:hover { color: var(--gold-accent); }
+    .hero-trust { margin-top: 40px; }
+
+    /* ===== PREMIUM CTA BLOCK ===== */
+    .premium-cta {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      padding: 32px 36px;
+      text-align: center;
+      max-width: 640px;
+    }
+    .premium-cta h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+    .premium-cta p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    /* ===== 2-COLUMN IMAGES ===== */
+    .col-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .col-img img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+
+    /* ===== SLIDER ===== */
+    .mold-slider .slide-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .mold-slider .slide-visual {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+    .mold-slider .slide-visual h4 {
+      font-size: 1rem;
+      margin-bottom: 16px;
+      color: var(--green-primary);
+    }
+    .mold-slider .slide-visual ul {
+      list-style: none;
+      padding: 0;
+    }
+    .mold-slider .slide-visual li {
+      padding: 8px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+    .mold-slider .slide-visual li::before {
+      content: '\2714';
+      color: var(--green-primary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .mold-slider .slide-text h3 { margin-bottom: 12px; }
+    .mold-slider .slide-text p { margin-bottom: 12px; }
+
+    /* ===== SERVICE CARDS ===== */
+    .mold-service-card {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .mold-service-card h3 { margin-bottom: 8px; }
+    .mold-service-card p { flex: 1; margin-bottom: 16px; }
+
+    /* ===== CHECK LIST ===== */
+    .check-list li {
+      padding: 6px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .check-list li::before {
+      content: '\2714';
+      color: var(--green-primary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ===== INTERNAL LINKS LIST ===== */
+    .link-list {
+      list-style: none;
+      padding: 0;
+    }
+    .link-list li {
+      padding: 6px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .link-list li::before {
+      content: '\2192';
+      color: var(--green-primary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .link-list a {
+      color: var(--green-primary);
+      font-weight: 600;
+    }
+    .link-list a:hover { text-decoration: underline; }
+
+    /* ===== TRUST ICONS ===== */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .trust-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(49,107,67,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ===== CTA LINKS ===== */
+    .cta-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    /* ===== FINAL CTA ===== */
+    .final-cta {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .final-cta h2 { color: var(--white); margin-bottom: 16px; }
+    .final-cta p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+      margin-bottom: 32px;
+    }
+    .final-cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+    .final-cta-address {
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+    .final-cta-address a {
+      color: rgba(255,255,255,0.7);
+    }
+    .final-cta-address a:hover { color: var(--gold-accent); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .mold-slider .slide-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .hero { min-height: 420px; }
+      .hero-content { padding: 72px 0 56px; }
+      .premium-cta { padding: 24px 20px; }
+      .col-img img { height: 280px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== TOPBAR + HEADER ===== -->
+<div id="topbar"></div>
+<div id="header"></div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg" style="background-image:url('Images/mold-hero.jpg')"></div>
+  <div class="container">
+    <div class="hero-content">
+      <h1>Certified Mold Remediation in Maine</h1>
+      <p class="subtitle">Certified mold remediation Maine homeowners trust. Serving Lewiston, Auburn, and surrounding Central Maine communities with inspection, removal, and root-cause correction.</p>
+      <div class="hero-ctas">
+        <a href="diagnostic.html" class="btn btn-gold btn-arrow">Schedule Your Mold Inspection</a>
+        <a href="tel:+12077776020" class="hero-phone">Call (207) 777-6020</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-bar">
+          <span>IICRC Certified</span>
+          <span>30+ Years Serving Maine</span>
+          <span>Efficiency Maine Registered Vendor</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== H2 + PREMIUM CTA ===== -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <h2>Mold Remediation Maine: Inspection, Removal &amp; Moisture Correction</h2>
+        <h3 style="margin-top:24px;">Start With a Mold Inspection</h3>
+        <p>Not sure how serious the issue is? Start with clarity. We evaluate the situation and identify the moisture source before recommending solutions.</p>
+        <div class="cta-links">
+          <a href="diagnostic.html" class="btn btn-primary btn-arrow">Schedule Your Mold Inspection</a>
+        </div>
+      </div>
+      <div class="diagnostic-form"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY MOLD HAPPENS (Image Left | Text Right) ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="grid-2">
+      <div class="col-img">
+        <img src="Images/mold-moisture-maine.jpg" alt="Condensation and moisture buildup in Maine attic causing mold growth" loading="lazy" />
+      </div>
+      <div>
+        <span class="section-label">Root Cause</span>
+        <h2>Why Mold Happens in Maine Homes</h2>
+        <p>Maine&rsquo;s climate creates ideal conditions for mold growth.</p>
+        <p>Long winters and freeze-thaw cycles create condensation inside attics and walls. Ice dams trap moisture. Basements and crawl spaces retain humidity. Poor ventilation and insulation gaps allow moisture to linger.</p>
+        <p><strong>Most companies focus on mold removal.</strong></p>
+        <p><strong>We focus on <em>why</em> it happened.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SLIDER: PROCESS ===== -->
+<section class="section mold-slider">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Our Process</span>
+      <h2>Professional Mold Removal Maine Homeowners Can Rely On</h2>
+    </div>
+    <div class="slider-container">
+      <div class="slider-track">
+
+        <!-- Slide 1: Certified Process -->
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Certified Remediation Process</h4>
+              <ul>
+                <li>Containment</li>
+                <li>HEPA air filtration</li>
+                <li>Safe material removal</li>
+                <li>Cleaning and antimicrobial treatment</li>
+                <li>Post-remediation verification</li>
+              </ul>
+            </div>
+            <div class="slide-text">
+              <h3>Industry-Standard Mold Removal</h3>
+              <p>We follow strict industry standards to protect your home and your health.</p>
+              <p>Every project includes containment, HEPA filtration, safe removal, and post-remediation verification to confirm the issue is resolved.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Root-Cause -->
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Root-Cause Correction</h4>
+              <ul>
+                <li>Air leakage evaluation</li>
+                <li>Moisture mapping</li>
+                <li>Insulation inspection</li>
+                <li>Ventilation performance testing</li>
+              </ul>
+            </div>
+            <div class="slide-text">
+              <h3>We Fix Why It Happened</h3>
+              <p>If the underlying cause is not corrected, mold often returns. We address the full building system.</p>
+              <p>Our team evaluates air leakage, moisture pathways, insulation gaps, and ventilation performance to stop recurrence at the source.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Local Experience -->
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Local Maine Experience</h4>
+              <ul>
+                <li>Based in Lewiston, ME</li>
+                <li>Serving Auburn, Lisbon, Topsham, Brunswick, and surrounding communities</li>
+                <li>30+ years working in Maine homes</li>
+              </ul>
+            </div>
+            <div class="slide-text">
+              <h3>Built for Maine&rsquo;s Climate</h3>
+              <p>Local knowledge matters when diagnosing moisture issues.</p>
+              <p>Maine&rsquo;s freeze-thaw cycles, coastal humidity, and older housing stock create unique challenges. We&rsquo;ve spent three decades solving them.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-dots">
+        <button class="slider-dot active" aria-label="Slide 1"></button>
+        <button class="slider-dot" aria-label="Slide 2"></button>
+        <button class="slider-dot" aria-label="Slide 3"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICE CARDS ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Mold Services</span>
+      <h2>Our Mold Services</h2>
+    </div>
+    <div class="grid-3">
+
+      <div class="card mold-service-card">
+        <h3>Inspection &amp; Testing</h3>
+        <p>Comprehensive evaluation to determine contamination level and moisture source.</p>
+        <a href="mold-inspection.html" class="card-link">Learn More</a>
+      </div>
+
+      <div class="card mold-service-card">
+        <h3>Removal &amp; Remediation</h3>
+        <p>Certified containment, removal, and corrective measures to prevent recurrence.</p>
+        <a href="mold-removal.html" class="card-link">Learn More</a>
+      </div>
+
+      <div class="card mold-service-card">
+        <h3>Real Estate Transactions</h3>
+        <p>Responsive support for buyers, sellers, and agents facing inspection-related findings.</p>
+        <a href="mold-real-estate.html" class="card-link">Learn More</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== MOLD + ENERGY (Text Left | Image Right) ===== -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <span class="section-label">Connected Systems</span>
+        <h2>Mold and Energy Performance Are Connected</h2>
+        <p>Mold problems are often tied to insulation and air sealing failures. Warm air escapes into cold spaces. Moisture condenses. Mold forms.</p>
+        <p>We coordinate remediation with whole-home improvements:</p>
+        <ul class="link-list">
+          <li><a href="insulation.html">Insulation upgrades</a></li>
+          <li><a href="air-sealing.html">Air sealing</a></li>
+          <li><a href="ventilation.html">Ventilation corrections</a></li>
+          <li><a href="energy-audit.html">Energy audits</a></li>
+        </ul>
+        <p style="margin-top:16px;"><strong>Fixing the entire system reduces recurrence risk.</strong></p>
+      </div>
+      <div class="col-img">
+        <img src="Images/mold-remediation-process.jpg" alt="Professional mold remediation in Maine home" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REAL ESTATE (Image Left | Text Right) ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="grid-2">
+      <div class="col-img">
+        <img src="Images/mold-real-estate.jpg" alt="Real estate mold inspection support in Maine" loading="lazy" />
+      </div>
+      <div>
+        <span class="section-label">Real Estate Support</span>
+        <h2>Mold During Real Estate Transactions</h2>
+        <p>Mold findings can delay or derail closings. We provide:</p>
+        <ul class="check-list">
+          <li>Fast inspection scheduling</li>
+          <li>Clear scope of remediation</li>
+          <li>Documentation for buyers and sellers</li>
+          <li>Coordination with real estate professionals</li>
+        </ul>
+        <div class="cta-links">
+          <a href="diagnostic.html" class="btn btn-primary btn-arrow">Submit a Priority Request</a>
+          <a href="for-realtors.html" class="card-link">For Realtors</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUST SECTION ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Why Mattra</span>
+      <h2>Why Choose Mattra for Mold Remediation in Maine</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        30+ Years Serving Maine
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        IICRC Certified
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        Whole-Home Diagnostic Approach
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        Integrated Insulation &amp; Construction Teams
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        Clear Communication From Start to Finish
+      </div>
+    </div>
+    <p style="max-width:640px;">Unlike companies that simply remove mold, we identify and correct the underlying moisture conditions.</p>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="section section--green">
+  <div class="container">
+    <div class="final-cta">
+      <h2>Schedule Your Mold Inspection Today</h2>
+      <p>If you suspect mold, early evaluation prevents larger structural damage and repair costs.</p>
+      <div class="final-cta-buttons">
+        <a href="diagnostic.html" class="btn btn-gold btn-arrow">Schedule Your Mold Inspection</a>
+        <a href="tel:+12077776020" class="btn btn-white">Call (207) 777-6020</a>
+      </div>
+      <div class="final-cta-address">
+        Mattra Inc. &middot; 68 Whipple St &middot; Lewiston, ME 04240<br>
+        <a href="mailto:info.mattra@gmail.com">info.mattra@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<div id="footer"></div>
+
+<script src="components.js"></script>
+<script src="diagnostic-form.js"></script>
+</body>
+</html>

@@ -140,6 +140,12 @@
           <input type="tel" id="diag-phone" placeholder="(207) 555-0123" />
           <span class="diag-hint">Optional, but helpful if it\u2019s urgent.</span>
         </div>
+        <div class="diag-field diag-sms-consent" id="diag-sms-group" style="display:none">
+          <label class="diag-checkbox">
+            <input type="checkbox" id="diag-sms-consent" />
+            <span>I agree to receive text messages from Mattra Inc., including appointment updates, service info, and promotional offers. Msg frequency varies. Msg & data rates may apply. Reply STOP to cancel, HELP for help. <a href="/privacy" target="_blank">Privacy Policy</a> & <a href="/terms" target="_blank">Terms</a></span>
+          </label>
+        </div>
         <div class="diag-field">
           <label for="diag-notes">Anything else?</label>
           <textarea id="diag-notes" placeholder="No worries if not \u2014 we\u2019ll cover everything when we talk."></textarea>
@@ -219,6 +225,10 @@
     .diag-summary dt{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text-light);margin-top:10px}
     .diag-summary dt:first-child{margin-top:0}
     .diag-summary dd{font-size:.85rem;color:var(--text-dark);margin:2px 0 0}
+    .diag-sms-consent{margin-top:-4px;margin-bottom:12px}
+    label.diag-checkbox{display:flex;gap:8px;align-items:flex-start;cursor:pointer;font-size:.72rem;font-weight:400;line-height:1.5;color:var(--text-light)}
+    .diag-checkbox input[type="checkbox"]{width:auto;margin-top:3px;flex-shrink:0;accent-color:var(--green-primary)}
+    .diag-checkbox a{color:var(--green-primary);text-decoration:underline}
     @media(max-width:640px){
       .diag-card{padding:24px 16px 20px}
       .diag-options{grid-template-columns:1fr}
@@ -460,10 +470,22 @@
       });
     });
 
+    // Show/hide SMS consent when phone is entered
+    const phoneInput = card.querySelector('#diag-phone');
+    const smsGroup = card.querySelector('#diag-sms-group');
+    phoneInput.addEventListener('input', () => {
+      const hasPhone = phoneInput.value.replace(/\D/g, '').length >= 7;
+      smsGroup.style.display = hasPhone ? 'block' : 'none';
+      if (!hasPhone) card.querySelector('#diag-sms-consent').checked = false;
+    });
+
     card.querySelector('.diag-btn-submit').addEventListener('click', () => {
       const first = card.querySelector('#diag-first').value.trim();
       const email = card.querySelector('#diag-email').value.trim();
       if (!first || !email) { alert('Please enter at least your first name and email.'); return; }
+      const phone = phoneInput.value.replace(/\D/g, '');
+      const smsCheck = card.querySelector('#diag-sms-consent');
+      if (phone.length >= 7 && !smsCheck.checked) { alert('Please agree to receive text messages, or remove your phone number.'); return; }
       showConfirm();
       goTo(5);
     });

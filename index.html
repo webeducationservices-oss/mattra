@@ -66,11 +66,14 @@
       background-position: center;
       opacity: 0.25;
     }
-    .hero-content {
+    .hero .container {
       position: relative;
       z-index: 2;
+      padding-top: 100px;
+      padding-bottom: 80px;
+    }
+    .hero-content {
       max-width: 720px;
-      padding: 100px 0 80px;
     }
     .hero h1 {
       color: var(--white);
@@ -266,7 +269,8 @@
 <!-- ===== HERO ===== -->
 <section class="hero">
   <div class="hero-bg" style="background-image:url('Images/hero-maine-home.jpg')"></div>
-  <div class="container hero-content">
+  <div class="container">
+    <div class="hero-content">
     <h1>Mold. Cold Rooms. High Energy Bills. They&rsquo;re All Connected.</h1>
     <p class="subtitle">Efficiency Maine rebates. Mold remediation Maine homeowners trust. Insulation and construction solutions that fix the whole system.</p>
     <div class="hero-ctas">
@@ -280,6 +284,7 @@
         <span>BPI Certified</span>
         <span>IICRC Certified</span>
       </div>
+    </div>
     </div>
   </div>
 </section>
