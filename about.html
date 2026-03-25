@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- ===== SEO ===== -->
+  <title>About Mattra | Whole Home Expertise in Maine</title>
+  <meta name="description" content="Learn how Mattra combines building science, general contracting, and whole-home problem solving for Maine homeowners and property managers." />
+  <meta name="keywords" content="about mattra, whole-home approach, building science maine, general contracting maine, home problem solving" />
+  <link rel="canonical" href="https://www.mattrainc.com/about" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="About Mattra | Whole Home Expertise in Maine" />
+  <meta property="og:description" content="Mattra combines building science, general contracting, and whole-home problem solving for Maine homeowners and property managers." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.mattrainc.com/about" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    "name": "Mattra Inc.",
+    "url": "https://www.mattrainc.com",
+    "telephone": "+12077776020",
+    "email": "info.mattra@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "68 Whipple St",
+      "addressLocality": "Lewiston",
+      "addressRegion": "ME",
+      "postalCode": "04240",
+      "addressCountry": "US"
+    },
+    "areaServed": {
+      "@type": "State",
+      "name": "Maine"
+    },
+    "description": "Mattra combines building science, general contracting, and whole-home problem solving for Maine homeowners and property managers.",
+    "foundingDate": "1996"
+  }
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does Mattra mean by a whole-home approach?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It means Mattra looks at how different parts of the home affect each other, so the solution addresses the cause of the issue, not just the visible symptom."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Mattra a licensed general contractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Mattra brings licensed general contracting knowledge together with building science expertise and practical home problem solving."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What kind of experience does Mattra have?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Mattra brings 30 years of experience across home performance, problem diagnosis, repair planning, and real project execution."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can Mattra help with both diagnosis and project execution?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Mattra helps clients understand what is going on, recommend the right next step, and support projects when repairs or construction work are needed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What kinds of home problems does Mattra help solve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Mattra helps with mold, moisture, insulation, air sealing, ventilation, construction, repair and rebuild decisions, and broader home guidance when the right next step is unclear."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/globals.css" />
+  <style>
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 460px;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
+      overflow: hidden;
+    }
+    .hero .container {
+      position: relative;
+      z-index: 2;
+      padding-top: 100px;
+      padding-bottom: 70px;
+    }
+    .hero-content { max-width: 720px; }
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      margin-bottom: 20px;
+    }
+    .hero .subtitle {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+    .hero-link {
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .hero-link:hover { color: var(--gold-accent); }
+    .hero-trust { margin-top: 40px; }
+
+    /* ===== 2-COLUMN IMAGES ===== */
+    .col-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .col-img img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+
+    /* ===== CHECK LIST ===== */
+    .check-list { list-style: none; padding: 0; }
+    .check-list li {
+      padding: 6px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .check-list li::before {
+      content: '\2714';
+      color: var(--green-primary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ===== SERVICE CARDS ===== */
+    .about-card {
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .about-card h3 { margin-bottom: 8px; font-size: 1.05rem; }
+    .about-card p { flex: 1; font-size: 0.93rem; }
+
+    /* ===== PROCESS STEPS ===== */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    .process-step { text-align: center; }
+    .process-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--green-primary);
+      color: var(--white);
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .process-step h3 { font-size: 1.05rem; margin-bottom: 8px; }
+    .process-step p { font-size: 0.9rem; color: var(--text-light); }
+
+    /* ===== SLIDER ===== */
+    .about-slider .slide-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .about-slider .slide-visual {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+    .about-slider .slide-visual h4 {
+      font-size: 1rem;
+      margin-bottom: 16px;
+      color: var(--green-primary);
+    }
+    .about-slider .slide-visual p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .about-slider .slide-text h3 { margin-bottom: 12px; }
+    .about-slider .slide-text p { margin-bottom: 12px; }
+
+    /* ===== TRUST ICONS ===== */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .trust-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(49,107,67,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ===== LINK LIST ===== */
+    .link-list { list-style: none; padding: 0; }
+    .link-list li {
+      padding: 8px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .link-list li::before {
+      content: '\2192';
+      color: var(--green-primary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .link-list a {
+      color: var(--green-primary);
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .link-list a:hover { text-decoration: underline; }
+
+    /* ===== FAQ ACCORDION ===== */
+    .faq-list { max-width: 800px; }
+    .faq-item { border-bottom: 1px solid rgba(0,0,0,0.08); }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 0;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-question:hover { color: var(--green-primary); }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(49,107,67,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+    .faq-item.open .faq-answer { max-height: 400px; padding-bottom: 20px; }
+    .faq-answer p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ===== CONTACT CALLOUT ===== */
+    .contact-callout {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+    .contact-callout h3 { margin-bottom: 12px; }
+    .contact-callout p { margin-bottom: 24px; color: var(--text-light); }
+
+    /* ===== FINAL CTA ===== */
+    .final-cta {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .final-cta h2 { color: var(--white); margin-bottom: 16px; }
+    .final-cta p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+      margin-bottom: 32px;
+    }
+    .final-cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+    .final-cta-address {
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+    .final-cta-address a { color: rgba(255,255,255,0.7); }
+    .final-cta-address a:hover { color: var(--gold-accent); }
+    .final-cta-reassurance {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      font-style: italic;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .about-slider .slide-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .hero { min-height: 380px; }
+      .col-img img { height: 280px; }
+      .process-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== TOPBAR + HEADER ===== -->
+<div id="topbar"></div>
+<div id="header"></div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>About Mattra and Our Whole-Home Approach in Maine</h1>
+      <p class="subtitle">Mattra brings together building science, general contracting, and practical home problem solving to help Maine homeowners and property managers make smarter decisions.</p>
+      <div class="hero-ctas">
+        <a href="/contact.html" class="btn btn-gold btn-arrow">Get in Touch</a>
+        <a href="/consulting.html" class="hero-link">Explore Consulting &rarr;</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-bar">
+          <span>Building Science Expertise</span>
+          <span>30+ Years Experience</span>
+          <span>Whole-Home Problem Solving</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PREMIUM CONTENT: DIAGNOSTIC + FORM ===== -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <h2>Not Sure Where to Start? Begin With a Whole-Home Perspective</h2>
+        <p>Many home problems do not stay in one lane. Moisture can affect air quality. Insulation issues can point to air leakage. A repair project can uncover hidden damage that changes the next step. That is why Mattra starts by looking at the whole picture instead of jumping straight to one service.</p>
+        <p style="margin-top:12px;">If you are not sure what your home needs, the Diagnostic Form is a simple place to begin. Tell us what is happening, and Mattra will help you sort through the issue, connect the dots, and move toward the right next step with more clarity.</p>
+        <p style="margin-top:16px;color:var(--text-light);font-size:0.9rem;font-style:italic;">Clear guidance, practical next steps, no pressure</p>
+      </div>
+      <div class="diagnostic-form"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY WHOLE-HOME (Text Left | Image Right) ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <span class="section-label">Our Approach</span>
+        <h2>Why Mattra Takes a Whole-Home View</h2>
+        <p>Mattra was built around a simple idea: the best home decisions come from understanding the cause of the problem, not just the symptom.</p>
+        <p style="margin-top:12px;">A stain on a ceiling may not just be a stain. A drafty room may not just need more insulation. A musty smell may not just be a cleaning issue. Homes work as systems, and when one part is off, it often affects other parts too.</p>
+        <p style="margin-top:16px;"><strong>That whole-home approach helps clients:</strong></p>
+        <ul class="check-list">
+          <li>Avoid patchwork fixes that do not last</li>
+          <li>Spot overlapping issues earlier</li>
+          <li>Make smarter repair and upgrade decisions</li>
+          <li>Prioritize the right next step instead of guessing</li>
+          <li>Protect comfort, efficiency, and long-term property condition</li>
+        </ul>
+        <p style="margin-top:16px;">For Maine homeowners and property managers, that means a more practical path forward and fewer expensive surprises.</p>
+      </div>
+      <div class="col-img">
+        <img src="/Images/about-whole-home.jpg" alt="Diagram showing connected building systems in a Maine home" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPERTISE SLIDER ===== -->
+<section class="section about-slider">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Our Expertise</span>
+      <h2>Building Science Expertise Backed by Real Construction Experience</h2>
+      <p style="max-width:700px;margin:0 auto;">Mattra combines building science expertise with real field experience. That matters because good advice only goes so far if it is disconnected from how homes are actually built, repaired, and improved.</p>
+    </div>
+    <div class="slider-container">
+      <div class="slider-track">
+
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Licensed General Contracting</h4>
+              <p>Grounded understanding of planning, sequencing, and how real projects move from problem to solution.</p>
+            </div>
+            <div class="slide-text">
+              <h3>Built on Real Project Experience</h3>
+              <p>Mattra&rsquo;s recommendations are grounded in years of managing real construction projects &mdash; not just theory. That means the advice you get accounts for what actually happens once work begins.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Building Science Expertise</h4>
+              <p>A deeper look at moisture, ventilation, air leakage, insulation, and performance issues.</p>
+            </div>
+            <div class="slide-text">
+              <h3>Understanding How Homes Actually Work</h3>
+              <p>Building science helps explain why problems happen &mdash; not just what they look like. Mattra uses this knowledge to diagnose root causes and recommend solutions that last.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>30 Years of Experience</h4>
+              <p>Long-term pattern recognition and practical judgment shaped by real home problems.</p>
+            </div>
+            <div class="slide-text">
+              <h3>Pattern Recognition You Cannot Rush</h3>
+              <p>After three decades, you start recognizing patterns that newer companies miss. That experience helps Mattra catch issues early and guide clients toward the right solution faster.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Diagnosis and Execution</h4>
+              <p>Hands-on knowledge that helps clients think clearly before work starts and move forward when work is needed.</p>
+            </div>
+            <div class="slide-text">
+              <h3>From Understanding to Action</h3>
+              <p>This is not about credentials for their own sake. It is about giving clients better information, better recommendations, and a better chance of solving the problem the right way.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="slider-dots">
+        <button class="slider-dot active" aria-label="Slide 1"></button>
+        <button class="slider-dot" aria-label="Slide 2"></button>
+        <button class="slider-dot" aria-label="Slide 3"></button>
+        <button class="slider-dot" aria-label="Slide 4"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHO WE HELP CARDS ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Who We Help</span>
+      <h2>Helping Homeowners and Property Managers Make Better Decisions</h2>
+      <p style="max-width:700px;margin:0 auto;">Mattra works with people who need more than a quick opinion. Often, they are dealing with a problem that feels confusing, connected, or bigger than expected.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card about-card">
+        <h3>Moisture or Mold Concerns</h3>
+        <p>Issues that need a closer look before the right solution becomes clear.</p>
+      </div>
+      <div class="card about-card">
+        <h3>Insulation &amp; Efficiency Questions</h3>
+        <p>Problems that affect comfort, energy use, and building performance.</p>
+      </div>
+      <div class="card about-card">
+        <h3>Repair &amp; Rebuild Decisions</h3>
+        <p>Situations where damage changes the scope and next move.</p>
+      </div>
+      <div class="card about-card">
+        <h3>Inspect, Repair, Renovate, or Wait</h3>
+        <p>Guidance when you are unsure which step makes the most sense.</p>
+      </div>
+      <div class="card about-card">
+        <h3>Avoid Hiring the Wrong Contractor</h3>
+        <p>Practical support before committing to the wrong path.</p>
+      </div>
+      <div class="card about-card">
+        <h3>Connected Home Problems</h3>
+        <p>In those moments, people do not just need a service. They need practical guidance that helps them understand the situation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRACTICAL GUIDANCE (Text Left | Image Right) ===== -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <span class="section-label">Our Services</span>
+        <h2>Practical Guidance for Mold, Insulation, Construction, and More</h2>
+        <p>One reason Mattra&rsquo;s whole-home approach works is that it carries across related issues. A home problem rarely fits perfectly into just one category.</p>
+        <p style="margin-top:16px;"><strong>Mattra helps connect the dots across:</strong></p>
+        <ul class="check-list">
+          <li>Mold and moisture concerns that affect health and indoor air</li>
+          <li>Insulation and air sealing issues that affect comfort and efficiency</li>
+          <li>Construction and repair needs that require planning and coordination</li>
+          <li>Broader home decisions where the right first move is not always obvious</li>
+        </ul>
+        <p style="margin-top:20px;"><strong>Ready to take the next step?</strong></p>
+        <ul class="link-list" style="margin-top:8px;">
+          <li><a href="/contact.html">Contact Mattra</a></li>
+          <li><a href="/consulting.html">Explore Consulting</a></li>
+          <li><a href="/construction.html">Construction Services</a></li>
+          <li><a href="/mold.html">Mold Services</a></li>
+          <li><a href="/insulation.html">Insulation Services</a></li>
+        </ul>
+      </div>
+      <div class="col-img">
+        <img src="/Images/about-expertise.jpg" alt="Mattra building science professional inspecting home structure" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHAT MAKES MATTRA DIFFERENT ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Why Mattra</span>
+      <h2>What Makes Mattra Different</h2>
+    </div>
+    <p style="max-width:720px;margin-bottom:24px;">Mattra is not built around a one-size-fits-all answer. The team looks at the home as a connected system and helps clients slow down, ask better questions, and make better decisions before spending money.</p>
+    <p style="max-width:720px;margin-bottom:32px;"><strong>That means Mattra can help when:</strong> you are not sure which service you need, the issue may involve more than one cause, you want practical advice before committing to work, or you need a clearer path from diagnosis to action.</p>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        Whole-Home Thinking
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        Guidance Before Spending
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        Building Science + Construction
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        Serving All of Maine
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW WE HELP YOU MOVE FORWARD ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Our Process</span>
+      <h2>How Mattra Helps You Move Forward</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="process-num">1</div>
+        <h3>Understand the Situation</h3>
+        <p>Mattra starts by looking at the bigger picture instead of chasing a single symptom.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">2</div>
+        <h3>Connect the Dots</h3>
+        <p>Related issues like moisture, air leakage, insulation, and damage are considered together.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">3</div>
+        <h3>Clarify the Right Next Step</h3>
+        <p>Clients get clearer guidance on whether they need consulting, inspection, repair planning, or service support.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">4</div>
+        <h3>Support the Path Forward</h3>
+        <p>When work is needed, Mattra helps clients move toward the right action with more confidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GET IN TOUCH + FAQ (2-column) ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="grid-2">
+      <!-- Left: Contact Callout -->
+      <div>
+        <span class="section-label">Connect</span>
+        <h2>Get in Touch With Mattra</h2>
+        <p>If you are looking for a company that can help you think clearly, spot the bigger picture, and guide the right next step, Mattra is here to help.</p>
+        <p style="margin-top:12px;">Whether you are dealing with mold, insulation questions, construction planning, or a home issue that does not fit neatly into one box, Mattra brings the experience and perspective to help you move forward with more confidence.</p>
+        <div style="margin-top:28px;">
+          <a href="/contact.html" class="btn btn-primary btn-arrow">Get in Touch</a>
+        </div>
+      </div>
+      <!-- Right: FAQ -->
+      <div>
+        <span class="section-label">Common Questions</span>
+        <h2>FAQs</h2>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question">
+              What does Mattra mean by a whole-home approach?
+              <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-answer">
+              <p>It means Mattra looks at how different parts of the home affect each other, so the solution addresses the cause of the issue, not just the visible symptom.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Is Mattra a licensed general contractor?
+              <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes. Mattra brings licensed general contracting knowledge together with building science expertise and practical home problem solving.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              What kind of experience does Mattra have?
+              <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-answer">
+              <p>Mattra brings 30 years of experience across home performance, problem diagnosis, repair planning, and real project execution.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Can Mattra help with both diagnosis and project execution?
+              <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes. Mattra helps clients understand what is going on, recommend the right next step, and support projects when repairs or construction work are needed.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              What kinds of home problems does Mattra help solve?
+              <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-answer">
+              <p>Mattra helps with mold, moisture, insulation, air sealing, ventilation, construction, repair and rebuild decisions, and broader home guidance when the right next step is unclear.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="section section--green">
+  <div class="container">
+    <div class="final-cta">
+      <h2>Talk With Mattra</h2>
+      <p>If you are looking for a company that can help you think clearly, spot the bigger picture, and guide the right next step, Mattra is here to help. You do not need to have everything figured out before reaching out.</p>
+      <div class="final-cta-buttons">
+        <a href="/contact.html" class="btn btn-gold btn-arrow">Talk With Mattra</a>
+        <a href="tel:+12077776020" class="btn btn-white">Call (207) 777-6020</a>
+      </div>
+      <p class="final-cta-reassurance">You do not need to have everything figured out before reaching out. Mattra can help you sort through the next step.</p>
+      <div class="final-cta-address">
+        Mattra Inc. &middot; 68 Whipple St &middot; Lewiston, ME 04240<br>
+        <a href="mailto:info.mattra@gmail.com">info.mattra@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<div id="footer"></div>
+
+<script src="/components.js"></script>
+<script src="/diagnostic-form.js"></script>
+<script>
+  // FAQ Accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
