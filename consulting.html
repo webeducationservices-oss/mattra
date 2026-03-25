@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- ===== SEO ===== -->
+  <title>Home Consulting in Maine | Mattra</title>
+  <meta name="description" content="Mattra provides home consulting in Maine to help homeowners evaluate problems, compare options, and move forward with confidence." />
+  <meta name="keywords" content="home consulting maine, home consultant, home repair guidance, home improvement consulting, contractor advice maine" />
+  <link rel="canonical" href="https://www.mattrainc.com/consulting" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Home Consulting in Maine | Mattra" />
+  <meta property="og:description" content="Mattra helps Maine homeowners understand problems, evaluate options, and choose the right next step with confidence." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.mattrainc.com/consulting" />
+
+  <!-- Schema.org Service -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Home Consulting",
+    "provider": {
+      "@type": "HomeAndConstructionBusiness",
+      "name": "Mattra Inc.",
+      "url": "https://www.mattrainc.com",
+      "telephone": "+12077776020",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "68 Whipple St",
+        "addressLocality": "Lewiston",
+        "addressRegion": "ME",
+        "postalCode": "04240",
+        "addressCountry": "US"
+      }
+    },
+    "areaServed": {
+      "@type": "State",
+      "name": "Maine"
+    },
+    "description": "Mattra provides home consulting in Maine to help homeowners evaluate problems, compare options, and move forward with confidence.",
+    "serviceType": "Home Consulting"
+  }
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does a home consultant do?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A home consultant helps you understand what is going on, compare options, and decide on the right next step before you spend money. That may include home repair guidance, contractor advice, inspection guidance, or help sorting through bigger home decisions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I hire a home consultant?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Home consulting is useful when the problem is unclear, when multiple issues may overlap, or when you want help evaluating contractors, costs, and priorities before committing to work."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can a home consultant help me decide between repairs and remodeling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. A good home consultant can help you look at condition, goals, timing, and budget so you can decide whether to repair, remodel, monitor, or take another step first."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can Mattra help me figure out if I need an inspection or a contractor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. One of the main goals of consulting is to help you understand whether you need a building inspection, contractor guidance, specialty service, or broader consulting first."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can home consulting help me avoid bad contractor choices?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Early guidance can help you ask better questions, compare scope more clearly, understand what to expect from contractors, and spot vague or unrealistic promises before you sign anything."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is home consulting helpful before buying or selling a home?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. It can be especially helpful when you want an experienced opinion on condition issues, likely repair concerns, timing, disclosures, or which professionals to bring in next."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/globals.css" />
+  <style>
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2;
+    }
+    .hero .container {
+      position: relative;
+      z-index: 2;
+      padding-top: 100px;
+      padding-bottom: 80px;
+    }
+    .hero-content { max-width: 720px; }
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      margin-bottom: 20px;
+    }
+    .hero .subtitle {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+    .hero-phone {
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .hero-phone:hover { color: var(--gold-accent); }
+    .hero-trust { margin-top: 40px; }
+
+    /* ===== 2-COLUMN IMAGES ===== */
+    .col-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .col-img img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+
+    /* ===== CHECK LIST ===== */
+    .check-list { list-style: none; padding: 0; }
+    .check-list li {
+      padding: 6px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .check-list li::before {
+      content: '\2714';
+      color: var(--green-primary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ===== SERVICE CARDS ===== */
+    .con-service-card {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .con-service-card h3 { margin-bottom: 8px; }
+    .con-service-card p { flex: 1; margin-bottom: 16px; }
+
+    /* ===== PROCESS STEPS ===== */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      counter-reset: step;
+    }
+    .process-step {
+      text-align: center;
+      position: relative;
+    }
+    .process-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--green-primary);
+      color: var(--white);
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .process-step h3 {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+    .process-step p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* ===== SLIDER ===== */
+    .con-slider .slide-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .con-slider .slide-visual {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+    .con-slider .slide-visual h4 {
+      font-size: 1rem;
+      margin-bottom: 16px;
+      color: var(--green-primary);
+    }
+    .con-slider .slide-visual p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .con-slider .slide-text h3 { margin-bottom: 12px; }
+    .con-slider .slide-text p { margin-bottom: 12px; }
+
+    /* ===== FAQ ACCORDION ===== */
+    .faq-list { max-width: 800px; }
+    .faq-item {
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 0;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-question:hover { color: var(--green-primary); }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(49,107,67,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+      padding-bottom: 20px;
+    }
+    .faq-answer p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ===== INTERNAL LINKS LIST ===== */
+    .link-list { list-style: none; padding: 0; }
+    .link-list li {
+      padding: 6px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .link-list li::before {
+      content: '\2192';
+      color: var(--green-primary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .link-list a {
+      color: var(--green-primary);
+      font-weight: 600;
+    }
+    .link-list a:hover { text-decoration: underline; }
+
+    /* ===== TRUST ICONS ===== */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .trust-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(49,107,67,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ===== NEXT STEP CARDS ===== */
+    .next-card {
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .next-card h3 { margin-bottom: 8px; font-size: 1.05rem; }
+    .next-card p { flex: 1; margin-bottom: 16px; font-size: 0.93rem; }
+
+    /* ===== FINAL CTA ===== */
+    .final-cta {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .final-cta h2 { color: var(--white); margin-bottom: 16px; }
+    .final-cta p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+      margin-bottom: 32px;
+    }
+    .final-cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+    .final-cta-address {
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+    .final-cta-address a { color: rgba(255,255,255,0.7); }
+    .final-cta-address a:hover { color: var(--gold-accent); }
+    .final-cta-reassurance {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      font-style: italic;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .con-slider .slide-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .hero { min-height: 420px; }
+      .hero-content { padding: 72px 0 56px; }
+      .col-img img { height: 280px; }
+      .process-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== TOPBAR + HEADER ===== -->
+<div id="topbar"></div>
+<div id="header"></div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg" style="background-image:url('/Images/consulting-hero.jpg')"></div>
+  <div class="container">
+    <div class="hero-content">
+      <h1>Home Consulting in Maine for Clear Guidance on What to Do Next</h1>
+      <p class="subtitle">Mattra helps Maine homeowners, landlords, and property decision-makers understand problems, evaluate options, and choose the right next step with confidence.</p>
+      <div class="hero-ctas">
+        <a href="/diagnostic.html" class="btn btn-gold btn-arrow">Tell Us About Your Situation</a>
+        <a href="tel:+12077776020" class="hero-phone">Call (207) 777-6020</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-bar">
+          <span>Whole-Home Perspective</span>
+          <span>30+ Years Experience</span>
+          <span>No-Pressure Guidance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PREMIUM CONTENT: DIAGNOSTIC + FORM ===== -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <h2>Not Sure What Kind of Help You Need?</h2>
+        <p><strong>Some home problems are obvious. Many are not.</strong></p>
+        <p style="margin-top:12px;">You may be noticing moisture, damage, poor air quality, high energy bills, or a project that feels bigger than expected. You may be buying, selling, repairing, or trying to decide whether you need an inspection, a contractor, or a second opinion before spending money.</p>
+        <p style="margin-top:12px;">That is where Mattra&rsquo;s home consulting approach helps. We look at the whole picture so you do not get pushed into the wrong service too early. Many issues overlap across mold, insulation, air sealing, ventilation, construction, and real estate decisions.</p>
+        <p style="margin-top:12px;">Our goal is to help you explain what is going on, understand your options, and move toward the right next step with less guesswork.</p>
+        <p style="margin-top:16px;color:var(--text-light);font-size:0.9rem;font-style:italic;">Helpful guidance, clear next steps, no pressure</p>
+      </div>
+      <div class="diagnostic-form"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHAT A CONSULTANT HELPS WITH (Text Left | Image Right) ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <span class="section-label">What We Do</span>
+        <h2>What a Home Consultant Can Help You Figure Out</h2>
+        <p>Home consulting is not about selling you a random service. It is about helping you make better decisions when the situation is not simple.</p>
+        <p style="margin-top:16px;"><strong>A Mattra home consultant can help you think through:</strong></p>
+        <ul class="check-list">
+          <li>Whether the problem points to mold, moisture, insulation, air sealing, ventilation, construction, or more than one issue</li>
+          <li>Whether you should repair, replace, monitor, inspect, or get bids first</li>
+          <li>Whether you need a contractor, a building inspection, or strategic advice before moving forward</li>
+          <li>How urgency, budget, timeline, and risk should shape your next step</li>
+          <li>What things cost and what usually changes pricing once a project is opened up</li>
+        </ul>
+        <p style="margin-top:16px;">For many homeowners, the biggest value is clarity. Before you commit to repairs or hire someone, it helps to understand what is actually happening and what order the decisions should happen in.</p>
+      </div>
+      <div class="col-img">
+        <img src="/Images/consulting-evaluate.jpg" alt="Home consultant evaluating moisture and structural conditions in Maine home" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GUIDANCE CARDS ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">How We Help</span>
+      <h2>Guidance for Buying, Selling, Repairing, or Improving a Home</h2>
+      <p style="max-width:700px;margin:0 auto;">Some people come to this page because they noticed a problem. Others are making a larger property decision and want home repair guidance or home improvement consulting before they spend money.</p>
+    </div>
+    <div class="grid-3">
+
+      <div class="card con-service-card">
+        <h3>Buying or Selling a Home</h3>
+        <p>Get a clearer read on risk, condition, and likely next steps before a transaction.</p>
+      </div>
+
+      <div class="card con-service-card">
+        <h3>Repair Planning</h3>
+        <p>Figure out whether the issue is cosmetic, structural, moisture-related, or something deeper.</p>
+      </div>
+
+      <div class="card con-service-card">
+        <h3>Remodel, Repair, or Replace</h3>
+        <p>Compare paths before starting work so you can choose the smartest use of your budget.</p>
+      </div>
+
+      <div class="card con-service-card">
+        <h3>Contractor Expectations</h3>
+        <p>Understand what to expect from contractors, inspections, and estimate ranges.</p>
+      </div>
+
+      <div class="card con-service-card">
+        <h3>Conflicting Opinions</h3>
+        <p>Sort through competing recommendations and make a more confident decision.</p>
+      </div>
+
+      <div class="card con-service-card">
+        <h3>Not Sure Where to Start</h3>
+        <p>This is especially useful when the wrong first call could waste time or send you down the wrong path.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTRACTOR EVALUATION SLIDER ===== -->
+<section class="section section--gray con-slider">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Contractor Guidance</span>
+      <h2>How Mattra Helps You Evaluate Problems, Costs, and Contractors</h2>
+      <p style="max-width:700px;margin:0 auto;">A lot of frustration starts when people are forced to make decisions too early. You get one opinion, one quote, or one recommendation, but you still do not know whether it is the right recommendation.</p>
+    </div>
+    <div class="slider-container">
+      <div class="slider-track">
+
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Evaluate Contractors</h4>
+              <p>Look at fit, scope clarity, communication, and realism before moving forward.</p>
+            </div>
+            <div class="slide-text">
+              <h3>Choose the Right Contractor</h3>
+              <p>Not all contractors are the right fit for every project. We help you evaluate scope clarity, communication style, and realistic expectations before you commit.</p>
+              <p>If you are worried about making a bad contractor choice, early guidance can save a lot of stress and money.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Understand the Process</h4>
+              <p>Learn what to expect from contractors before you sign anything.</p>
+            </div>
+            <div class="slide-text">
+              <h3>Know What to Expect</h3>
+              <p>Understanding the typical flow of estimates, scheduling, trade coordination, and site management helps you ask better questions and spot red flags early.</p>
+              <p>Mattra walks you through what a well-run project looks like so you can hold contractors accountable.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Talk Through Cost Drivers</h4>
+              <p>See what tends to affect pricing and what can change once work begins.</p>
+            </div>
+            <div class="slide-text">
+              <h3>Understand What Drives Cost</h3>
+              <p>Hidden damage, material selections, layout changes, and permitting requirements are the most common sources of cost surprises during home projects.</p>
+              <p>We help you understand these drivers before you get an estimate so you can plan with more confidence.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Spot Warning Signs</h4>
+              <p>Catch vague promises, scope gaps, and unrealistic recommendations early.</p>
+            </div>
+            <div class="slide-text">
+              <h3>Avoid Common Pitfalls</h3>
+              <p>Vague scope language, missing exclusions, and unrealistic timelines are warning signs that many homeowners miss until the project is already underway.</p>
+              <p>We help you read between the lines before you sign anything.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <div class="slide-inner">
+            <div class="slide-visual">
+              <h4>Get Guidance Before Spending</h4>
+              <p>Move forward with more confidence and less second-guessing.</p>
+            </div>
+            <div class="slide-text">
+              <h3>Spend Smarter</h3>
+              <p>The best time to get a second perspective is before the first dollar is spent. Home consulting gives you the clarity to prioritize repairs, compare bids, and avoid overpaying for the wrong work.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="slider-dots">
+        <button class="slider-dot active" aria-label="Slide 1"></button>
+        <button class="slider-dot" aria-label="Slide 2"></button>
+        <button class="slider-dot" aria-label="Slide 3"></button>
+        <button class="slider-dot" aria-label="Slide 4"></button>
+        <button class="slider-dot" aria-label="Slide 5"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHERE MATTRA CAN POINT YOU NEXT ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Next Steps</span>
+      <h2>Where Mattra Can Point You Next</h2>
+      <p style="max-width:700px;margin:0 auto;">One of the biggest benefits of home consulting is that it helps route you to the right help instead of the loudest help.</p>
+    </div>
+    <div class="grid-3">
+
+      <div class="card next-card">
+        <h3>Buying and Selling Guidance</h3>
+        <p>If you are weighing repairs, disclosures, timing, or condition concerns before a transaction.</p>
+        <a href="/consulting/buying-selling-real-estate.html" class="card-link">Learn More</a>
+      </div>
+
+      <div class="card next-card">
+        <h3>Building Inspections</h3>
+        <p>If the situation needs independent documentation, condition review, or a closer look before repair planning.</p>
+        <a href="/consulting/building-inspections.html" class="card-link">Learn More</a>
+      </div>
+
+      <div class="card next-card">
+        <h3>Mortgage &amp; Financing Education</h3>
+        <p>If budget, payment options, or financing questions are part of the decision.</p>
+        <a href="/consulting/mortgage-resources.html" class="card-link">Learn More</a>
+      </div>
+
+      <div class="card next-card">
+        <h3>Realtor Decision Support</h3>
+        <p>If your next step depends on working with the right local professional.</p>
+        <a href="/consulting/choosing-a-realtor.html" class="card-link">Learn More</a>
+      </div>
+
+      <div class="card next-card">
+        <h3>General Contracting Guidance</h3>
+        <p>If the project is becoming more defined and you need someone to manage moving parts.</p>
+        <a href="/construction.html" class="card-link">Learn More</a>
+      </div>
+
+      <div class="card next-card">
+        <h3>Construction Planning</h3>
+        <p>If you are ready to move toward scope, estimate, and project planning.</p>
+        <a href="/construction.html" class="card-link">Learn More</a>
+      </div>
+
+    </div>
+    <p style="margin-top:24px;color:var(--text-light);font-size:0.93rem;">You may also need support from related pages like <a href="/mold.html" style="color:var(--green-primary);font-weight:600;">Mold</a> or <a href="/insulation.html" style="color:var(--green-primary);font-weight:600;">Insulation</a> if the issue overlaps with indoor air, comfort, moisture, or building performance.</p>
+  </div>
+</section>
+
+<!-- ===== WHEN TO MOVE FORWARD ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Decision Guide</span>
+      <h2>When to Move Forward With Inspections, Construction, or Specialty Services</h2>
+      <p style="max-width:700px;margin:0 auto;">A common question is not just what is wrong, but what should happen first.</p>
+    </div>
+    <div class="process-grid">
+
+      <div class="process-step">
+        <div class="process-num">1</div>
+        <h3>Move Toward an Inspection</h3>
+        <p>When you need more information before making a repair or purchase decision.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="process-num">2</div>
+        <h3>Move Toward Consulting</h3>
+        <p>When you need help sorting priorities, risks, or options.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="process-num">3</div>
+        <h3>Move Toward Construction</h3>
+        <p>When the scope is becoming clear and you are ready for estimate and scheduling conversations.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="process-num">4</div>
+        <h3>Move Toward a Specialty Service</h3>
+        <p>When the issue clearly points to one category, such as mold remediation, insulation upgrades, ventilation, or repair and rebuild.</p>
+      </div>
+
+    </div>
+    <p style="margin-top:32px;text-align:center;color:var(--text-light);font-size:0.93rem;">Mattra helps you compare next steps before starting repairs so you do not spend money in the wrong order.</p>
+  </div>
+</section>
+
+<!-- ===== HOW CONSULTING WORKS (Text Left | Image Right) ===== -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <span class="section-label">The Process</span>
+        <h2>How Home Consulting Works</h2>
+        <ol style="list-style:none;padding:0;counter-reset:steps;">
+          <li style="padding:12px 0;display:flex;gap:16px;align-items:baseline;">
+            <span style="background:var(--green-primary);color:var(--white);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'DM Serif Display',serif;font-size:0.95rem;">1</span>
+            <div><strong>Tell Us What Is Going On</strong><br><span style="color:var(--text-light);font-size:0.93rem;">Share what you are seeing, what you are worried about, and what decision you are trying to make.</span></div>
+          </li>
+          <li style="padding:12px 0;display:flex;gap:16px;align-items:baseline;">
+            <span style="background:var(--green-primary);color:var(--white);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'DM Serif Display',serif;font-size:0.95rem;">2</span>
+            <div><strong>We Review the Situation</strong><br><span style="color:var(--text-light);font-size:0.93rem;">We look at the details through a whole-home lens, including how different systems or problems may connect.</span></div>
+          </li>
+          <li style="padding:12px 0;display:flex;gap:16px;align-items:baseline;">
+            <span style="background:var(--green-primary);color:var(--white);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'DM Serif Display',serif;font-size:0.95rem;">3</span>
+            <div><strong>We Help Identify the Right Path</strong><br><span style="color:var(--text-light);font-size:0.93rem;">We help you sort through whether you likely need an inspection, contractor, specialty service, strategic advice, or a different next step.</span></div>
+          </li>
+          <li style="padding:12px 0;display:flex;gap:16px;align-items:baseline;">
+            <span style="background:var(--green-primary);color:var(--white);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'DM Serif Display',serif;font-size:0.95rem;">4</span>
+            <div><strong>We Point You to the Right Next Move</strong><br><span style="color:var(--text-light);font-size:0.93rem;">You leave with more clarity on what to do next, what to ask, and what to avoid.</span></div>
+          </li>
+        </ol>
+        <div style="margin-top:24px;">
+          <a href="/diagnostic.html" class="btn btn-primary btn-arrow">Start the Diagnostic Form</a>
+        </div>
+      </div>
+      <div class="col-img">
+        <img src="/Images/consulting-guidance.jpg" alt="Home consulting meeting with plans and laptop in warm office setting" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUST / SOCIAL PROOF ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="grid-2">
+      <div class="col-img">
+        <img src="/Images/consulting-trust.jpg" alt="Confident Maine homeowners in front of well-maintained home" loading="lazy" />
+      </div>
+      <div>
+        <span class="section-label">Why Mattra</span>
+        <h2>A Whole-Home Perspective Backed by 30 Years of Experience</h2>
+        <p>Mattra brings 30 years of experience to situations that do not fit neatly into one category. That matters because homes are connected systems. Moisture can affect air quality. Ventilation can affect comfort. Hidden damage can change the scope of remodeling. Real estate decisions can be shaped by condition issues that are not obvious at first glance.</p>
+        <p style="margin-top:12px;">What clients need in those moments is not hype. They need practical guidance, honest feedback, and a clearer path forward.</p>
+        <p style="margin-top:16px;"><strong>That is what Mattra is built for:</strong></p>
+        <ul class="check-list">
+          <li>Big picture thinking instead of isolated advice</li>
+          <li>Home services advising that helps you make sense of overlap</li>
+          <li>Guidance before spending, not pressure after the fact</li>
+          <li>Real help understanding what to expect</li>
+          <li>Support that helps you avoid wasted money and bad decisions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Common Questions</span>
+      <h2>Common Questions About Home Consulting</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question">
+          What does a home consultant do?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>A home consultant helps you understand what is going on, compare options, and decide on the right next step before you spend money. That may include home repair guidance, contractor advice, inspection guidance, or help sorting through bigger home decisions.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          When should I hire a home consultant?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Home consulting is useful when the problem is unclear, when multiple issues may overlap, or when you want help evaluating contractors, costs, and priorities before committing to work.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Can a home consultant help me decide between repairs and remodeling?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. A good home consultant can help you look at condition, goals, timing, and budget so you can decide whether to repair, remodel, monitor, or take another step first.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Can Mattra help me figure out if I need an inspection or a contractor?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. One of the main goals of consulting is to help you understand whether you need a building inspection, contractor guidance, specialty service, or broader consulting first.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Can home consulting help me avoid bad contractor choices?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. Early guidance can help you ask better questions, compare scope more clearly, understand what to expect from contractors, and spot vague or unrealistic promises before you sign anything.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Is home consulting helpful before buying or selling a home?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. It can be especially helpful when you want an experienced opinion on condition issues, likely repair concerns, timing, disclosures, or which professionals to bring in next.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="section section--green">
+  <div class="container">
+    <div class="final-cta">
+      <h2>Tell Us About Your Situation</h2>
+      <p>You do not need to have the answer before you reach out. If something feels off, confusing, risky, or bigger than expected, start there. Mattra helps people across Maine think through home problems, compare options, and move toward the right next step with less stress and fewer costly mistakes.</p>
+      <div class="final-cta-buttons">
+        <a href="/diagnostic.html" class="btn btn-gold btn-arrow">Talk Through Your Next Step</a>
+        <a href="tel:+12077776020" class="btn btn-white">Call (207) 777-6020</a>
+      </div>
+      <p class="final-cta-reassurance">Tell us what is happening, and we will help you sort through the next move clearly and calmly.</p>
+      <div class="final-cta-address">
+        Mattra Inc. &middot; 68 Whipple St &middot; Lewiston, ME 04240<br>
+        <a href="mailto:info.mattra@gmail.com">info.mattra@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<div id="footer"></div>
+
+<script src="/components.js"></script>
+<script src="/diagnostic-form.js"></script>
+<script>
+  // FAQ Accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
