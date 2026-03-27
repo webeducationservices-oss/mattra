@@ -111,10 +111,50 @@
       font-weight: 700;
       flex-shrink: 0;
     }
+    /* Gold check marks on dark backgrounds */
+    .check-list--light li::before {
+      color: var(--gold-accent);
+    }
+
+    /* ===== CARD ICON ===== */
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(49,107,67,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--green-primary);
+    }
+
+    /* ===== LINK TEXT ===== */
+    .link-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--green-primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: 12px;
+    }
+
+    /* ===== COL IMG ===== */
+    .col-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .col-img img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 640px) {
       .hero { min-height: 420px; }
+      .col-img img { height: 280px; }
     }
   </style>
 </head>
@@ -152,7 +192,7 @@
   <div class="container">
     <div class="premium-box">
       <div>
-        <span class="overline">REAL ESTATE PRIORITY SUPPORT</span>
+        <span class="section-label">REAL ESTATE PRIORITY SUPPORT</span>
         <h2>Need Help Saving a Deal?</h2>
         <p>When a real estate transaction hits a snag, speed and clarity matter. If mold shows up during inspection, a repair issue raises new questions, or an inspection contingency starts slowing everything down, Mattra helps you move quickly with clear communication and practical next steps.</p>
         <p>Use the priority form to tell us what is happening, what the timeline looks like, and what kind of support is needed. It is the fastest way to get the situation reviewed and move toward the right next step.</p>
@@ -170,7 +210,7 @@
   <div class="container">
     <div class="grid-2">
       <div>
-        <span class="overline">REALTOR PARTNERSHIP</span>
+        <span class="section-label">REALTOR PARTNERSHIP</span>
         <h2>How Mattra Helps Realtors Keep Deals Moving</h2>
         <p>Mattra is built to support real estate professionals when timing matters and uncertainty can stall a deal. We help realtors look good in front of clients by responding quickly, communicating clearly, and helping sort through property issues without adding more confusion.</p>
         <p>That support includes:</p>
@@ -183,8 +223,8 @@
         </ul>
         <p>When the situation is stressful, the value is not just the service. It is having a partner who understands urgency and knows how to keep things moving.</p>
       </div>
-      <div style="display:flex;align-items:center;">
-        <img src="/Images/for-realtors-hero.jpg" alt="Mattra as a trusted realtor partner for transaction support in Maine" style="border-radius:var(--radius-lg);width:100%;" />
+      <div class="col-img">
+        <img src="/Images/for-realtors-hero.jpg" alt="Mattra as a trusted realtor partner for transaction support in Maine" loading="lazy" />
       </div>
     </div>
   </div>
@@ -194,7 +234,7 @@
 <section class="section" style="background:var(--off-white);">
   <div class="container">
     <div class="section-header" style="text-align:center;max-width:720px;margin:0 auto 40px;">
-      <span class="overline">WHEN PROBLEMS SHOW UP MID-DEAL</span>
+      <span class="section-label">WHEN PROBLEMS SHOW UP MID-DEAL</span>
       <h2>When Mold, Inspection Issues, or Repair Questions Show Up Mid-Transaction</h2>
       <p>Some transaction problems need answers fast, even before everyone knows the full scope. Mattra helps step into situations like:</p>
     </div>
@@ -250,7 +290,7 @@
 <section class="section">
   <div class="container">
     <div class="section-header" style="text-align:center;max-width:720px;margin:0 auto 40px;">
-      <span class="overline">TRANSACTION SERVICES</span>
+      <span class="section-label">TRANSACTION SERVICES</span>
       <h2>Services That Support Real Estate Transactions</h2>
     </div>
     <div class="grid-4">
@@ -291,16 +331,16 @@
 </section>
 
 <!-- ===== TRUST / SOCIAL PROOF ===== -->
-<section class="section" style="background:var(--green-dark);color:rgba(255,255,255,.9);">
+<section class="section section--dark">
   <div class="container">
     <div class="grid-2" style="align-items:center;">
       <div>
-        <span class="overline" style="color:var(--gold-accent);">TRUSTED REFERRAL PARTNER</span>
+        <span class="section-label" style="color:var(--gold-accent);">TRUSTED REFERRAL PARTNER</span>
         <h2 style="color:#fff;">Why Agents Trust Mattra as a Referral Partner</h2>
-        <p>Realtors do not just need a contractor or inspection contact. They need a referral partner who makes the process easier, protects client confidence, and responds like timing actually matters.</p>
+        <p style="color:rgba(255,255,255,.85);">Realtors do not just need a contractor or inspection contact. They need a referral partner who makes the process easier, protects client confidence, and responds like timing actually matters.</p>
       </div>
       <div>
-        <ul class="check-list" style="color:rgba(255,255,255,.85);">
+        <ul class="check-list check-list--light" style="color:rgba(255,255,255,.85);">
           <li>Fast turnaround when deals are under pressure</li>
           <li>Professional communication that keeps everyone informed</li>
           <li>Practical guidance instead of vague answers</li>
@@ -318,7 +358,7 @@
   <div class="container">
     <div class="premium-box">
       <div>
-        <span class="overline">FREE RESOURCE</span>
+        <span class="section-label">FREE RESOURCE</span>
         <h2>Get the Realtor's Quick Reference for Mold in Maine Transactions</h2>
         <p>If mold-related issues come up often in your world, this guide is a helpful resource to keep on hand.</p>
         <p>The Realtor's Quick Reference: Mold in Maine Transactions is designed to give agents a simple reference point for understanding common mold concerns, timing questions, and next-step conversations during a transaction.</p>
@@ -342,7 +382,7 @@
   <div class="container">
     <div class="grid-2">
       <div>
-        <span class="overline">SPEED, CLARITY, ACTION</span>
+        <span class="section-label">SPEED, CLARITY, ACTION</span>
         <h2>A Better Partner for Time-Sensitive Real Estate Problems</h2>
         <p>Real estate deals can fall apart when no one is willing to move quickly or explain the issue clearly. Mattra is different. We understand how inspection findings, mold concerns, and repair questions affect timelines, negotiations, and client confidence.</p>
         <p>That is why this page is built for speed, clarity, and action. Whether you need answers for a buyer, seller, or another professional in the transaction, Mattra helps you get to the next move faster.</p>
