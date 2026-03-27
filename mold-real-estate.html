@@ -47,6 +47,76 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/globals.css" />
+  <style>
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2;
+    }
+    .hero .container {
+      position: relative;
+      z-index: 2;
+      padding-top: 100px;
+      padding-bottom: 80px;
+    }
+    .hero-content {
+      max-width: 720px;
+    }
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      margin-bottom: 20px;
+    }
+    .hero .subtitle {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+    .hero-phone {
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .hero-phone:hover { color: var(--gold-accent); }
+    .hero-trust { margin-top: 40px; }
+
+    /* ===== CHECK LIST ===== */
+    .check-list li {
+      padding: 6px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .check-list li::before {
+      content: '\2714';
+      color: var(--green-primary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .hero { min-height: 420px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -55,19 +125,24 @@
 <div id="header"></div>
 
 <!-- ===== HERO ===== -->
-<section class="hero" style="background-image:linear-gradient(rgba(30,58,40,.72),rgba(30,58,40,.72)),url('/Images/for-realtors-hero.jpg');">
+<section class="hero">
+  <div class="hero-bg" style="background-image:url('/Images/for-realtors-hero.jpg')"></div>
   <div class="container">
-    <h1>Realtor Support in Maine for Mold, Inspections, and Fast Deal-Saving Next Steps</h1>
-    <p>Mattra helps Maine realtors respond quickly to mold, inspection, and repair issues so clients stay informed and deals keep moving.</p>
-    <div class="hero-actions">
-      <a href="/contact.html" class="btn btn-primary">Get a Fast Estimate &nbsp;&rarr;</a>
-      <a href="tel:+12077776020" class="btn btn-outline">Call (207) 777-6020</a>
-    </div>
-    <div class="trust-bar">
-      <span>Fast Response</span>
-      <span>Clear Communication</span>
-      <span>Deal-Saving Support</span>
-      <span>Trusted Referral Partner</span>
+    <div class="hero-content">
+      <h1>Realtor Support in Maine for Mold, Inspections, and Fast Deal-Saving Next Steps</h1>
+      <p class="subtitle">Mattra helps Maine realtors respond quickly to mold, inspection, and repair issues so clients stay informed and deals keep moving.</p>
+      <div class="hero-ctas">
+        <a href="/contact.html" class="btn btn-gold btn-arrow">Get a Fast Estimate</a>
+        <a href="tel:+12077776020" class="hero-phone">Call (207) 777-6020</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-bar">
+          <span>Fast Response</span>
+          <span>Clear Communication</span>
+          <span>Deal-Saving Support</span>
+          <span>Trusted Referral Partner</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
