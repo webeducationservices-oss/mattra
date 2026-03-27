@@ -114,6 +114,8 @@
     let tier = null;
     let selectedProjects = [];
     let homeSize = null;
+    let contact = { first_name: '', email: '', phone: '' };
+    let submitted = false;
 
     function render() {
       root.innerHTML = `
@@ -124,7 +126,7 @@
           </div>
           <div class="rc-body">
             <div class="rc-progress">
-              ${[0,1,2,3].map(i => `<span class="${i <= step ? 'done' : ''}"></span>`).join('')}
+              ${[0,1,2,3,4].map(i => `<span class="${i <= step ? 'done' : ''}"></span>`).join('')}
             </div>
             ${renderStep()}
           </div>
@@ -137,7 +139,8 @@
       if (step === 0) return stepIncome();
       if (step === 1) return stepProjects();
       if (step === 2) return stepHomeSize();
-      if (step === 3) return stepResults();
+      if (step === 3) return stepContact();
+      if (step === 4) return stepResults();
       return '';
     }
 
@@ -209,36 +212,101 @@
           </div>
           <div class="rc-nav">
             <button class="rc-btn rc-btn-back" data-action="back">&larr; Back</button>
-            <button class="rc-btn rc-btn-next" ${!homeSize?'disabled':''} data-action="next">See My Estimate &rarr;</button>
+            <button class="rc-btn rc-btn-next" ${!homeSize?'disabled':''} data-action="next">Continue &rarr;</button>
           </div>
         </div>
       `;
     }
 
-    function stepResults() {
+    function stepContact() {
+      return `
+        <div class="rc-step active">
+          <div class="rc-step-title">Where should we send your estimate?</div>
+          <div class="rc-step-sub">We will email your personalized rebate estimate so you have it for reference. No spam, no obligation.</div>
+          <div class="rc-input-group">
+            <label for="rc-name">First Name *</label>
+            <input type="text" id="rc-name" value="${contact.first_name}" placeholder="Your first name" required>
+          </div>
+          <div class="rc-input-group">
+            <label for="rc-email">Email *</label>
+            <input type="email" id="rc-email" value="${contact.email}" placeholder="you@example.com" required>
+          </div>
+          <div class="rc-input-group">
+            <label for="rc-phone">Phone <small style="font-weight:400;color:var(--brown-text,#706460)">(optional)</small></label>
+            <input type="tel" id="rc-phone" value="${contact.phone}" placeholder="(207) 555-0000">
+          </div>
+          <div class="rc-nav">
+            <button class="rc-btn rc-btn-back" data-action="back">&larr; Back</button>
+            <button class="rc-btn rc-btn-next" data-action="submit">See My Estimate &rarr;</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function calcResults() {
       const t = TIERS[tier];
       const sf = HOME_SIZES[homeSize].factor;
       let totalMin = 0, totalMax = 0;
       const lines = [];
-
       selectedProjects.forEach(k => {
         const p = PROJECTS[k];
         const lo = Math.round(p.min * sf);
         const hi = Math.round(p.max * sf);
         totalMin += lo;
         totalMax += hi;
-        lines.push({ label: p.label, range: `$${lo.toLocaleString()} – $${hi.toLocaleString()}` });
+        lines.push({ label: p.label, range: '$' + lo.toLocaleString() + ' \u2013 $' + hi.toLocaleString() });
       });
-
       const midCost = Math.round((totalMin + totalMax) / 2);
       const rawRebate = Math.round(midCost * t.pct);
       const rebate = Math.min(rawRebate, t.max);
       const outOfPocket = midCost - rebate;
+      return { t, totalMin, totalMax, midCost, rawRebate, rebate, outOfPocket, lines };
+    }
+
+    async function submitResults() {
+      if (submitted) return;
+      const r = calcResults();
+      const projectNames = selectedProjects.map(k => PROJECTS[k].label).join(', ');
+      const data = {
+        site_slug: 'mattra',
+        form_type: 'rebate-calculator',
+        first_name: contact.first_name,
+        email: contact.email,
+        phone: contact.phone || '',
+        income_tier: r.t.label,
+        rebate_percentage: Math.round(r.t.pct * 100) + '%',
+        projects: projectNames,
+        home_size: HOME_SIZES[homeSize].label,
+        estimated_cost: '$' + r.midCost.toLocaleString(),
+        cost_range: '$' + r.totalMin.toLocaleString() + ' \u2013 $' + r.totalMax.toLocaleString(),
+        estimated_rebate: '$' + r.rebate.toLocaleString(),
+        out_of_pocket: '$' + r.outOfPocket.toLocaleString(),
+        savings_pct: Math.round((r.rebate / r.midCost) * 100) + '%',
+        send_visitor_copy: true,
+        visitor_email_subject: 'Your Efficiency Maine Rebate Estimate \u2014 Mattra Inc.'
+      };
+      try {
+        await fetch('https://myaieditor.com/api/form-notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      } catch (err) {
+        console.error('Rebate calculator submit error:', err);
+      }
+      submitted = true;
+    }
+
+    function stepResults() {
+      const { t, totalMin, totalMax, midCost, rawRebate, rebate, outOfPocket, lines } = calcResults();
+
+      if (!submitted) { submitResults(); }
 
       return `
         <div class="rc-step active">
           <div class="rc-results">
             <div class="rc-results-badge">Your Rebate Estimate</div>
+            <p style="font-size:.85rem;color:var(--green-primary,#316b43);margin-bottom:16px">Sent to ${contact.email}</p>
             <h3>Based on ${t.label.split('(')[0].trim()} Tier</h3>
             <div class="rc-results-grid">
               <div class="rc-result-box">
@@ -304,13 +372,44 @@
         });
       });
 
+      /* Contact form inputs */
+      const nameInput = root.querySelector('#rc-name');
+      const emailInput = root.querySelector('#rc-email');
+      const phoneInput = root.querySelector('#rc-phone');
+      if (nameInput) {
+        nameInput.addEventListener('input', () => { contact.first_name = nameInput.value; });
+        emailInput.addEventListener('input', () => { contact.email = emailInput.value; });
+        phoneInput.addEventListener('input', () => { contact.phone = phoneInput.value; });
+      }
+
       /* Navigation */
       root.querySelectorAll('[data-action]').forEach(btn => {
         btn.addEventListener('click', () => {
           const action = btn.dataset.action;
+          if (action === 'submit') {
+            /* Validate contact fields */
+            const name = root.querySelector('#rc-name');
+            const email = root.querySelector('#rc-email');
+            if (name) contact.first_name = name.value.trim();
+            if (email) contact.email = email.value.trim();
+            const phone = root.querySelector('#rc-phone');
+            if (phone) contact.phone = phone.value.trim();
+            if (!contact.first_name || !contact.email) {
+              if (name && !contact.first_name) name.style.borderColor = '#e74c3c';
+              if (email && !contact.email) email.style.borderColor = '#e74c3c';
+              return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) {
+              if (email) email.style.borderColor = '#e74c3c';
+              return;
+            }
+            step++;
+            render();
+            return;
+          }
           if (action === 'next' && !btn.disabled) { step++; render(); }
           if (action === 'back') { step--; render(); }
-          if (action === 'restart') { step = 0; tier = null; selectedProjects = []; homeSize = null; render(); }
+          if (action === 'restart') { step = 0; tier = null; selectedProjects = []; homeSize = null; contact = { first_name: '', email: '', phone: '' }; submitted = false; render(); }
         });
       });
     }
