@@ -52,8 +52,8 @@
           <div class="mega-col">
             <h5 class="mega-heading">Mold</h5>
             <a href="${b}mold.html">Mold Overview</a>
-            <a href="${b}mold-inspection.html">Inspection &amp; Testing</a>
-            <a href="${b}mold-remediation.html">Removal &amp; Remediation</a>
+            <a href="${b}mold/inspection-testing.html">Inspection &amp; Testing</a>
+            <a href="${b}mold/removal-remediation.html">Removal &amp; Remediation</a>
             <a href="${b}mold-real-estate.html">Real Estate Transactions</a>
           </div>
           <div class="mega-col">
