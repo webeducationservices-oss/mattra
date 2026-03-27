@@ -312,6 +312,7 @@ p { margin-bottom: 1rem; }
 }
 .main-nav {
   display: flex;
+  align-items: center;
   gap: 4px;
 }
 .main-nav a {
@@ -347,6 +348,8 @@ p { margin-bottom: 1rem; }
 /* ── Mega Menu ── */
 .nav-dropdown {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 .nav-dropdown-trigger {
   display: flex;
@@ -362,6 +365,7 @@ p { margin-bottom: 1rem; }
   border: none;
   cursor: pointer;
   font-family: inherit;
+  line-height: 1.7;
 }
 .nav-dropdown-trigger:hover,
 .nav-dropdown.active .nav-dropdown-trigger {
