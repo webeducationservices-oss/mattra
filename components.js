@@ -30,7 +30,7 @@
 
   /* ── Mega-menu active helpers ──────────────────────────── */
   const serviceSlugs = ['mold','insulation','construction','consulting','services','ventilation','roofing','siding','demolition','waterproofing','rot-repair','water-damage','air-sealing','spray-foam','blown-in','crawl-space','energy-audit','blower-door','rodent','dehumidification','general-contracting','insulation-removal'];
-  const resourceSlugs = ['financing','rebates','resources','calculator','mold-real-estate','for-realtors','blog','glossary'];
+  const resourceSlugs = ['financing','rebates','resources','calculator','for-realtors','blog','glossary'];
   function megaActive(slugs) { return slugs.some(s => path.includes(s)); }
 
   const chevron = `<svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5L5 6 7.5 3.5"/></svg>`;
@@ -103,7 +103,7 @@
             <h5 class="mega-heading">Financing &amp; Rebates</h5>
             <a href="${b}financing-rebates.html">Financing &amp; Rebates</a>
             <a href="${b}resources.html#calculators">Rebate Calculator</a>
-            <a href="${b}mold-real-estate.html">For Realtors</a>
+            <a href="${b}for-realtors.html">For Realtors</a>
           </div>
           <div class="mega-col">
             <h5 class="mega-heading">Learn</h5>
@@ -156,7 +156,7 @@
         <h4>Resources</h4>
         <a href="${b}financing.html">Financing &amp; Rebates</a>
         <a href="${b}rebate-calculator.html">Rebate Calculator</a>
-        <a href="${b}mold-real-estate.html">For Realtors</a>
+        <a href="${b}for-realtors.html">For Realtors</a>
         <a href="${b}blog.html">Blog</a>
         <a href="${b}resources.html">Resources</a>
       </div>
