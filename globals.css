@@ -397,7 +397,7 @@ p { margin-bottom: 1rem; }
   transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
 }
 .mega-4col {
-  min-width: 820px;
+  min-width: 1200px;
 }
 .mega-2col {
   min-width: 460px;
