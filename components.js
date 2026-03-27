@@ -28,6 +28,13 @@
   </div>
 </div>`;
 
+  /* ── Mega-menu active helpers ──────────────────────────── */
+  const serviceSlugs = ['mold','insulation','construction','consulting','services','ventilation','roofing','siding','demolition','waterproofing','rot-repair','water-damage','air-sealing','spray-foam','blown-in','crawl-space','energy-audit','blower-door','rodent','dehumidification','general-contracting','insulation-removal'];
+  const resourceSlugs = ['financing','rebates','resources','calculator','for-realtors','blog','glossary'];
+  function megaActive(slugs) { return slugs.some(s => path.includes(s)); }
+
+  const chevron = `<svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5L5 6 7.5 3.5"/></svg>`;
+
   /* ── Header ─────────────────────────────────────────────── */
   const HEADER = `
 <header class="site-header">
@@ -36,15 +43,80 @@
       <img src="${b}Images/MATTRA-LOGO-4ab44f66-1920w.webp" alt="Mattra Inc. Logo">
     </a>
     <nav class="main-nav" id="main-nav" aria-label="Main navigation">
-      ${nav('home',        'Home',            'index.html')}
-      ${nav('mold',        'Mold',            'mold.html')}
-      ${nav('insulation',  'Insulation',      'insulation.html')}
-      ${nav('construction','Construction',     'construction.html')}
-      ${nav('consulting',  'Consulting',       'consulting.html')}
-      ${nav('services',   'Other Services',   'services.html')}
-      ${nav('financing',  'Financing &amp; Rebates', 'financing-rebates.html')}
-      ${nav('about',       'About',            'about.html')}
-      ${nav('contact',     'Contact',          'contact.html')}
+      ${nav('home', 'Home', 'index.html')}
+
+      <!-- Services Mega Dropdown -->
+      <div class="nav-dropdown${megaActive(serviceSlugs) ? ' active' : ''}">
+        <button class="nav-dropdown-trigger" aria-expanded="false">Services ${chevron}</button>
+        <div class="mega-panel mega-4col">
+          <div class="mega-col">
+            <h5 class="mega-heading">Mold</h5>
+            <a href="${b}mold.html">Mold Overview</a>
+            <a href="${b}mold-inspection.html">Inspection &amp; Testing</a>
+            <a href="${b}mold-remediation.html">Removal &amp; Remediation</a>
+            <a href="${b}mold-real-estate.html">Real Estate Transactions</a>
+          </div>
+          <div class="mega-col">
+            <h5 class="mega-heading">Insulation</h5>
+            <a href="${b}insulation.html">Insulation Overview</a>
+            <a href="${b}spray-foam.html">Spray Foam</a>
+            <a href="${b}blown-in.html">Blown-In</a>
+            <a href="${b}attic-insulation.html">Attic</a>
+            <a href="${b}basement-insulation.html">Basement</a>
+            <a href="${b}air-sealing.html">Air Sealing</a>
+            <a href="${b}wall-insulation.html">Wall</a>
+            <a href="${b}crawl-space.html">Crawl Space</a>
+          </div>
+          <div class="mega-col">
+            <h5 class="mega-heading">Construction</h5>
+            <a href="${b}construction.html">Construction Overview</a>
+            <a href="${b}rot-repair.html">Rot Repair</a>
+            <a href="${b}demolition.html">Demolition</a>
+            <a href="${b}water-damage.html">Water Damage Repair</a>
+            <a href="${b}basement-waterproofing.html">Basement Waterproofing</a>
+            <a href="${b}roofing.html">Roofing</a>
+            <a href="${b}siding.html">Siding</a>
+            <a href="${b}repair-rebuild.html">Repair &amp; Rebuild</a>
+          </div>
+          <div class="mega-col">
+            <h5 class="mega-heading">Consulting &amp; Other</h5>
+            <a href="${b}consulting.html">Consulting Overview</a>
+            <a href="${b}energy-audit.html">Energy Audit</a>
+            <a href="${b}blower-door.html">Blower Door Testing</a>
+            <a href="${b}general-contracting.html">General Contracting</a>
+            <a href="${b}ventilation.html">Ventilation</a>
+            <a href="${b}services.html">All Services</a>
+            <div class="mega-cta-card">
+              <strong>Not sure where to start?</strong>
+              <p>Book a free consultation and we'll assess your home.</p>
+              <a href="${b}contact.html" class="mega-cta-btn">Free Consultation</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resources Mega Dropdown -->
+      <div class="nav-dropdown${megaActive(resourceSlugs) ? ' active' : ''}">
+        <button class="nav-dropdown-trigger" aria-expanded="false">Resources ${chevron}</button>
+        <div class="mega-panel mega-2col">
+          <div class="mega-col">
+            <h5 class="mega-heading">Financing &amp; Rebates</h5>
+            <a href="${b}financing-rebates.html">Financing &amp; Rebates</a>
+            <a href="${b}resources.html#calculators">Rebate Calculator</a>
+            <a href="${b}for-realtors.html">For Realtors</a>
+          </div>
+          <div class="mega-col">
+            <h5 class="mega-heading">Learn</h5>
+            <a href="${b}resources.html">Resources Hub</a>
+            <a href="${b}blog.html">Blog</a>
+            <a href="${b}mold-glossary.html">Mold Glossary</a>
+            <a href="${b}service-areas.html">Service Areas</a>
+          </div>
+        </div>
+      </div>
+
+      ${nav('about', 'About', 'about.html')}
+      ${nav('contact', 'Contact', 'contact.html')}
     </nav>
     <a href="${b}contact.html" class="header-cta">Get Started</a>
     <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -130,8 +202,38 @@
       toggle.classList.toggle('open');
       nav2.classList.toggle('open');
       toggle.setAttribute('aria-expanded', nav2.classList.contains('open'));
+      // Close all mega panels when menu closes
+      if (!nav2.classList.contains('open')) {
+        nav2.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+        nav2.querySelectorAll('.nav-dropdown-trigger').forEach(t => t.setAttribute('aria-expanded', 'false'));
+      }
     });
   }
+
+  /* ── Mega Menu: mobile accordion + desktop hover ──────── */
+  document.querySelectorAll('.nav-dropdown-trigger').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      const dropdown = trigger.closest('.nav-dropdown');
+      const isOpen = dropdown.classList.contains('open');
+      // Close siblings
+      dropdown.parentElement.querySelectorAll('.nav-dropdown.open').forEach(d => {
+        if (d !== dropdown) { d.classList.remove('open'); d.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded', 'false'); }
+      });
+      dropdown.classList.toggle('open', !isOpen);
+      trigger.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+
+  // Close mega menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-dropdown') && !e.target.closest('.mobile-toggle')) {
+      document.querySelectorAll('.nav-dropdown.open').forEach(d => {
+        d.classList.remove('open');
+        d.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
 
   /* ── Slider ─────────────────────────────────────────────── */
   document.querySelectorAll('.slider-container').forEach(container => {
