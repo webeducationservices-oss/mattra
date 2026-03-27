@@ -302,7 +302,7 @@
 
   /* ── Form Data ── */
   const formData = {
-    issue_type: '',
+    issue_types: [],
     urgency: '',
     agent_name: '',
     agent_phone: '',
@@ -335,7 +335,7 @@
       <!-- STEP 1: What's happening? -->
       <div class="std-step active" data-step="1">
         <h3 class="std-title">What's threatening the deal?</h3>
-        <p class="std-subtitle">Select the issue. We've handled hundreds of these situations and can move fast.</p>
+        <p class="std-subtitle">Select all that apply. We've handled hundreds of these situations and can move fast.</p>
         <div class="std-options" data-field="issue_type">
           <button class="std-opt" data-value="mold_inspection">
             <span class="std-opt-icon">&#x1F50D;</span>
@@ -510,15 +510,16 @@
       card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    // Option selection (step 1 & 2)
+    // Option selection (step 1 — multi-select)
     card.querySelectorAll('.std-opt').forEach(btn => {
       btn.addEventListener('click', () => {
-        const parent = btn.closest('.std-options');
-        parent.querySelectorAll('.std-opt').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        formData.issue_type = btn.dataset.value;
+        btn.classList.toggle('selected');
+        const val = btn.dataset.value;
+        const idx = formData.issue_types.indexOf(val);
+        if (idx > -1) { formData.issue_types.splice(idx, 1); }
+        else { formData.issue_types.push(val); }
         const nav = btn.closest('.std-step').querySelector('.std-btn-next');
-        if (nav) nav.disabled = false;
+        if (nav) nav.disabled = formData.issue_types.length === 0;
       });
     });
 
@@ -599,7 +600,7 @@
             agent_email: formData.agent_email,
             brokerage: formData.brokerage,
             preferred_contact: formData.preferred_contact,
-            issue_type: issueLabels[formData.issue_type] || formData.issue_type,
+            issue_type: formData.issue_types.map(v => issueLabels[v] || v).join(', '),
             urgency: urgencyLabels[formData.urgency] || formData.urgency,
             property_address: formData.property_address,
             closing_date: formData.closing_date,
