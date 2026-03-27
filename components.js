@@ -115,6 +115,13 @@
   if (headerSlot)  headerSlot.outerHTML = HEADER;
   if (footerSlot)  footerSlot.outerHTML = FOOTER;
 
+  /* ── Favicon ─────────────────────────────────────────────── */
+  if (!document.querySelector('link[rel="icon"]')) {
+    const fav = document.createElement('link');
+    fav.rel = 'icon'; fav.href = b + 'favicon.ico'; fav.type = 'image/x-icon';
+    document.head.appendChild(fav);
+  }
+
   /* ── Mobile Menu Toggle ─────────────────────────────────── */
   const toggle = document.getElementById('mobile-toggle');
   const nav2   = document.getElementById('main-nav');
