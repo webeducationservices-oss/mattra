@@ -42,6 +42,7 @@
       ${nav('construction','Construction',     'construction.html')}
       ${nav('consulting',  'Consulting',       'consulting.html')}
       ${nav('services',   'Other Services',   'services.html')}
+      ${nav('financing',  'Financing &amp; Rebates', 'financing-rebates.html')}
       ${nav('about',       'About',            'about.html')}
       ${nav('contact',     'Contact',          'contact.html')}
     </nav>
