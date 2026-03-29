@@ -59,7 +59,7 @@
           <div class="mega-col">
             <h5 class="mega-heading">Insulation</h5>
             <a href="${b}insulation.html">Insulation Overview</a>
-            <a href="${b}spray-foam.html">Spray Foam</a>
+            <a href="${b}insulation/spray-foam.html">Spray Foam</a>
             <a href="${b}blown-in.html">Blown-In</a>
             <a href="${b}attic-insulation.html">Attic</a>
             <a href="${b}basement-insulation.html">Basement</a>
