@@ -52,30 +52,7 @@
   <link rel="stylesheet" href="/globals.css" />
 
   <style>
-  .blog-post-hero { background: var(--green-dark); color: var(--white); text-align: center; padding: 80px 24px 60px; }
-  .blog-post-hero h1 { color: var(--white); margin-bottom: 12px; font-size: 2.4rem; }
-  .blog-post-meta { color: rgba(255,255,255,.7); font-size: .95rem; }
-  .blog-post-content { max-width: 780px; margin: 0 auto; padding: 48px 24px 64px; }
-  .blog-post-content h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--text-dark); margin: 40px 0 16px; }
-  .blog-post-content h3 { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin: 32px 0 12px; }
-  .blog-post-content p { color: var(--text-body); margin-bottom: 18px; line-height: 1.8; }
-  .blog-post-content ul, .blog-post-content ol { color: var(--text-body); margin: 0 0 18px 24px; list-style: disc; line-height: 1.8; }
-  .blog-post-content ol { list-style: decimal; }
-  .blog-post-content li { margin-bottom: 8px; }
-  .blog-post-content a { color: var(--green-primary); text-decoration: underline; }
-  .blog-post-content a:hover { color: var(--gold-accent); }
-  .blog-post-content strong { color: var(--text-dark); }
-  .blog-post-content img { border-radius: var(--radius-lg); margin: 24px 0; width: 100%; }
-  .blog-post-featured-img { max-width: 780px; margin: -40px auto 0; padding: 0 24px; position: relative; z-index: 1; }
-  .blog-post-featured-img img { width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
-  .blog-back { max-width: 780px; margin: 0 auto; padding: 0 24px 48px; text-align: center; }
-  .blog-back a { display: inline-flex; align-items: center; gap: 8px; color: var(--green-primary); font-weight: 600; font-size: 1rem; }
-  .blog-back a:hover { color: var(--gold-accent); }
-  @media (max-width: 600px) {
-    .blog-post-hero { padding: 60px 20px 40px; }
-    .blog-post-hero h1 { font-size: 1.8rem; }
-    .blog-post-content { padding: 32px 20px 48px; }
-  }
+  .blog-post-hero{position:relative;min-height:420px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--green-dark)}.blog-post-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35}.blog-post-hero-content{position:relative;z-index:2;text-align:center;padding:3rem 1.5rem;max-width:720px}.blog-post-cat{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold-accent);background:rgba(0,0,0,.3);padding:.3rem .85rem;border-radius:999px;margin-bottom:1rem}.blog-post-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:#fff;font-weight:400;line-height:1.2;margin:0 0 1rem}.blog-post-hero .post-meta{font-size:.82rem;color:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;gap:.75rem}.blog-post-hero .post-meta-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.4)}.blog-post-wrap{max-width:1160px;margin:0 auto;padding:3rem 1.5rem 5rem;display:grid;grid-template-columns:1fr 300px;gap:3rem;align-items:start}@media(max-width:860px){.blog-post-wrap{grid-template-columns:1fr;padding:2rem 1.25rem 4rem}}.blog-article{font-size:1rem;color:var(--text-body);line-height:1.85}.blog-article h2{font-family:'DM Serif Display',serif;font-size:clamp(1.3rem,2.5vw,1.75rem);color:var(--green-dark);margin:2.5rem 0 .75rem;line-height:1.25}.blog-article h3{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--green-dark);margin:1.75rem 0 .5rem}.blog-article p{margin:0 0 1.25rem}.blog-article ul,.blog-article ol{margin:0 0 1.25rem;padding-left:1.25rem}.blog-article li{margin-bottom:.45rem;line-height:1.7;list-style:disc}.blog-article ol li{list-style:decimal}.blog-article strong{color:var(--text-dark)}.blog-article a{color:var(--green-primary);text-decoration:underline}.blog-article a:hover{color:var(--gold-accent)}.blog-cta-banner{background:var(--green-dark);border-radius:12px;padding:2rem;text-align:center;margin:2.5rem 0 0}.blog-cta-banner h3{font-family:'DM Serif Display',serif;font-size:1.4rem;color:#fff;margin:0 0 .5rem}.blog-cta-banner p{font-size:.9rem;color:rgba(255,255,255,.75);margin:0 0 1.25rem;line-height:1.6}.blog-cta-banner a{display:inline-block;font-size:.85rem;font-weight:700;background:var(--gold-accent);color:var(--green-dark);padding:.6rem 1.5rem;border-radius:var(--radius);text-decoration:none;transition:all .2s}.blog-cta-banner a:hover{background:var(--gold-dark);color:#fff}.blog-sidebar{display:flex;flex-direction:column;gap:1.5rem}.sidebar-card{background:#fff;border-radius:14px;box-shadow:var(--shadow-sm);overflow:hidden}.sidebar-head{background:var(--green-dark);padding:.85rem 1.25rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gold-accent)}.sidebar-body{padding:1.25rem}.sidebar-link{display:block;padding:.5rem 0;font-size:.86rem;color:var(--text-dark);font-weight:600;border-bottom:1px solid var(--border-light);transition:color .2s;text-decoration:none}.sidebar-link:last-child{border-bottom:none}.sidebar-link:hover{color:var(--green-primary)}.sidebar-cta{background:linear-gradient(135deg,var(--green-dark) 0%,var(--green-primary) 100%);border-radius:14px;padding:1.5rem;text-align:center}.sidebar-cta-title{font-family:'DM Serif Display',serif;font-size:1.15rem;color:#fff;margin:0 0 .5rem}.sidebar-cta p{font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.65;margin:0 0 1.25rem}.sidebar-cta a{display:inline-block;font-size:.85rem;font-weight:700;background:var(--gold-accent);color:var(--green-dark);padding:.6rem 1.5rem;border-radius:8px;text-decoration:none;transition:all .2s}.sidebar-cta a:hover{background:var(--gold-dark);color:#fff}@media(max-width:600px){.blog-post-hero{min-height:320px}.blog-post-hero h1{font-size:1.6rem}}
   </style>
 </head>
 <body>
@@ -83,53 +60,82 @@
 <div id="header"></div>
 
 <section class="blog-post-hero">
-  <h1>September in Maine: It's Time to Get Ready for the Cold</h1>
-  <p class="blog-post-meta">By Mattra Inc. &bull; September 16, 2025</p>
-</section>
-
-<div class="blog-post-featured-img">
-  <img src="/Images/blog/september-in-maine-it-s-time-to-get-ready-for-the-cold.webp" alt="September in Maine - preparing your home for winter with insulation and air sealing" width="780" height="440" />
-</div>
-
-<article class="blog-post-content">
-  <p>The air is getting crisp, the days are getting shorter, and that first real chill of September is a reminder that winter is right around the corner. If you're anything like us, you're not exactly looking forward to those high heating bills. You're probably picturing a drafty living room, cold floors, and that thermostat you keep nudging higher and higher just to feel comfortable.</p>
-
-  <p>But what if you didn't have to?</p>
-
-  <p>This isn't about just surviving another Maine winter; it's about thriving. It's about being truly comfortable in your own home, without the constant stress of watching your energy costs climb. The secret? <strong>Proper insulation and air sealing.</strong></p>
-
-  <p>Investing in your home's insulation now is the smartest thing you can do. It's like putting money in the bank. You spend a little up front to save a lot later. We've seen it time and again—homeowners can slash their energy consumption by as much as half. Imagine what you could do with that extra cash every month.</p>
-
-  <h3>Our Solutions for a Warmer, Cozier Home</h3>
-
-  <p>At Mattra, we know what a Maine winter demands. That's why we offer solutions that actually work.</p>
-
-  <p><strong>Closed Cell Spray Foam -</strong> This is our top-tier solution, and it's a game-changer for a home's efficiency. When applied, this foam expands into a dense, rigid material that creates an incredible air and moisture barrier. We use it to seal crawl spaces, basements, and exterior walls. Think about that cold basement feeling—spray foam completely eliminates it. By sealing those critical areas, you prevent a tremendous amount of heat loss and stop cold, damp air from entering your living space. This is more than just insulation; it's a complete building envelope upgrade that also adds structural integrity and helps prevent moisture issues and mold growth. It's the ultimate defense against the Maine elements.</p>
-
-  <p><strong>Blown-In Cellulose -</strong> Made from recycled paper products, blown-in cellulose is one of the most eco-friendly insulation options available. We use a powerful hose to blow the material into attics and enclosed wall cavities. The tiny paper fibers pack together to form a seamless blanket of insulation, leaving no gaps for air to escape. It's especially effective in attics, where heat naturally rises and escapes. A properly insulated attic can be the single biggest factor in lowering your heating costs. Beyond its thermal performance, cellulose also has excellent sound-dampening qualities, making your home quieter and more peaceful by blocking out exterior noise.</p>
-
-  <p><strong>Dense Packing Walls -</strong> For older homes that were built without any wall insulation—a common issue in Maine—dense packing is a perfect solution. Instead of tearing down all your interior walls, we can drill small holes and inject cellulose or other materials directly into the wall cavities. This fills every empty space behind your drywall or plaster. The material is packed in so tightly that it significantly reduces drafts and heat loss. It's a non-invasive way to bring an old home's energy performance up to modern standards, drastically improving comfort and saving you money without the mess and high cost of a full renovation.</p>
-
-  <p><strong>Targeted Air Sealing -</strong> Insulation is only half the battle. You could have the best insulation in the world, but if air is leaking in and out of your home, you're still wasting energy. We specialize in using foam to meticulously air seal the two biggest culprits for drafts: your basement and your attic. We target the penetrations where pipes, wires, and framing meet, which are often the main pathways for air leakage. By sealing these critical areas, we prevent the "stack effect," where warm air rises and escapes from the top of your house, pulling cold air in from the bottom. Sealing these areas with foam is a fundamental step that makes all other insulation work more effectively, ensuring your home holds onto the heat you're paying for.</p>
-
-  <h3>This Is Where It Gets Even Better: Rebates!</h3>
-
-  <p>As a licensed vendor with <strong>Efficiency Maine</strong>, we can help you access substantial rebates for your weatherization project. This isn't just a small discount—we're talking about real money that makes a huge difference. You are entitled to at least $4,000 in rebates for your project, with the potential for even more depending on your income. We will personally guide you through the process, ensuring you receive every dollar you're entitled to from these incredible programs. This makes an already smart financial decision an absolute no-brainer.</p>
-
-  <p>Don't wait for winter to sneak up on you. Let's make this year different. Reach out to us at Mattra today for a free consultation. We'd love to help you make your home the comfortable, energy-efficient sanctuary it should be.</p>
-</article>
-
-<div class="blog-back">
-  <a href="/blog">&larr; Back to Blog</a>
-</div>
-
-<section class="section section--green" style="text-align:center; padding:48px 24px;">
-  <div class="container">
-    <h2 style="color:#fff; font-family:'DM Serif Display',serif; font-size:2rem; margin-bottom:12px;">Have a Question?</h2>
-    <p style="color:rgba(255,255,255,.85); max-width:560px; margin:0 auto 24px; font-size:1.05rem;">Our team is ready to help with any mold, insulation, or home performance concern.</p>
-    <a href="/contact" class="btn" style="background:var(--gold-accent); color:var(--text-dark); font-weight:700; padding:14px 36px; border-radius:var(--radius); font-size:1rem; display:inline-block;">Contact Us</a>
+  <img src="/Images/blog/september-in-maine-it-s-time-to-get-ready-for-the-cold.webp" alt="September in Maine - preparing your home for winter with insulation and air sealing" width="1160" height="420" />
+  <div class="blog-post-hero-content">
+    <span class="blog-post-cat">Energy Efficiency</span>
+    <h1>September in Maine: It's Time to Get Ready for the Cold</h1>
+    <div class="post-meta">
+      <span>By Mattra Inc.</span>
+      <span class="post-meta-dot"></span>
+      <span>September 16, 2025</span>
+      <span class="post-meta-dot"></span>
+      <span>6 min read</span>
+    </div>
   </div>
 </section>
+
+<div class="blog-post-wrap">
+  <article class="blog-article">
+    <p>The air is getting crisp, the days are getting shorter, and that first real chill of September is a reminder that winter is right around the corner. If you're anything like us, you're not exactly looking forward to those high heating bills. You're probably picturing a drafty living room, cold floors, and that thermostat you keep nudging higher and higher just to feel comfortable.</p>
+
+    <p>But what if you didn't have to?</p>
+
+    <p>This isn't about just surviving another Maine winter; it's about thriving. It's about being truly comfortable in your own home, without the constant stress of watching your energy costs climb. The secret? <strong>Proper insulation and air sealing.</strong></p>
+
+    <p>Investing in your home's insulation now is the smartest thing you can do. It's like putting money in the bank. You spend a little up front to save a lot later. We've seen it time and again—homeowners can slash their energy consumption by as much as half. Imagine what you could do with that extra cash every month.</p>
+
+    <h3>Our Solutions for a Warmer, Cozier Home</h3>
+
+    <p>At Mattra, we know what a Maine winter demands. That's why we offer solutions that actually work.</p>
+
+    <p><strong>Closed Cell Spray Foam -</strong> This is our top-tier solution, and it's a game-changer for a home's efficiency. When applied, this foam expands into a dense, rigid material that creates an incredible air and moisture barrier. We use it to seal crawl spaces, basements, and exterior walls. Think about that cold basement feeling—spray foam completely eliminates it. By sealing those critical areas, you prevent a tremendous amount of heat loss and stop cold, damp air from entering your living space. This is more than just insulation; it's a complete building envelope upgrade that also adds structural integrity and helps prevent moisture issues and mold growth. It's the ultimate defense against the Maine elements.</p>
+
+    <p><strong>Blown-In Cellulose -</strong> Made from recycled paper products, blown-in cellulose is one of the most eco-friendly insulation options available. We use a powerful hose to blow the material into attics and enclosed wall cavities. The tiny paper fibers pack together to form a seamless blanket of insulation, leaving no gaps for air to escape. It's especially effective in attics, where heat naturally rises and escapes. A properly insulated attic can be the single biggest factor in lowering your heating costs. Beyond its thermal performance, cellulose also has excellent sound-dampening qualities, making your home quieter and more peaceful by blocking out exterior noise.</p>
+
+    <p><strong>Dense Packing Walls -</strong> For older homes that were built without any wall insulation—a common issue in Maine—dense packing is a perfect solution. Instead of tearing down all your interior walls, we can drill small holes and inject cellulose or other materials directly into the wall cavities. This fills every empty space behind your drywall or plaster. The material is packed in so tightly that it significantly reduces drafts and heat loss. It's a non-invasive way to bring an old home's energy performance up to modern standards, drastically improving comfort and saving you money without the mess and high cost of a full renovation.</p>
+
+    <p><strong>Targeted Air Sealing -</strong> Insulation is only half the battle. You could have the best insulation in the world, but if air is leaking in and out of your home, you're still wasting energy. We specialize in using foam to meticulously air seal the two biggest culprits for drafts: your basement and your attic. We target the penetrations where pipes, wires, and framing meet, which are often the main pathways for air leakage. By sealing these critical areas, we prevent the "stack effect," where warm air rises and escapes from the top of your house, pulling cold air in from the bottom. Sealing these areas with foam is a fundamental step that makes all other insulation work more effectively, ensuring your home holds onto the heat you're paying for.</p>
+
+    <h3>This Is Where It Gets Even Better: Rebates!</h3>
+
+    <p>As a licensed vendor with <strong>Efficiency Maine</strong>, we can help you access substantial rebates for your weatherization project. This isn't just a small discount—we're talking about real money that makes a huge difference. You are entitled to at least $4,000 in rebates for your project, with the potential for even more depending on your income. We will personally guide you through the process, ensuring you receive every dollar you're entitled to from these incredible programs. This makes an already smart financial decision an absolute no-brainer.</p>
+
+    <p>Don't wait for winter to sneak up on you. Let's make this year different. Reach out to us at Mattra today for a free consultation. We'd love to help you make your home the comfortable, energy-efficient sanctuary it should be.</p>
+
+    <div class="blog-cta-banner">
+      <h3>Ready to Winterize Your Home?</h3>
+      <p>Don't wait for winter to sneak up. Mattra offers free consultations for Maine homeowners.</p>
+      <a href="/contact">Get a Free Consultation</a>
+    </div>
+  </article>
+
+  <aside class="blog-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-head">Related Articles</div>
+      <div class="sidebar-body">
+        <a class="sidebar-link" href="/maine-attic-nightmares-condensation-mold-and-protecting-your-home">Maine Attic Nightmares: Condensation &amp; Mold</a>
+        <a class="sidebar-link" href="/top-3-home-insulations-spray-foam-blown-in-cellulose-fiberglass">Top 3 Home Insulations</a>
+        <a class="sidebar-link" href="/blower-door-test">Blower Door Test</a>
+      </div>
+    </div>
+
+    <div class="sidebar-cta">
+      <div class="sidebar-cta-title">Need help with your home?</div>
+      <p>Free consultations for Maine homeowners looking to improve comfort and cut energy costs.</p>
+      <a href="/contact">Get in Touch</a>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-head">Browse Topics</div>
+      <div class="sidebar-body">
+        <a class="sidebar-link" href="/blog?topic=Mold %26 Moisture">Mold &amp; Moisture</a>
+        <a class="sidebar-link" href="/blog?topic=Insulation">Insulation</a>
+        <a class="sidebar-link" href="/blog?topic=Energy Efficiency">Energy Efficiency</a>
+        <a class="sidebar-link" href="/blog?topic=Home Maintenance">Home Maintenance</a>
+      </div>
+    </div>
+  </aside>
+</div>
 
 <div id="footer"></div>
 <script src="/components.js" defer></script>

@@ -23,177 +23,234 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/globals.css" />
   <style>
-  .blog-post-hero { background: var(--green-dark); color: var(--white); text-align: center; padding: 80px 24px 60px; }
-  .blog-post-hero h1 { color: var(--white); margin-bottom: 12px; font-size: 2.4rem; }
-  .blog-post-meta { color: rgba(255,255,255,.7); font-size: .95rem; }
-  .blog-post-content { max-width: 780px; margin: 0 auto; padding: 48px 24px 64px; }
-  .blog-post-content h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--text-dark); margin: 40px 0 16px; }
-  .blog-post-content h3 { font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin: 32px 0 12px; }
-  .blog-post-content p { color: var(--text-body); margin-bottom: 18px; line-height: 1.8; }
-  .blog-post-content ul, .blog-post-content ol { color: var(--text-body); margin: 0 0 18px 24px; list-style: disc; line-height: 1.8; }
-  .blog-post-content ol { list-style: decimal; }
-  .blog-post-content li { margin-bottom: 8px; }
-  .blog-post-content a { color: var(--green-primary); text-decoration: underline; }
-  .blog-post-content a:hover { color: var(--gold-accent); }
-  .blog-post-content strong { color: var(--text-dark); }
-  .blog-post-content img { border-radius: var(--radius-lg); margin: 24px 0; width: 100%; }
-  .blog-post-featured-img { max-width: 780px; margin: -40px auto 0; padding: 0 24px; position: relative; z-index: 1; }
-  .blog-post-featured-img img { width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
-  .blog-back { max-width: 780px; margin: 0 auto; padding: 0 24px 48px; text-align: center; }
-  .blog-back a { display: inline-flex; align-items: center; gap: 8px; color: var(--green-primary); font-weight: 600; }
-  .blog-back a:hover { color: var(--gold-accent); }
-  @media (max-width: 600px) { .blog-post-hero { padding: 60px 20px 40px; } .blog-post-hero h1 { font-size: 1.8rem; } .blog-post-content { padding: 32px 20px 48px; } }
+  .blog-post-hero{position:relative;min-height:420px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--green-dark)}
+  .blog-post-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35}
+  .blog-post-hero-content{position:relative;z-index:2;text-align:center;padding:3rem 1.5rem;max-width:720px}
+  .blog-post-cat{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--gold-accent);background:rgba(0,0,0,.3);padding:.3rem .85rem;border-radius:999px;margin-bottom:1rem}
+  .blog-post-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:#fff;font-weight:400;line-height:1.2;margin:0 0 1rem}
+  .blog-post-hero .post-meta{font-size:.82rem;color:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;gap:.75rem}
+  .blog-post-hero .post-meta-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.4)}
+  .blog-post-wrap{max-width:1160px;margin:0 auto;padding:3rem 1.5rem 5rem;display:grid;grid-template-columns:1fr 300px;gap:3rem;align-items:start}
+  @media(max-width:860px){.blog-post-wrap{grid-template-columns:1fr;padding:2rem 1.25rem 4rem}}
+  .blog-article{font-size:1rem;color:var(--text-body);line-height:1.85}
+  .blog-article h2{font-family:'DM Serif Display',serif;font-size:clamp(1.3rem,2.5vw,1.75rem);color:var(--green-dark);margin:2.5rem 0 .75rem;line-height:1.25}
+  .blog-article h3{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--green-dark);margin:1.75rem 0 .5rem}
+  .blog-article p{margin:0 0 1.25rem}
+  .blog-article ul,.blog-article ol{margin:0 0 1.25rem;padding-left:1.25rem}
+  .blog-article li{margin-bottom:.45rem;line-height:1.7;list-style:disc}
+  .blog-article strong{color:var(--text-dark)}
+  .blog-article a{color:var(--green-primary);text-decoration:underline}
+  .blog-article a:hover{color:var(--gold-accent)}
+  .blog-cta-banner{background:var(--green-dark);border-radius:12px;padding:2rem;text-align:center;margin:2.5rem 0 0}
+  .blog-cta-banner h3{font-family:'DM Serif Display',serif;font-size:1.4rem;color:#fff;margin:0 0 .5rem}
+  .blog-cta-banner p{font-size:.9rem;color:rgba(255,255,255,.75);margin:0 0 1.25rem;line-height:1.6}
+  .blog-cta-banner a{display:inline-block;font-size:.85rem;font-weight:700;background:var(--gold-accent);color:var(--green-dark);padding:.6rem 1.5rem;border-radius:var(--radius);text-decoration:none;transition:all .2s}
+  .blog-cta-banner a:hover{background:var(--gold-dark);color:#fff}
+  .blog-sidebar{display:flex;flex-direction:column;gap:1.5rem}
+  .sidebar-card{background:#fff;border-radius:14px;box-shadow:var(--shadow-sm);overflow:hidden}
+  .sidebar-head{background:var(--green-dark);padding:.85rem 1.25rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gold-accent)}
+  .sidebar-body{padding:1.25rem}
+  .sidebar-link{display:block;padding:.5rem 0;font-size:.86rem;color:var(--text-dark);font-weight:600;border-bottom:1px solid var(--border-light);transition:color .2s;text-decoration:none}
+  .sidebar-link:last-child{border-bottom:none}
+  .sidebar-link:hover{color:var(--green-primary)}
+  .sidebar-cta{background:linear-gradient(135deg,var(--green-dark) 0%,var(--green-primary) 100%);border-radius:14px;padding:1.5rem;text-align:center}
+  .sidebar-cta-title{font-family:'DM Serif Display',serif;font-size:1.15rem;color:#fff;margin:0 0 .5rem}
+  .sidebar-cta p{font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.65;margin:0 0 1.25rem}
+  .sidebar-cta a{display:inline-block;font-size:.85rem;font-weight:700;background:var(--gold-accent);color:var(--green-dark);padding:.6rem 1.5rem;border-radius:8px;text-decoration:none;transition:all .2s}
+  .sidebar-cta a:hover{background:var(--gold-dark);color:#fff}
+  @media(max-width:600px){.blog-post-hero{min-height:320px}.blog-post-hero h1{font-size:1.6rem}}
   </style>
 </head>
 <body>
 <div id="topbar"></div>
 <div id="header"></div>
+
 <section class="blog-post-hero">
-  <h1>Spring Maintenance to Prevent Mold: A Comprehensive Guide</h1>
-  <p class="blog-post-meta">By Mattra Inc. &bull; June 3, 2024</p>
-</section>
-<div class="blog-post-featured-img">
-  <img src="/Images/blog/spring-maintenance-to-prevent-mold-a-comprehensive-guide.webp" alt="Spring maintenance to prevent mold" width="780" height="440" />
-</div>
-<article class="blog-post-content">
-
-  <h2>Introduction: The Problem of Neglecting Home Maintenance</h2>
-
-  <p>Spring is a time of renewal and rejuvenation, but it also marks the beginning of potential moisture problems in homes. Neglecting your home's maintenance can lead to increased moisture levels, creating a breeding ground for mold. Mold not only damages your property but also poses serious health risks to your family. This guide will help you understand the essential spring maintenance tasks needed to prevent moisture and mold, and highlight how our expert <a href="/insulation">insulation</a> services can play a crucial role in keeping your home dry and safe.</p>
-
-  <h2>Preventing Moisture: Essential Home Maintenance Requirements</h2>
-
-  <p>To effectively prevent moisture buildup in your home, a series of maintenance tasks should be conducted every spring. These tasks target areas prone to moisture accumulation and <a href="/mold-remediation">mold</a> growth, helping you maintain a dry and healthy living space.</p>
-
-  <h3>1. Roof and Gutters Inspection</h3>
-
-  <ul>
-    <li>Clean and Repair Gutters: Ensure gutters are clear of debris and functioning properly to direct water away from your home.</li>
-    <li>Check for Roof Leaks: Inspect your roof for missing or damaged shingles and repair any leaks promptly.</li>
-    <li>Install Gutter Guards: Consider installing gutter guards to prevent clogging and facilitate water flow.</li>
-  </ul>
-
-  <h3>2. Basement and Foundation Maintenance</h3>
-
-  <ul>
-    <li>Inspect Basement for Cracks: Look for cracks in the walls and floors of your basement and seal them to prevent water seepage.</li>
-    <li>Maintain Sump Pump: Test your sump pump to ensure it's working correctly and consider installing a backup system.</li>
-    <li>Improve Drainage Around Foundation: Ensure the ground slopes away from your foundation to prevent water accumulation.</li>
-  </ul>
-
-  <h3>3. Windows and Doors Check</h3>
-
-  <ul>
-    <li>Seal Gaps and Cracks: Inspect and seal any gaps around windows and doors to prevent water from entering.</li>
-    <li>Install Weatherstripping: Use weatherstripping to create a tight seal and keep moisture out.</li>
-    <li>Inspect Window Wells: Ensure window wells are clean and equipped with covers to prevent water buildup.</li>
-  </ul>
-
-  <h3>4. Ventilation and Air Circulation</h3>
-
-  <ul>
-    <li>Clean Vents and Exhaust Fans: Make sure all vents and exhaust fans are clean and functioning correctly to promote air circulation.</li>
-    <li>Use Dehumidifiers: Place dehumidifiers in damp areas to reduce moisture levels.</li>
-    <li>Ensure Proper Attic Ventilation: Check attic vents for blockages and ensure they are open to allow air flow.</li>
-  </ul>
-
-  <h3>5. Plumbing Maintenance</h3>
-
-  <ul>
-    <li>Check for Leaks: Inspect all plumbing fixtures, pipes, and connections for leaks and repair any issues immediately.</li>
-    <li>Insulate Pipes: Insulate exposed pipes to prevent condensation and subsequent water damage.</li>
-  </ul>
-
-  <p>By addressing these critical areas, you can significantly reduce the risk of moisture buildup and mold growth in your home.</p>
-
-  <h2>Insulating Your Home: Spray Foam vs. Blow-In Cellulose</h2>
-
-  <p>Proper insulation is a key factor in maintaining a moisture-free home. Effective insulation helps regulate indoor temperatures and prevents condensation, which can lead to mold growth. Two popular insulation options are spray foam and blow-in cellulose. Understanding their benefits and drawbacks can help you make an informed decision for your home. At Mattra, we specialize in both methods and can help you choose the best option for your needs.</p>
-
-  <h3>Spray Foam Insulation</h3>
-
-  <ul>
-    <li><strong>Benefits:</strong></li>
-    <li>Superior Moisture Barrier: Spray foam forms an airtight seal, preventing moisture infiltration.</li>
-    <li>High R-Value: Provides excellent thermal resistance, improving energy efficiency.</li>
-    <li>Expands to Fill Gaps: Ensures complete coverage, even in hard-to-reach areas.</li>
-    <li>Seals Doors and Outlets: Perfect for sealing around doors, windows, and electrical outlets to prevent drafts and moisture.</li>
-    <li>Reduces Noise: Offers soundproofing benefits, making your home quieter and more comfortable.</li>
-    <li><strong>Drawbacks:</strong></li>
-    <li>Higher Cost: Generally more expensive than other insulation options.</li>
-    <li>Professional Installation Required: Requires specialized equipment and expertise.</li>
-  </ul>
-
-  <h3>Blow-In Cellulose Insulation</h3>
-
-  <ul>
-    <li><strong>Benefits:</strong></li>
-    <li>Cost-Effective: More affordable compared to spray foam.</li>
-    <li>Eco-Friendly: Made from recycled materials, reducing environmental impact.</li>
-    <li>Good Coverage: Effective at filling cavities and reducing air leakage.</li>
-    <li><strong>Drawbacks:</strong></li>
-    <li>Less Moisture Resistant: May absorb moisture if not properly installed.</li>
-    <li>Settling Over Time: Can settle and lose some effectiveness, requiring periodic checks.</li>
-  </ul>
-
-  <p>Both insulation types have their advantages and disadvantages. If moisture prevention is your primary concern, spray foam insulation might be the better option despite its higher cost. For those looking for a budget-friendly and environmentally conscious solution, blow-in cellulose is a viable alternative.</p>
-
-  <p>Our team at Mattra is ready to help you choose and install the best insulation for your home, ensuring optimal protection against moisture and mold.</p>
-
-  <h2>The Hidden Dangers of Mold: Unexpected Spots to Check</h2>
-
-  <p>Mold can lurk in unexpected places within your home, often remaining hidden until it causes significant damage. Understanding these common yet surprising mold hotspots can help you take proactive measures to keep your home mold-free.</p>
-
-  <h3>1. Behind Wallpaper and Drywall</h3>
-
-  <ul>
-    <li>Moisture Trapped: Moisture can become trapped behind wallpaper and drywall, creating an ideal environment for mold growth.</li>
-    <li>Signs of Mold: Look for peeling wallpaper, bubbling paint, or musty odors.</li>
-  </ul>
-
-  <h3>2. Under Carpets and Flooring</h3>
-
-  <ul>
-    <li>Spills and Humidity: Spills, leaks, or high humidity can lead to mold growth under carpets and flooring.</li>
-    <li>Inspection Tips: Lift carpets periodically and check for discoloration or musty smells.</li>
-  </ul>
-
-  <h3>3. Inside HVAC Systems</h3>
-
-  <ul>
-    <li>Condensation: Condensation within HVAC systems can promote mold growth.</li>
-    <li>Maintenance: Regularly clean and inspect your HVAC system, including ducts and filters.</li>
-  </ul>
-
-  <h3>4. In Attics and Crawl Spaces</h3>
-
-  <ul>
-    <li>Poor Ventilation: Limited ventilation in attics and crawl spaces can lead to moisture accumulation and mold growth.</li>
-    <li>Preventive Measures: Ensure proper ventilation and consider using a dehumidifier in these areas.</li>
-  </ul>
-
-  <h3>5. Behind Kitchen Appliances</h3>
-
-  <ul>
-    <li>Leaks and Spills: Leaks from refrigerators, dishwashers, or sinks can cause mold growth behind kitchen appliances.</li>
-    <li>Regular Checks: Move appliances periodically to check for signs of moisture or mold.</li>
-  </ul>
-
-  <p>By regularly inspecting these hidden areas, you can catch mold problems early and take action before they escalate.</p>
-
-  <h2>Protect Your Home from Mold – Act Now!</h2>
-
-  <p>Don't wait until mold becomes a serious problem in your home. Take proactive steps to prevent moisture and mold growth by following our maintenance tips. Our expert insulation services can significantly enhance your home's protection against moisture and mold. To learn more about how you can enhance your home's efficiency and qualify for a minimum 40% Efficiency Maine rebate, and potentially up to 100%, fill out our <a href="/get-started">Get Started form</a> or call us at <a href="tel:(207) 777-6020">207-777-6020</a>. Protect your home and health today!</p>
-
-</article>
-<div class="blog-back"><a href="/blog">&larr; Back to Blog</a></div>
-<section class="section section--green" style="text-align:center; padding:48px 24px;">
-  <div class="container">
-    <h2 style="color:#fff; font-family:'DM Serif Display',serif; font-size:2rem; margin-bottom:12px;">Have a Question?</h2>
-    <p style="color:rgba(255,255,255,.85); max-width:560px; margin:0 auto 24px; font-size:1.05rem;">Our team is ready to help with any mold, insulation, or home performance concern.</p>
-    <a href="/contact" class="btn" style="background:var(--gold-accent); color:var(--text-dark); font-weight:700; padding:14px 36px; border-radius:var(--radius); font-size:1rem; display:inline-block;">Contact Us</a>
+  <img src="/Images/blog/spring-maintenance-to-prevent-mold-a-comprehensive-guide.webp" alt="Spring maintenance to prevent mold" width="1400" height="420" />
+  <div class="blog-post-hero-content">
+    <span class="blog-post-cat">Mold &amp; Moisture</span>
+    <h1>Spring Maintenance to Prevent Mold: A Comprehensive Guide</h1>
+    <div class="post-meta">
+      <span>Mattra Inc.</span>
+      <span class="post-meta-dot"></span>
+      <span>June 3, 2024</span>
+      <span class="post-meta-dot"></span>
+      <span>10 min read</span>
+    </div>
   </div>
 </section>
+
+<div class="blog-post-wrap">
+
+  <article class="blog-article">
+
+    <h2>Introduction: The Problem of Neglecting Home Maintenance</h2>
+
+    <p>Spring is a time of renewal and rejuvenation, but it also marks the beginning of potential moisture problems in homes. Neglecting your home's maintenance can lead to increased moisture levels, creating a breeding ground for mold. Mold not only damages your property but also poses serious health risks to your family. This guide will help you understand the essential spring maintenance tasks needed to prevent moisture and mold, and highlight how our expert <a href="/insulation">insulation</a> services can play a crucial role in keeping your home dry and safe.</p>
+
+    <h2>Preventing Moisture: Essential Home Maintenance Requirements</h2>
+
+    <p>To effectively prevent moisture buildup in your home, a series of maintenance tasks should be conducted every spring. These tasks target areas prone to moisture accumulation and <a href="/mold-remediation">mold</a> growth, helping you maintain a dry and healthy living space.</p>
+
+    <h3>1. Roof and Gutters Inspection</h3>
+
+    <ul>
+      <li>Clean and Repair Gutters: Ensure gutters are clear of debris and functioning properly to direct water away from your home.</li>
+      <li>Check for Roof Leaks: Inspect your roof for missing or damaged shingles and repair any leaks promptly.</li>
+      <li>Install Gutter Guards: Consider installing gutter guards to prevent clogging and facilitate water flow.</li>
+    </ul>
+
+    <h3>2. Basement and Foundation Maintenance</h3>
+
+    <ul>
+      <li>Inspect Basement for Cracks: Look for cracks in the walls and floors of your basement and seal them to prevent water seepage.</li>
+      <li>Maintain Sump Pump: Test your sump pump to ensure it's working correctly and consider installing a backup system.</li>
+      <li>Improve Drainage Around Foundation: Ensure the ground slopes away from your foundation to prevent water accumulation.</li>
+    </ul>
+
+    <h3>3. Windows and Doors Check</h3>
+
+    <ul>
+      <li>Seal Gaps and Cracks: Inspect and seal any gaps around windows and doors to prevent water from entering.</li>
+      <li>Install Weatherstripping: Use weatherstripping to create a tight seal and keep moisture out.</li>
+      <li>Inspect Window Wells: Ensure window wells are clean and equipped with covers to prevent water buildup.</li>
+    </ul>
+
+    <h3>4. Ventilation and Air Circulation</h3>
+
+    <ul>
+      <li>Clean Vents and Exhaust Fans: Make sure all vents and exhaust fans are clean and functioning correctly to promote air circulation.</li>
+      <li>Use Dehumidifiers: Place dehumidifiers in damp areas to reduce moisture levels.</li>
+      <li>Ensure Proper Attic Ventilation: Check attic vents for blockages and ensure they are open to allow air flow.</li>
+    </ul>
+
+    <h3>5. Plumbing Maintenance</h3>
+
+    <ul>
+      <li>Check for Leaks: Inspect all plumbing fixtures, pipes, and connections for leaks and repair any issues immediately.</li>
+      <li>Insulate Pipes: Insulate exposed pipes to prevent condensation and subsequent water damage.</li>
+    </ul>
+
+    <p>By addressing these critical areas, you can significantly reduce the risk of moisture buildup and mold growth in your home.</p>
+
+    <h2>Insulating Your Home: Spray Foam vs. Blow-In Cellulose</h2>
+
+    <p>Proper insulation is a key factor in maintaining a moisture-free home. Effective insulation helps regulate indoor temperatures and prevents condensation, which can lead to mold growth. Two popular insulation options are spray foam and blow-in cellulose. Understanding their benefits and drawbacks can help you make an informed decision for your home. At Mattra, we specialize in both methods and can help you choose the best option for your needs.</p>
+
+    <h3>Spray Foam Insulation</h3>
+
+    <ul>
+      <li><strong>Benefits:</strong></li>
+      <li>Superior Moisture Barrier: Spray foam forms an airtight seal, preventing moisture infiltration.</li>
+      <li>High R-Value: Provides excellent thermal resistance, improving energy efficiency.</li>
+      <li>Expands to Fill Gaps: Ensures complete coverage, even in hard-to-reach areas.</li>
+      <li>Seals Doors and Outlets: Perfect for sealing around doors, windows, and electrical outlets to prevent drafts and moisture.</li>
+      <li>Reduces Noise: Offers soundproofing benefits, making your home quieter and more comfortable.</li>
+      <li><strong>Drawbacks:</strong></li>
+      <li>Higher Cost: Generally more expensive than other insulation options.</li>
+      <li>Professional Installation Required: Requires specialized equipment and expertise.</li>
+    </ul>
+
+    <h3>Blow-In Cellulose Insulation</h3>
+
+    <ul>
+      <li><strong>Benefits:</strong></li>
+      <li>Cost-Effective: More affordable compared to spray foam.</li>
+      <li>Eco-Friendly: Made from recycled materials, reducing environmental impact.</li>
+      <li>Good Coverage: Effective at filling cavities and reducing air leakage.</li>
+      <li><strong>Drawbacks:</strong></li>
+      <li>Less Moisture Resistant: May absorb moisture if not properly installed.</li>
+      <li>Settling Over Time: Can settle and lose some effectiveness, requiring periodic checks.</li>
+    </ul>
+
+    <p>Both insulation types have their advantages and disadvantages. If moisture prevention is your primary concern, spray foam insulation might be the better option despite its higher cost. For those looking for a budget-friendly and environmentally conscious solution, blow-in cellulose is a viable alternative.</p>
+
+    <p>Our team at Mattra is ready to help you choose and install the best insulation for your home, ensuring optimal protection against moisture and mold.</p>
+
+    <h2>The Hidden Dangers of Mold: Unexpected Spots to Check</h2>
+
+    <p>Mold can lurk in unexpected places within your home, often remaining hidden until it causes significant damage. Understanding these common yet surprising mold hotspots can help you take proactive measures to keep your home mold-free.</p>
+
+    <h3>1. Behind Wallpaper and Drywall</h3>
+
+    <ul>
+      <li>Moisture Trapped: Moisture can become trapped behind wallpaper and drywall, creating an ideal environment for mold growth.</li>
+      <li>Signs of Mold: Look for peeling wallpaper, bubbling paint, or musty odors.</li>
+    </ul>
+
+    <h3>2. Under Carpets and Flooring</h3>
+
+    <ul>
+      <li>Spills and Humidity: Spills, leaks, or high humidity can lead to mold growth under carpets and flooring.</li>
+      <li>Inspection Tips: Lift carpets periodically and check for discoloration or musty smells.</li>
+    </ul>
+
+    <h3>3. Inside HVAC Systems</h3>
+
+    <ul>
+      <li>Condensation: Condensation within HVAC systems can promote mold growth.</li>
+      <li>Maintenance: Regularly clean and inspect your HVAC system, including ducts and filters.</li>
+    </ul>
+
+    <h3>4. In Attics and Crawl Spaces</h3>
+
+    <ul>
+      <li>Poor Ventilation: Limited ventilation in attics and crawl spaces can lead to moisture accumulation and mold growth.</li>
+      <li>Preventive Measures: Ensure proper ventilation and consider using a dehumidifier in these areas.</li>
+    </ul>
+
+    <h3>5. Behind Kitchen Appliances</h3>
+
+    <ul>
+      <li>Leaks and Spills: Leaks from refrigerators, dishwashers, or sinks can cause mold growth behind kitchen appliances.</li>
+      <li>Regular Checks: Move appliances periodically to check for signs of moisture or mold.</li>
+    </ul>
+
+    <p>By regularly inspecting these hidden areas, you can catch mold problems early and take action before they escalate.</p>
+
+    <h2>Protect Your Home from Mold – Act Now!</h2>
+
+    <p>Don't wait until mold becomes a serious problem in your home. Take proactive steps to prevent moisture and mold growth by following our maintenance tips. Our expert insulation services can significantly enhance your home's protection against moisture and mold. To learn more about how you can enhance your home's efficiency and qualify for a minimum 40% Efficiency Maine rebate, and potentially up to 100%, fill out our <a href="/get-started">Get Started form</a> or call us at <a href="tel:(207) 777-6020">207-777-6020</a>. Protect your home and health today!</p>
+
+    <div class="blog-cta-banner">
+      <h3>Worried About Mold in Your Home?</h3>
+      <p>Mattra specializes in mold prevention through proper insulation and air sealing. Free inspections for Maine homeowners.</p>
+      <a href="/contact">Schedule a Free Inspection</a>
+    </div>
+
+  </article>
+
+  <aside class="blog-sidebar">
+
+    <div class="sidebar-card">
+      <div class="sidebar-head">Related Articles</div>
+      <div class="sidebar-body">
+        <a class="sidebar-link" href="/maine-attic-nightmares-condensation-mold-and-protecting-your-home">Maine Attic Nightmares</a>
+        <a class="sidebar-link" href="/5-summer-preparation-tips">5 Summer Preparation Tips</a>
+        <a class="sidebar-link" href="/top-3-home-insulations-spray-foam-blown-in-cellulose-fiberglass">Top 3 Home Insulations</a>
+      </div>
+    </div>
+
+    <div class="sidebar-cta">
+      <div class="sidebar-cta-title">Need help with your home?</div>
+      <p>Our team offers free consultations for Maine homeowners looking to improve comfort and efficiency.</p>
+      <a href="/contact">Get in Touch</a>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-head">Browse Topics</div>
+      <div class="sidebar-body">
+        <a class="sidebar-link" href="/blog?topic=mold-moisture">Mold &amp; Moisture</a>
+        <a class="sidebar-link" href="/blog?topic=insulation">Insulation</a>
+        <a class="sidebar-link" href="/blog?topic=energy-efficiency">Energy Efficiency</a>
+        <a class="sidebar-link" href="/blog?topic=home-maintenance">Home Maintenance</a>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
 <div id="footer"></div>
 <script src="/components.js" defer></script>
 </body>

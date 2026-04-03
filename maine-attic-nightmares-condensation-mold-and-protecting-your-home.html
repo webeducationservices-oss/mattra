@@ -64,84 +64,120 @@
   <link rel="stylesheet" href="/globals.css" />
 
   <style>
-  /* Blog post styles */
   .blog-post-hero {
-    background: var(--green-dark);
-    color: var(--white);
-    text-align: center;
-    padding: 80px 24px 60px;
+    position: relative; min-height: 420px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; background: var(--green-dark);
   }
-  .blog-post-hero h1 { color: var(--white); margin-bottom: 12px; font-size: 2.4rem; }
-  .blog-post-meta { color: rgba(255,255,255,.7); font-size: .95rem; }
-  .blog-post-content {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 48px 24px 64px;
+  .blog-post-hero img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: .35;
   }
-  .blog-post-content h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.6rem;
-    color: var(--text-dark);
-    margin: 40px 0 16px;
+  .blog-post-hero-content {
+    position: relative; z-index: 2; text-align: center;
+    padding: 3rem 1.5rem; max-width: 720px;
   }
-  .blog-post-content h3 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin: 32px 0 12px;
+  .blog-post-cat {
+    display: inline-block; font-size: .68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .14em; color: var(--gold-accent);
+    background: rgba(0,0,0,.3); padding: .3rem .85rem; border-radius: 999px;
+    margin-bottom: 1rem;
   }
-  .blog-post-content p {
-    color: var(--text-body);
-    margin-bottom: 18px;
-    line-height: 1.8;
+  .blog-post-hero h1 {
+    font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem,4vw,2.8rem);
+    color: #fff; font-weight: 400; line-height: 1.2; margin: 0 0 1rem;
   }
-  .blog-post-content ul, .blog-post-content ol {
-    color: var(--text-body);
-    margin: 0 0 18px 24px;
-    list-style: disc;
-    line-height: 1.8;
+  .blog-post-hero .post-meta {
+    font-size: .82rem; color: rgba(255,255,255,.7);
+    display: flex; align-items: center; justify-content: center; gap: .75rem;
   }
-  .blog-post-content ol { list-style: decimal; }
-  .blog-post-content li { margin-bottom: 8px; }
-  .blog-post-content a { color: var(--green-primary); text-decoration: underline; }
-  .blog-post-content a:hover { color: var(--gold-accent); }
-  .blog-post-content strong { color: var(--text-dark); }
-  .blog-post-content img {
-    border-radius: var(--radius-lg);
-    margin: 24px 0;
-    width: 100%;
+  .blog-post-hero .post-meta-dot {
+    width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,.4);
   }
-  .blog-post-featured-img {
-    max-width: 780px;
-    margin: -40px auto 0;
-    padding: 0 24px;
-    position: relative;
-    z-index: 1;
+  .blog-post-wrap {
+    max-width: 1160px; margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+    display: grid; grid-template-columns: 1fr 300px; gap: 3rem;
+    align-items: start;
   }
-  .blog-post-featured-img img {
-    width: 100%;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
+  @media (max-width: 860px) {
+    .blog-post-wrap { grid-template-columns: 1fr; padding: 2rem 1.25rem 4rem; }
   }
-  .blog-back {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 0 24px 48px;
-    text-align: center;
+  .blog-article {
+    font-size: 1rem; color: var(--text-body); line-height: 1.85;
   }
-  .blog-back a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--green-primary);
-    font-weight: 600;
-    font-size: 1rem;
+  .blog-article h2 {
+    font-family: 'DM Serif Display', serif; font-size: clamp(1.3rem,2.5vw,1.75rem);
+    color: var(--green-dark); margin: 2.5rem 0 .75rem; line-height: 1.25;
   }
-  .blog-back a:hover { color: var(--gold-accent); }
+  .blog-article h3 {
+    font-family: 'DM Serif Display', serif; font-size: 1.15rem;
+    color: var(--green-dark); margin: 1.75rem 0 .5rem;
+  }
+  .blog-article p { margin: 0 0 1.25rem; }
+  .blog-article ul, .blog-article ol { margin: 0 0 1.25rem; padding-left: 1.25rem; }
+  .blog-article li { margin-bottom: .45rem; line-height: 1.7; list-style: disc; }
+  .blog-article ol li { list-style: decimal; }
+  .blog-article strong { color: var(--text-dark); }
+  .blog-article a { color: var(--green-primary); text-decoration: underline; }
+  .blog-article a:hover { color: var(--gold-accent); }
+  .blog-cta-banner {
+    background: var(--green-dark); border-radius: 12px;
+    padding: 2rem; text-align: center; margin: 2.5rem 0 0;
+  }
+  .blog-cta-banner h3 {
+    font-family: 'DM Serif Display', serif; font-size: 1.4rem;
+    color: #fff; margin: 0 0 .5rem;
+  }
+  .blog-cta-banner p {
+    font-size: .9rem; color: rgba(255,255,255,.75); margin: 0 0 1.25rem; line-height: 1.6;
+  }
+  .blog-cta-banner a {
+    display: inline-block; font-size: .85rem; font-weight: 700;
+    background: var(--gold-accent); color: var(--green-dark); padding: .6rem 1.5rem;
+    border-radius: var(--radius); text-decoration: none; transition: all .2s;
+  }
+  .blog-cta-banner a:hover { background: var(--gold-dark); color: #fff; }
+  .blog-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+  .sidebar-card {
+    background: #fff; border-radius: 14px;
+    box-shadow: var(--shadow-sm); overflow: hidden;
+  }
+  .sidebar-head {
+    background: var(--green-dark); padding: .85rem 1.25rem;
+    font-size: .72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .12em; color: var(--gold-accent);
+  }
+  .sidebar-body { padding: 1.25rem; }
+  .sidebar-link {
+    display: block; padding: .5rem 0;
+    font-size: .86rem; color: var(--text-dark);
+    font-weight: 600; border-bottom: 1px solid var(--border-light); transition: color .2s;
+    text-decoration: none;
+  }
+  .sidebar-link:last-child { border-bottom: none; }
+  .sidebar-link:hover { color: var(--green-primary); }
+  .sidebar-cta {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
+    border-radius: 14px; padding: 1.5rem; text-align: center;
+  }
+  .sidebar-cta-title {
+    font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: #fff;
+    margin: 0 0 .5rem;
+  }
+  .sidebar-cta p {
+    font-size: .82rem; color: rgba(255,255,255,.8);
+    line-height: 1.65; margin: 0 0 1.25rem;
+  }
+  .sidebar-cta a {
+    display: inline-block; font-size: .85rem; font-weight: 700;
+    background: var(--gold-accent); color: var(--green-dark); padding: .6rem 1.5rem;
+    border-radius: 8px; text-decoration: none; transition: all .2s;
+  }
+  .sidebar-cta a:hover { background: var(--gold-dark); color: #fff; }
   @media (max-width: 600px) {
-    .blog-post-hero { padding: 60px 20px 40px; }
-    .blog-post-hero h1 { font-size: 1.8rem; }
-    .blog-post-content { padding: 32px 20px 48px; }
+    .blog-post-hero { min-height: 320px; }
+    .blog-post-hero h1 { font-size: 1.6rem; }
   }
   </style>
 </head>
@@ -151,54 +187,86 @@
 <div id="header"></div>
 
 <section class="blog-post-hero">
-  <h1>Maine Attic Nightmares: Condensation, Mold, and Protecting Your Home</h1>
-  <p class="blog-post-meta">By Mattra Inc. &bull; August 18, 2025</p>
-</section>
-
-<div class="blog-post-featured-img">
-  <img src="/Images/blog/maine-attic-nightmares-condensation-mold-and-protecting-your-home.webp" alt="Condensation forming on attic roof sheathing in a Maine home" width="780" height="440" />
-</div>
-
-<article class="blog-post-content">
-
-  <p>That musty smell. The faint water stains on your attic ceiling. Maybe you've even spotted some unwelcome dark spots.</p>
-
-  <p>If you're a Maine homeowner, especially in our older homes, these could be signs of a serious problem brewing in your attic: condensation leading to mold growth. It's a more common issue than you might think, and it can have significant consequences for your home's health and your wallet.</p>
-
-  <p>Why is your Maine attic suddenly feeling like a rainforest? The culprit is often a perfect storm of factors we see frequently here at Mattra: a lack of proper air sealing and insufficient insulation.</p>
-
-  <p>Think of your warm, humid indoor air rising into the colder attic space. Without proper air barriers, this warm, moisture-laden air sneaks through cracks and openings around wiring, plumbing, and light fixtures.</p>
-
-  <p>Once this warm, moist air hits the cold surfaces in your uninsulated attic – like the roof sheathing – it cools rapidly. Just like water beading on a cold glass on a summer day, this cooling air releases its excess moisture in the form of condensation. And in a Maine winter, those surfaces stay cold for a long time!</p>
-
-  <p>Several other common issues exacerbate this problem. That uninsulated attic hatch? It's a direct pathway for warm, humid air to escape. An uninsulated chimney acts as another cold surface where condensation can form. And those bathroom and dryer vents that aren't properly ducted to the outside? They're pumping even more moisture directly into your attic – a recipe for disaster.</p>
-
-  <p>So, what happens when all this condensation builds up? That's where mold enters the picture. Mold spores are everywhere, both indoors and out. They thrive in damp, dark environments with organic materials to feed on – like the wood in your attic.</p>
-
-  <p>Consistent condensation provides the perfect breeding ground.</p>
-
-  <p>As mold grows, it doesn't just create unsightly stains and that telltale musty odor. It actively deteriorates the materials it grows on. Over time, <a href="/mold-remediation">mold</a> can weaken the structural integrity of your roof sheathing and rafters, leading to costly repairs. It can also damage any stored items in your attic.</p>
-
-  <p>Beyond the structural damage, mold growth can also impact your indoor air quality. Mold spores can become airborne and circulate throughout your home, potentially triggering allergic reactions, asthma symptoms, and other respiratory issues for you and your family. As a licensed vendor with <a href="/rebates">Efficiency Maine</a>, we understand the importance of a healthy home environment.</p>
-
-  <p>The good news? These attic issues are often fixable! Proper air sealing prevents that warm, humid air from entering the attic in the first place. Adequate <a href="/insulation">insulation</a> helps maintain a more consistent temperature in the attic, reducing those cold surfaces where condensation forms. Insulating the attic hatch and chimney are crucial details often overlooked. And ensuring your bathroom and dryer vents are correctly ducted to the exterior is essential for removing excess moisture from your home.</p>
-
-  <p>Addressing attic condensation and mold growth is an investment in your home's long-term health and your family's well-being. If you suspect you have an issue in your Maine attic, don't wait for the problem to worsen. Contact the experts at Mattra right here in Lewiston. We can assess your attic, identify the sources of condensation, and recommend the best solutions for mold remediation and preventing future problems through proper air sealing and insulation. Protecting your Maine home starts from the top down!</p>
-
-</article>
-
-<div class="blog-back">
-  <a href="/blog">&larr; Back to Blog</a>
-</div>
-
-<!-- CTA Section -->
-<section class="section section--green" style="text-align:center; padding:48px 24px;">
-  <div class="container">
-    <h2 style="color:#fff; font-family:'DM Serif Display',serif; font-size:2rem; margin-bottom:12px;">Have a Question?</h2>
-    <p style="color:rgba(255,255,255,.85); max-width:560px; margin:0 auto 24px; font-size:1.05rem;">Our team is ready to help with any mold, insulation, or home performance concern.</p>
-    <a href="/contact" class="btn" style="background:var(--gold-accent); color:var(--text-dark); font-weight:700; padding:14px 36px; border-radius:var(--radius); font-size:1rem; display:inline-block;">Contact Us</a>
+  <img src="/Images/blog/maine-attic-nightmares-condensation-mold-and-protecting-your-home.webp" alt="Condensation forming on attic roof sheathing in a Maine home" width="1400" height="420" />
+  <div class="blog-post-hero-content">
+    <div class="blog-post-cat">Mold &amp; Moisture</div>
+    <h1>Maine Attic Nightmares: Condensation, Mold, and Protecting Your Home</h1>
+    <div class="post-meta">
+      <span>By Mattra Inc.</span>
+      <span class="post-meta-dot"></span>
+      <span>August 18, 2025</span>
+      <span class="post-meta-dot"></span>
+      <span>5 min read</span>
+    </div>
   </div>
 </section>
+
+<div class="blog-post-wrap">
+
+  <article class="blog-article">
+
+    <p>That musty smell. The faint water stains on your attic ceiling. Maybe you've even spotted some unwelcome dark spots.</p>
+
+    <p>If you're a Maine homeowner, especially in our older homes, these could be signs of a serious problem brewing in your attic: condensation leading to mold growth. It's a more common issue than you might think, and it can have significant consequences for your home's health and your wallet.</p>
+
+    <p>Why is your Maine attic suddenly feeling like a rainforest? The culprit is often a perfect storm of factors we see frequently here at Mattra: a lack of proper air sealing and insufficient insulation.</p>
+
+    <p>Think of your warm, humid indoor air rising into the colder attic space. Without proper air barriers, this warm, moisture-laden air sneaks through cracks and openings around wiring, plumbing, and light fixtures.</p>
+
+    <p>Once this warm, moist air hits the cold surfaces in your uninsulated attic – like the roof sheathing – it cools rapidly. Just like water beading on a cold glass on a summer day, this cooling air releases its excess moisture in the form of condensation. And in a Maine winter, those surfaces stay cold for a long time!</p>
+
+    <p>Several other common issues exacerbate this problem. That uninsulated attic hatch? It's a direct pathway for warm, humid air to escape. An uninsulated chimney acts as another cold surface where condensation can form. And those bathroom and dryer vents that aren't properly ducted to the outside? They're pumping even more moisture directly into your attic – a recipe for disaster.</p>
+
+    <p>So, what happens when all this condensation builds up? That's where mold enters the picture. Mold spores are everywhere, both indoors and out. They thrive in damp, dark environments with organic materials to feed on – like the wood in your attic.</p>
+
+    <p>Consistent condensation provides the perfect breeding ground.</p>
+
+    <p>As mold grows, it doesn't just create unsightly stains and that telltale musty odor. It actively deteriorates the materials it grows on. Over time, <a href="/mold-remediation">mold</a> can weaken the structural integrity of your roof sheathing and rafters, leading to costly repairs. It can also damage any stored items in your attic.</p>
+
+    <p>Beyond the structural damage, mold growth can also impact your indoor air quality. Mold spores can become airborne and circulate throughout your home, potentially triggering allergic reactions, asthma symptoms, and other respiratory issues for you and your family. As a licensed vendor with <a href="/rebates">Efficiency Maine</a>, we understand the importance of a healthy home environment.</p>
+
+    <p>The good news? These attic issues are often fixable! Proper air sealing prevents that warm, humid air from entering the attic in the first place. Adequate <a href="/insulation">insulation</a> helps maintain a more consistent temperature in the attic, reducing those cold surfaces where condensation forms. Insulating the attic hatch and chimney are crucial details often overlooked. And ensuring your bathroom and dryer vents are correctly ducted to the exterior is essential for removing excess moisture from your home.</p>
+
+    <p>Addressing attic condensation and mold growth is an investment in your home's long-term health and your family's well-being. If you suspect you have an issue in your Maine attic, don't wait for the problem to worsen. Contact the experts at Mattra right here in Lewiston. We can assess your attic, identify the sources of condensation, and recommend the best solutions for mold remediation and preventing future problems through proper air sealing and insulation. Protecting your Maine home starts from the top down!</p>
+
+    <div class="blog-cta-banner">
+      <h3>Concerned About Your Attic?</h3>
+      <p>Mattra offers free home assessments for Maine homeowners. We'll identify condensation and mold risks and recommend the right fix.</p>
+      <a href="/contact">Schedule a Free Inspection</a>
+    </div>
+
+  </article>
+
+  <aside class="blog-sidebar">
+
+    <div class="sidebar-card">
+      <div class="sidebar-head">Related Articles</div>
+      <div class="sidebar-body">
+        <a class="sidebar-link" href="/september-in-maine-it-s-time-to-get-ready-for-the-cold">September in Maine: Get Ready for the Cold</a>
+        <a class="sidebar-link" href="/spring-maintenance-to-prevent-mold-a-comprehensive-guide">Spring Maintenance to Prevent Mold</a>
+        <a class="sidebar-link" href="/blower-door-test">Blower Door Test</a>
+      </div>
+    </div>
+
+    <div class="sidebar-cta">
+      <div class="sidebar-cta-title">Need help with your home?</div>
+      <p>Free consultations for Maine homeowners. We'll assess your home and recommend the right solution.</p>
+      <a href="/contact">Get a Free Consultation</a>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-head">Browse Topics</div>
+      <div class="sidebar-body">
+        <a class="sidebar-link" href="/blog?topic=Mold %26 Moisture">Mold &amp; Moisture</a>
+        <a class="sidebar-link" href="/blog?topic=Insulation">Insulation</a>
+        <a class="sidebar-link" href="/blog?topic=Energy Efficiency">Energy Efficiency</a>
+        <a class="sidebar-link" href="/blog?topic=Home Maintenance">Home Maintenance</a>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
 
 <div id="footer"></div>
 <script src="/components.js" defer></script>
