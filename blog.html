@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- ===== SEO ===== -->
+  <title>Mattra Blog | Mold, Insulation &amp; Home Performance Articles</title>
+  <meta name="description" content="Browse Mattra's latest articles on mold, insulation, moisture, efficiency, construction, and home performance." />
+  <meta name="keywords" content="mattra blog, mold blog, insulation blog, home performance blog, construction blog, moisture articles, efficiency articles" />
+  <link rel="canonical" href="https://www.mattrainc.com/blog" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Mattra Blog | Mold, Insulation &amp; Home Performance Articles" />
+  <meta property="og:description" content="Browse Mattra's latest articles on mold, insulation, moisture, efficiency, construction, and home performance." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.mattrainc.com/blog" />
+
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.mattrainc.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.mattrainc.com/blog" }
+    ]
+  }
+  </script>
+
+  <!-- Blog Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Mattra Blog",
+    "description": "Practical articles on mold, insulation, moisture, efficiency, construction, and whole home problem solving.",
+    "url": "https://www.mattrainc.com/blog",
+    "publisher": {
+      "@type": "HomeAndConstructionBusiness",
+      "name": "Mattra Inc.",
+      "url": "https://www.mattrainc.com",
+      "telephone": "+12077776020",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "68 Whipple St",
+        "addressLocality": "Lewiston",
+        "addressRegion": "ME",
+        "postalCode": "04240",
+        "addressCountry": "US"
+      }
+    }
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/globals.css" />
+
+<style>
+/* ===== BLOG INDEX ===== */
+.blog-hero {
+  background: var(--green-dark);
+  color: var(--white);
+  text-align: center;
+  padding: 80px 24px 60px;
+}
+.blog-hero h1 { color: var(--white); margin-bottom: 12px; }
+.blog-hero p { color: rgba(255,255,255,.8); font-size: 1.1rem; max-width: 640px; margin: 0 auto; }
+
+.blog-premium {
+  background: var(--off-white);
+  padding: 60px 24px;
+}
+.blog-premium .inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.blog-premium .premium-text { flex: 1; }
+.blog-premium h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--text-dark); margin-bottom: 16px; }
+.blog-premium p { color: var(--text-body); margin-bottom: 20px; }
+.blog-premium .soft-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--green-primary);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color var(--transition);
+}
+.blog-premium .soft-cta:hover { color: var(--gold-accent); }
+.blog-premium .micro-trust { font-size: .85rem; color: var(--text-light); margin-top: 16px; }
+
+.blog-articles {
+  padding: 60px 24px 80px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.blog-articles h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  color: var(--text-dark);
+  margin-bottom: 40px;
+  text-align: center;
+}
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.blog-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  color: inherit;
+}
+.blog-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+.blog-card-body {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.blog-card-meta {
+  font-size: .82rem;
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+.blog-card-body h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+.blog-card-body p {
+  color: var(--text-body);
+  font-size: .92rem;
+  line-height: 1.6;
+  flex: 1;
+}
+.blog-card .read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--green-primary);
+  font-weight: 600;
+  font-size: .9rem;
+  margin-top: 16px;
+  transition: color var(--transition);
+}
+.blog-card:hover .read-more { color: var(--gold-accent); }
+
+@media (max-width: 900px) {
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .blog-hero { padding: 60px 20px 40px; }
+  .blog-premium .inner { flex-direction: column; }
+  .blog-grid { grid-template-columns: 1fr; gap: 24px; }
+  .blog-card img { height: 200px; }
+}
+</style>
+</head>
+<body>
+
+<div id="topbar"></div>
+<div id="header"></div>
+
+<!-- ===== HERO ===== -->
+<section class="blog-hero">
+  <h1>Mattra Blog</h1>
+  <p>Explore practical articles on mold, insulation, moisture, efficiency, construction, and whole home problem solving.</p>
+</section>
+
+<!-- ===== PREMIUM SECTION ===== -->
+<section class="blog-premium">
+  <div class="inner">
+    <div class="premium-text">
+      <h2>Helpful Articles for Healthier, More Efficient Homes</h2>
+      <p>Mattra's blog shares practical home guidance for homeowners and property managers dealing with mold, moisture, insulation, efficiency, construction, inspections, and related whole home concerns. Browse the latest articles below to find the topic that fits your question or situation.</p>
+      <a href="/services" class="soft-cta">Explore Our Services &rarr;</a>
+      <p class="micro-trust">Clear topics, practical guidance, easy browsing</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LATEST ARTICLES ===== -->
+<section class="blog-articles">
+  <h2>Latest Articles</h2>
+  <div class="blog-grid">
+
+    <!-- Card 1 -->
+    <a href="/5-summer-preparation-tips" class="blog-card">
+      <img src="/Images/blog/5-summer-preparation-tips.webp" alt="5 Summer Preparation Tips for Maine Homeowners" width="800" height="220" loading="lazy" />
+      <div class="blog-card-body">
+        <span class="blog-card-meta">Mattra Inc. &bull; June 19, 2024</span>
+        <h3>5 Summer Preparation Tips</h3>
+        <p>As summer approaches in Maine, homeowners face challenges with under-insulated homes, air conditioning costs, and the threat of mold growth.</p>
+        <span class="read-more">Read Article &rarr;</span>
+      </div>
+    </a>
+
+    <!-- Card 2 -->
+    <a href="/spring-maintenance-to-prevent-mold-a-comprehensive-guide" class="blog-card">
+      <img src="/Images/blog/spring-maintenance-to-prevent-mold-a-comprehensive-guide.webp" alt="Spring Maintenance to Prevent Mold" width="800" height="220" loading="lazy" />
+      <div class="blog-card-body">
+        <span class="blog-card-meta">Mattra Inc. &bull; June 3, 2024</span>
+        <h3>Spring Maintenance to Prevent Mold: A Comprehensive Guide</h3>
+        <p>Spring marks the beginning of potential moisture problems in homes. Learn how proper maintenance prevents mold and protects your property.</p>
+        <span class="read-more">Read Article &rarr;</span>
+      </div>
+    </a>
+
+    <!-- Card 3 -->
+    <a href="/top-3-home-insulations-spray-foam-blown-in-cellulose-fiberglass" class="blog-card">
+      <img src="/Images/blog/top-3-home-insulations-spray-foam-blown-in-cellulose-fiberglass.webp" alt="Top 3 Home Insulations" width="800" height="220" loading="lazy" />
+      <div class="blog-card-body">
+        <span class="blog-card-meta">Mattra Inc. &bull; May 15, 2024</span>
+        <h3>Top 3 Home Insulations: Spray Foam, Blown-in Cellulose, &amp; Fiberglass</h3>
+        <p>Choosing the right insulation is about comfort, energy efficiency, and sustainability. Compare the top three insulation types for Maine homes.</p>
+        <span class="read-more">Read Article &rarr;</span>
+      </div>
+    </a>
+
+    <!-- Card 4 -->
+    <a href="/blower-door-test" class="blog-card">
+      <img src="/Images/blog/blower-door-test.webp" alt="Blower Door Test for Maine Homes" width="800" height="220" loading="lazy" />
+      <div class="blog-card-body">
+        <span class="blog-card-meta">Mattra Inc. &bull; April 3, 2025</span>
+        <h3>Blower Door Test</h3>
+        <p>Many Maine homeowners don't realize how much money is flying out the window. A blower door test reveals exactly where your home is leaking air.</p>
+        <span class="read-more">Read Article &rarr;</span>
+      </div>
+    </a>
+
+    <!-- Card 5 -->
+    <a href="/maine-attic-nightmares-condensation-mold-and-protecting-your-home" class="blog-card">
+      <img src="/Images/blog/maine-attic-nightmares-condensation-mold-and-protecting-your-home.webp" alt="Maine Attic Condensation and Mold" width="800" height="220" loading="lazy" />
+      <div class="blog-card-body">
+        <span class="blog-card-meta">Mattra Inc. &bull; August 18, 2025</span>
+        <h3>Maine Attic Nightmares: Condensation, Mold, and Protecting Your Home</h3>
+        <p>That musty smell and faint water stains could be signs of a serious problem in your attic. Learn how condensation leads to mold growth.</p>
+        <span class="read-more">Read Article &rarr;</span>
+      </div>
+    </a>
+
+    <!-- Card 6 -->
+    <a href="/september-in-maine-it-s-time-to-get-ready-for-the-cold" class="blog-card">
+      <img src="/Images/blog/september-in-maine-it-s-time-to-get-ready-for-the-cold.webp" alt="Getting Ready for Cold Weather in Maine" width="800" height="220" loading="lazy" />
+      <div class="blog-card-body">
+        <span class="blog-card-meta">Mattra Inc. &bull; September 16, 2025</span>
+        <h3>September in Maine: It's Time to Get Ready for the Cold</h3>
+        <p>The air is getting crisp and winter is around the corner. Learn how proper insulation and air sealing can slash your energy costs.</p>
+        <span class="read-more">Read Article &rarr;</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ===== CONTACT STRIP ===== -->
+<section class="section section--green" style="text-align:center; padding:48px 24px;">
+  <div class="container">
+    <h2 style="color:#fff; font-family:'DM Serif Display',serif; font-size:2rem; margin-bottom:12px;">Have a Question?</h2>
+    <p style="color:rgba(255,255,255,.85); max-width:560px; margin:0 auto 24px; font-size:1.05rem;">Our team is ready to help with any mold, insulation, or home performance concern.</p>
+    <a href="/contact" class="btn" style="background:var(--gold-accent); color:var(--text-dark); font-weight:700; padding:14px 36px; border-radius:var(--radius); font-size:1rem; display:inline-block;">Contact Us</a>
+  </div>
+</section>
+
+<div id="footer"></div>
+<script src="/components.js" defer></script>
+</body>
+</html>
