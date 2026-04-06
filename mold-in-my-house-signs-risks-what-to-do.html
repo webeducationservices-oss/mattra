@@ -38,7 +38,7 @@
         "addressCountry": "US"
       }
     },
-    "datePublished": "2024-12-19",
+    "datePublished": "2024-12-20",
     "articleSection": "Mold & Moisture"
   }
   </script>
@@ -61,128 +61,131 @@
   <link rel="stylesheet" href="/globals.css" />
 
 <style>
-/* ===== BLOG POST STYLES ===== */
-.post-hero {
-  background: var(--green-dark); padding: 4rem 1.5rem 3rem; text-align: center;
+.blog-post-hero {
+  position: relative; min-height: 420px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; background: var(--green-dark);
 }
-.post-hero-eyebrow {
-  font-size: .72rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .18em; color: var(--gold-accent); margin-bottom: .75rem;
+.blog-post-hero img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; opacity: .35;
 }
-.post-hero h1 {
+.blog-post-hero-content {
+  position: relative; z-index: 2; text-align: center;
+  padding: 3rem 1.5rem; max-width: 720px;
+}
+.blog-post-cat {
+  display: inline-block; font-size: .68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .14em; color: var(--gold-accent);
+  background: rgba(0,0,0,.3); padding: .3rem .85rem; border-radius: 999px;
+  margin-bottom: 1rem;
+}
+.blog-post-hero h1 {
   font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem,4vw,2.8rem);
-  color: #fff; font-weight: 400; margin: 0 0 1rem; line-height: 1.25;
+  color: #fff; font-weight: 400; line-height: 1.2; margin: 0 0 1rem;
 }
-.post-hero-meta {
-  font-size: .85rem; color: rgba(255,255,255,.7);
-  display: flex; justify-content: center; align-items: center; gap: .75rem; flex-wrap: wrap;
+.blog-post-hero .post-meta {
+  font-size: .82rem; color: rgba(255,255,255,.7);
+  display: flex; align-items: center; justify-content: center; gap: .75rem;
 }
-.post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,.5); }
-
-.post-content {
-  max-width: 760px; margin: 0 auto; padding: 3.5rem 1.5rem 4rem;
+.blog-post-hero .post-meta-dot {
+  width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,.4);
 }
-.post-content h2 {
-  font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--text-dark);
-  margin: 2.5rem 0 1rem; line-height: 1.3;
-}
-.post-content h3 {
-  font-size: 1.2rem; color: var(--text-dark); font-weight: 700;
-  margin: 2rem 0 .75rem; line-height: 1.3;
-}
-.post-content p {
-  font-size: .95rem; color: var(--text-body); line-height: 1.8;
-  margin: 0 0 1.5rem;
-}
-.post-content ul {
-  margin: 0 0 1.5rem; padding-left: 1.25rem;
-}
-.post-content li {
-  font-size: .95rem; color: var(--text-body); line-height: 1.7;
-  margin-bottom: .5rem;
-}
-.post-content strong {
-  color: var(--text-dark); font-weight: 600;
-}
-
-.post-cta {
-  background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
-  border-radius: 14px; padding: 2rem; text-align: center;
-  margin: 3rem 0 2rem;
-}
-.post-cta h3 {
-  font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: #fff;
-  margin: 0 0 .75rem;
-}
-.post-cta p {
-  color: rgba(255,255,255,.85); margin: 0 0 1.25rem; line-height: 1.7;
-}
-.post-cta-buttons {
-  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
-}
-.post-cta-btn {
-  display: inline-block; font-size: .9rem; font-weight: 700;
-  padding: .75rem 1.5rem; border-radius: var(--radius);
-  text-decoration: none; transition: all .2s;
-}
-.post-cta-btn.primary {
-  background: var(--gold-accent); color: var(--green-dark);
-}
-.post-cta-btn.primary:hover {
-  background: var(--gold-dark); color: #fff;
-}
-.post-cta-btn.secondary {
-  background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.3);
-}
-.post-cta-btn.secondary:hover {
-  background: rgba(255,255,255,.1); border-color: #fff;
-}
-
-.related-posts {
-  background: var(--light-gray); padding: 3rem 1.5rem;
-}
-.related-posts-wrap {
+.blog-post-wrap {
   max-width: 1160px; margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+  display: grid; grid-template-columns: 1fr 300px; gap: 3rem;
+  align-items: start;
 }
-.related-posts h3 {
-  font-family: 'DM Serif Display', serif; font-size: 1.8rem;
-  text-align: center; margin: 0 0 2rem; color: var(--text-dark);
+@media (max-width: 860px) {
+  .blog-post-wrap { grid-template-columns: 1fr; padding: 2rem 1.25rem 4rem; }
 }
-.related-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+.blog-article {
+  font-size: 1rem; color: var(--text-body); line-height: 1.85;
 }
-.related-card {
-  background: #fff; border-radius: 14px; overflow: hidden;
-  box-shadow: var(--shadow-sm); text-decoration: none;
-  transition: box-shadow .25s, transform .25s;
+.blog-article h2 {
+  font-family: 'DM Serif Display', serif; font-size: clamp(1.3rem,2.5vw,1.75rem);
+  color: var(--green-dark); margin: 2.5rem 0 .75rem; line-height: 1.25;
 }
-.related-card:hover {
-  box-shadow: var(--shadow-lg); transform: translateY(-3px);
+.blog-article h3 {
+  font-family: 'DM Serif Display', serif; font-size: 1.15rem;
+  color: var(--green-dark); margin: 1.75rem 0 .5rem;
 }
-.related-card-img {
-  height: 180px; overflow: hidden;
+.blog-article p { margin: 0 0 1.25rem; }
+.blog-article ul, .blog-article ol { margin: 0 0 1.25rem; padding-left: 1.25rem; }
+.blog-article li { margin-bottom: .45rem; line-height: 1.7; list-style: disc; }
+.blog-article ol li { list-style: decimal; }
+.blog-article strong { color: var(--text-dark); }
+.blog-article a { color: var(--green-primary); text-decoration: underline; }
+.blog-article a:hover { color: var(--gold-accent); }
+.blog-image {
+  margin: 2rem 0; text-align: center;
 }
-.related-card-img img {
-  width: 100%; height: 100%; object-fit: cover;
+.blog-image img {
+  width: 100%; max-width: 600px; height: auto; border-radius: 12px;
+  box-shadow: var(--shadow-md);
 }
-.related-card-body {
-  padding: 1.25rem;
+.blog-image-caption {
+  font-size: .85rem; color: var(--text-body); margin-top: .75rem;
+  font-style: italic;
 }
-.related-card-cat {
-  font-size: .7rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: .08em; color: var(--green-primary); margin-bottom: .5rem;
+.blog-cta-banner {
+  background: var(--green-dark); border-radius: 12px;
+  padding: 2rem; text-align: center; margin: 2.5rem 0 0;
 }
-.related-card-title {
-  font-family: 'DM Serif Display', serif; font-size: 1.1rem;
-  color: var(--text-dark); margin: 0; line-height: 1.35;
+.blog-cta-banner h3 {
+  font-family: 'DM Serif Display', serif; font-size: 1.4rem;
+  color: #fff; margin: 0 0 .5rem;
 }
-
+.blog-cta-banner p {
+  font-size: .9rem; color: rgba(255,255,255,.75); margin: 0 0 1.25rem; line-height: 1.6;
+}
+.blog-cta-banner a {
+  display: inline-block; font-size: .85rem; font-weight: 700;
+  background: var(--gold-accent); color: var(--green-dark); padding: .6rem 1.5rem;
+  border-radius: var(--radius); text-decoration: none; transition: all .2s;
+}
+.blog-cta-banner a:hover { background: var(--gold-dark); color: #fff; }
+.blog-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+.sidebar-card {
+  background: #fff; border-radius: 14px;
+  box-shadow: var(--shadow-sm); overflow: hidden;
+}
+.sidebar-head {
+  background: var(--green-dark); padding: .85rem 1.25rem;
+  font-size: .72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .12em; color: var(--gold-accent);
+}
+.sidebar-body { padding: 1.25rem; }
+.sidebar-link {
+  display: block; padding: .5rem 0;
+  font-size: .86rem; color: var(--text-dark);
+  font-weight: 600; border-bottom: 1px solid var(--border-light); transition: color .2s;
+  text-decoration: none;
+}
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--green-primary); }
+.sidebar-cta {
+  background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
+  border-radius: 14px; padding: 1.5rem; text-align: center;
+}
+.sidebar-cta-title {
+  font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: #fff;
+  margin: 0 0 .5rem;
+}
+.sidebar-cta p {
+  font-size: .82rem; color: rgba(255,255,255,.8);
+  line-height: 1.65; margin: 0 0 1.25rem;
+}
+.sidebar-cta a {
+  display: inline-block; font-size: .85rem; font-weight: 700;
+  background: var(--gold-accent); color: var(--green-dark); padding: .6rem 1.5rem;
+  border-radius: 8px; text-decoration: none; transition: all .2s;
+}
+.sidebar-cta a:hover { background: var(--gold-dark); color: #fff; }
 @media (max-width: 600px) {
-  .post-hero { padding: 3rem 1.25rem 2.5rem; }
-  .post-content { padding: 2.5rem 1.25rem 3rem; }
-  .post-cta-buttons { flex-direction: column; align-items: center; }
-  .post-cta-btn { width: 200px; text-align: center; }
+  .blog-post-hero { min-height: 320px; }
+  .blog-post-hero h1 { font-size: 1.6rem; }
 }
 </style>
 </head>
@@ -191,19 +194,24 @@
 <div id="topbar"></div>
 <div id="header"></div>
 
-<!-- ===== POST HERO ===== -->
-<section class="post-hero">
-  <div class="post-hero-eyebrow">Mold & Moisture</div>
-  <h1>Mold in My House: What It Means and What to Do Next</h1>
-  <div class="post-hero-meta">
-    <span>Mattra Inc.</span>
-    <span class="post-meta-dot"></span>
-    <span>Dec 19, 2024</span>
+<section class="blog-post-hero">
+  <img src="/Images/blog/mold-in-my-house-signs-risks-what-to-do.webp" alt="Mold growth in a closet showing dark patches on walls and ceiling" width="1400" height="420" />
+  <div class="blog-post-hero-content">
+    <div class="blog-post-cat">Mold &amp; Moisture</div>
+    <h1>Mold in My House: What It Means and What to Do Next</h1>
+    <div class="post-meta">
+      <span>By Mattra Inc.</span>
+      <span class="post-meta-dot"></span>
+      <span>Dec 20, 2024</span>
+      <span class="post-meta-dot"></span>
+      <span>6 min read</span>
+    </div>
   </div>
 </section>
 
-<!-- ===== POST CONTENT ===== -->
-<article class="post-content">
+<div class="blog-post-wrap">
+
+  <article class="blog-article">
   <p>If you've caught yourself thinking, "Is there mold in my house?"—you're not alone. Maybe it's the musty smell that won't go away. Maybe your allergies seem worse indoors, especially during winter. Or maybe you're preparing to sell your home and want to avoid surprises.</p>
 
   <p>The truth is, mold can grow quietly behind walls, in attics, or in basements long before you ever see it. Knowing what to look for—and what to do next—can save you time, money, and stress.</p>
@@ -222,6 +230,13 @@
   </ul>
 
   <p>If you're noticing more than one of these, there's a good chance mold could be present.</p>
+
+  <div class="blog-image">
+    <img src="/Images/blog/mold-in-my-house-signs-risks-what-to-do.webp" 
+         alt="Mold growth in a closet showing dark patches on walls and ceiling" 
+         loading="lazy" width="600" height="400" />
+    <div class="blog-image-caption">Mold can grow in hidden areas like closets, especially where moisture and poor ventilation create ideal conditions.</div>
+  </div>
 
   <h2>Is Mold in Your House Dangerous?</h2>
   
@@ -279,59 +294,45 @@
   
   <p>Schedule your inspection today and get the peace of mind you deserve.</p>
 
-  <!-- CTA Section -->
-  <div class="post-cta">
-    <h3>Get Professional Mold Testing & Remediation</h3>
-    <p>Our certified team provides thorough mold inspections and complete remediation services throughout Maine. Don't wait—get the answers you need.</p>
-    <div class="post-cta-buttons">
-      <a href="https://www.mattrainc.com/mold-remediation" class="post-cta-btn primary">Learn More About Our Services</a>
-      <a href="tel:2077776020" class="post-cta-btn secondary">Call (207) 777-6020</a>
+    <div class="blog-cta-banner">
+      <h3>Get Professional Mold Testing & Remediation</h3>
+      <p>Our certified team provides thorough mold inspections and complete remediation services throughout Maine. Don't wait—get the answers you need.</p>
+      <a href="/contact">Schedule a Free Inspection</a>
     </div>
-  </div>
-</article>
 
-<!-- ===== RELATED POSTS ===== -->
-<section class="related-posts">
-  <div class="related-posts-wrap">
-    <h3>Related Articles</h3>
-    <div class="related-grid">
-      
-      <a class="related-card" href="/before-you-pay-for-mold-remediation-in-maine">
-        <div class="related-card-img">
-          <img src="/Images/blog/before-you-pay-for-mold-remediation-in-maine.webp" 
-               alt="Before you pay for mold remediation in Maine" loading="lazy" width="400" height="180" />
-        </div>
-        <div class="related-card-body">
-          <div class="related-card-cat">Mold & Moisture</div>
-          <div class="related-card-title">Before You Pay for Mold Remediation in Maine, Read This</div>
-        </div>
-      </a>
+  </article>
 
-      <a class="related-card" href="/maine-attic-nightmares-condensation-mold-and-protecting-your-home">
-        <div class="related-card-img">
-          <img src="/Images/blog/maine-attic-nightmares-condensation-mold-and-protecting-your-home.webp" 
-               alt="Maine attic condensation and mold" loading="lazy" width="400" height="180" />
-        </div>
-        <div class="related-card-body">
-          <div class="related-card-cat">Mold & Moisture</div>
-          <div class="related-card-title">Maine Attic Nightmares: Condensation, Mold, and Protecting Your Home</div>
-        </div>
-      </a>
+  <aside class="blog-sidebar">
 
-      <a class="related-card" href="/what-does-mold-remediation-mean">
-        <div class="related-card-img">
-          <img src="/Images/blog/what-does-mold-remediation-mean.webp" 
-               alt="What does mold remediation mean" loading="lazy" width="400" height="180" />
-        </div>
-        <div class="related-card-body">
-          <div class="related-card-cat">Mold & Moisture</div>
-          <div class="related-card-title">What Does Mold Remediation Mean</div>
-        </div>
-      </a>
-
+    <div class="sidebar-card">
+      <div class="sidebar-head">Related Articles</div>
+      <div class="sidebar-body">
+        <a class="sidebar-link" href="/before-you-pay-for-mold-remediation-in-maine">Before You Pay for Mold Remediation in Maine</a>
+        <a class="sidebar-link" href="/maine-attic-nightmares-condensation-mold-and-protecting-your-home">Maine Attic Nightmares</a>
+        <a class="sidebar-link" href="/what-does-mold-remediation-mean">What Does Mold Remediation Mean?</a>
+        <a class="sidebar-link" href="/spring-maintenance-to-prevent-mold-a-comprehensive-guide">Spring Maintenance to Prevent Mold</a>
+      </div>
     </div>
-  </div>
-</section>
+
+    <div class="sidebar-cta">
+      <div class="sidebar-cta-title">Need help with your home?</div>
+      <p>Free consultations for Maine homeowners. We'll assess your home and recommend the right solution.</p>
+      <a href="/contact">Get a Free Consultation</a>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-head">Browse Topics</div>
+      <div class="sidebar-body">
+        <a class="sidebar-link" href="/blog?topic=Mold %26 Moisture">Mold &amp; Moisture</a>
+        <a class="sidebar-link" href="/blog?topic=Insulation">Insulation</a>
+        <a class="sidebar-link" href="/blog?topic=Energy Efficiency">Energy Efficiency</a>
+        <a class="sidebar-link" href="/blog?topic=Home Maintenance">Home Maintenance</a>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
 
 <div id="footer"></div>
 <script src="/components.js" defer></script>
