@@ -234,13 +234,23 @@
       background: var(--white);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-sm);
-      padding: 28px 24px;
-      border-left: 4px solid var(--green-primary);
+      overflow: hidden;
       transition: box-shadow .2s, transform .2s;
     }
     .mold-card:hover {
       box-shadow: var(--shadow-md);
       transform: translateY(-2px);
+    }
+    .mold-card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      background: #e8ece8;
+    }
+    .mold-card-body {
+      padding: 24px 24px 28px;
+      border-left: 4px solid var(--green-primary);
     }
     .mold-card h4 {
       font-family: 'DM Serif Display', serif;
@@ -260,11 +270,21 @@
       background: var(--white);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-sm);
-      padding: 24px 20px;
-      border-top: 3px solid var(--gold-accent);
-      transition: box-shadow .2s;
+      overflow: hidden;
+      transition: box-shadow .2s, transform .2s;
     }
-    .mold-card-secondary:hover { box-shadow: var(--shadow-md); }
+    .mold-card-secondary:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .mold-card-secondary .mold-card-img {
+      height: 160px;
+    }
+    .mold-card-secondary .mold-card-body {
+      padding: 20px 20px 24px;
+      border-left: none;
+      border-top: 3px solid var(--gold-accent);
+    }
     .mold-card-secondary h4 {
       font-family: 'DM Serif Display', serif;
       font-size: 1rem;
@@ -640,28 +660,43 @@
     <div class="grid-3" style="margin-top:40px;">
 
       <div class="mold-card">
-        <h4>Alternaria</h4>
-        <p>Often discussed as a common indoor mold. Homeowners may hear this name in connection with damp indoor areas or airborne spores.</p>
+        <img src="/Images/mold/alternaria.webp" alt="Alternaria mold — early growth on a damp indoor surface" class="mold-card-img" width="400" height="200" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Alternaria</h4>
+          <p>Often discussed as a common indoor mold. Homeowners may hear this name in connection with damp indoor areas or airborne spores.</p>
+        </div>
       </div>
 
       <div class="mold-card">
-        <h4>Aspergillus</h4>
-        <p>One of the most common indoor molds. It is a broad genus with many species, so the genus name is often more useful to homeowners than trying to memorize a specific species.</p>
+        <img src="/Images/mold/aspergillus.webp" alt="Aspergillus mold — early growth on a damp indoor surface" class="mold-card-img" width="400" height="200" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Aspergillus</h4>
+          <p>One of the most common indoor molds. It is a broad genus with many species, so the genus name is often more useful to homeowners than trying to memorize a specific species.</p>
+        </div>
       </div>
 
       <div class="mold-card">
-        <h4>Cladosporium</h4>
-        <p>Another very common indoor mold. It is often part of the standard short list of molds found in homes.</p>
+        <img src="/Images/mold/cladosporium.webp" alt="Cladosporium mold — early growth on a damp indoor surface" class="mold-card-img" width="400" height="200" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Cladosporium</h4>
+          <p>Another very common indoor mold. It is often part of the standard short list of molds found in homes.</p>
+        </div>
       </div>
 
       <div class="mold-card">
-        <h4>Penicillium</h4>
-        <p>A common indoor mold genus that frequently shows up in home mold discussions and reports.</p>
+        <img src="/Images/mold/penicillium.webp" alt="Penicillium mold — early growth on a damp indoor surface" class="mold-card-img" width="400" height="200" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Penicillium</h4>
+          <p>A common indoor mold genus that frequently shows up in home mold discussions and reports.</p>
+        </div>
       </div>
 
       <div class="mold-card">
-        <h4>Stachybotrys chartarum</h4>
-        <p>The best-known mold behind many &ldquo;black mold&rdquo; searches. It is the name homeowners most often hear when dark mold growth becomes a concern. CDC specifically discusses it in the context of &ldquo;toxigenic&rdquo; mold language.</p>
+        <img src="/Images/mold/stachybotrys.webp" alt="Stachybotrys chartarum (black mold) — early growth on a damp indoor surface" class="mold-card-img" width="400" height="200" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Stachybotrys chartarum</h4>
+          <p>The best-known mold behind many &ldquo;black mold&rdquo; searches. It is the name homeowners most often hear when dark mold growth becomes a concern. CDC specifically discusses it in the context of &ldquo;toxigenic&rdquo; mold language.</p>
+        </div>
       </div>
 
     </div>
@@ -679,48 +714,75 @@
     <div class="grid-3" style="margin-top:40px;">
 
       <div class="mold-card-secondary">
-        <h4>Chaetomium</h4>
-        <p>Often associated with damp or water-damaged materials, especially cellulose-based materials.</p>
+        <img src="/Images/mold/chaetomium.webp" alt="Chaetomium mold — early growth on damp cellulose material" class="mold-card-img" width="400" height="160" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Chaetomium</h4>
+          <p>Often associated with damp or water-damaged materials, especially cellulose-based materials.</p>
+        </div>
       </div>
 
       <div class="mold-card-secondary">
-        <h4>Acremonium</h4>
-        <p>A name that can appear in moisture-damage and indoor mold discussions, especially around damp building materials.</p>
+        <img src="/Images/mold/acremonium.webp" alt="Acremonium mold — early growth on a damp building surface" class="mold-card-img" width="400" height="160" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Acremonium</h4>
+          <p>A name that can appear in moisture-damage and indoor mold discussions, especially around damp building materials.</p>
+        </div>
       </div>
 
       <div class="mold-card-secondary">
-        <h4>Ulocladium</h4>
-        <p>Another mold name often associated with damp or water-damaged building materials.</p>
+        <img src="/Images/mold/ulocladium.webp" alt="Ulocladium mold — early growth on a water-damaged surface" class="mold-card-img" width="400" height="160" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Ulocladium</h4>
+          <p>Another mold name often associated with damp or water-damaged building materials.</p>
+        </div>
       </div>
 
       <div class="mold-card-secondary">
-        <h4>Trichoderma</h4>
-        <p>Often discussed in moisture-damaged building contexts and water-affected materials.</p>
+        <img src="/Images/mold/trichoderma.webp" alt="Trichoderma mold — early growth on a moisture-damaged surface" class="mold-card-img" width="400" height="160" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Trichoderma</h4>
+          <p>Often discussed in moisture-damaged building contexts and water-affected materials.</p>
+        </div>
       </div>
 
       <div class="mold-card-secondary">
-        <h4>Aureobasidium</h4>
-        <p>A name that may appear in indoor mold discussions and damp-building contexts.</p>
+        <img src="/Images/mold/aureobasidium.webp" alt="Aureobasidium mold — early growth on a damp indoor surface" class="mold-card-img" width="400" height="160" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Aureobasidium</h4>
+          <p>A name that may appear in indoor mold discussions and damp-building contexts.</p>
+        </div>
       </div>
 
       <div class="mold-card-secondary">
-        <h4>Mucor</h4>
-        <p>A genus that homeowners may see in indoor mold lists or reports, especially where dampness is part of the conversation.</p>
+        <img src="/Images/mold/mucor.webp" alt="Mucor mold — early growth on a damp surface" class="mold-card-img" width="400" height="160" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Mucor</h4>
+          <p>A genus that homeowners may see in indoor mold lists or reports, especially where dampness is part of the conversation.</p>
+        </div>
       </div>
 
       <div class="mold-card-secondary">
-        <h4>Rhizopus</h4>
-        <p>Often included in broader indoor mold or moisture-damage discussions, though less familiar to most homeowners.</p>
+        <img src="/Images/mold/rhizopus.webp" alt="Rhizopus mold — early growth on a damp surface" class="mold-card-img" width="400" height="160" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Rhizopus</h4>
+          <p>Often included in broader indoor mold or moisture-damage discussions, though less familiar to most homeowners.</p>
+        </div>
       </div>
 
       <div class="mold-card-secondary">
-        <h4>Fusarium</h4>
-        <p>A name that appears in indoor mold and water-damage discussions, especially when homeowners are reading more detailed material.</p>
+        <img src="/Images/mold/fusarium.webp" alt="Fusarium mold — early growth on a water-damaged surface" class="mold-card-img" width="400" height="160" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Fusarium</h4>
+          <p>A name that appears in indoor mold and water-damage discussions, especially when homeowners are reading more detailed material.</p>
+        </div>
       </div>
 
       <div class="mold-card-secondary">
-        <h4>Scopulariopsis</h4>
-        <p>Less common in homeowner conversations, but sometimes seen in reports and building-related mold discussions.</p>
+        <img src="/Images/mold/scopulariopsis.webp" alt="Scopulariopsis mold — early growth on a damp building material" class="mold-card-img" width="400" height="160" loading="lazy" />
+        <div class="mold-card-body">
+          <h4>Scopulariopsis</h4>
+          <p>Less common in homeowner conversations, but sometimes seen in reports and building-related mold discussions.</p>
+        </div>
       </div>
 
     </div>
