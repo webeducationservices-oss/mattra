@@ -30,7 +30,7 @@
 
   /* ── Mega-menu active helpers ──────────────────────────── */
   const serviceSlugs = ['mold','insulation','construction','consulting','services','ventilation','roofing','siding','demolition','waterproofing','rot-repair','water-damage','air-sealing','spray-foam','blown-in','crawl-space','energy-audit','blower-door','rodent','dehumidification','general-contracting','insulation-removal'];
-  const resourceSlugs = ['financing','rebates','resources','calculator','for-realtors','blog','glossary'];
+  const resourceSlugs = ['financing','rebates','resources','calculator','for-realtors','blog','glossary','mold-library'];
   function megaActive(slugs) { return slugs.some(s => path.includes(s)); }
 
   const chevron = `<svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5L5 6 7.5 3.5"/></svg>`;
@@ -70,21 +70,21 @@
           <div class="mega-col">
             <h5 class="mega-heading">Construction</h5>
             <a href="${b}construction.html">Construction Overview</a>
-            <a href="${b}rot-repair.html">Rot Repair</a>
-            <a href="${b}demolition.html">Demolition</a>
-            <a href="${b}water-damage.html">Water Damage Repair</a>
-            <a href="${b}basement-waterproofing.html">Basement Waterproofing</a>
-            <a href="${b}roofing.html">Roofing</a>
-            <a href="${b}siding.html">Siding</a>
-            <a href="${b}repair-rebuild.html">Repair &amp; Rebuild</a>
+            <a href="${b}construction/rot-repair.html">Rot Repair</a>
+            <a href="${b}construction/demolition.html">Demolition</a>
+            <a href="${b}construction/water-damage.html">Water Damage Repair</a>
+            <a href="${b}construction/basement-waterproofing.html">Basement Waterproofing</a>
+            <a href="${b}construction/roofing.html">Roofing</a>
+            <a href="${b}construction/siding.html">Siding</a>
+            <a href="${b}construction/repair-rebuild.html">Repair &amp; Rebuild</a>
           </div>
           <div class="mega-col">
             <h5 class="mega-heading">Consulting &amp; Other</h5>
             <a href="${b}consulting.html">Consulting Overview</a>
-            <a href="${b}energy-audit.html">Energy Audit</a>
-            <a href="${b}blower-door.html">Blower Door Testing</a>
-            <a href="${b}general-contracting.html">General Contracting</a>
-            <a href="${b}ventilation.html">Ventilation</a>
+            <a href="${b}other-services/energy-audit.html">Energy Audit</a>
+            <a href="${b}other-services/blower-door-testing.html">Blower Door Testing</a>
+            <a href="${b}other-services/general-contracting.html">General Contracting</a>
+            <a href="${b}construction/ventilation.html">Ventilation</a>
             <a href="${b}services.html">All Services</a>
             <div class="mega-cta-card">
               <strong>Not sure where to start?</strong>
@@ -109,7 +109,7 @@
             <h5 class="mega-heading">Learn</h5>
             <a href="${b}resources.html">Resources Hub</a>
             <a href="${b}blog.html">Blog</a>
-            <a href="${b}mold-glossary.html">Mold Glossary</a>
+            <a href="${b}mold-library.html">Mold Glossary</a>
             <a href="${b}service-areas.html">Service Areas</a>
           </div>
         </div>
@@ -150,11 +150,11 @@
         <a href="${b}insulation.html">Insulation</a>
         <a href="${b}construction.html">Construction</a>
         <a href="${b}consulting.html">Consulting</a>
-        <a href="${b}other-services.html">Other Services</a>
+        <a href="${b}services.html">Other Services</a>
       </div>
       <div class="footer-col">
         <h4>Resources</h4>
-        <a href="${b}financing.html">Financing &amp; Rebates</a>
+        <a href="${b}financing-rebates.html">Financing &amp; Rebates</a>
         <a href="${b}rebate-calculator.html">Rebate Calculator</a>
         <a href="${b}for-realtors.html">For Realtors</a>
         <a href="${b}blog.html">Blog</a>
@@ -166,13 +166,13 @@
         <a href="${b}contact.html">Contact Form</a>
         <a href="${b}about.html">About Us</a>
         <a href="${b}service-areas.html">Service Areas</a>
-        <a href="${b}privacy-policy.html">Privacy Policy</a>
+        <a href="${b}privacy.html">Privacy Policy</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; ${new Date().getFullYear()} Mattra Inc. All rights reserved.</span>
       <span>
-        <a href="${b}privacy-policy.html">Privacy Policy</a> &nbsp;&middot;&nbsp;
+        <a href="${b}privacy.html">Privacy Policy</a> &nbsp;&middot;&nbsp;
         <a href="${b}terms.html">Terms of Service</a>
       </span>
     </div>
