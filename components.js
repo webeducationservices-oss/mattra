@@ -61,11 +61,11 @@
             <a href="${b}insulation.html">Insulation Overview</a>
             <a href="${b}insulation/spray-foam.html">Spray Foam</a>
             <a href="${b}insulation/blown-in.html">Blown-In</a>
-            <a href="${b}attic-insulation.html">Attic</a>
-            <a href="${b}basement-insulation.html">Basement</a>
-            <a href="${b}air-sealing.html">Air Sealing</a>
-            <a href="${b}wall-insulation.html">Wall</a>
-            <a href="${b}crawl-space.html">Crawl Space</a>
+            <a href="${b}insulation/attic.html">Attic</a>
+            <a href="${b}insulation/basement.html">Basement</a>
+            <a href="${b}insulation/air-sealing.html">Air Sealing</a>
+            <a href="${b}insulation/wall.html">Wall</a>
+            <a href="${b}insulation/crawl-space.html">Crawl Space</a>
           </div>
           <div class="mega-col">
             <h5 class="mega-heading">Construction</h5>

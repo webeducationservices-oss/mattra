@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- ===== SEO ===== -->
+  <title>Project Cost Calculators | Mattra Inc.</title>
+  <meta name="description" content="Free project calculators for Maine homeowners — estimate attic insulation cost, spray foam pricing, crawl space encapsulation, Efficiency Maine rebates, and mortgage payments." />
+  <meta name="keywords" content="attic insulation cost calculator, insulation cost per square foot, spray foam cost calculator, attic insulation estimate, efficiency maine rebate calculator" />
+  <link rel="canonical" href="https://www.mattrainc.com/calculators" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Project Cost Calculators | Mattra Inc." />
+  <meta property="og:description" content="Free project calculators for Maine homeowners — estimate attic insulation cost, spray foam pricing, crawl space encapsulation, Efficiency Maine rebates, and mortgage payments." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.mattrainc.com/calculators" />
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Project Cost Calculators",
+    "description": "Free project calculators for Maine homeowners — estimate attic insulation cost, spray foam pricing, crawl space encapsulation, Efficiency Maine rebates, and mortgage payments.",
+    "url": "https://www.mattrainc.com/calculators",
+    "publisher": {
+      "@type": "HomeAndConstructionBusiness",
+      "name": "Mattra Inc.",
+      "url": "https://www.mattrainc.com",
+      "telephone": "+12077776020",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "68 Whipple St",
+        "addressLocality": "Lewiston",
+        "addressRegion": "ME",
+        "postalCode": "04240",
+        "addressCountry": "US"
+      }
+    }
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/globals.css" />
+  <script src="/components.js" defer></script>
+  <style>
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
+      overflow: hidden;
+    }
+    .hero .container {
+      position: relative;
+      z-index: 2;
+      padding-top: 100px;
+      padding-bottom: 80px;
+    }
+    .hero-content {
+      max-width: 720px;
+    }
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      margin-bottom: 20px;
+    }
+    .hero .subtitle {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+    .hero-phone {
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .hero-phone:hover { color: var(--gold-accent); }
+
+    /* ===== ANCHOR NAV ===== */
+    .calc-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      padding: 0;
+    }
+    .calc-nav .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+    .calc-nav a {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--green-primary);
+      background: var(--bg-alt);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .calc-nav a:hover {
+      background: var(--green-primary);
+      color: var(--white);
+    }
+
+    /* ===== INTRO ===== */
+    .intro-block {
+      max-width: 800px;
+    }
+    .intro-block h2 {
+      margin-bottom: 16px;
+    }
+    .intro-block p {
+      color: var(--text-light);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    /* ===== CALCULATOR SECTIONS ===== */
+    .calc-section {
+      scroll-margin-top: 60px;
+    }
+    .calc-section:nth-child(even) {
+      background: var(--bg-alt);
+    }
+    .calc-header {
+      max-width: 800px;
+      margin-bottom: 32px;
+    }
+    .calc-header h2 {
+      margin-bottom: 12px;
+    }
+    .calc-header p {
+      color: var(--text-light);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .calc-header .related-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--green-primary);
+    }
+    .calc-header .related-link:hover {
+      color: var(--gold-accent);
+    }
+
+    /* ===== DIVIDER ===== */
+    .calc-divider {
+      border: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green-primary) 0%, var(--gold-accent) 50%, var(--green-primary) 100%);
+      opacity: 0.25;
+      margin: 0;
+    }
+
+    /* ===== COMING SOON ===== */
+    .coming-soon-badge {
+      display: inline-block;
+      background: var(--gold-accent);
+      color: var(--green-dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: var(--radius-sm);
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    .coming-soon-placeholder {
+      background: var(--bg-alt);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px 32px;
+      text-align: center;
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    /* ===== FINAL CTA ===== */
+    .final-cta {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .final-cta h2 { color: var(--white); margin-bottom: 16px; }
+    .final-cta p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .final-cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .final-cta-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .final-cta-links a {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .final-cta-links a:hover { color: var(--gold-accent); }
+    .final-cta-address {
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+    .final-cta-address a {
+      color: rgba(255,255,255,0.7);
+    }
+    .final-cta-address a:hover { color: var(--gold-accent); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .hero { min-height: 400px; }
+      .calc-nav .container { gap: 6px; }
+      .calc-nav a { padding: 6px 12px; font-size: 0.8rem; }
+      .coming-soon-placeholder { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== TOPBAR + HEADER ===== -->
+<div id="topbar"></div>
+<div id="header"></div>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Estimate Your Project Cost Before You Call</h1>
+      <p class="subtitle">Five free calculators to help Maine homeowners budget insulation projects, estimate Efficiency Maine rebates, and plan financing. Get a realistic number before we meet &mdash; then we&rsquo;ll refine it with exact measurements at your free in-home assessment.</p>
+      <div class="hero-ctas">
+        <a href="/contact" class="btn btn-gold">Schedule a Free Assessment</a>
+        <a href="tel:+12077776020" class="hero-phone">Call (207) 777-6020 &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ANCHOR NAV ===== -->
+<nav class="calc-nav" aria-label="Calculator navigation">
+  <div class="container">
+    <a href="#rebate-calc">Rebate Calculator</a>
+    <a href="#attic-calc">Attic Insulation</a>
+    <a href="#spray-foam-calc">Spray Foam</a>
+    <a href="#basement-calc">Basement &amp; Crawl Space</a>
+    <a href="#mortgage-calc">Mortgage Payment</a>
+  </div>
+</nav>
+
+<!-- ===== INTRO ===== -->
+<section class="section">
+  <div class="container">
+    <div class="intro-block">
+      <h2>Know Your Numbers Before You Commit</h2>
+      <p>Most homeowners go into a contractor meeting without any idea what a project costs &mdash; which makes it hard to evaluate what you&rsquo;re being quoted. These calculators give you a realistic ballpark before anyone shows up at your door.</p>
+      <p>They&rsquo;re built for Maine &mdash; using local installation cost ranges, current Efficiency Maine rebate percentages, and realistic project scopes for the kinds of homes we work on every day. The estimates are not quotes, but they&rsquo;ll tell you whether a project is in your budget and how much of it rebates and financing can cover.</p>
+      <p>After you run the numbers, the next step is a <a href="/contact">free in-home assessment</a>. We measure everything, confirm your rebate eligibility, and give you a firm price before any work begins.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CALCULATOR 1: REBATE ===== -->
+<hr class="calc-divider" />
+<section class="section calc-section" id="rebate-calc">
+  <div class="container">
+    <div class="calc-header">
+      <h2>Efficiency Maine Rebate Calculator</h2>
+      <p>Find out how much Efficiency Maine will rebate on your insulation project. Select your project areas (attic, wall, rim joist, basement, crawl space, air sealing), enter square footage, and choose your income tier. Shows estimated project cost, rebate amount (40%&ndash;80% depending on income tier, up to $8,000), and estimated out-of-pocket cost in real time.</p>
+    </div>
+    <div class="rebate-calculator"></div>
+  </div>
+</section>
+
+<!-- ===== CALCULATOR 2: ATTIC ===== -->
+<hr class="calc-divider" />
+<section class="section calc-section" id="attic-calc">
+  <div class="container">
+    <div class="calc-header">
+      <h2>Attic Insulation Cost Estimator</h2>
+      <p>Estimate the cost of adding or upgrading attic insulation in a Maine home. Enter your attic square footage, current R-value (if known), target R-value (default R-49 per Maine code), and material preference. See your estimated project cost range, estimated rebate, and estimated out-of-pocket after Efficiency Maine rebate.</p>
+      <a href="/insulation/attic" class="related-link">Related Service: Attic Insulation &rarr;</a>
+    </div>
+    <div class="attic-calculator"></div>
+  </div>
+</section>
+
+<!-- ===== CALCULATOR 3: SPRAY FOAM ===== -->
+<hr class="calc-divider" />
+<section class="section calc-section" id="spray-foam-calc">
+  <div class="container">
+    <div class="calc-header">
+      <h2>Spray Foam Project Estimator</h2>
+      <p>Estimate the cost of a spray foam insulation project. Select your application type (rim joist, basement walls, unvented attic, wall cavities), enter the area in square footage, and choose your foam type. See estimated project cost range based on typical Maine spray foam pricing, and applicable Efficiency Maine rebate if the area qualifies.</p>
+      <a href="/insulation/spray-foam" class="related-link">Related Service: Spray Foam Insulation &rarr;</a>
+    </div>
+    <div class="spray-foam-calculator"></div>
+  </div>
+</section>
+
+<!-- ===== CALCULATOR 4: BASEMENT & CRAWL SPACE ===== -->
+<hr class="calc-divider" />
+<section class="section calc-section" id="basement-calc">
+  <div class="container">
+    <div class="calc-header">
+      <h2>Basement &amp; Crawl Space Cost Estimator</h2>
+      <p>Estimate the cost of a basement insulation or crawl space encapsulation project. Select your project type (rim joist only, basement wall insulation, full crawl space encapsulation, or combination), enter the area in square footage or linear perimeter. See estimated cost range, estimated Efficiency Maine rebate, and estimated out-of-pocket.</p>
+      <a href="/insulation/basement" class="related-link">Related Service: Basement Insulation &rarr;</a>
+      <span style="margin: 0 8px; color: var(--text-light);">&middot;</span>
+      <a href="/insulation/crawl-space" class="related-link">Crawl Space Encapsulation &rarr;</a>
+    </div>
+    <div class="basement-calculator"></div>
+  </div>
+</section>
+
+<!-- ===== CALCULATOR 5: MORTGAGE (COMING SOON) ===== -->
+<hr class="calc-divider" />
+<section class="section calc-section" id="mortgage-calc">
+  <div class="container">
+    <div class="calc-header">
+      <h2>Monthly Mortgage Payment Calculator <span class="coming-soon-badge">Coming Soon</span></h2>
+      <p>A standard mortgage payment calculator to help homeowners and buyers estimate monthly payments. Enter home price, down payment, loan term, and interest rate to see estimated monthly principal and interest, total interest paid over the life of the loan, and total amount paid. Useful for buyers evaluating homes or homeowners considering refinancing to fund energy upgrades.</p>
+      <a href="/consulting/buying-selling-real-estate" class="related-link">Buying &amp; Selling Real Estate &rarr;</a>
+      <span style="margin: 0 8px; color: var(--text-light);">&middot;</span>
+      <a href="/financing-rebates" class="related-link">Financing &amp; Rebates &rarr;</a>
+    </div>
+    <div class="coming-soon-placeholder">
+      This calculator is currently in development and will be available soon.
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="section section--green">
+  <div class="container">
+    <div class="final-cta">
+      <h2>Calculators Are a Starting Point &mdash; A Free Assessment Gives You Exact Numbers</h2>
+      <p>Our calculators use typical Maine cost ranges to give you a realistic budget before you call. But every home is different &mdash; square footage, existing insulation levels, accessibility, and current conditions all affect the final number. A free in-home assessment locks in your actual project cost, confirms your Efficiency Maine rebate eligibility, and gives you everything you need to make a decision.</p>
+      <div class="final-cta-buttons">
+        <a href="/contact" class="btn btn-gold btn-arrow">Schedule a Free Assessment</a>
+        <a href="tel:+12077776020" class="btn btn-white">Call (207) 777-6020</a>
+      </div>
+      <div class="final-cta-links">
+        <a href="/financing-rebates">Financing &amp; Rebates &rarr;</a>
+        <a href="/insulation">See All Insulation Services &rarr;</a>
+      </div>
+      <div class="final-cta-address">
+        Mattra Inc. &middot; 68 Whipple St &middot; Lewiston, ME 04240<br>
+        <a href="mailto:info@mattrainc.com">info@mattrainc.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<div id="footer"></div>
+
+<!-- ===== CALCULATOR SCRIPTS ===== -->
+<script src="/rebate-calculator.js"></script>
+<script src="/attic-insulation-calculator.js"></script>
+<script src="/spray-foam-calculator.js"></script>
+<script src="/basement-crawlspace-calculator.js"></script>
+
+</body>
+</html>
