@@ -746,8 +746,8 @@ p { margin-bottom: 1rem; }
 
 @media (max-width: 1024px) {
   .container { padding: 0 32px; }
-  .header-inner { height: 70px; }
-  .main-nav { display: none; }
+  .header-inner { height: 70px; gap: 12px; }
+  .main-nav { display: none; width: 100%; }
   .mobile-toggle { display: flex; }
   .main-nav.open {
     display: flex;
@@ -757,25 +757,33 @@ p { margin-bottom: 1rem; }
     left: 0;
     right: 0;
     background: var(--white);
-    padding: 16px 24px 24px;
+    padding: 0;
     box-shadow: var(--shadow-lg);
     z-index: 999;
     max-height: calc(100vh - 70px);
     overflow-y: auto;
+    gap: 0;
   }
   .main-nav.open > a {
-    padding: 12px 16px;
+    padding: 14px 20px;
     font-size: 1rem;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-dark);
+    font-weight: 500;
   }
-  .header-cta { display: none; }
+  .header-cta { 
+    display: none; 
+  }
 
   /* Mobile mega menu — accordion style */
   .nav-dropdown { width: 100%; }
   .nav-dropdown-trigger {
     width: 100%;
     justify-content: space-between;
-    padding: 12px 16px;
+    padding: 14px 16px;
     font-size: 1rem;
+    color: var(--text-dark);
+    font-weight: 500;
   }
   .mega-panel {
     position: static;
@@ -783,24 +791,36 @@ p { margin-bottom: 1rem; }
     box-shadow: none;
     border: none;
     border-radius: 0;
-    padding: 0 16px 12px;
+    padding: 0;
     min-width: 0 !important;
-    border-left: 3px solid var(--green-primary);
-    margin-left: 16px;
     background: var(--off-white);
-    border-radius: 0 var(--radius) var(--radius) 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
   }
   .nav-dropdown.open .mega-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    display: grid;
+    max-height: 1200px;
+    gap: 0;
     opacity: 1;
     visibility: visible;
-    padding-top: 12px;
+    padding: 12px 0;
+  }
+  .mega-col {
+    padding: 8px 20px;
+  }
+  .mega-col:not(:last-child) {
+    border-bottom: 1px solid rgba(49,107,67,0.1);
   }
   .mega-heading {
     margin-top: 4px;
     font-size: 0.7rem;
+    margin-bottom: 8px;
+  }
+  .mega-panel a {
+    padding: 6px 0;
+    font-size: 0.9rem;
+    border: none;
   }
   .mega-cta-card { display: none; }
   .grid-2 { grid-template-columns: 1fr; gap: 32px; }
