@@ -43,6 +43,18 @@
       <img src="${b}Images/MATTRA-LOGO-4ab44f66-1920w.webp" alt="Mattra Inc. Logo">
     </a>
     <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+      <div class="mobile-menu-top">
+        <a href="${b}index.html" class="mobile-menu-logo" aria-label="Mattra Inc. home">
+          <img src="${b}Images/MATTRA-LOGO-4ab44f66-1920w.webp" alt="Mattra Inc.">
+        </a>
+        <button type="button" class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <a href="tel:+12077776020" class="mobile-menu-phone">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (207) 777-6020
+      </a>
       ${nav('home', 'Home', 'index.html')}
 
       <!-- Services Mega Dropdown -->
@@ -117,6 +129,7 @@
 
       ${nav('about', 'About', 'about.html')}
       ${nav('contact', 'Contact', 'contact.html')}
+      <a href="${b}contact.html" class="mobile-menu-cta">Free Consultation</a>
     </nav>
     <a href="${b}contact.html" class="header-cta">Get Started</a>
     <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -195,18 +208,62 @@
   }
 
   /* ── Mobile Menu Toggle ─────────────────────────────────── */
-  const toggle = document.getElementById('mobile-toggle');
-  const nav2   = document.getElementById('main-nav');
+  const toggle   = document.getElementById('mobile-toggle');
+  const nav2     = document.getElementById('main-nav');
+  const closeBtn = document.getElementById('mobile-menu-close');
+
+  // Inject backdrop
+  let backdrop = document.querySelector('.mobile-backdrop');
+  if (!backdrop) {
+    backdrop = document.createElement('div');
+    backdrop.className = 'mobile-backdrop';
+    backdrop.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(backdrop);
+  }
+
+  function openMobileMenu() {
+    if (!nav2) return;
+    nav2.classList.add('open');
+    backdrop.classList.add('open');
+    toggle && toggle.classList.add('open');
+    toggle && toggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('menu-open');
+  }
+
+  function closeMobileMenu() {
+    if (!nav2) return;
+    nav2.classList.remove('open');
+    backdrop.classList.remove('open');
+    toggle && toggle.classList.remove('open');
+    toggle && toggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+    // Collapse any open mega panels
+    nav2.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+    nav2.querySelectorAll('.nav-dropdown-trigger').forEach(t => t.setAttribute('aria-expanded', 'false'));
+  }
+
   if (toggle && nav2) {
     toggle.addEventListener('click', () => {
-      toggle.classList.toggle('open');
-      nav2.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', nav2.classList.contains('open'));
-      // Close all mega panels when menu closes
-      if (!nav2.classList.contains('open')) {
-        nav2.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
-        nav2.querySelectorAll('.nav-dropdown-trigger').forEach(t => t.setAttribute('aria-expanded', 'false'));
-      }
+      if (nav2.classList.contains('open')) closeMobileMenu();
+      else openMobileMenu();
+    });
+  }
+  if (closeBtn)  closeBtn.addEventListener('click', closeMobileMenu);
+  if (backdrop)  backdrop.addEventListener('click', closeMobileMenu);
+
+  // Escape key closes the menu
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav2 && nav2.classList.contains('open')) closeMobileMenu();
+  });
+
+  // Tapping a leaf nav link closes the menu
+  if (nav2) {
+    nav2.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        // Ignore the mobile logo tap so it navigates home cleanly
+        if (link.classList.contains('mobile-menu-logo')) return;
+        if (nav2.classList.contains('open')) closeMobileMenu();
+      });
     });
   }
 
