@@ -132,7 +132,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="${b}index.html" class="logo" aria-label="Mattra Inc. home">
-          <img src="${b}Images/MATTRA-LOGO-NEW.webp" alt="Mattra Inc. Logo" style="height:48px;width:auto;filter:brightness(0) invert(1);">
+          <img src="${b}Images/MATTRA-LOGO-FOOTER.webp" alt="Mattra Inc. Logo" style="height:48px;width:auto;filter:brightness(0) invert(1);">
         </a>
         <p>Maine&rsquo;s whole-home experts. 30 years of mold remediation, insulation, and construction services backed by building science.</p>
         <div class="footer-social">
