@@ -315,50 +315,74 @@
 
   /* Rebate Section */
   .rebate-section {
-    padding: 4rem 1.5rem; max-width: 1160px; margin: 0 auto; text-align: center;
+    padding: 5rem 1.5rem; max-width: 1200px; margin: 3rem auto; text-align: center;
   }
   .rebate-section h2 {
-    font-family: 'DM Serif Display', serif; font-size: clamp(1.4rem,3vw,1.8rem);
-    color: var(--green-dark); margin: 0 0 1rem;
+    font-family: 'DM Serif Display', serif; font-size: clamp(1.75rem,4vw,2.25rem);
+    color: var(--green-dark); margin: 0 0 1.5rem; font-weight: 400;
   }
   .rebate-intro {
-    font-size: 1rem; color: var(--text-body); line-height: 1.7; margin: 0 0 3rem;
-    max-width: 800px; margin: 0 auto 3rem auto;
+    font-size: 1.1rem; color: var(--text-body); line-height: 1.75; 
+    max-width: 900px; margin: 0 auto 4rem auto;
   }
+  .rebate-intro p { margin-bottom: 1.5rem; }
+  .rebate-intro p:last-child { margin-bottom: 0; }
   .rebate-cards {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;
-    margin-bottom: 2rem;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
+    margin-bottom: 3rem;
   }
   .rebate-card {
-    background: #fff; border-radius: 14px; box-shadow: var(--shadow-md);
-    padding: 2rem; text-align: center; position: relative; overflow: hidden;
+    background: #fff; border-radius: 20px; 
+    box-shadow: 0 8px 40px rgba(0,0,0,.08);
+    padding: 3rem 2.25rem; text-align: center; position: relative; overflow: hidden;
+    transition: all .3s ease; border: 1px solid rgba(0,0,0,.04);
   }
-  .rebate-card-tier1 { border-top: 4px solid var(--green-primary); }
-  .rebate-card-tier2 { border-top: 4px solid var(--gold-accent); }
-  .rebate-card-tier3 { border-top: 4px solid var(--green-dark); }
+  .rebate-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 5px;
+  }
+  .rebate-card-tier1::before { background: linear-gradient(90deg, var(--green-primary), #4caf50); }
+  .rebate-card-tier2::before { background: linear-gradient(90deg, var(--gold-accent), #ffa000); }
+  .rebate-card-tier3::before { background: linear-gradient(90deg, var(--green-dark), #1a3f3a); }
+  .rebate-card:hover {
+    transform: translateY(-8px); box-shadow: 0 12px 50px rgba(0,0,0,.15);
+  }
   .rebate-card h3 {
-    font-family: 'DM Serif Display', serif; font-size: 1.1rem;
-    color: var(--green-dark); margin: 0 0 .5rem;
+    font-family: 'DM Serif Display', serif; font-size: 1.3rem;
+    color: var(--green-dark); margin: 0 0 1rem; font-weight: 400;
   }
   .rebate-percentage {
-    font-size: 2rem; font-weight: 700; color: var(--green-primary); margin: 0 0 .25rem;
+    font-size: 3rem; font-weight: 800; margin: 0 0 .5rem;
+    background: linear-gradient(135deg, var(--green-primary), #4caf50);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  .rebate-card-tier2 .rebate-percentage { color: var(--gold-accent); }
-  .rebate-card-tier3 .rebate-percentage { color: var(--green-dark); }
+  .rebate-card-tier2 .rebate-percentage {
+    background: linear-gradient(135deg, var(--gold-accent), #ffa000);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .rebate-card-tier3 .rebate-percentage {
+    background: linear-gradient(135deg, var(--green-dark), #1a3f3a);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .rebate-limit {
-    font-size: .85rem; color: var(--text-light); margin: 0 0 1rem;
+    font-size: 1rem; color: var(--text-light); margin: 0 0 1.5rem; font-weight: 500;
   }
   .rebate-disclaimer {
-    font-size: .8rem; color: var(--text-light); margin: 2rem 0 1.5rem;
-    font-style: italic;
+    font-size: .9rem; color: var(--text-light); margin: 3rem 0 2rem;
+    font-style: italic; max-width: 600px; margin-left: auto; margin-right: auto;
   }
   .rebate-cta {
-    display: inline-block; font-size: .9rem; font-weight: 700;
-    background: var(--gold-accent); color: var(--green-dark); padding: .75rem 2rem;
-    border-radius: var(--radius); text-decoration: none; transition: all .2s;
+    display: inline-block; font-size: 1rem; font-weight: 700;
+    background: var(--gold-accent); color: var(--green-dark); 
+    padding: 1rem 2.5rem; border-radius: 8px; text-decoration: none; 
+    transition: all .3s ease; box-shadow: 0 4px 20px rgba(255,193,7,.25);
   }
   .rebate-cta:hover {
-    background: var(--gold-dark); color: #fff;
+    background: var(--gold-dark); color: #fff; transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(255,193,7,.35);
   }
 
   /* Beyond Bills Section */
