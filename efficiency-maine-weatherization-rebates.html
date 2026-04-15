@@ -446,30 +446,43 @@
 
   /* Final CTA Section */
   .final-cta-section {
-    padding: 4rem 1.5rem; max-width: 800px; margin: 0 auto; text-align: center;
+    background: linear-gradient(135deg, var(--green-dark) 0%, #1a3f3a 100%);
+    padding: 5rem 1.5rem; text-align: center; position: relative; overflow: hidden;
+    margin: 3rem 0 0;
   }
+  .final-cta-section::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><pattern id="grid3" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid3)" /></svg>') repeat;
+    opacity: 0.4;
+  }
+  .final-cta-section > * { position: relative; z-index: 1; }
   .final-cta-section h2 {
-    font-family: 'DM Serif Display', serif; font-size: clamp(1.4rem,3vw,1.8rem);
-    color: var(--green-dark); margin: 0 0 1rem;
+    font-family: 'DM Serif Display', serif; font-size: clamp(1.75rem,4vw,2.25rem);
+    color: #fff; margin: 0 0 1.5rem; font-weight: 400;
+    max-width: 700px; margin-left: auto; margin-right: auto;
   }
   .final-cta-section p {
-    font-size: 1rem; color: var(--text-body); line-height: 1.7; margin: 0 0 2rem;
+    font-size: 1.1rem; color: rgba(255,255,255,.85); line-height: 1.75; margin: 0 0 3rem;
+    max-width: 800px; margin-left: auto; margin-right: auto;
   }
+  .final-cta-section p:last-of-type { margin-bottom: 3rem; }
   .final-cta-button {
-    display: inline-block; font-size: 1rem; font-weight: 700;
-    background: var(--gold-accent); color: var(--green-dark); padding: .85rem 2.5rem;
-    border-radius: var(--radius); text-decoration: none; transition: all .2s;
-    margin-bottom: 1rem;
+    display: inline-block; font-size: 1.1rem; font-weight: 700;
+    background: var(--gold-accent); color: var(--green-dark); 
+    padding: 1.25rem 3rem; border-radius: 8px; text-decoration: none; 
+    transition: all .3s ease; margin-bottom: 2rem;
+    box-shadow: 0 6px 25px rgba(255,193,7,.3);
   }
   .final-cta-button:hover {
-    background: var(--gold-dark); color: #fff;
+    background: var(--gold-dark); color: #fff; transform: translateY(-3px);
+    box-shadow: 0 10px 35px rgba(255,193,7,.4);
   }
   .phone-number {
-    display: block; font-size: 1.1rem; font-weight: 700; color: var(--green-dark);
-    margin-bottom: 1rem; text-decoration: none;
+    display: block; font-size: 1.25rem; font-weight: 700; color: var(--gold-accent);
+    margin-bottom: 1rem; text-decoration: none; letter-spacing: .05em;
   }
   .phone-number:hover {
-    color: var(--gold-accent);
+    color: #fff; text-shadow: 0 0 10px rgba(255,193,7,.5);
   }
 
   /* FAQ Section */
