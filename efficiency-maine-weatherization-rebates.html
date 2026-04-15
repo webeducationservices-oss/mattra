@@ -116,9 +116,9 @@
     transform: translateY(-2px);
   }
   .trust-badges {
-    display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
-    font-size: .8rem; color: rgba(255,255,255,.7); text-transform: uppercase;
-    letter-spacing: .08em; font-weight: 600;
+    display: flex; justify-content: center; gap: clamp(1rem, 3vw, 2.5rem); flex-wrap: nowrap;
+    font-size: clamp(.7rem, 1.5vw, .8rem); color: rgba(255,255,255,.7); text-transform: uppercase;
+    letter-spacing: .08em; font-weight: 600; overflow-x: auto; white-space: nowrap;
   }
   .trust-badges span {
     position: relative; padding-bottom: .25rem;
