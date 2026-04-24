@@ -261,6 +261,18 @@
     }
     .final-cta-links a:hover { color: var(--gold-accent); }
 
+    /* ===== GRID 2-CARDS ===== */
+    .grid-2-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .grid-2-cards { grid-template-columns: 1fr; max-width: 500px; }
+    }
+
     /* ===== BLOG/RESOURCES ===== */
     .resource-card {
       padding: 24px;
