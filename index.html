@@ -398,9 +398,59 @@
 
     /* ===== BLOG/RESOURCES ===== */
     .resource-card {
-      padding: 24px;
+      padding: 32px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
     }
-    .resource-card h3 { font-size: 1.125rem; margin-bottom: 8px; }
+    .resource-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green-primary) 0%, var(--green-secondary) 100%);
+      transition: all var(--transition);
+    }
+    .resource-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(49,107,67,0.15);
+    }
+    .resource-card:hover::before {
+      background: linear-gradient(90deg, var(--gold-accent) 0%, var(--gold-dark) 100%);
+      height: 5px;
+    }
+    .resource-card h3 { 
+      font-size: 1.2rem; 
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    .resource-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-light);
+      flex: 1;
+      margin-bottom: 16px;
+    }
+    .resource-card a {
+      color: var(--green-primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all var(--transition);
+      margin-top: auto;
+    }
+    .resource-card a:hover {
+      color: var(--gold-accent);
+    }
 
 
 
