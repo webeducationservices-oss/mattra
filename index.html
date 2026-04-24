@@ -111,32 +111,54 @@
       margin-bottom: 20px;
     }
 
-    /* ===== AVATAR CARDS ===== */
-    .avatar-card {
-      padding: 32px;
+    /* ===== ICON CARDS ===== */
+    .grid-3-2 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    @media (max-width: 992px) {
+      .grid-3-2 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .grid-3-2 { grid-template-columns: 1fr; }
+    }
+    
+    .icon-card {
+      padding: 32px 24px 28px;
       display: flex;
       flex-direction: column;
       background: var(--white);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-sm);
       border-left: 4px solid var(--green-primary);
+      text-align: center;
     }
-    .avatar-card h3 {
-      margin-bottom: 10px;
+    .icon-card-img {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 20px;
+      opacity: 0.85;
+    }
+    .icon-card h3 {
+      margin-bottom: 12px;
       font-size: 1.1rem;
+      text-align: left;
     }
-    .avatar-card p {
+    .icon-card p {
       flex: 1;
       margin-bottom: 16px;
       font-size: 0.95rem;
       line-height: 1.6;
+      text-align: left;
     }
-    .avatar-card a {
+    .icon-card a {
       color: var(--green-primary);
       font-weight: 600;
       font-size: 0.93rem;
+      text-align: left;
     }
-    .avatar-card a:hover { text-decoration: underline; }
+    .icon-card a:hover { text-decoration: underline; }
 
     /* ===== REVIEW CARDS ===== */
     .review-card {
