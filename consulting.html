@@ -204,34 +204,49 @@
     /* ===== PROCESS STEPS ===== */
     .process-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 32px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
       counter-reset: step;
+      max-width: 900px;
+      margin: 0 auto;
     }
     .process-step {
       text-align: center;
       position: relative;
+      padding: 24px 16px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .process-step:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     }
     .process-num {
-      width: 56px;
-      height: 56px;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
-      background: var(--green-primary);
+      background: linear-gradient(135deg, var(--green-primary), var(--green-dark));
       color: var(--white);
       font-family: 'DM Serif Display', serif;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
+      font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 16px;
+      margin: 0 auto 20px;
+      box-shadow: 0 4px 12px rgba(49,107,67,0.3);
     }
     .process-step h3 {
-      font-size: 1.05rem;
-      margin-bottom: 8px;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: var(--text-dark);
     }
     .process-step p {
       font-size: 0.9rem;
       color: var(--text-light);
+      line-height: 1.6;
     }
 
     /* ===== SLIDER ===== */
