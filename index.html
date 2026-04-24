@@ -261,6 +261,52 @@
     }
     .final-cta-links a:hover { color: var(--gold-accent); }
 
+    /* ===== GRID 2-CARDS ===== */
+    .grid-2-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .grid-2-cards { grid-template-columns: 1fr; max-width: 500px; }
+    }
+
+    /* ===== WIDE SERVICE CARD ===== */
+    .service-card-wide {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 32px;
+      align-items: center;
+      max-width: 900px;
+      margin: 32px auto 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .service-card-wide-img {
+      height: 100%;
+      min-height: 180px;
+    }
+    .service-card-wide-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .service-card-wide-body {
+      padding: 28px 32px 28px 0;
+    }
+    .service-card-wide-body h3 { margin-bottom: 10px; }
+    .service-card-wide-body p { margin-bottom: 16px; }
+    @media (max-width: 768px) {
+      .service-card-wide {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+      }
+      .service-card-wide-img { height: 200px; min-height: 200px; }
+      .service-card-wide-body { padding: 24px; }
+    }
+
     /* ===== BLOG/RESOURCES ===== */
     .resource-card {
       padding: 24px;
@@ -302,6 +348,7 @@
       </div>
     </div>
     </div>
+
   </div>
 </section>
 
@@ -369,10 +416,10 @@
   <div class="container">
     <div class="section-header">
       <span class="section-label">What We Do</span>
-      <h2>Four Divisions. One Coordinated Team.</h2>
-      <p style="text-align: center; max-width: 700px; margin: 0 auto 32px;">Most homes need more than one kind of work. We handle the trades that overlap — without handing you off.</p>
+      <h2>Most Home Problems Don't Fit Into One Trade</h2>
+      <p style="text-align: center; max-width: 700px; margin: 0 auto 32px;">That's why we work across all of them — as one team, not four handoffs.</p>
     </div>
-    <div class="grid-3">
+    <div class="grid-2-cards">
 
       <!-- Mold -->
       <div class="card service-card">
@@ -381,8 +428,8 @@
         </div>
         <div class="service-card-body">
           <h3>Mold</h3>
-          <p>Certified inspection, remediation, and moisture-source correction. We find the cause, not just the spots.</p>
-          <a href="mold.html" class="card-link">Learn More</a>
+          <p>Don't just remove the mold — fix what caused it. Certified inspection, remediation, and moisture-source correction for Maine homes.</p>
+          <a href="mold.html" class="card-link">Learn more</a>
         </div>
       </div>
 
@@ -393,8 +440,8 @@
         </div>
         <div class="service-card-body">
           <h3>Insulation</h3>
-          <p>Spray foam, blown-in, air sealing, and whole-home performance upgrades — with Efficiency Maine rebate support when it applies.</p>
-          <a href="insulation.html" class="card-link">Learn More</a>
+          <p>Make the cold rooms warm and the energy bills smaller. Spray foam, blown-in, air sealing — with Efficiency Maine rebates when they apply.</p>
+          <a href="insulation.html" class="card-link">Learn more</a>
         </div>
       </div>
 
@@ -405,8 +452,8 @@
         </div>
         <div class="service-card-body">
           <h3>Construction</h3>
-          <p>Rot repair, water damage, waterproofing, roofing, siding. Structural work backed by building science.</p>
-          <a href="construction.html" class="card-link">Learn More</a>
+          <p>Rebuild what's damaged — and address the reason it failed. Rot repair, water damage, waterproofing, roofing, and siding.</p>
+          <a href="construction.html" class="card-link">Learn more</a>
         </div>
       </div>
 
@@ -417,15 +464,26 @@
         </div>
         <div class="service-card-body">
           <h3>Consulting</h3>
-          <p>Honest guidance for homeowners, buyers, sellers, and anyone facing a decision that isn't simple. No pitch.</p>
-          <a href="consulting.html" class="card-link">Learn More</a>
+          <p>Honest guidance for buyers, sellers, and homeowners facing a decision that isn't simple. No pitch — just help figuring out the right next step.</p>
+          <a href="consulting.html" class="card-link">Learn more</a>
         </div>
       </div>
 
     </div>
-    <p style="margin-top: 24px; font-size: 0.9rem; color: var(--text-light); text-align: center;">
-      Also offering: <a href="energy-audit.html" style="color: var(--green-primary); font-weight: 600;">Energy Audits</a> &middot; <a href="blower-door.html" style="color: var(--green-primary); font-weight: 600;">Blower Door Testing</a> &middot; <a href="rodent-cleanup.html" style="color: var(--green-primary); font-weight: 600;">Rodent Cleanup</a> &middot; <a href="insulation-removal.html" style="color: var(--green-primary); font-weight: 600;">Insulation Removal</a>
-    </p>
+
+    <!-- Wide Card -->
+    <div class="card service-card-wide">
+      <div class="service-card-wide-img">
+        <img src="/Images/services-hero.jpg" alt="Full list of Mattra home services" loading="lazy" />
+      </div>
+      <div class="service-card-wide-body">
+        <h3>Not Seeing What You Need?</h3>
+        <p>Explore All Our Services</p>
+        <p>Energy audits, blower door testing, rodent cleanup, insulation removal, and more. Every service Mattra offers, in one place.</p>
+        <a href="other-services.html" class="card-link">Learn more</a>
+      </div>
+    </div>
+
   </div>
 </section>
 
