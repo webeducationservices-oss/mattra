@@ -398,11 +398,74 @@
 
     /* ===== BLOG/RESOURCES ===== */
     .resource-card {
-      padding: 24px;
+      padding: 32px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
     }
-    .resource-card h3 { font-size: 1.125rem; margin-bottom: 8px; }
+    .resource-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green-primary) 0%, var(--green-secondary) 100%);
+      transition: all var(--transition);
+    }
+    .resource-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(49,107,67,0.15);
+    }
+    .resource-card:hover::before {
+      background: linear-gradient(90deg, var(--gold-accent) 0%, var(--gold-dark) 100%);
+      height: 5px;
+    }
+    .resource-card h3 { 
+      font-size: 1.2rem; 
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    .resource-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-light);
+      flex: 1;
+      margin-bottom: 16px;
+    }
+    .resource-card a {
+      color: var(--green-primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all var(--transition);
+      margin-top: auto;
+    }
+    .resource-card a:hover {
+      color: var(--gold-accent);
+    }
 
 
+
+    /* ===== RESOURCES GRID ===== */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    @media (max-width: 992px) {
+      .resources-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    }
+    @media (max-width: 640px) {
+      .resources-grid { grid-template-columns: 1fr; gap: 20px; }
+    }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 640px) {
@@ -476,7 +539,7 @@
           <h3>"I Think I Have Mold"</h3>
         </div>
         <p>You smell it, see it, or got it flagged in an inspection. You want it gone — but you also want to know it's not coming back.</p>
-        <a href="mold.html">Mold services</a>
+        <a href="mold.html">Mold services &rarr;</a>
       </div>
       <div class="icon-card">
         <div class="icon-card-header">
@@ -524,7 +587,7 @@
           <h3>"I Heard About Efficiency Maine Rebates"</h3>
         </div>
         <p>You're considering insulation or air sealing work and want to know what the state actually covers. Programs, tiers, and eligibility explained in plain English.</p>
-        <a href="financing-rebates.html">Rebate programs</a>
+        <a href="financing-rebates.html">Rebate programs &rarr;</a>
       </div>
       <div class="icon-card">
         <div class="icon-card-header">
@@ -716,7 +779,7 @@
       <h2>Understand Your Home Before You Spend</h2>
       <p>The homeowners who make the best decisions are the ones who understand the basics first.</p>
     </div>
-    <div class="grid-3">
+    <div class="resources-grid">
       <div class="card resource-card">
         <h3>Mold Glossary</h3>
         <p>The terms every homeowner should know about mold, moisture, and what "remediation" actually means.</p>
