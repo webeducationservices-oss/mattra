@@ -111,6 +111,58 @@
       margin-bottom: 20px;
     }
 
+    /* ===== AVATAR CARDS ===== */
+    .avatar-card {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border-left: 4px solid var(--green-primary);
+    }
+    .avatar-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    .avatar-card p {
+      flex: 1;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .avatar-card a {
+      color: var(--green-primary);
+      font-weight: 600;
+      font-size: 0.93rem;
+    }
+    .avatar-card a:hover { text-decoration: underline; }
+
+    /* ===== REVIEW CARDS ===== */
+    .review-card {
+      padding: 28px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border-left: 4px solid var(--gold-accent);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+    .review-card blockquote {
+      font-style: italic;
+      font-size: 0.97rem;
+      line-height: 1.7;
+      color: var(--text-dark);
+      margin: 0 0 16px 0;
+      padding: 0;
+      flex: 1;
+    }
+    .review-card .review-attrib {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
 
 
     /* ===== SERVICES CARDS ===== */
@@ -215,10 +267,7 @@
     }
     .resource-card h3 { font-size: 1.125rem; margin-bottom: 8px; }
 
-    /* ===== CONTACT STRIP ===== */
-    .contact-strip { text-align: center; }
-    .contact-strip h2 { margin-bottom: 12px; }
-    .contact-strip p { max-width: 560px; margin: 0 auto 24px; }
+
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 640px) {
@@ -264,23 +313,64 @@
         <span class="section-label">The Problem Most Contractors Miss</span>
         <h2>Most Contractors Treat Symptoms</h2>
         <p class="problem-lead">They remove mold. They add insulation. They repair rot. But they rarely diagnose <em>why</em> it happened.</p>
-        <p>Moisture problems, air leakage, insulation gaps, ventilation failures, and structural issues are connected. If you only fix one piece, the problem often returns.</p>
-        <p><strong>At Mattra, we fix the whole system.</strong></p>
-        <p>If you&rsquo;re searching for mold remediation Maine homeowners rely on, you need more than removal. You need certified inspection, moisture diagnosis, and building science-backed correction.</p>
+        <p>Moisture, air leakage, insulation gaps, ventilation failures, and structural damage are connected systems. Fix one piece in isolation and the problem usually comes back — in the same spot, or somewhere new.</p>
+        <p>We find the root cause, correct it, and verify the fix. That's the difference between solving it and just treating it.</p>
       </div>
       <div class="diagnostic-form"></div>
     </div>
   </div>
 </section>
 
-
+<!-- ===== WHO IT'S FOR ===== -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Who We Help</span>
+      <h2>Start Where You Are</h2>
+      <p style="text-align: center; max-width: 700px; margin: 0 auto;">Homeowners come to us at different points. Find your situation.</p>
+    </div>
+    <div class="grid-3">
+      <div class="avatar-card">
+        <h3>"I Think I Have Mold"</h3>
+        <p>You smell it, see it, or got it flagged in an inspection. You want it gone — but you also want to know it's not coming back.</p>
+        <a href="mold.html">Mold services &rarr;</a>
+      </div>
+      <div class="avatar-card">
+        <h3>"My House Is Cold and My Bills Are Crazy"</h3>
+        <p>Rooms that never feel right. A heating bill that doesn't match the square footage. Ice dams, drafts, or an attic that's always the wrong temperature.</p>
+        <a href="insulation.html">Insulation & air sealing &rarr;</a>
+      </div>
+      <div class="avatar-card">
+        <h3>"Something Is Damaged and Needs to Be Rebuilt"</h3>
+        <p>Rot, water damage, a failed renovation, or structural repair. You want it fixed right — and you want the reason it happened addressed too.</p>
+        <a href="construction.html">Construction &rarr;</a>
+      </div>
+      <div class="avatar-card">
+        <h3>"I'm Buying or Selling a Home in Maine"</h3>
+        <p>Inspection findings, condition concerns, disclosure questions, or a contractor's quote that feels off. You want a read from someone whose job isn't selling you the house.</p>
+        <a href="consulting.html">Home consulting &rarr;</a>
+      </div>
+      <div class="avatar-card">
+        <h3>"I Heard About Efficiency Maine Rebates"</h3>
+        <p>You're considering insulation or air sealing work and want to know what the state actually covers. Programs, tiers, and eligibility explained in plain English.</p>
+        <a href="financing-rebates.html">Rebate programs &rarr;</a>
+      </div>
+      <div class="avatar-card">
+        <h3>"I'm Not Sure Where to Start"</h3>
+        <p>Something's wrong, but you don't know what service to call. You want someone to help you figure it out before you spend money on the wrong fix.</p>
+        <a href="diagnostic.html">Start with a diagnostic &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ===== SERVICES CARDS ===== -->
 <section class="section">
   <div class="container">
     <div class="section-header">
       <span class="section-label">What We Do</span>
-      <h2>Our Whole-Home Divisions</h2>
+      <h2>Four Divisions. One Coordinated Team.</h2>
+      <p style="text-align: center; max-width: 700px; margin: 0 auto 32px;">Most homes need more than one kind of work. We handle the trades that overlap — without handing you off.</p>
     </div>
     <div class="grid-3">
 
@@ -291,12 +381,7 @@
         </div>
         <div class="service-card-body">
           <h3>Mold</h3>
-          <p>Certified mold remediation Maine homeowners trust. We inspect, remove, and correct the moisture source so the problem does not return.</p>
-          <div class="service-links">
-            <a href="mold-inspection.html">Inspection &amp; Testing</a>
-            <a href="mold-removal.html">Removal &amp; Remediation</a>
-            <a href="for-realtors.html">Real Estate</a>
-          </div>
+          <p>Certified inspection, remediation, and moisture-source correction. We find the cause, not just the spots.</p>
           <a href="mold.html" class="card-link">Learn More</a>
         </div>
       </div>
@@ -308,14 +393,7 @@
         </div>
         <div class="service-card-body">
           <h3>Insulation</h3>
-          <p>High-performance insulation upgrades designed for Maine homes. We improve comfort, reduce energy loss, and support Efficiency Maine rebate eligibility.</p>
-          <div class="service-links">
-            <a href="spray-foam.html">Spray Foam</a>
-            <a href="blown-in.html">Blown-In</a>
-            <a href="attic-insulation.html">Attic</a>
-            <a href="basement-insulation.html">Basement</a>
-            <a href="air-sealing.html">Air Sealing</a>
-          </div>
+          <p>Spray foam, blown-in, air sealing, and whole-home performance upgrades — with Efficiency Maine rebate support when it applies.</p>
           <a href="insulation.html" class="card-link">Learn More</a>
         </div>
       </div>
@@ -327,14 +405,7 @@
         </div>
         <div class="service-card-body">
           <h3>Construction</h3>
-          <p>Whole-home repair and rebuild services backed by building science. We address structural damage while correcting the underlying cause.</p>
-          <div class="service-links">
-            <a href="rot-repair.html">Rot Repair</a>
-            <a href="water-damage.html">Water Damage</a>
-            <a href="waterproofing.html">Waterproofing</a>
-            <a href="roofing.html">Roofing</a>
-            <a href="siding.html">Siding</a>
-          </div>
+          <p>Rot repair, water damage, waterproofing, roofing, siding. Structural work backed by building science.</p>
           <a href="construction.html" class="card-link">Learn More</a>
         </div>
       </div>
@@ -346,35 +417,15 @@
         </div>
         <div class="service-card-body">
           <h3>Consulting</h3>
-          <p>Guidance for buyers, sellers, and homeowners who need clarity before making decisions. We provide inspection support and real-world building insight.</p>
-          <div class="service-links">
-            <a href="buying-selling.html">Buying &amp; Selling</a>
-            <a href="building-inspections.html">Inspections</a>
-            <a href="mortgage-resources.html">Mortgage Resources</a>
-          </div>
+          <p>Honest guidance for homeowners, buyers, sellers, and anyone facing a decision that isn't simple. No pitch.</p>
           <a href="consulting.html" class="card-link">Learn More</a>
         </div>
       </div>
 
-      <!-- Other Services -->
-      <div class="card service-card">
-        <div class="service-card-img">
-          <img src="/Images/service-energy-audit.jpg" alt="Energy audits and blower door testing in Maine" loading="lazy" />
-        </div>
-        <div class="service-card-body">
-          <h3>Other Services</h3>
-          <p>Specialized services that support whole-home performance and indoor air quality.</p>
-          <div class="service-links">
-            <a href="energy-audit.html">Energy Audit</a>
-            <a href="blower-door.html">Blower Door Testing</a>
-            <a href="rodent-cleanup.html">Rodent Cleanup</a>
-            <a href="insulation-removal.html">Insulation Removal</a>
-          </div>
-          <a href="other-services.html" class="card-link">Learn More</a>
-        </div>
-      </div>
-
     </div>
+    <p style="margin-top: 24px; font-size: 0.9rem; color: var(--text-light); text-align: center;">
+      Also offering: <a href="energy-audit.html" style="color: var(--green-primary); font-weight: 600;">Energy Audits</a> &middot; <a href="blower-door.html" style="color: var(--green-primary); font-weight: 600;">Blower Door Testing</a> &middot; <a href="rodent-cleanup.html" style="color: var(--green-primary); font-weight: 600;">Rodent Cleanup</a> &middot; <a href="insulation-removal.html" style="color: var(--green-primary); font-weight: 600;">Insulation Removal</a>
+    </p>
   </div>
 </section>
 
@@ -387,15 +438,15 @@
       </div>
       <div>
         <span class="section-label">Efficiency Maine Registered Vendor</span>
-        <h2>Take Control of Your Energy Bills</h2>
-        <p>We help Maine residents take control of their energy bills while improving comfort and indoor air quality.</p>
-        <p>Efficiency Maine rebates are available to most residents &mdash; but funding is limited.</p>
-        <p>Our team:</p>
+        <h2>Rebates That Actually Reduce What You Pay</h2>
+        <p>Efficiency Maine helps residents upgrade insulation, air sealing, and home performance — and covers a meaningful portion of the bill for most eligible work.</p>
+        <p>Rebates are income-tiered. Most households qualify for 40% to 80% of the project cost, with dollar caps of $4,000, $6,000, or $8,000 depending on income. Funding is limited.</p>
+        <p>As a registered vendor, we:</p>
         <ul class="check-list">
-          <li>Identifies eligible improvements</li>
-          <li>Calculates potential rebate amounts</li>
-          <li>Performs work to required standards</li>
-          <li>Documents projects properly</li>
+          <li>Identify which upgrades qualify for your situation</li>
+          <li>Estimate rebate amounts against real project scope</li>
+          <li>Complete work to program standards</li>
+          <li>Handle the documentation</li>
         </ul>
         <div class="cta-links">
           <a href="financing.html" class="btn btn-primary btn-arrow">Explore Rebate Programs</a>
@@ -412,10 +463,10 @@
     <div class="grid-2">
       <div>
         <span class="section-label">About Mattra</span>
-        <h2>Meet Your Mattra Inc. Insulation Contractors</h2>
-        <p>We&rsquo;ve been serving Maine for 30 years because we never treat projects as one-time jobs.</p>
-        <p>We listen first. We diagnose thoroughly. We communicate clearly.</p>
-        <p>From mold remediation Maine homeowners need, to spray foam upgrades, to full structural repair, our team works together under one coordinated system.</p>
+        <h2>Thirty Years. One Team. One Job at a Time.</h2>
+        <p>We've been serving Maine for over 30 years because we don't treat projects as one-time jobs. The homes we work in are complicated, the climate is unforgiving, and the people who live in them deserve straight answers.</p>
+        <p>We listen first. We diagnose thoroughly. We tell you the truth — even when the truth means walking away from work we could have sold you.</p>
+        <p>Mold, insulation, construction, and consulting — all under one coordinated team. No subcontractor chain. No handoffs. No finger-pointing when something needs to be fixed.</p>
         <div class="cta-links">
           <a href="about.html" class="btn btn-primary btn-arrow">Learn More About Mattra</a>
         </div>
@@ -427,35 +478,26 @@
   </div>
 </section>
 
-<!-- ===== WHY CHOOSE MATTRA ===== -->
+<!-- ===== WHAT HOMEOWNERS SAY ===== -->
 <section class="section section--gray">
   <div class="container">
     <div class="why-intro">
-      <span class="section-label">Why Mattra</span>
-      <h2>Maine&rsquo;s Whole-Home Experts</h2>
-      <p>Placeholder — this section is being replaced in Batch 4.</p>
+      <span class="section-label">Real Reviews</span>
+      <h2>What Homeowners Actually Say About Us</h2>
+      <p>The moments people mention most: that we told them the truth, even when the truth meant we didn't get the job.</p>
     </div>
     <div class="grid-3">
-      <div class="value-card">
-        <div class="value-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </div>
-        <h3>Loyalty</h3>
-        <p>Serving Maine homeowners for 30 years.</p>
+      <div class="review-card">
+        <blockquote>"He could have sold me something that I didn't need… He was honest and told me that I didn't need any additional insulation! Someone else might have sold me and Efficiency Maine an insulation job and made a nice profit! Thank you for being an honest business!!"</blockquote>
+        <div class="review-attrib">Patricia Prout · ★★★★★ Google Review</div>
       </div>
-      <div class="value-card">
-        <div class="value-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3>Integrity</h3>
-        <p>We do what we say we are going to do.</p>
+      <div class="review-card">
+        <blockquote>"I arranged for three estimates from mold remediation companies. One quoted me $6,000 with an ancillary additional fee for the laboratory report. The second company quoted me somewhat less but the laboratory testing fee was $700. Enter John Crafts of Mattra. He was professional, courteous, and gave me an excellent assessment of the problem while reassuring me that the problem was years in the making and not a nuclear disaster."</blockquote>
+        <div class="review-attrib">Robert Ayers · ★★★★★ Google Review</div>
       </div>
-      <div class="value-card">
-        <div class="value-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </div>
-        <h3>Communication</h3>
-        <p>You&rsquo;ll understand your project from inspection through completion.</p>
+      <div class="review-card">
+        <blockquote>"I've been referring Mattra to my real estate clients for years. They show up, they diagnose the actual problem, and they tell people the truth even when the truth means less work for them. That's rare in this industry."</blockquote>
+        <div class="review-attrib">Matthew McGuire · Realtor · ★★★★★ Google Review</div>
       </div>
     </div>
   </div>
@@ -465,14 +507,14 @@
 <section class="section section--green">
   <div class="container">
     <div class="final-cta">
-      <h2>Ready to Solve the Root Cause?</h2>
-      <p>Certified mold remediation. High-performance insulation. Air sealing and attic upgrades. Structural repair. Help navigating Efficiency Maine rebates. Start with clarity.</p>
+      <h2>Tell Us What's Happening in Your Home</h2>
+      <p>Mold concerns. Cold rooms. Moisture you can't figure out. A contractor's quote that feels off. An inspection report you don't understand. Start anywhere — we'll help you sort out what's actually going on and what to do about it.</p>
       <div class="final-cta-buttons">
         <a href="diagnostic.html" class="btn btn-gold btn-arrow">Tell Us What&rsquo;s Going On</a>
         <a href="tel:+12077776020" class="btn btn-white">Call (207) 777-6020</a>
       </div>
-      <p class="final-cta-links" style="margin-top:24px;">
-        Or explore: <a href="mold.html">Mold</a> &middot; <a href="insulation.html">Insulation</a> &middot; <a href="construction.html">Construction</a> &middot; <a href="consulting.html">Consulting</a> &middot; <a href="other-services.html">Other Services</a> &middot; <a href="contact.html">Contact</a>
+      <p class="final-cta-links">
+        Or explore: <a href="mold.html">Mold</a> &middot; <a href="insulation.html">Insulation</a> &middot; <a href="construction.html">Construction</a> &middot; <a href="consulting.html">Consulting</a> &middot; <a href="financing.html">Rebates</a> &middot; <a href="contact.html">Contact</a>
       </p>
     </div>
   </div>
@@ -483,40 +525,30 @@
   <div class="container">
     <div class="section-header">
       <span class="section-label">Resources</span>
-      <h2>Learn Before You Invest</h2>
-      <p>Understanding your home helps you make smarter decisions.</p>
+      <h2>Understand Your Home Before You Spend</h2>
+      <p>The homeowners who make the best decisions are the ones who understand the basics first.</p>
     </div>
     <div class="grid-3">
       <div class="card resource-card">
         <h3>Mold Glossary</h3>
-        <p>Key terms every homeowner should understand about mold, moisture, and remediation.</p>
+        <p>The terms every homeowner should know about mold, moisture, and what "remediation" actually means.</p>
         <a href="mold-glossary.html" class="card-link">Explore Glossary</a>
       </div>
       <div class="card resource-card">
         <h3>Homeowner Insights</h3>
-        <p>Tips, guides, and real-world stories about Maine home performance.</p>
-        <a href="blog.html" class="card-link">Read Blog</a>
+        <p>Guides, checklists, and real stories from Maine homes.</p>
+        <a href="blog.html" class="card-link">Read the Blog</a>
       </div>
       <div class="card resource-card">
         <h3>Project Calculators</h3>
-        <p>Estimate costs, rebates, and energy savings for your next home project.</p>
+        <p>Estimate project costs, rebate amounts, and energy savings before you commit.</p>
         <a href="project-calculators.html" class="card-link">Use Calculators</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== CONTACT STRIP ===== -->
-<section class="section section--gray contact-strip">
-  <div class="container">
-    <h2>Tell Us What&rsquo;s Happening in Your Home</h2>
-    <p>Mold issues. Energy loss. Moisture concerns. Inspection findings. We&rsquo;ll help you understand why.</p>
-    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-      <a href="diagnostic.html" class="btn btn-primary btn-arrow">Start Now</a>
-      <a href="tel:+12077776020" class="btn btn-secondary">Call (207) 777-6020</a>
-    </div>
-  </div>
-</section>
+
 
 <!-- ===== FOOTER ===== -->
 <div id="footer"></div>
