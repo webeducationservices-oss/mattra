@@ -643,10 +643,55 @@
   </div>
 </section>
 
+<!-- ===== IMAGE POPUP MODAL ===== -->
+<div class="image-popup" id="imagePopup">
+  <div class="image-popup-content">
+    <button class="image-popup-close" onclick="closeImagePopup()">&times;</button>
+    <img id="popupImage" src="" alt="" />
+  </div>
+</div>
+
 <!-- ===== FOOTER ===== -->
 <div id="footer"></div>
 
 <script src="/components.js"></script>
 <script src="/diagnostic-form.js"></script>
+
+<script>
+// Image popup functionality
+function openImagePopup(imgElement) {
+  const popup = document.getElementById('imagePopup');
+  const popupImg = document.getElementById('popupImage');
+  
+  popupImg.src = imgElement.src;
+  popupImg.alt = imgElement.alt;
+  popup.classList.add('active');
+  
+  // Prevent body scroll when popup is open
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImagePopup() {
+  const popup = document.getElementById('imagePopup');
+  popup.classList.remove('active');
+  
+  // Restore body scroll
+  document.body.style.overflow = 'auto';
+}
+
+// Close popup when clicking outside the image
+document.getElementById('imagePopup').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeImagePopup();
+  }
+});
+
+// Close popup with Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeImagePopup();
+  }
+});
+</script>
 </body>
 </html>
