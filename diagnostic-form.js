@@ -10,6 +10,15 @@
 
 (function () {
 
+  /* ── Load reCAPTCHA v3 automatically ── */
+  const RC_SITE_KEY = '6Lck8aQsAAAAAlMA-T6nwfkSf7bv4K-mOhkszeKh';
+  if (!document.querySelector('script[src*="recaptcha"]')) {
+    const s = document.createElement('script');
+    s.src = 'https://www.google.com/recaptcha/api.js?render=' + RC_SITE_KEY;
+    s.async = true;
+    document.head.appendChild(s);
+  }
+
   /* ── Form HTML ── */
   const FORM_HTML = `
     <div class="diag-card">
@@ -479,13 +488,59 @@
       if (!hasPhone) card.querySelector('#diag-sms-consent').checked = false;
     });
 
-    card.querySelector('.diag-btn-submit').addEventListener('click', () => {
+    card.querySelector('.diag-btn-submit').addEventListener('click', async () => {
       const first = card.querySelector('#diag-first').value.trim();
+      const last  = card.querySelector('#diag-last').value.trim();
       const email = card.querySelector('#diag-email').value.trim();
       if (!first || !email) { alert('Please enter at least your first name and email.'); return; }
       const phone = phoneInput.value.replace(/\D/g, '');
       const smsCheck = card.querySelector('#diag-sms-consent');
       if (phone.length >= 7 && !smsCheck.checked) { alert('Please agree to receive text messages, or remove your phone number.'); return; }
+      const notes = card.querySelector('#diag-notes').value.trim();
+      const zip   = card.querySelector('#diag-zip').value.trim();
+      const urg   = card.querySelector('.diag-urg.selected');
+
+      // Build the payload
+      const payload = {
+        site_slug: 'mattra',
+        form_type: 'diagnostic',
+        first_name: first,
+        last_name: last,
+        email: email,
+        concern: CONCERN_LABELS[state.concern] || state.concern,
+        _ts: String(Date.now()),
+      };
+      if (phone) payload.phone = phone;
+      if (zip)   payload.zip = zip;
+      if (urg)   payload.timeline = urg.textContent.trim();
+      if (notes) payload.message = notes;
+      if (smsCheck && smsCheck.checked) payload.sms_consent = 'true';
+
+      // Include follow-up answers
+      for (const [k, v] of Object.entries(state.followUp)) {
+        if (v && (typeof v === 'string' ? v.length : v.length)) {
+          payload[k] = Array.isArray(v) ? v.join(', ') : v;
+        }
+      }
+
+      // Get reCAPTCHA token if available
+      if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
+        try {
+          const rcToken = await grecaptcha.execute(RC_SITE_KEY, { action: 'diagnostic_form' });
+          payload.recaptcha_token = rcToken;
+        } catch (e) { console.warn('reCAPTCHA failed:', e); }
+      }
+
+      // Submit to form-notify
+      try {
+        await fetch('https://myaieditor.com/api/form-notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      } catch (e) { console.error('Form submit error:', e); }
+
+      // Show confirmation regardless (don't block UX on network)
       showConfirm();
       goTo(5);
     });
