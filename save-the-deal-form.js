@@ -618,6 +618,8 @@
             _honey: honey,
             _ts: loadTs,
             recaptcha_token: rcToken,
+            send_visitor_copy: 'true',
+            email: formData.agent_email,
             agent_name: formData.agent_name,
             agent_phone: formData.agent_phone,
             agent_email: formData.agent_email,

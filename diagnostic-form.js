@@ -524,6 +524,7 @@
       if (urg)   payload.timeline = urg.textContent.trim();
       if (notes) payload.message = notes;
       if (smsCheck && smsCheck.checked) payload.sms_consent = 'true';
+      payload.send_visitor_copy = 'true';
 
       // Include follow-up answers
       for (const [k, v] of Object.entries(state.followUp)) {
