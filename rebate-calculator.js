@@ -425,6 +425,8 @@
               if (email) email.style.borderColor = '#e74c3c';
               return;
             }
+            btn.disabled = true;
+            btn.textContent = 'Processing...';
             step++;
             render();
             return;

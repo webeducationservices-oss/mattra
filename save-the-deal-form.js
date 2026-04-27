@@ -566,7 +566,9 @@
 
     // Submit
     const submitBtn = card.querySelector('#std-submit');
+    let stdSubmitting = false;
     submitBtn.addEventListener('click', async () => {
+      if (stdSubmitting) return;
       // Collect step 4 data
       formData.agent_name = card.querySelector('#std-name').value.trim();
       formData.agent_phone = card.querySelector('#std-phone').value.trim();
@@ -581,8 +583,9 @@
         return;
       }
 
+      stdSubmitting = true;
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
+      submitBtn.textContent = 'Processing...';
 
       const urgencyLabels = {
         critical: 'CRITICAL — Closing in 1-3 days',

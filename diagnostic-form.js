@@ -489,7 +489,10 @@
       if (!hasPhone) card.querySelector('#diag-sms-consent').checked = false;
     });
 
-    card.querySelector('.diag-btn-submit').addEventListener('click', async () => {
+    const submitBtn = card.querySelector('.diag-btn-submit');
+    let diagSubmitting = false;
+    submitBtn.addEventListener('click', async () => {
+      if (diagSubmitting) return;
       const first = card.querySelector('#diag-first').value.trim();
       const last  = card.querySelector('#diag-last').value.trim();
       const email = card.querySelector('#diag-email').value.trim();
@@ -500,6 +503,11 @@
       const notes = card.querySelector('#diag-notes').value.trim();
       const zip   = card.querySelector('#diag-zip').value.trim();
       const urg   = card.querySelector('.diag-urg.selected');
+
+      // Lock the button
+      diagSubmitting = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Processing...';
 
       // Build the payload
       const payload = {
