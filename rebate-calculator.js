@@ -6,6 +6,18 @@
    ============================================================= */
 
 (function () {
+  /* ── Capture load time for bot detection ── */
+  const loadTs = String(Date.now());
+
+  /* ── Load reCAPTCHA v3 automatically ── */
+  const RC_SITE_KEY = '6Lck8aQsAAAAAlMA-T6nwfkSf7bv4K-mOhkszeKh';
+  if (!document.querySelector('script[src*="recaptcha"]')) {
+    const s = document.createElement('script');
+    s.src = 'https://www.google.com/recaptcha/api.js?render=' + RC_SITE_KEY;
+    s.async = true;
+    document.head.appendChild(s);
+  }
+
   /* ── CSS ──────────────────────────────────────────────────── */
   if (!document.getElementById('rebate-calc-css')) {
     const style = document.createElement('style');
@@ -267,9 +279,19 @@
       if (submitted) return;
       const r = calcResults();
       const projectNames = selectedProjects.map(k => PROJECTS[k].label).join(', ');
+
+      // Get reCAPTCHA token
+      let rcToken = '';
+      if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
+        try { rcToken = await grecaptcha.execute(RC_SITE_KEY, { action: 'rebate_calculator' }); }
+        catch (e) { console.warn('reCAPTCHA failed:', e); }
+      }
+
       const data = {
         site_slug: 'mattra',
         form_type: 'rebate-calculator',
+        _ts: loadTs,
+        recaptcha_token: rcToken,
         first_name: contact.first_name,
         email: contact.email,
         phone: contact.phone || '',

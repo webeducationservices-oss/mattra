@@ -10,6 +10,18 @@
 
 (function () {
 
+  /* ── Capture load time for bot detection ── */
+  const loadTs = String(Date.now());
+
+  /* ── Load reCAPTCHA v3 automatically ── */
+  const RC_SITE_KEY = '6Lck8aQsAAAAAlMA-T6nwfkSf7bv4K-mOhkszeKh';
+  if (!document.querySelector('script[src*="recaptcha"]')) {
+    const s = document.createElement('script');
+    s.src = 'https://www.google.com/recaptcha/api.js?render=' + RC_SITE_KEY;
+    s.async = true;
+    document.head.appendChild(s);
+  }
+
   /* ── Inject CSS ── */
   const style = document.createElement('style');
   style.textContent = `
@@ -586,6 +598,13 @@
         other: 'Other transaction issue'
       };
 
+      // Get reCAPTCHA token
+      let rcToken = '';
+      if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
+        try { rcToken = await grecaptcha.execute(RC_SITE_KEY, { action: 'save_the_deal' }); }
+        catch (e) { console.warn('reCAPTCHA failed:', e); }
+      }
+
       try {
         const res = await fetch('https://myaieditor.com/api/form-notify', {
           method: 'POST',
@@ -594,7 +613,8 @@
             site_slug: 'mattra',
             form_type: 'save-the-deal',
             _honey: honey,
-            recaptcha_token: '',
+            _ts: loadTs,
+            recaptcha_token: rcToken,
             agent_name: formData.agent_name,
             agent_phone: formData.agent_phone,
             agent_email: formData.agent_email,

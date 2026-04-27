@@ -363,6 +363,7 @@
     container.innerHTML = FORM_HTML;
 
     const state = { step: 1, concern: '', followUp: {} };
+    const loadTs = String(Date.now()); // Capture at page load for bot detection
     const card = container.querySelector('.diag-card');
     const steps = card.querySelectorAll('.diag-step');
     const dots = card.querySelectorAll('.diag-progress-dot');
@@ -508,7 +509,7 @@
         last_name: last,
         email: email,
         concern: CONCERN_LABELS[state.concern] || state.concern,
-        _ts: String(Date.now()),
+        _ts: loadTs,
       };
       if (phone) payload.phone = phone;
       if (zip)   payload.zip = zip;
