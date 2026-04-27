@@ -302,6 +302,28 @@
       font-style: italic;
     }
 
+    /* ===== ABSOLUTES LIST ===== */
+    .absolutes-list {
+      list-style: none;
+      padding: 0;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .absolutes-list li {
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      font-size: 0.97rem;
+      line-height: 1.7;
+    }
+    .absolutes-list li:last-child { border-bottom: none; }
+    .absolutes-list li strong {
+      display: block;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      font-size: 1.05rem;
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 640px) {
       .hero { min-height: 380px; }
