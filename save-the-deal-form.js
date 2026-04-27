@@ -14,7 +14,7 @@
   const loadTs = String(Date.now());
 
   /* ── Load reCAPTCHA v3 automatically ── */
-  const RC_SITE_KEY = '6Lck8aQsAAAAAlMA-T6nwfkSf7bv4K-mOhkszeKh';
+  const RC_SITE_KEY = '6Lck8aQsAAAAALMA-T6nwfkSf7bv4K-mOhkszeKh';
   if (!document.querySelector('script[src*="recaptcha"]')) {
     const s = document.createElement('script');
     s.src = 'https://www.google.com/recaptcha/api.js?render=' + RC_SITE_KEY;
