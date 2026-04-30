@@ -114,7 +114,7 @@
           <div class="mega-col">
             <h5 class="mega-heading">Financing &amp; Rebates</h5>
             <a href="${b}financing-rebates.html">Financing &amp; Rebates</a>
-            <a href="${b}resources.html#calculators">Rebate Calculator</a>
+            <a href="${b}rebate-calculator.html">Rebate Calculator</a>
             <a href="${b}for-realtors.html">For Realtors</a>
           </div>
           <div class="mega-col">
