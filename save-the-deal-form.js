@@ -450,7 +450,7 @@
         <div class="std-field-row">
           <div class="std-field">
             <label for="std-phone">Phone *</label>
-            <input type="tel" id="std-phone" placeholder="(207) 555-0123" required />
+            <input type="tel" id="std-phone" inputmode="tel" placeholder="(207) 555-0123" required />
           </div>
           <div class="std-field">
             <label for="std-email">Email</label>

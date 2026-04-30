@@ -245,7 +245,7 @@
           </div>
           <div class="rc-input-group">
             <label for="rc-phone">Phone <small style="font-weight:400;color:var(--brown-text,#706460)">(optional)</small></label>
-            <input type="tel" id="rc-phone" value="${contact.phone}" placeholder="(207) 555-0000">
+            <input type="tel" id="rc-phone" inputmode="tel" value="${contact.phone}" placeholder="(207) 555-0000">
           </div>
           <div class="rc-nav">
             <button class="rc-btn rc-btn-back" data-action="back">&larr; Back</button>

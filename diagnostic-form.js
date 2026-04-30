@@ -146,7 +146,7 @@
         </div>
         <div class="diag-field">
           <label for="diag-phone">Phone</label>
-          <input type="tel" id="diag-phone" placeholder="(207) 555-0123" />
+          <input type="tel" id="diag-phone" inputmode="tel" placeholder="(207) 555-0123" />
           <span class="diag-hint">Optional, but helpful if it\u2019s urgent.</span>
         </div>
         <div class="diag-field diag-sms-consent" id="diag-sms-group" style="display:none">
