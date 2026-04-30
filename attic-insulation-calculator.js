@@ -372,7 +372,6 @@
           const btn = root.querySelector('[data-action="next"]');
           if (btn) btn.disabled = !data.sqft || parseFloat(data.sqft) < 100;
         });
-        sqftInput.focus();
       }
 
       // Navigation
