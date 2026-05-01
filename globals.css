@@ -863,6 +863,70 @@ p { margin-bottom: 1rem; }
 }
 .avatar-card a:hover { text-decoration: underline; }
 
+/* ===== PLAN STEPS ===== */
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.plan-step {
+  text-align: center;
+  padding: 16px;
+}
+.plan-num {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--green-primary);
+  color: var(--white);
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+.plan-step h3 { font-size: 1.1rem; margin-bottom: 10px; }
+.plan-step p { font-size: 0.95rem; color: var(--text-light); line-height: 1.6; }
+
+/* ===== AUTHORITY GRID ===== */
+.authority-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+.authority-item h3 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  color: var(--green-primary);
+}
+.authority-item p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.authority-item p + p { margin-top: 10px; }
+.review-quote {
+  background: var(--white);
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--gold-accent);
+  box-shadow: var(--shadow-sm);
+  margin-top: 24px;
+}
+.review-quote p {
+  font-style: italic;
+  font-size: 0.97rem;
+  line-height: 1.7;
+  color: var(--text-dark);
+}
+.review-quote .review-attrib {
+  margin-top: 12px;
+  font-style: normal;
+  font-size: 0.88rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1200px) {
   .container { padding: 0 40px; }
