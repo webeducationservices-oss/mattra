@@ -1280,4 +1280,9 @@ p { margin-bottom: 1rem; }
   .section { padding: 40px 0; }
   .container { padding: 0 16px; }
   .trust-bar { gap: 12px 24px; font-size: 0.8rem; }
+  
+  /* Hero sections mobile spacing fix */
+  .hero .container {
+    padding-top: 60px !important;
+  }
 }
