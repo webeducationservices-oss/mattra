@@ -108,7 +108,13 @@ p { margin-bottom: 1rem; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 48px;
+  align-items: start;
+}
+.grid-2--center {
   align-items: center;
+}
+.grid-2--compact {
+  gap: 32px;
 }
 .grid-3 {
   display: grid;
