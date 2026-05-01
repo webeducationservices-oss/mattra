@@ -1304,6 +1304,50 @@ p { margin-bottom: 1rem; }
   .review-grid-2x2 { grid-template-columns: 1fr; }
 }
 
+/* ===== FEATURE LIST ===== */
+.feature-list {
+  list-style: none;
+  padding: 0;
+}
+.feature-list li {
+  padding: 10px 0;
+  position: relative;
+  padding-left: 32px;
+  line-height: 1.6;
+}
+.feature-list li::before {
+  content: '\2714';
+  color: var(--green-primary);
+  font-weight: 700;
+  position: absolute;
+  left: 0;
+  top: 10px;
+}
+.feature-list li strong {
+  color: var(--text-dark);
+  font-weight: 700;
+}
+.feature-list--arrow li::before {
+  content: '\2192';
+}
+
+/* ===== REVIEW MASONRY ===== */
+.review-masonry {
+  column-count: 2;
+  column-gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.review-masonry .review-quote {
+  break-inside: avoid;
+  margin-bottom: 32px;
+  display: inline-block;
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .review-masonry { column-count: 1; }
+}
+
 @media (max-width: 640px) {
   body { font-size: 16px; }
   .grid-4 { grid-template-columns: 1fr; }
