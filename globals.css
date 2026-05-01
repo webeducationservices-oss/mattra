@@ -625,6 +625,9 @@ p { margin-bottom: 1rem; }
   max-width: 720px;
   margin: 0 auto 48px;
 }
+.section-header h2 {
+  margin-bottom: 16px;
+}
 .section-header p {
   margin-top: 12px;
   color: var(--text-light);
