@@ -88,6 +88,9 @@ p { margin-bottom: 1rem; }
 .section--gray {
   background: var(--light-gray);
 }
+.section--gray-light {
+  background: #f8f9fa;
+}
 .section--green {
   background: var(--green-primary);
   color: var(--white);
