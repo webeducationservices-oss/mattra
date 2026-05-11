@@ -179,6 +179,30 @@
       gap: 16px;
       align-items: center;
     }
+    .hero-btn-slider {
+      position: relative;
+      display: inline-flex;
+      min-height: 52px;
+    }
+    .hero-btn-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      white-space: nowrap;
+    }
+    .hero-btn-slide.active {
+      position: relative;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    @media (max-width: 600px) {
+      .hero-btn-slide { white-space: normal; }
+    }
     .hero-phone {
       color: rgba(255,255,255,0.85);
       font-weight: 500;
@@ -577,7 +601,11 @@
     <h1>Mold. Cold Rooms. High Energy Bills. They&rsquo;re All Connected.</h1>
     <p class="subtitle">We see the connections others miss. Mold remediation, insulation, construction, and consulting for Maine homeowners — diagnosed as one system, fixed by one team. Efficiency Maine registered vendor.</p>
     <div class="hero-ctas">
-      <a href="diagnostic.html" class="btn btn-gold btn-arrow">Tell Us What&rsquo;s Going On</a>
+      <div class="hero-btn-slider" id="hero-btn-slider">
+        <a href="/diagnostic/" class="btn btn-gold btn-arrow hero-btn-slide active">Tell Us What&rsquo;s Going On</a>
+        <a href="/financing-rebates/" class="btn btn-gold btn-arrow hero-btn-slide">Start Your Efficiency Maine Application</a>
+        <a href="/diagnostic/" class="btn btn-gold btn-arrow hero-btn-slide">Get a Mold Evaluation</a>
+      </div>
       <a href="tel:+12077776020" class="hero-phone">Call (207) 777-6020</a>
     </div>
     <div class="hero-trust">
@@ -867,6 +895,18 @@
   }
   window.addEventListener('scroll', check, { passive: true });
   check();
+})();
+
+/* Hero button slider — rotates every 3 seconds */
+(function() {
+  var slides = document.querySelectorAll('#hero-btn-slider .hero-btn-slide');
+  if (slides.length < 2) return;
+  var current = 0;
+  setInterval(function() {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }, 3000);
 })();
 </script>
 
