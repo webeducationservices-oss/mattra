@@ -50,6 +50,93 @@
 
   <link rel="stylesheet" href="/globals.css" />
   <style>
+    /* ===== FLOATING CTA ===== */
+    .floating-cta {
+      position: fixed;
+      z-index: 900;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .floating-cta.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Desktop: centered pill button */
+    @media (min-width: 769px) {
+      .floating-cta {
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%) translateY(16px);
+      }
+      .floating-cta.visible {
+        transform: translateX(-50%) translateY(0);
+      }
+      .floating-cta-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 36px;
+        background: var(--gold-accent);
+        color: var(--text-dark);
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: 100px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        transition: all 0.25s ease;
+        white-space: nowrap;
+      }
+      .floating-cta-link:hover {
+        background: var(--gold-dark);
+        color: var(--white);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+      }
+      .floating-cta-link svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
+      .floating-cta-bar { display: none; }
+    }
+
+    /* Mobile: subtle bottom bar */
+    @media (max-width: 768px) {
+      .floating-cta {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: translateY(100%);
+      }
+      .floating-cta.visible {
+        transform: translateY(0);
+      }
+      .floating-cta-pill { display: none; }
+      .floating-cta-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 20px;
+        background: var(--green-dark);
+        color: var(--white);
+        text-decoration: none;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.88rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+      }
+      .floating-cta-bar svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+    }
+
     /* ===== HERO ===== */
     .hero {
       position: relative;
@@ -751,6 +838,37 @@
 </section>
 
 
+
+<!-- ===== FLOATING CTA ===== -->
+<div class="floating-cta" id="floating-cta">
+  <!-- Desktop pill -->
+  <a href="/financing-rebates/#rebate-eligibility" class="floating-cta-link floating-cta-pill">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    Start Your Efficiency Maine Application
+  </a>
+  <!-- Mobile bar -->
+  <a href="/financing-rebates/#rebate-eligibility" class="floating-cta-bar">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    Start Your Efficiency Maine Application
+  </a>
+</div>
+<script>
+(function() {
+  var cta = document.getElementById('floating-cta');
+  if (!cta) return;
+  var shown = false;
+  function check() {
+    var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    var shouldShow = scrollY > 400;
+    if (shouldShow !== shown) {
+      shown = shouldShow;
+      cta.classList.toggle('visible', shown);
+    }
+  }
+  window.addEventListener('scroll', check, { passive: true });
+  check();
+})();
+</script>
 
 <!-- ===== FOOTER ===== -->
 <div id="footer"></div>
