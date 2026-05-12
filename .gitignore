@@ -4,3 +4,4 @@
 .env.keys
 node_modules/
 .claude/
+.vercel
