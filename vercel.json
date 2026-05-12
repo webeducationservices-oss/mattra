@@ -1,6 +1,17 @@
 {
   "cleanUrls": true,
   "trailingSlash": true,
+  "redirects": [
+    { "source": "/rebates", "destination": "/financing-rebates", "statusCode": 301 },
+    { "source": "/custom-homes-and-construction", "destination": "/construction", "statusCode": 301 },
+    { "source": "/financing", "destination": "/financing-rebates", "statusCode": 301 },
+    { "source": "/mold-remediation", "destination": "/mold/removal-remediation", "statusCode": 301 },
+    { "source": "/income-based-eligibility-verification", "destination": "/financing-rebates", "statusCode": 301 },
+    { "source": "/get-started", "destination": "/contact", "statusCode": 301 },
+    { "source": "/air-sealing", "destination": "/insulation/air-sealing", "statusCode": 301 },
+    { "source": "/project-portfolio/:id", "destination": "/services", "statusCode": 301 },
+    { "source": "/projects", "destination": "/services", "statusCode": 301 }
+  ],
   "headers": [
     {
       "source": "/(.*)",
