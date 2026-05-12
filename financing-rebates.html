@@ -656,12 +656,29 @@
       .service-cards { grid-template-columns: repeat(2, 1fr); }
       .process-steps { grid-template-columns: repeat(2, 1fr); }
       .financing-benefits ul { grid-template-columns: 1fr; }
+      
+      /* Force 4-column Related Services to 2-column on tablets */
+      .service-cards[style*="repeat(4, 1fr)"] { 
+        grid-template-columns: repeat(2, 1fr) !important; 
+      }
+    }
+    @media (max-width: 768px) {
+      /* Force 2-column financing section to single column on smaller tablets */
+      .service-cards[style*="repeat(2, 1fr)"] { 
+        grid-template-columns: 1fr !important; 
+      }
     }
     @media (max-width: 640px) {
       .service-cards { grid-template-columns: 1fr; }
       .process-steps { grid-template-columns: 1fr; gap: 16px; }
       .hero-trust { gap: 16px; }
       .slide { padding: 40px 24px; }
+      
+      /* Ensure all service cards are single column on mobile */
+      .service-cards[style*="repeat(2, 1fr)"],
+      .service-cards[style*="repeat(4, 1fr)"] { 
+        grid-template-columns: 1fr !important; 
+      }
     }
   </style>
   <!-- myaieditor inline-edit loader (no-op for real visitors) -->
@@ -705,7 +722,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="subtitle">Efficiency Maine insulation rebates may cover 40–80% of qualifying weatherization work — up to $8,000 depending on income. Mattra Inc. is a registered Efficiency Maine vendor and handles the paperwork.</p>
         <div class="hero-ctas">
           <a href="/contact?utm_source=fr&utm_medium=hero" class="btn btn-gold">Schedule Your Free Expert Inspection</a>
-          <a href="#rebate-calculator" class="text-link">Use the Rebate Calculator</a>
+          <a href="/rebate-calculator#calculator" class="text-link">Use the Rebate Calculator</a>
         </div>
         <div class="hero-trust">
           <span>Efficiency Maine Registered Vendor</span>
@@ -992,7 +1009,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p style="color: var(--brown-text); line-height: 1.7; margin-bottom: 20px;">
           Use the full rebate calculator to estimate your savings at each income tier and project size.
         </p>
-        <a href="/resources/rebate-calculator" class="btn btn-gold" style="display: inline-block;">Open the Rebate Calculator</a>
+        <a href="/rebate-calculator#calculator" class="btn btn-gold" style="display: inline-block;">Open the Rebate Calculator</a>
       </div>
     </div>
   </section>
