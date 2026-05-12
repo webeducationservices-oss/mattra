@@ -6,6 +6,16 @@
    ============================================================= */
 
 (function () {
+  const AC_LOAD_TS = Date.now();
+  let acSubmitted = false;
+  const AC_RC_KEY = '6Lck8aQsAAAAALMA-T6nwfkSf7bv4K-mOhkszeKh';
+  if (!document.querySelector('script[src*="recaptcha"]')) {
+    const s = document.createElement('script');
+    s.src = 'https://www.google.com/recaptcha/api.js?render=' + AC_RC_KEY;
+    s.async = true;
+    document.head.appendChild(s);
+  }
+
   /* ── CSS ──────────────────────────────────────────────────── */
   if (!document.getElementById('attic-calc-css')) {
     const style = document.createElement('style');
@@ -281,6 +291,47 @@
       const oopMax = Math.max(costMax - rebate, 0);
 
       const alreadyGood = rNeeded <= 0;
+
+      // Log estimate to form-notify (no contact info — anonymous estimate)
+      if (!acSubmitted) {
+        acSubmitted = true;
+        (async () => {
+          let rcToken = '';
+          if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
+            try { rcToken = await grecaptcha.execute(AC_RC_KEY, { action: 'attic_estimator' }); }
+            catch (e) { console.warn('reCAPTCHA failed:', e); }
+          }
+          const acPayload = {
+            site_slug: 'mattra',
+            form_type: 'attic-cost-estimator',
+            _ts: AC_LOAD_TS,
+            _honey: '',
+            recaptcha_token: rcToken,
+            attic_sqft: sqft + ' sq ft',
+            current_insulation: CURRENT_R[data.currentR].label,
+            material: mat.label,
+            income_tier: tier.label,
+            r_value_needed: 'R-' + rNeeded,
+            estimated_cost: alreadyGood ? 'N/A — already insulated' : '$' + costMin.toLocaleString() + ' – $' + costMax.toLocaleString(),
+            estimated_rebate: alreadyGood ? 'N/A' : '$' + rebate.toLocaleString(),
+            out_of_pocket: alreadyGood ? 'N/A' : '$' + oopMin.toLocaleString() + ' – $' + oopMax.toLocaleString(),
+            message: alreadyGood ? 'Attic may already be well-insulated' : 'Estimate completed'
+          };
+          fetch('https://myaieditor.com/api/form-notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(acPayload)
+          }).catch(err => console.error('Attic calc submit error:', err));
+        })();
+
+        // Fire GTM event
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'form_submission',
+          form_type: 'attic-cost-estimator',
+          form_location: window.location.pathname
+        });
+      }
 
       if (alreadyGood) {
         return `

@@ -288,7 +288,7 @@
         catch (e) { console.warn('reCAPTCHA failed:', e); }
       }
 
-      const honey = wrapper.querySelector('input[name="_honey"]');
+      const honey = root.querySelector('input[name="_honey"]');
       const data = {
         site_slug: 'mattra',
         form_type: 'rebate-calculator',
@@ -320,6 +320,14 @@
         console.error('Rebate calculator submit error:', err);
       }
       submitted = true;
+
+      // Fire GTM event for inline thank-you tracking
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'form_submission',
+        form_type: 'rebate-calculator',
+        form_location: window.location.pathname
+      });
     }
 
     function stepResults() {

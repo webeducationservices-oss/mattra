@@ -6,6 +6,16 @@
    ============================================================= */
 
 (function () {
+  const BC_LOAD_TS = Date.now();
+  let bcSubmitted = false;
+  const BC_RC_KEY = '6Lck8aQsAAAAALMA-T6nwfkSf7bv4K-mOhkszeKh';
+  if (!document.querySelector('script[src*="recaptcha"]')) {
+    const s = document.createElement('script');
+    s.src = 'https://www.google.com/recaptcha/api.js?render=' + BC_RC_KEY;
+    s.async = true;
+    document.head.appendChild(s);
+  }
+
   if (!document.getElementById('bc-calc-css')) {
     const style = document.createElement('style');
     style.id = 'bc-calc-css';
@@ -317,6 +327,43 @@
       const rebate = Math.min(rebateRaw, tier.max);
       const oopMin = Math.max(totalMin - rebate, 0);
       const oopMax = Math.max(totalMax - rebate, 0);
+
+      // Log estimate to form-notify
+      if (!bcSubmitted) {
+        bcSubmitted = true;
+        (async () => {
+          let rcToken = '';
+          if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
+            try { rcToken = await grecaptcha.execute(BC_RC_KEY, { action: 'basement_estimator' }); }
+            catch (e) { console.warn('reCAPTCHA failed:', e); }
+          }
+          const bcPayload = {
+            site_slug: 'mattra',
+            form_type: 'basement-crawlspace-estimator',
+            _ts: BC_LOAD_TS,
+            _honey: '',
+            recaptcha_token: rcToken,
+            project_type: lineItems.map(li => li.label).join(', '),
+            income_tier: tier.label,
+            estimated_cost: '$' + totalMin.toLocaleString() + ' – $' + totalMax.toLocaleString(),
+            estimated_rebate: '$' + rebate.toLocaleString(),
+            out_of_pocket: '$' + oopMin.toLocaleString() + ' – $' + oopMax.toLocaleString(),
+            message: 'Estimate completed'
+          };
+          fetch('https://myaieditor.com/api/form-notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bcPayload)
+          }).catch(err => console.error('Basement calc submit error:', err));
+        })();
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'form_submission',
+          form_type: 'basement-crawlspace-estimator',
+          form_location: window.location.pathname
+        });
+      }
 
       return `
         <div class="bc-step active">

@@ -6,6 +6,16 @@
    ============================================================= */
 
 (function () {
+  const SF_LOAD_TS = Date.now();
+  let sfSubmitted = false;
+  const SF_RC_KEY = '6Lck8aQsAAAAALMA-T6nwfkSf7bv4K-mOhkszeKh';
+  if (!document.querySelector('script[src*="recaptcha"]')) {
+    const s = document.createElement('script');
+    s.src = 'https://www.google.com/recaptcha/api.js?render=' + SF_RC_KEY;
+    s.async = true;
+    document.head.appendChild(s);
+  }
+
   if (!document.getElementById('sf-calc-css')) {
     const style = document.createElement('style');
     style.id = 'sf-calc-css';
@@ -276,6 +286,44 @@
       const rebate = Math.min(rebateRaw, tier.max);
       const oopMin = Math.max(totalMin - rebate, 0);
       const oopMax = Math.max(totalMax - rebate, 0);
+
+      // Log estimate to form-notify
+      if (!sfSubmitted) {
+        sfSubmitted = true;
+        (async () => {
+          let rcToken = '';
+          if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
+            try { rcToken = await grecaptcha.execute(SF_RC_KEY, { action: 'spray_foam_estimator' }); }
+            catch (e) { console.warn('reCAPTCHA failed:', e); }
+          }
+          const sfPayload = {
+            site_slug: 'mattra',
+            form_type: 'spray-foam-estimator',
+            _ts: SF_LOAD_TS,
+            _honey: '',
+            recaptcha_token: rcToken,
+            foam_type: foam.label,
+            areas: lineItems.map(li => li.label).join(', '),
+            income_tier: tier.label,
+            estimated_cost: '$' + totalMin.toLocaleString() + ' – $' + totalMax.toLocaleString(),
+            estimated_rebate: '$' + rebate.toLocaleString(),
+            out_of_pocket: '$' + oopMin.toLocaleString() + ' – $' + oopMax.toLocaleString(),
+            message: 'Estimate completed'
+          };
+          fetch('https://myaieditor.com/api/form-notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(sfPayload)
+          }).catch(err => console.error('Spray foam calc submit error:', err));
+        })();
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'form_submission',
+          form_type: 'spray-foam-estimator',
+          form_location: window.location.pathname
+        });
+      }
 
       return `
         <div class="sf-step active">

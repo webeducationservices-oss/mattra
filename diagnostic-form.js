@@ -553,6 +553,14 @@
         });
       } catch (e) { console.error('Form submit error:', e); }
 
+      // Fire GTM event for inline thank-you tracking
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'form_submission',
+        form_type: 'diagnostic',
+        form_location: window.location.pathname
+      });
+
       // Show confirmation regardless (don't block UX on network)
       showConfirm();
       goTo(5);

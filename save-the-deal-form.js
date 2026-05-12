@@ -632,6 +632,13 @@
             details: formData.details
           })
         });
+        // Fire GTM event for inline thank-you tracking
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'form_submission',
+          form_type: 'save-the-deal',
+          form_location: window.location.pathname
+        });
         showStep('success');
       } catch (err) {
         showStep('success');
