@@ -32,7 +32,7 @@
 
 /* ===== RESET ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; scroll-padding-top: 100px; }
 body {
   font-family: 'Montserrat', sans-serif;
   font-size: 18px;
@@ -948,6 +948,7 @@ p { margin-bottom: 1rem; }
 }
 
 @media (max-width: 1024px) {
+  html { scroll-padding-top: 90px; }
   .container { padding: 0 32px; }
   .header-inner { height: 70px; gap: 12px; }
   .mobile-toggle { display: flex; }
