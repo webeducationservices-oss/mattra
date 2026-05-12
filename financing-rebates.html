@@ -832,32 +832,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="/diagnostic-form.js"></script>
   <script src="/rebate-calculator.js"></script>
 
-  <!-- Slider JS -->
-  <script>
-  (function(){
-    const wrap = document.getElementById('rebate-slider');
-    if (!wrap) return;
-    const track = wrap.querySelector('.slider-track');
-    const slides = wrap.querySelectorAll('.slide');
-    const dotsWrap = document.getElementById('rebate-dots');
-    let idx = 0;
-    slides.forEach((_, i) => {
-      const d = document.createElement('button');
-      d.ariaLabel = 'Slide ' + (i + 1);
-      if (i === 0) d.classList.add('active');
-      d.addEventListener('click', () => go(i));
-      dotsWrap.appendChild(d);
-    });
-    function go(i) {
-      idx = (i + slides.length) % slides.length;
-      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
-      dotsWrap.querySelectorAll('button').forEach((d, j) => d.classList.toggle('active', j === idx));
-    }
-    wrap.querySelector('.prev').addEventListener('click', () => go(idx - 1));
-    wrap.querySelector('.next').addEventListener('click', () => go(idx + 1));
-    setInterval(() => go(idx + 1), 6000);
-  })();
-  </script>
+
 
   <!-- FAQ JS -->
   <script>
