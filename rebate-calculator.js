@@ -247,6 +247,7 @@
             <label for="rc-phone">Phone <small style="font-weight:400;color:var(--brown-text,#706460)">(optional)</small></label>
             <input type="tel" id="rc-phone" inputmode="tel" value="${contact.phone}" placeholder="(207) 555-0000">
           </div>
+          <input type="text" name="_honey" style="display:none;" tabindex="-1" autocomplete="off" />
           <div class="rc-nav">
             <button class="rc-btn rc-btn-back" data-action="back">&larr; Back</button>
             <button class="rc-btn rc-btn-next" data-action="submit">See My Estimate &rarr;</button>
@@ -287,10 +288,12 @@
         catch (e) { console.warn('reCAPTCHA failed:', e); }
       }
 
+      const honey = wrapper.querySelector('input[name="_honey"]');
       const data = {
         site_slug: 'mattra',
         form_type: 'rebate-calculator',
         _ts: loadTs,
+        _honey: honey ? honey.value : '',
         recaptcha_token: rcToken,
         first_name: contact.first_name,
         email: contact.email,

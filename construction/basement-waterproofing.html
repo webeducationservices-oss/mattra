@@ -196,8 +196,31 @@
       .process-step { flex-direction:column; gap:12px; }
     }
   </style>
+
+  <!-- Google Consent Mode (before GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K4ZZ5RK');</script>
 </head>
 <body>
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4ZZ5RK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 
 <div id="topbar"></div>
 <div id="header"></div>
@@ -211,7 +234,7 @@
       <p class="subtitle">Mattra helps Lewiston-Auburn homeowners stop basement leaks, control moisture, and reduce the risk of mold and future water damage.</p>
       <div class="hero-ctas">
         <a href="/contact.html" class="btn btn-gold btn-arrow">Get a Waterproofing Estimate</a>
-        <a href="/insulation/basement-insulation.html" class="hero-phone">Explore Basement Insulation &rarr;</a>
+        <a href="/insulation/basement/" class="hero-phone">Explore Basement Insulation &rarr;</a>
       </div>
       <div class="hero-trust">
         <div class="trust-bar">
@@ -294,7 +317,7 @@
           <div class="slide-text">
             <h3>Basement Insulation</h3>
             <p>Insulation can help or hurt depending on how moisture is being managed in the space. When waterproofing and insulation work together, the basement performs better long term.</p>
-            <a href="/insulation/basement-insulation.html" class="link-text">Basement Insulation &rarr;</a>
+            <a href="/insulation/basement/" class="link-text">Basement Insulation &rarr;</a>
           </div>
         </div>
       </div>
@@ -332,7 +355,7 @@
           <div class="slide-text">
             <h3>Crawl Space Conditions</h3>
             <p>Connected lower-level spaces can affect basement dampness, air movement, and moisture behavior. Addressing crawl space conditions alongside waterproofing creates a more complete solution.</p>
-            <a href="/insulation/crawl-space-encapsulation.html" class="link-text">Crawl Space Encapsulation &rarr;</a>
+            <a href="/insulation/crawl-space/" class="link-text">Crawl Space Encapsulation &rarr;</a>
           </div>
         </div>
       </div>
@@ -496,7 +519,7 @@
         <li>Repairs needed after long-term seepage or a major water event</li>
       </ul>
       <div class="cta-links">
-        <a href="/construction/water-damage-repair.html" class="btn btn-outline btn-arrow">Water Damage Repair</a>
+        <a href="/construction/water-damage/" class="btn btn-outline btn-arrow">Water Damage Repair</a>
         <a href="/construction.html" class="link-text">Construction Services &rarr;</a>
       </div>
     </div>
@@ -554,7 +577,7 @@
         </div>
         <h3>Basement Insulation</h3>
         <p>If comfort and moisture control overlap in the lower level, learn more about basement insulation.</p>
-        <a href="/insulation/basement-insulation.html" class="link-text">Basement Insulation &rarr;</a>
+        <a href="/insulation/basement/" class="link-text">Basement Insulation &rarr;</a>
       </div>
       <!-- Crawl Space Encapsulation -->
       <div class="card">
@@ -563,7 +586,7 @@
         </div>
         <h3>Crawl Space Encapsulation</h3>
         <p>If the home has connected lower-level moisture issues, see crawl space solutions.</p>
-        <a href="/insulation/crawl-space-encapsulation.html" class="link-text">Crawl Space Encapsulation &rarr;</a>
+        <a href="/insulation/crawl-space/" class="link-text">Crawl Space Encapsulation &rarr;</a>
       </div>
       <!-- Dehumidification -->
       <div class="card">
@@ -581,7 +604,7 @@
         </div>
         <h3>Water Damage Repair</h3>
         <p>If materials have already been affected by water intrusion, get help with water damage repair.</p>
-        <a href="/construction/water-damage-repair.html" class="link-text">Water Damage Repair &rarr;</a>
+        <a href="/construction/water-damage/" class="link-text">Water Damage Repair &rarr;</a>
       </div>
     </div>
   </div>
@@ -700,7 +723,7 @@
 <section class="section section-white" style="padding:48px 0;text-align:center;">
   <div class="container">
     <p style="font-size:1.1rem;color:var(--brown-text);">
-      Questions? Call <a href="tel:2077776020" style="color:var(--green-primary);font-weight:600">(207) 777-6020</a>
+      Questions? Call <a href="tel:+12077776020" style="color:var(--green-primary);font-weight:600">(207) 777-6020</a>
       or email <a href="mailto:info@mattrainc.com" style="color:var(--green-primary);font-weight:600">info@mattrainc.com</a>
     </p>
   </div>

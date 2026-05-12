@@ -287,8 +287,31 @@
   </style>
   <!-- myaieditor inline-edit loader (no-op for real visitors) -->
   <script src="/mae-edit-loader.js" async></script>
+
+  <!-- Google Consent Mode (before GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K4ZZ5RK');</script>
 </head>
 <body>
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4ZZ5RK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 
 <!-- ===== TOPBAR + HEADER ===== -->
 <div id="topbar"></div>
@@ -422,7 +445,7 @@
         <p>Bangor, Brewer, Orono, Old Town, Veazie, Hampden, Hermon, Glenburn, Holden, Eddington, Clifton, Bradley, Milford, Stillwater, Hudson, Corinth, Exeter, Newport, Dexter, Dover-Foxcroft, Ellsworth, Bar Harbor, Blue Hill, Deer Isle, Castine, Bucksport.</p>
         <div class="region-links">
           <a href="/mold/removal-remediation.html">Mold Removal in Greater Bangor</a>
-          <a href="/services/general-contracting.html">General Contracting in Bangor</a>
+          <a href="/other-services/general-contracting/">General Contracting in Bangor</a>
         </div>
       </div>
 

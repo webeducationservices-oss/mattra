@@ -186,8 +186,31 @@
   </style>
   <!-- myaieditor inline-edit loader (no-op for real visitors) -->
   <script src="/mae-edit-loader.js" async></script>
+
+  <!-- Google Consent Mode (before GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K4ZZ5RK');</script>
 </head>
 <body>
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4ZZ5RK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 
 <div id="topbar"></div>
 <div id="header"></div>
@@ -225,7 +248,7 @@
 
     <p>"With winter just around the corner, we want to remind Mainers that by weatherizing your house or apartment you can reduce your energy use, increase your comfort, and lower your bills," Michael Stoddard, executive director of the Efficiency Maine Trust, said. "While it is typical to employ a professional contractor to perform major weatherization projects, this promotion recognizes that there are plenty of smaller, low-cost steps that we can install ourselves with the right materials from the local hardware store."</p>
 
-    <p>For more information about the rebate program, and to file a claim to receive the home winterization rebate, click <a href="/rebates">here</a>.</p>
+    <p>For more information about the rebate program, and to file a claim to receive the home winterization rebate, click <a href="/financing-rebates/">here</a>.</p>
 
     <div class="blog-cta-banner">
       <h3>Ready to Weatherize Your Home?</h3>

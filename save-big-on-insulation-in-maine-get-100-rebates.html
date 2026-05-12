@@ -186,8 +186,31 @@
   </style>
   <!-- myaieditor inline-edit loader (no-op for real visitors) -->
   <script src="/mae-edit-loader.js" async></script>
+
+  <!-- Google Consent Mode (before GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K4ZZ5RK');</script>
 </head>
 <body>
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4ZZ5RK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 
 <div id="topbar"></div>
 <div id="header"></div>
@@ -213,7 +236,7 @@
 
     <h2>Stretch Your Budget Further with Rebates</h2>
 
-    <p>Living in Maine, you know how tough the winters can be, especially if your home isn't keeping the heat in. There's good news if money is tight and your house feels like a freezer. Thanks to <a href="/rebates">Efficiency Maine's rebate program</a>, you could get most, if not all, of your insulation paid for if you're on programs like MaineCare, SNAP, TANF, or HEAP. It's like having a secret weapon against the cold, without breaking the bank.</p>
+    <p>Living in Maine, you know how tough the winters can be, especially if your home isn't keeping the heat in. There's good news if money is tight and your house feels like a freezer. Thanks to <a href="/financing-rebates/">Efficiency Maine's rebate program</a>, you could get most, if not all, of your insulation paid for if you're on programs like MaineCare, SNAP, TANF, or HEAP. It's like having a secret weapon against the cold, without breaking the bank.</p>
 
     <h2>Full Rebates: More Heat, Less Spend</h2>
 
@@ -229,7 +252,7 @@
 
     <h2>Take the Next Step to a Cozier Home</h2>
 
-    <p>Ready to stop shivering and start saving? <a href="/get-started">Fill out our "Get Started" form</a> or give us a call at <a href="tel:2077776020">207-777-6020</a> today for a free estimate. We'll let you know if you qualify for those big rebates from Efficiency Maine.</p>
+    <p>Ready to stop shivering and start saving? <a href="/diagnostic/">Fill out our "Get Started" form</a> or give us a call at <a href="tel:+12077776020">207-777-6020</a> today for a free estimate. We'll let you know if you qualify for those big rebates from Efficiency Maine.</p>
 
     <p>At Mattra Inc, we're here to help every step of the way, from checking your eligibility to installing the best insulation for your home.</p>
 

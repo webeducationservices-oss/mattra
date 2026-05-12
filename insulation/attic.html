@@ -188,8 +188,31 @@
       .process-step { flex-direction:column; gap:12px; }
     }
   </style>
+
+  <!-- Google Consent Mode (before GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K4ZZ5RK');</script>
 </head>
 <body>
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4ZZ5RK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 
 <div id="topbar"></div>
 <div id="header"></div>
@@ -517,7 +540,7 @@
         <p style="color:rgba(255,255,255,0.85);">If your attic has moisture issues, mold concerns, or rodent-related damage, those conditions should be addressed before new insulation goes in.</p>
         <div class="cta-links" style="margin-top:16px;">
           <a href="/mold.html" class="btn btn-gold btn-arrow">Mold Remediation</a>
-          <a href="/services/rodent-cleanup.html" class="btn btn-outline-light btn-arrow">Rodent Cleanup</a>
+          <a href="/other-services/rodent-cleanup/" class="btn btn-outline-light btn-arrow">Rodent Cleanup</a>
         </div>
       </div>
       <div>
@@ -557,7 +580,7 @@
 <section class="section section-white" style="padding:48px 0;text-align:center;">
   <div class="container">
     <p style="font-size:1.1rem;color:var(--brown-text);">
-      Questions? Call <a href="tel:2077776020" style="color:var(--green-primary);font-weight:600">(207) 777-6020</a>
+      Questions? Call <a href="tel:+12077776020" style="color:var(--green-primary);font-weight:600">(207) 777-6020</a>
       or email <a href="mailto:info@mattrainc.com" style="color:var(--green-primary);font-weight:600">info@mattrainc.com</a>
     </p>
   </div>

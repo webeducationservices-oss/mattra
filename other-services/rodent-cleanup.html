@@ -399,8 +399,31 @@
       .premium-box { padding: 28px 24px; }
     }
   </style>
+
+  <!-- Google Consent Mode (before GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K4ZZ5RK');</script>
 </head>
 <body>
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4ZZ5RK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 
 <!-- ===== TOPBAR + HEADER ===== -->
 <div id="topbar"></div>
@@ -415,7 +438,7 @@
       <p class="subtitle">Mattra helps Maine homeowners safely clean up rodent contamination in attics and crawl spaces while restoring affected insulation and damaged areas.</p>
       <div class="hero-ctas">
         <a href="/other-services/rodent-cleanup" class="btn btn-gold btn-arrow">Get a Cleanup Estimate</a>
-        <a href="/insulation/insulation-removal" class="hero-phone">Explore Insulation Removal &rarr;</a>
+        <a href="/other-services/insulation-removal/" class="hero-phone">Explore Insulation Removal &rarr;</a>
       </div>
       <div class="hero-trust">
         <div class="trust-bar">
@@ -535,8 +558,8 @@
         </ul>
         <p style="margin-top:16px;"><strong>If contaminated insulation is part of the issue, the next steps often include:</strong></p>
         <ul class="link-list" style="margin-top:8px;">
-          <li><a href="/insulation/insulation-removal">Insulation Removal</a></li>
-          <li><a href="/insulation/attic-insulation">Attic Insulation</a></li>
+          <li><a href="/other-services/insulation-removal/">Insulation Removal</a></li>
+          <li><a href="/insulation/attic/">Attic Insulation</a></li>
         </ul>
         <p style="margin-top:16px;">Replacing insulation after contamination is often one of the most important parts of getting the home back to normal.</p>
       </div>
@@ -608,13 +631,13 @@
       <div class="card next-card">
         <h3>Insulation Removal</h3>
         <p>If the insulation is contaminated, damaged, or no longer performing the way it should, explore insulation removal.</p>
-        <a href="/insulation/insulation-removal" class="card-link">Learn More</a>
+        <a href="/other-services/insulation-removal/" class="card-link">Learn More</a>
       </div>
 
       <div class="card next-card">
         <h3>Attic Insulation</h3>
         <p>If cleanup leads into restoring the attic for comfort and efficiency, learn more about attic insulation.</p>
-        <a href="/insulation/attic-insulation" class="card-link">Learn More</a>
+        <a href="/insulation/attic/" class="card-link">Learn More</a>
       </div>
 
       <div class="card next-card">

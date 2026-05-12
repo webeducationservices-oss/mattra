@@ -374,8 +374,31 @@
   </style>
   <!-- myaieditor inline-edit loader (no-op for real visitors) -->
   <script src="/mae-edit-loader.js" async></script>
+
+  <!-- Google Consent Mode (before GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K4ZZ5RK');</script>
 </head>
 <body>
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4ZZ5RK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 
 <!-- ===== TOPBAR + HEADER ===== -->
 <div id="topbar"></div>
@@ -535,7 +558,7 @@
         <p style="margin-top: 12px;">That's why our work often crosses trades. Remediation handles what's already there. Air sealing, insulation, and ventilation correction stop the conditions that grew it.</p>
         <p style="margin-top: 12px;">When the right next step points toward insulation or air sealing, Efficiency Maine rebates often cover 40% to 80% of the project cost depending on income, up to $8,000. As a registered Efficiency Maine vendor, we walk you through what you'd qualify for — and handle the paperwork. No pitch. Just the math, so you know it before you decide.</p>
         <p style="margin-top:20px;font-size:0.9rem;color:var(--text-light);">
-          Related: <a href="/insulation/" style="color:var(--green-primary);font-weight:600;">Insulation</a> &middot; <a href="/insulation/air-sealing/" style="color:var(--green-primary);font-weight:600;">Air Sealing</a> &middot; <a href="/insulation/basement/" style="color:var(--green-primary);font-weight:600;">Basement Insulation</a> &middot; <a href="/insulation/crawl-space/" style="color:var(--green-primary);font-weight:600;">Crawl Space</a> &middot; <a href="/services/energy-audit/" style="color:var(--green-primary);font-weight:600;">Energy Audit</a>
+          Related: <a href="/insulation/" style="color:var(--green-primary);font-weight:600;">Insulation</a> &middot; <a href="/insulation/air-sealing/" style="color:var(--green-primary);font-weight:600;">Air Sealing</a> &middot; <a href="/insulation/basement/" style="color:var(--green-primary);font-weight:600;">Basement Insulation</a> &middot; <a href="/insulation/crawl-space/" style="color:var(--green-primary);font-weight:600;">Crawl Space</a> &middot; <a href="/other-services/energy-audit/" style="color:var(--green-primary);font-weight:600;">Energy Audit</a>
         </p>
       </div>
     </div>

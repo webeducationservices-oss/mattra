@@ -378,8 +378,31 @@
       .process-grid { grid-template-columns: 1fr; }
     }
   </style>
+
+  <!-- Google Consent Mode (before GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K4ZZ5RK');</script>
 </head>
 <body>
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4ZZ5RK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 
 <!-- ===== TOPBAR + HEADER ===== -->
 <div id="topbar"></div>
@@ -513,7 +536,7 @@
         <p style="margin-top:16px;">This is why dehumidification for mold prevention can be such an important part of a bigger moisture control plan. If a home already has musty smells, damp materials, or recurring humidity, it may also make sense to review related services:</p>
         <ul class="link-list" style="margin-top:12px;">
           <li><a href="/mold">Mold Services</a></li>
-          <li><a href="/construction/water-damage-repair">Water Damage Repair</a></li>
+          <li><a href="/construction/water-damage/">Water Damage Repair</a></li>
         </ul>
       </div>
       <div class="col-img">
@@ -571,7 +594,7 @@
             <div class="slide-text">
               <h3>Repair What Is Already Damaged</h3>
               <p>If humidity followed a leak or water event, dehumidification alone may not resolve the underlying issue. Damaged materials may need repair or replacement to fully restore the space.</p>
-              <p><a href="/construction/water-damage-repair" style="color:var(--green-primary);font-weight:600;">Learn About Water Damage Repair &rarr;</a></p>
+              <p><a href="/construction/water-damage/" style="color:var(--green-primary);font-weight:600;">Learn About Water Damage Repair &rarr;</a></p>
             </div>
           </div>
         </div>
@@ -687,7 +710,7 @@
       <div class="card dh-service-card">
         <h3>Water Damage Repair</h3>
         <p>If lingering humidity followed a leak or water event, see water damage repair services.</p>
-        <a href="/construction/water-damage-repair" class="card-link">Learn More</a>
+        <a href="/construction/water-damage/" class="card-link">Learn More</a>
       </div>
 
       <div class="card dh-service-card">

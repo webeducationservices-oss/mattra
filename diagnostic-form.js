@@ -159,6 +159,7 @@
           <label for="diag-notes">Anything else?</label>
           <textarea id="diag-notes" placeholder="No worries if not \u2014 we\u2019ll cover everything when we talk."></textarea>
         </div>
+        <input type="text" name="_honey" style="display:none;" tabindex="-1" autocomplete="off" />
         <div class="diag-nav">
           <button class="diag-btn-back">&larr; Back</button>
           <button class="diag-btn-submit">Send My Info &rarr;</button>
@@ -510,6 +511,7 @@
       submitBtn.textContent = 'Processing...';
 
       // Build the payload
+      const honey = card.querySelector('input[name="_honey"]').value;
       const payload = {
         site_slug: 'mattra',
         form_type: 'diagnostic',
@@ -518,6 +520,7 @@
         email: email,
         concern: CONCERN_LABELS[state.concern] || state.concern,
         _ts: loadTs,
+        _honey: honey,
       };
       if (phone) payload.phone = phone;
       if (zip)   payload.zip = zip;

@@ -188,8 +188,31 @@
       .process-step { flex-direction:column; gap:12px; }
     }
   </style>
+
+  <!-- Google Consent Mode (before GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K4ZZ5RK');</script>
 </head>
 <body>
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4ZZ5RK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 
 <div id="topbar"></div>
 <div id="header"></div>
@@ -250,7 +273,7 @@
         <p>Before we insulate any basement, we assess for moisture infiltration, active leaks, and condensation patterns. If we find signs of water intrusion, we flag it clearly and can coordinate with our Basement Waterproofing team before the insulation install begins. We'd rather have that conversation upfront than get a callback a year later.</p>
         <div class="cta-links">
           <a href="/construction/basement-waterproofing.html" class="btn btn-outline btn-arrow">Basement Waterproofing</a>
-          <a href="/services/dehumidification.html" class="btn btn-outline btn-arrow">Dehumidification Solutions</a>
+          <a href="/other-services/dehumidification/" class="btn btn-outline btn-arrow">Dehumidification Solutions</a>
         </div>
       </div>
     </div>
@@ -531,7 +554,7 @@
 <section class="section section-white" style="padding:48px 0;text-align:center;">
   <div class="container">
     <p style="font-size:1.1rem;color:var(--brown-text);">
-      Questions? Call <a href="tel:2077776020" style="color:var(--green-primary);font-weight:600">(207) 777-6020</a>
+      Questions? Call <a href="tel:+12077776020" style="color:var(--green-primary);font-weight:600">(207) 777-6020</a>
       or email <a href="mailto:info@mattrainc.com" style="color:var(--green-primary);font-weight:600">info@mattrainc.com</a>
     </p>
   </div>

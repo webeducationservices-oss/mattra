@@ -186,8 +186,31 @@
   </style>
   <!-- myaieditor inline-edit loader (no-op for real visitors) -->
   <script src="/mae-edit-loader.js" async></script>
+
+  <!-- Google Consent Mode (before GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K4ZZ5RK');</script>
 </head>
 <body>
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4ZZ5RK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
 
 <div id="topbar"></div>
 <div id="header"></div>
@@ -217,9 +240,9 @@
 
     <h2>Unlock Savings with Efficiency Maine</h2>
 
-    <p>For Maine residents, there's relief in the form of a government program for homeowners and mobile home owners. The <a href="/rebates">Efficiency Maine Program</a> is critical for Maine residents, covering between 40% to 80% of the costs associated with insulating your home or mobile home. The additional 20% of costs may be covered by municipal in material rebates. Combining the two programs for some homeowners leads to zero out-of-pocket costs. This initiative is designed to alleviate the financial costs of upgrading your home's insulation, making it easier for those on a tight budget.</p>
+    <p>For Maine residents, there's relief in the form of a government program for homeowners and mobile home owners. The <a href="/financing-rebates/">Efficiency Maine Program</a> is critical for Maine residents, covering between 40% to 80% of the costs associated with insulating your home or mobile home. The additional 20% of costs may be covered by municipal in material rebates. Combining the two programs for some homeowners leads to zero out-of-pocket costs. This initiative is designed to alleviate the financial costs of upgrading your home's insulation, making it easier for those on a tight budget.</p>
 
-    <p>If you are a Maine resident, you can find out <a href="/financing">how much of a rebate you qualify</a> for by starting the <a href="/get-started">Efficiency Maine application here.</a> There is no obligation to starting the application. You'll find out how much you qualify for and learn more about the next steps if you choose to claim your rebate.</p>
+    <p>If you are a Maine resident, you can find out <a href="/financing-rebates/">how much of a rebate you qualify</a> for by starting the <a href="/diagnostic/">Efficiency Maine application here.</a> There is no obligation to starting the application. You'll find out how much you qualify for and learn more about the next steps if you choose to claim your rebate.</p>
 
     <h2>Insulation Costs Across the Board: A Detailed Guide</h2>
 
