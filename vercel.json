@@ -1,17 +1,17 @@
 {
   "cleanUrls": true,
   "trailingSlash": true,
-  "redirects": [
-    { "source": "/rebates/", "destination": "/financing-rebates/", "statusCode": 301 },
-    { "source": "/custom-homes-and-construction/", "destination": "/construction/", "statusCode": 301 },
-    { "source": "/financing/", "destination": "/financing-rebates/", "statusCode": 301 },
-    { "source": "/mold-remediation/", "destination": "/mold/removal-remediation/", "statusCode": 301 },
-    { "source": "/income-based-eligibility-verification/", "destination": "/financing-rebates/", "statusCode": 301 },
-    { "source": "/get-started/", "destination": "/contact/", "statusCode": 301 },
-    { "source": "/air-sealing/", "destination": "/insulation/air-sealing/", "statusCode": 301 },
-    { "source": "/project-portfolio/:id/", "destination": "/services/", "statusCode": 301 },
-    { "source": "/project-portfolio/:id", "destination": "/services/", "statusCode": 301 },
-    { "source": "/projects/", "destination": "/services/", "statusCode": 301 }
+  "rewrites": [
+    { "source": "/rebates/", "destination": "/financing-rebates.html" },
+    { "source": "/custom-homes-and-construction/", "destination": "/construction.html" },
+    { "source": "/financing/", "destination": "/financing-rebates.html" },
+    { "source": "/mold-remediation/", "destination": "/mold/removal-remediation.html" },
+    { "source": "/income-based-eligibility-verification/", "destination": "/financing-rebates.html" },
+    { "source": "/get-started/", "destination": "/contact.html" },
+    { "source": "/air-sealing/", "destination": "/insulation/air-sealing.html" },
+    { "source": "/project-portfolio/:id/", "destination": "/services.html" },
+    { "source": "/project-portfolio/:id", "destination": "/services.html" },
+    { "source": "/projects/", "destination": "/services.html" }
   ],
   "headers": [
     {
