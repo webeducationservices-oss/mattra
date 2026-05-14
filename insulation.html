@@ -295,9 +295,146 @@
       margin-bottom: 8px;
     }
 
+    /* ===== REBATE TIER CARDS ===== */
+    .rebate-tiers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .rebate-tier {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .rebate-tier:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .rebate-tier--featured {
+      border: 2px solid var(--gold-accent);
+      box-shadow: 0 4px 20px rgba(231,187,58,0.15);
+    }
+    .rebate-tier-header {
+      padding: 24px 24px 20px;
+      text-align: center;
+      background: var(--green-dark);
+      color: #fff;
+    }
+    .rebate-tier--featured .rebate-tier-header {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
+    }
+    .rebate-tier-label {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold-accent);
+      margin-bottom: 8px;
+    }
+    .rebate-tier-header h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: #fff;
+      margin: 0;
+    }
+    .rebate-tier-body {
+      padding: 24px;
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .rebate-tier-pct {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      font-weight: 400;
+      color: var(--green-primary);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .rebate-tier-pct-label {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+    .rebate-tier-max {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .rebate-tier-max-label {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .rebate-tier-divider {
+      width: 48px;
+      height: 2px;
+      background: var(--border-light);
+      margin: 0 auto 16px;
+    }
+    .rebate-tier-note {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    .rebate-program-details {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .rebate-detail-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 20px;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .rebate-detail-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(49,107,67,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--green-primary);
+    }
+    .rebate-detail-text h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .rebate-detail-text p {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      margin: 0;
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
       .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .rebate-program-details { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .rebate-tiers { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
     }
     @media (max-width: 640px) {
       .hero { min-height: 420px; }
@@ -552,46 +689,104 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===== EFFICIENCY MAINE REBATES ===== -->
 <section class="section section--gray">
   <div class="container">
-    <!-- Top: Header + Image (2-column) -->
-    <div class="grid-2" style="margin-bottom:0;">
-      <div>
-        <span class="section-label">Rebates &amp; Incentives</span>
-        <h2>Efficiency Maine Insulation Rebates</h2>
-        <p>Maine homeowners qualify for <strong>Efficiency Maine insulation rebates</strong> through the Home Energy Savings Program. As a Registered Vendor, we handle the paperwork and ensure your project meets program requirements.</p>
+    <div class="section-header" style="text-align:center;">
+      <span class="section-label">Rebates &amp; Incentives</span>
+      <h2>Efficiency Maine Insulation Rebates</h2>
+      <p style="max-width:680px;margin:0 auto;">Maine homeowners qualify for Efficiency Maine insulation rebates through the Home Energy Savings Program. As a Registered Vendor, we handle the paperwork and ensure your project meets program requirements.</p>
+    </div>
+
+    <!-- Rebate Tier Cards -->
+    <div class="rebate-tiers">
+      <!-- Any Income -->
+      <div class="rebate-tier">
+        <div class="rebate-tier-header">
+          <div class="rebate-tier-label">Any Income</div>
+          <h3>Standard Rebate</h3>
+        </div>
+        <div class="rebate-tier-body">
+          <div class="rebate-tier-pct">40%</div>
+          <div class="rebate-tier-pct-label">of project cost</div>
+          <div class="rebate-tier-max">$4,000</div>
+          <div class="rebate-tier-max-label">Maximum Rebate</div>
+          <div class="rebate-tier-divider"></div>
+          <p class="rebate-tier-note">No income verification required. Available to all Maine homeowners.</p>
+        </div>
       </div>
-      <div>
-        <img src="/Images/insulation-rebates.webp" alt="Maine homeowner reviewing Efficiency Maine rebate documentation with a Mattra installer" loading="lazy" style="border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);max-width:100%;height:auto;min-height:280px;max-height:400px;" width="1024" height="1024" />
+
+      <!-- Moderate Income -->
+      <div class="rebate-tier rebate-tier--featured">
+        <div class="rebate-tier-header">
+          <div class="rebate-tier-label">Moderate Income</div>
+          <h3>Enhanced Rebate</h3>
+        </div>
+        <div class="rebate-tier-body">
+          <div class="rebate-tier-pct">60%</div>
+          <div class="rebate-tier-pct-label">of project cost</div>
+          <div class="rebate-tier-max">$6,000</div>
+          <div class="rebate-tier-max-label">Maximum Rebate</div>
+          <div class="rebate-tier-divider"></div>
+          <p class="rebate-tier-note">Income verification required. We help determine your eligibility.</p>
+        </div>
+      </div>
+
+      <!-- Low Income -->
+      <div class="rebate-tier">
+        <div class="rebate-tier-header">
+          <div class="rebate-tier-label">Low Income</div>
+          <h3>Maximum Rebate</h3>
+        </div>
+        <div class="rebate-tier-body">
+          <div class="rebate-tier-pct">80%</div>
+          <div class="rebate-tier-pct-label">of project cost</div>
+          <div class="rebate-tier-max">$8,000</div>
+          <div class="rebate-tier-max-label">Maximum Rebate</div>
+          <div class="rebate-tier-divider"></div>
+          <p class="rebate-tier-note">HEAP, MaineCare, TANF, SNAP recipients and other qualifying programs.</p>
+        </div>
       </div>
     </div>
 
-    <!-- Bottom: Full-width rebate details -->
-    <div style="margin-top:48px;">
-      <div style="max-width:900px;">
-        <h3>Maximum insulation rebates by income tier</h3>
-        <p><em>(% of project cost, capped at dollar maximum)</em></p>
-        <ul class="feature-list">
-          <li><strong>Any income</strong> — up to 40% of project cost, maximum <strong>$4,000</strong>. No income verification.</li>
-          <li><strong>Moderate income</strong> — up to 60% of project cost, maximum <strong>$6,000</strong>. Income verification required.</li>
-          <li><strong>Low income</strong> — up to 80% of project cost, maximum <strong>$8,000</strong>. Eligibility includes HEAP, MaineCare, TANF, SNAP recipients, and others.</li>
-        </ul>
-        
-        <h4 style="margin-top:24px;margin-bottom:12px;">The program also includes:</h4>
-        <ul class="feature-list">
-          <li><strong>Energy Upgrade Bundle</strong> (energy assessment + basic air sealing) — required entry point before insulation rebates apply</li>
-          <li><strong>Air sealing</strong> rebates within the broader weatherization scope</li>
-          <li><strong>Lifetime limits</strong> — one rebate per area per property (one attic, one wall, one basement)</li>
-        </ul>
-        
-        <div style="background: linear-gradient(135deg, rgba(49,107,67,0.06) 0%, rgba(231,187,58,0.08) 100%);border-left: 4px solid var(--gold-accent);border-radius: 0 var(--radius) var(--radius) 0;padding: 24px 28px;margin-top: 24px;margin-bottom:24px;">
-          <h4 style="color:var(--green-primary);margin-bottom: 8px;">Eligibility Notes</h4>
-          <p style="margin:0;font-size:0.95rem;">Owner-occupied year-round residences in Maine. Insulation must meet program technical standards (R-values, foam fire protection, basement perimeter coverage). Programs and amounts change periodically. As an Efficiency Maine Registered Vendor, we walk you through what your project actually qualifies for — before any work begins.</p>
+    <!-- Program Details -->
+    <div class="rebate-program-details">
+      <div class="rebate-detail-item">
+        <div class="rebate-detail-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </div>
-        
-        <div style="display:flex;flex-wrap:wrap;gap:16px;">
-          <a href="/diagnostic.html" class="btn btn-primary btn-arrow">Check My Rebate Eligibility</a>
-          <a href="/efficiency-maine/" class="card-link">Full Efficiency Maine Rebate Guide</a>
-          <a href="/financing-rebates/" class="card-link">Financing Options</a>
+        <div class="rebate-detail-text">
+          <h4>Energy Upgrade Bundle</h4>
+          <p>Energy assessment + basic air sealing is the required entry point before insulation rebates apply.</p>
         </div>
+      </div>
+      <div class="rebate-detail-item">
+        <div class="rebate-detail-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="rebate-detail-text">
+          <h4>Air Sealing Rebates</h4>
+          <p>Additional rebates available within the broader weatherization scope of the program.</p>
+        </div>
+      </div>
+      <div class="rebate-detail-item">
+        <div class="rebate-detail-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="rebate-detail-text">
+          <h4>Lifetime Limits</h4>
+          <p>One rebate per area per property &mdash; one attic, one wall, one basement.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Eligibility Callout + CTAs -->
+    <div style="max-width:900px;margin:40px auto 0;">
+      <div style="background: linear-gradient(135deg, rgba(49,107,67,0.06) 0%, rgba(231,187,58,0.08) 100%);border-left: 4px solid var(--gold-accent);border-radius: 0 12px 12px 0;padding: 24px 28px;margin-bottom:28px;">
+        <h4 style="color:var(--green-primary);margin-bottom: 8px;">Eligibility Notes</h4>
+        <p style="margin:0;font-size:0.95rem;line-height:1.7;">Owner-occupied year-round residences in Maine. Insulation must meet program technical standards (R-values, foam fire protection, basement perimeter coverage). Programs and amounts change periodically. As an Efficiency Maine Registered Vendor, we walk you through what your project actually qualifies for &mdash; before any work begins.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
+        <a href="/diagnostic.html" class="btn btn-primary btn-arrow">Check My Rebate Eligibility</a>
+        <a href="/efficiency-maine/" class="card-link">Full Efficiency Maine Rebate Guide</a>
+        <a href="/financing-rebates/" class="card-link">Financing Options</a>
       </div>
     </div>
   </div>
