@@ -47,12 +47,18 @@
   }
   </script>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Fonts (self-hosted) -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/montserrat-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/dm-serif-display-400.woff2" crossorigin>
+
+  <!-- Hero LCP image preload -->
+  <link rel="preload" as="image" type="image/webp" href="/Images/hero-maine-home.webp" fetchpriority="high">
 
   <link rel="stylesheet" href="/globals.css" />
+
+  <!-- Deferred JS (downloads in parallel, executes after DOM ready) -->
+  <script src="/components.js" defer></script>
+  <script src="/diagnostic-form.js" defer></script>
   <style>
     /* ===== FLOATING CTA ===== */
     .floating-cta {
@@ -150,11 +156,13 @@
       background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
       overflow: hidden;
     }
-    .hero-bg {
+    .hero-bg-img {
       position: absolute;
       inset: 0;
-      background-size: cover;
-      background-position: center;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
       opacity: 0.25;
     }
     .hero .container {
@@ -170,12 +178,14 @@
       color: var(--white);
       font-size: clamp(2.25rem, 5vw, 3.25rem);
       margin-bottom: 20px;
+      min-height: 90px;
     }
     .hero .subtitle {
       color: rgba(255,255,255,0.9);
       font-size: 1.125rem;
       line-height: 1.7;
       margin-bottom: 32px;
+      min-height: 60px;
     }
     .hero-ctas {
       display: flex;
@@ -622,7 +632,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ===== HERO ===== -->
 <section class="hero">
-  <div class="hero-bg" style="background-image:url('/Images/hero-maine-home.webp')"></div>
+  <img src="/Images/hero-maine-home.webp" alt="" class="hero-bg-img" width="1200" height="654" fetchpriority="high">
   <div class="container">
     <div class="hero-content">
     <h1>Mold. Cold Rooms. High Energy Bills. They&rsquo;re All Connected.</h1>
@@ -940,7 +950,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===== FOOTER ===== -->
 <div id="footer"></div>
 
-<script src="/components.js"></script>
-<script src="/diagnostic-form.js"></script>
+<!-- components.js and diagnostic-form.js loaded in <head> with defer -->
 </body>
 </html>

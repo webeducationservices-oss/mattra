@@ -10,14 +10,22 @@
 
 (function () {
 
-  /* ── Load reCAPTCHA v3 automatically ── */
+  /* ── Load reCAPTCHA v3 on first user interaction (deferred for perf) ── */
   const RC_SITE_KEY = '6Lck8aQsAAAAALMA-T6nwfkSf7bv4K-mOhkszeKh';
-  if (!document.querySelector('script[src*="recaptcha"]')) {
-    const s = document.createElement('script');
-    s.src = 'https://www.google.com/recaptcha/api.js?render=' + RC_SITE_KEY;
-    s.async = true;
-    document.head.appendChild(s);
+  var rcLoaded = false;
+  function loadRecaptcha() {
+    if (rcLoaded) return;
+    rcLoaded = true;
+    if (!document.querySelector('script[src*="recaptcha"]')) {
+      var s = document.createElement('script');
+      s.src = 'https://www.google.com/recaptcha/api.js?render=' + RC_SITE_KEY;
+      s.async = true;
+      document.head.appendChild(s);
+    }
   }
+  ['pointerdown','keydown','touchstart'].forEach(function(evt) {
+    document.addEventListener(evt, loadRecaptcha, { once: true, passive: true });
+  });
 
   /* ── Form HTML ── */
   const FORM_HTML = `
@@ -362,6 +370,8 @@
     }
 
     container.innerHTML = FORM_HTML;
+    // Ensure reCAPTCHA starts loading when form mounts
+    loadRecaptcha();
 
     const state = { step: 1, concern: '', followUp: {} };
     const loadTs = String(Date.now()); // Capture at page load for bot detection

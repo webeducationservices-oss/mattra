@@ -40,12 +40,12 @@
 <header class="site-header">
   <div class="header-inner">
     <a href="${b}index.html" class="logo" aria-label="Mattra Inc. home">
-      <img src="${b}Images/MATTRA-LOGO-4ab44f66-1920w.webp" alt="Mattra Inc. Logo">
+      <img src="${b}Images/MATTRA-LOGO-4ab44f66-1920w.webp" alt="Mattra Inc. Logo" width="167" height="52">
     </a>
     <nav class="main-nav" id="main-nav" aria-label="Main navigation">
       <div class="mobile-menu-top">
         <a href="${b}index.html" class="mobile-menu-logo" aria-label="Mattra Inc. home">
-          <img src="${b}Images/MATTRA-LOGO-4ab44f66-1920w.webp" alt="Mattra Inc.">
+          <img src="${b}Images/MATTRA-LOGO-4ab44f66-1920w.webp" alt="Mattra Inc." width="167" height="52">
         </a>
         <button type="button" class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -145,7 +145,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="${b}index.html" class="logo" aria-label="Mattra Inc. home">
-          <img src="${b}Images/MATTRA-LOGO-FOOTER.webp" alt="Mattra Inc. Logo" style="height:48px;width:auto;">
+          <img src="${b}Images/MATTRA-LOGO-FOOTER.webp" alt="Mattra Inc. Logo" width="154" height="48">
         </a>
         <p>Maine&rsquo;s whole-home experts. 30 years of mold remediation, insulation, and construction services backed by building science.</p>
         <div class="footer-social">
