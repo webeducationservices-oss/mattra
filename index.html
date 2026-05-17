@@ -51,48 +51,17 @@
   <link rel="preload" as="font" type="font/woff2" href="/fonts/montserrat-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/dm-serif-display-400.woff2" crossorigin>
 
-  <!-- Hero LCP image preload -->
-  <link rel="preload" as="image" type="image/webp" href="/Images/hero-maine-home.webp" fetchpriority="high">
+  <!-- Hero LCP image preload (mobile-size for faster mobile LCP) -->
+  <link rel="preload" as="image" type="image/webp" href="/Images/hero-maine-home.webp" fetchpriority="high"
+    imagesrcset="/Images/hero-maine-home-mobile.webp 800w, /Images/hero-maine-home.webp 1200w"
+    imagesizes="100vw">
 
-  <!-- Critical CSS inline for instant first paint; globals.css loads async for full styles -->
-  <link rel="preload" href="/globals.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="/globals.css"></noscript>
+  <link rel="stylesheet" href="/globals.css">
 
   <!-- Deferred JS (downloads in parallel, executes after DOM ready) -->
   <script src="/components.js" defer></script>
   <script src="/diagnostic-form.js" defer></script>
   <style>
-    /* === Critical CSS inlined from globals.css for first paint === */
-    @font-face{font-family:'DM Serif Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/dm-serif-display-400.woff2') format('woff2')}
-    @font-face{font-family:'Montserrat';font-style:normal;font-weight:300 700;font-display:swap;src:url('/fonts/montserrat-latin.woff2') format('woff2')}
-    @font-face{font-family:'Montserrat Fallback';src:local('Arial');size-adjust:112%;ascent-override:88%;descent-override:23%;line-gap-override:0%}
-    @font-face{font-family:'DM Serif Fallback';src:local('Georgia');size-adjust:104%;ascent-override:95%;descent-override:25%;line-gap-override:0%}
-    :root{--green-primary:#316b43;--green-secondary:#3a873f;--green-forest:#2a5838;--green-dark:#1e3a28;--gold-accent:#e7bb3a;--gold-dark:#c9a020;--brown-text:#706460;--text-dark:#2c2c2c;--text-body:#4a4a4a;--text-light:#6b6b6b;--white:#fff;--off-white:#f8f9fa;--light-gray:#f3f6f7;--border-light:#e2e8f0;--radius:8px;--radius-lg:16px;--radius-full:12px;--shadow-sm:0 2px 8px rgba(0,0,0,.06);--shadow-md:0 4px 20px rgba(0,0,0,.10);--shadow-lg:0 12px 40px rgba(0,0,0,.14);--transition:0.3s cubic-bezier(.25,.46,.45,.94);--max-width:1280px}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;scroll-padding-top:100px}
-    body{font-family:'Montserrat','Montserrat Fallback',Arial,sans-serif;font-size:18px;line-height:1.7;color:var(--brown-text);background:var(--white)}
-    img{max-width:100%;height:auto;display:block}
-    a{color:var(--green-primary);text-decoration:none;transition:color var(--transition)}
-    ul,ol{list-style:none}
-    h1{font-family:'DM Serif Display','DM Serif Fallback',Georgia,serif;font-size:clamp(2rem,4vw,2.875rem);font-weight:400;line-height:1.2;color:var(--text-dark);letter-spacing:-0.01em}
-    h2{font-family:'Montserrat',sans-serif;font-size:clamp(1.5rem,3vw,2.25rem);font-weight:700;line-height:1.25;color:var(--text-dark);margin-bottom:24px}
-    p{margin-bottom:1rem}
-    .container{max-width:var(--max-width);margin:0 auto;padding:0 24px}
-    .section{padding:80px 0}
-    .section--gray{background:var(--light-gray)}
-    .section--green{background:var(--green-primary);color:var(--white)}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:var(--radius-full);font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all var(--transition);line-height:1.4}
-    .btn-gold{background:var(--gold-accent);color:var(--text-dark)}
-    .btn-arrow::after{content:'\2192';transition:transform var(--transition)}
-    .trust-bar{display:flex;flex-wrap:wrap;justify-content:center;gap:24px 36px;padding:16px 0;font-size:.85rem;font-weight:500;color:rgba(255,255,255,0.9)}
-    .trust-bar span{display:flex;align-items:center;gap:6px}
-    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
-    .site-header{background:var(--white);position:sticky;top:0;z-index:1000;box-shadow:0 1px 0 var(--border-light)}
-    .header-inner{max-width:var(--max-width);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:80px}
-    .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-    .logo img{height:52px;width:auto}
-    .topbar{background:var(--green-dark);color:rgba(255,255,255,0.85);font-size:.8125rem;padding:8px 0}
-    .topbar .container{display:flex;justify-content:space-between;align-items:center;gap:16px}
     /* ===== FLOATING CTA ===== */
     .floating-cta {
       position: fixed;
@@ -674,7 +643,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main>
 <!-- ===== HERO ===== -->
 <section class="hero">
-  <img src="/Images/hero-maine-home.webp" alt="" class="hero-bg-img" width="1200" height="654" fetchpriority="high">
+  <img src="/Images/hero-maine-home.webp"
+       srcset="/Images/hero-maine-home-mobile.webp 800w, /Images/hero-maine-home.webp 1200w"
+       sizes="100vw"
+       alt="" class="hero-bg-img" width="1200" height="654" fetchpriority="high">
   <div class="container">
     <div class="hero-content">
     <h1>Mold. Cold Rooms. High Energy Bills. They&rsquo;re All Connected.</h1>
