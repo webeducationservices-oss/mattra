@@ -370,8 +370,8 @@
     }
 
     container.innerHTML = FORM_HTML;
-    // Ensure reCAPTCHA starts loading when form mounts
-    loadRecaptcha();
+    // reCAPTCHA loads on first user interaction (pointerdown/keydown/touchstart)
+    // — NOT here, to avoid blocking initial page render on mobile
 
     const state = { step: 1, concern: '', followUp: {} };
     const loadTs = String(Date.now()); // Capture at page load for bot detection
