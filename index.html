@@ -47,20 +47,15 @@
   }
   </script>
 
-  <!-- Fonts (self-hosted) -->
-  <link rel="preload" as="font" type="font/woff2" href="/fonts/montserrat-latin.woff2" crossorigin>
-  <link rel="preload" as="font" type="font/woff2" href="/fonts/dm-serif-display-400.woff2" crossorigin>
-
   <!-- Hero LCP image preload (mobile-size for faster mobile LCP) -->
   <link rel="preload" as="image" type="image/webp" href="/Images/hero-maine-home.webp" fetchpriority="high"
-    imagesrcset="/Images/hero-maine-home-mobile.webp 800w, /Images/hero-maine-home.webp 1200w"
+    imagesrcset="/Images/hero-maine-home-mobile.webp 600w, /Images/hero-maine-home.webp 1200w"
     imagesizes="100vw">
 
   <link rel="stylesheet" href="/globals.css">
 
   <!-- Deferred JS (downloads in parallel, executes after DOM ready) -->
   <script src="/components.js" defer></script>
-  <script src="/diagnostic-form.js" defer></script>
   <style>
     /* ===== FLOATING CTA ===== */
     .floating-cta {
@@ -625,8 +620,8 @@
       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
       })(window,document,'script','dataLayer','GTM-K4ZZ5RK');
     }
-    if('requestIdleCallback' in window){requestIdleCallback(loadGTM,{timeout:4000})}
-    else{setTimeout(loadGTM,3500)}
+    if('requestIdleCallback' in window){requestIdleCallback(loadGTM,{timeout:8000})}
+    else{setTimeout(loadGTM,8000)}
   })();
   </script>
 </head>
@@ -644,7 +639,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===== HERO ===== -->
 <section class="hero">
   <img src="/Images/hero-maine-home.webp"
-       srcset="/Images/hero-maine-home-mobile.webp 800w, /Images/hero-maine-home.webp 1200w"
+       srcset="/Images/hero-maine-home-mobile.webp 600w, /Images/hero-maine-home.webp 1200w"
        sizes="100vw"
        alt="" class="hero-bg-img" width="1200" height="654" fetchpriority="high">
   <div class="container">
@@ -966,6 +961,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===== FOOTER ===== -->
 <div id="footer"></div>
 
-<!-- components.js and diagnostic-form.js loaded in <head> with defer -->
+<!-- Lazy-load diagnostic-form.js when form container nears viewport -->
+<script>
+(function(){
+  var f=document.querySelector('.diagnostic-form');
+  if(!f)return;
+  var o=new IntersectionObserver(function(e){
+    if(e[0].isIntersecting){
+      o.disconnect();
+      var s=document.createElement('script');
+      s.src='/diagnostic-form.js';
+      document.head.appendChild(s);
+    }
+  },{rootMargin:'300px'});
+  o.observe(f);
+})();
+</script>
 </body>
 </html>
