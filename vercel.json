@@ -3,15 +3,23 @@
   "trailingSlash": true,
   "redirects": [
     { "source": "/other-services", "destination": "/services/", "statusCode": 301 },
+    { "source": "/other-services/", "destination": "/services/", "statusCode": 301 },
     { "source": "/services/energy-audit", "destination": "/other-services/energy-audit/", "statusCode": 301 },
     { "source": "/services/energy-audit/", "destination": "/other-services/energy-audit/", "statusCode": 301 },
     { "source": "/how-did-we-do", "destination": "/contact/", "statusCode": 301 },
+    { "source": "/how-did-we-do/", "destination": "/contact/", "statusCode": 301 },
     { "source": "/review-us", "destination": "/contact/", "statusCode": 301 },
+    { "source": "/review-us/", "destination": "/contact/", "statusCode": 301 },
     { "source": "/september-in-maine-it-s-", "destination": "/september-in-maine-it-s-time-to-get-ready-for-the-cold/", "statusCode": 301 },
+    { "source": "/september-in-maine-it-s-/", "destination": "/september-in-maine-it-s-time-to-get-ready-for-the-cold/", "statusCode": 301 },
     { "source": "/spring-", "destination": "/spring-maintenance-to-prevent-mold-a-comprehensive-guide/", "statusCode": 301 },
+    { "source": "/spring-/", "destination": "/spring-maintenance-to-prevent-mold-a-comprehensive-guide/", "statusCode": 301 },
     { "source": "/the-future-of-home-sealing-", "destination": "/the-future-of-home-sealing-what-it-means-to-seal-it-in-2024/", "statusCode": 301 },
+    { "source": "/the-future-of-home-sealing-/", "destination": "/the-future-of-home-sealing-what-it-means-to-seal-it-in-2024/", "statusCode": 301 },
     { "source": "/learn-how", "destination": "/learn-how-proper-insulation-prevents-mold-and-saves-on-energy-maine-residents-get-up-to-100-rebate-act-now/", "statusCode": 301 },
-    { "source": "/learn-how-", "destination": "/learn-how-proper-insulation-prevents-mold-and-saves-on-energy-maine-residents-get-up-to-100-rebate-act-now/", "statusCode": 301 }
+    { "source": "/learn-how/", "destination": "/learn-how-proper-insulation-prevents-mold-and-saves-on-energy-maine-residents-get-up-to-100-rebate-act-now/", "statusCode": 301 },
+    { "source": "/learn-how-", "destination": "/learn-how-proper-insulation-prevents-mold-and-saves-on-energy-maine-residents-get-up-to-100-rebate-act-now/", "statusCode": 301 },
+    { "source": "/learn-how-/", "destination": "/learn-how-proper-insulation-prevents-mold-and-saves-on-energy-maine-residents-get-up-to-100-rebate-act-now/", "statusCode": 301 }
   ],
   "headers": [
     {
