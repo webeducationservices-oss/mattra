@@ -19,7 +19,16 @@
     { "source": "/learn-how", "destination": "/learn-how-proper-insulation-prevents-mold-and-saves-on-energy-maine-residents-get-up-to-100-rebate-act-now/", "statusCode": 301 },
     { "source": "/learn-how/", "destination": "/learn-how-proper-insulation-prevents-mold-and-saves-on-energy-maine-residents-get-up-to-100-rebate-act-now/", "statusCode": 301 },
     { "source": "/learn-how-", "destination": "/learn-how-proper-insulation-prevents-mold-and-saves-on-energy-maine-residents-get-up-to-100-rebate-act-now/", "statusCode": 301 },
-    { "source": "/learn-how-/", "destination": "/learn-how-proper-insulation-prevents-mold-and-saves-on-energy-maine-residents-get-up-to-100-rebate-act-now/", "statusCode": 301 }
+    { "source": "/learn-how-/", "destination": "/learn-how-proper-insulation-prevents-mold-and-saves-on-energy-maine-residents-get-up-to-100-rebate-act-now/", "statusCode": 301 },
+    { "source": "/privacy-policy.html", "destination": "/privacy/", "statusCode": 301 },
+    { "source": "/efficiency-maine-application", "destination": "/efficiency-maine/", "statusCode": 301 },
+    { "source": "/efficiency-maine-application/", "destination": "/efficiency-maine/", "statusCode": 301 },
+    { "source": "/home-page-step-2", "destination": "/diagnostic/", "statusCode": 301 },
+    { "source": "/home-page-step-2/", "destination": "/diagnostic/", "statusCode": 301 },
+    { "source": "/top-3", "destination": "/top-3-home-insulations-spray-foam-blown-in-cellulose-fiberglass/", "statusCode": 301 },
+    { "source": "/top-3/", "destination": "/top-3-home-insulations-spray-foam-blown-in-cellulose-fiberglass/", "statusCode": 301 },
+    { "source": "/top-", "destination": "/top-3-home-insulations-spray-foam-blown-in-cellulose-fiberglass/", "statusCode": 301 },
+    { "source": "/top-/", "destination": "/top-3-home-insulations-spray-foam-blown-in-cellulose-fiberglass/", "statusCode": 301 }
   ],
   "headers": [
     {
