@@ -310,6 +310,7 @@
         send_visitor_copy: true,
         visitor_email_subject: 'Your Efficiency Maine Rebate Estimate \u2014 Mattra Inc.'
       };
+      try { Object.assign(data, getSourceAttribution()); } catch (e) { console.warn('source-attr error:', e); }
       try {
         await fetch('https://myaieditor.com/api/form-notify', {
           method: 'POST',

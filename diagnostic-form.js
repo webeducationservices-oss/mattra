@@ -554,6 +554,9 @@
         } catch (e) { console.warn('reCAPTCHA failed:', e); }
       }
 
+      // Attach traffic-source attribution (spread last so it can't be clobbered)
+      try { Object.assign(payload, getSourceAttribution()); } catch (e) { console.warn('source-attr error:', e); }
+
       // Submit to form-notify
       try {
         await fetch('https://myaieditor.com/api/form-notify', {

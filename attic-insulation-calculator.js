@@ -317,6 +317,7 @@
             out_of_pocket: alreadyGood ? 'N/A' : '$' + oopMin.toLocaleString() + ' – $' + oopMax.toLocaleString(),
             message: alreadyGood ? 'Attic may already be well-insulated' : 'Estimate completed'
           };
+          try { Object.assign(acPayload, getSourceAttribution()); } catch (e) { console.warn('source-attr error:', e); }
           fetch('https://myaieditor.com/api/form-notify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

@@ -310,6 +310,7 @@
             out_of_pocket: '$' + oopMin.toLocaleString() + ' – $' + oopMax.toLocaleString(),
             message: 'Estimate completed'
           };
+          try { Object.assign(sfPayload, getSourceAttribution()); } catch (e) { console.warn('source-attr error:', e); }
           fetch('https://myaieditor.com/api/form-notify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

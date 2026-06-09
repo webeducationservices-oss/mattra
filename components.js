@@ -4,8 +4,68 @@
    Auto-detects subdirectory depth for correct relative paths
    ============================================================= */
 
+/* ── Traffic-source attribution (global) ───────────────────────
+   Captures first-touch source so form leads carry Analytics Source /
+   Source Data 1 & 2 / First Referrer / First URL into the notification
+   email + Google Sheet. First non-direct result is cached in
+   sessionStorage so internal navigation (which strips ?utm_…) doesn't
+   wash it out. Spread its return into each form payload (LAST).
+   See FORMS-SOURCE-ATTRIBUTION.md. =========================== */
+function getSourceAttribution() {
+  var KEY = 'wes_first_touch_source';
+  var p = new URLSearchParams(window.location.search);
+  var hasFresh = p.has('utm_source') || p.has('gclid') || p.has('fbclid') || p.has('msclkid');
+  if (!hasFresh) {
+    try {
+      var cached = JSON.parse(sessionStorage.getItem(KEY) || 'null');
+      if (cached) return cached;
+    } catch (e) {}
+  }
+  var utm_source = (p.get('utm_source') || '').toLowerCase();
+  var utm_medium = (p.get('utm_medium') || '').toLowerCase();
+  var utm_campaign = p.get('utm_campaign') || '';
+  var utm_term = p.get('utm_term') || '';
+  var gclid = p.get('gclid'), fbclid = p.get('fbclid'), msclkid = p.get('msclkid');
+  var ref = document.referrer || '';
+  var refHost = ''; try { refHost = ref ? new URL(ref).hostname : ''; } catch (e) {}
+  var offSite = ref && refHost && refHost !== window.location.hostname;
+  var src = 'DIRECT_TRAFFIC', d1 = '', d2 = '';
+
+  if (gclid)        { src = 'PAID_SEARCH'; d1 = 'google'; d2 = utm_term || utm_campaign || gclid; }
+  else if (msclkid) { src = 'PAID_SEARCH'; d1 = 'bing';   d2 = utm_term || utm_campaign || msclkid; }
+  else if (fbclid)  { src = 'PAID_SOCIAL'; d1 = utm_source || 'facebook'; d2 = utm_campaign || fbclid; }
+  else if (utm_source) {
+    if (utm_medium === 'email' || utm_source === 'hs_email') { src = 'EMAIL_MARKETING'; d1 = utm_source; d2 = utm_campaign; }
+    else if (utm_medium === 'cpc' || utm_medium === 'ppc' || utm_medium === 'paid') {
+      src = /google|bing|yahoo/.test(utm_source) ? 'PAID_SEARCH' : 'PAID_SOCIAL';
+      d1 = utm_source; d2 = utm_term || utm_campaign;
+    }
+    else if (utm_medium === 'social' || utm_medium === 'social_media') { src = 'SOCIAL_MEDIA'; d1 = utm_source; d2 = utm_campaign; }
+    else if (utm_medium === 'referral') { src = 'REFERRALS'; d1 = utm_source; d2 = utm_campaign; }
+    else { src = 'OTHER_CAMPAIGNS'; d1 = utm_source; d2 = utm_campaign; }
+  } else if (offSite) {
+    if (/^(www\.)?(google|bing|duckduckgo|yahoo|ecosia)\.[a-z.]+$/i.test(refHost)) { src = 'ORGANIC_SEARCH'; d1 = refHost.replace(/^www\./,'').split('.')[0]; }
+    else if (/^(www\.)?(facebook|instagram|twitter|x|linkedin|tiktok|pinterest|reddit|youtube|t)\.com$/i.test(refHost)) { src = 'SOCIAL_MEDIA'; d1 = refHost.replace(/^www\./,'').split('.')[0]; }
+    else { src = 'REFERRALS'; d1 = refHost; }
+  }
+
+  var result = {
+    analytics_source: src,
+    analytics_source_data_1: d1,
+    analytics_source_data_2: d2,
+    first_referrer: ref,
+    first_url: window.location.href
+  };
+  try { sessionStorage.setItem(KEY, JSON.stringify(result)); } catch (e) {}
+  return result;
+}
+
 (function () {
   const b = '/';
+
+  /* Capture first-touch source on EVERY page load so it's cached before
+     the visitor navigates to a clean internal URL and reaches a form. */
+  try { getSourceAttribution(); } catch (e) {}
 
   /* ── Active nav helper ──────────────────────────────────── */
   const path = window.location.pathname;

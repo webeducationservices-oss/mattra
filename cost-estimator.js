@@ -113,7 +113,8 @@
         _ts: CE_LOAD_TS,
         _honey: '',
         recaptcha_token: rcToken,
-        ...fields
+        ...fields,
+        ...(typeof getSourceAttribution === 'function' ? getSourceAttribution() : {})
       })
     }).catch(err => console.error(formType + ' submit error:', err));
 

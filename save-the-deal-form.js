@@ -629,7 +629,8 @@
             urgency: urgencyLabels[formData.urgency] || formData.urgency,
             property_address: formData.property_address,
             closing_date: formData.closing_date,
-            details: formData.details
+            details: formData.details,
+            ...(typeof getSourceAttribution === 'function' ? getSourceAttribution() : {})
           })
         });
         // Fire GTM event for inline thank-you tracking
