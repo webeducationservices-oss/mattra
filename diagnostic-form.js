@@ -115,8 +115,8 @@
           </div>
         </div>
         <div class="diag-field">
-          <label for="diag-zip">ZIP code or town</label>
-          <input type="text" id="diag-zip" placeholder="e.g. 04240 or Lewiston" />
+          <label for="diag-zip">ZIP code or town *</label>
+          <input type="text" id="diag-zip" required placeholder="e.g. 04240 or Lewiston" />
           <span class="diag-hint">We serve all of Maine.</span>
         </div>
         <div class="diag-field">
@@ -480,7 +480,15 @@
           renderStep2(state.concern);
           goTo(2); checkNext();
         } else if (n === 2) { collectStep2(); goTo(3); }
-        else if (n === 3) { goTo(4); }
+        else if (n === 3) {
+          const zipEl = card.querySelector('#diag-zip');
+          if (!zipEl.value.trim()) {
+            alert('Please enter your ZIP code or town so we know we serve your area.');
+            zipEl.focus();
+            return;
+          }
+          goTo(4);
+        }
       });
     });
 
@@ -512,7 +520,14 @@
       const smsCheck = card.querySelector('#diag-sms-consent');
       if (phone.length >= 7 && !smsCheck.checked) { alert('Please agree to receive text messages, or remove your phone number.'); return; }
       const notes = card.querySelector('#diag-notes').value.trim();
-      const zip   = card.querySelector('#diag-zip').value.trim();
+      const zipEl = card.querySelector('#diag-zip');
+      const zip   = zipEl.value.trim();
+      // ZIP is required — guard here too in case the visitor jumped back a step
+      if (!zip) {
+        alert('Please enter your ZIP code or town so we know we serve your area.');
+        goTo(3); zipEl.focus();
+        return;
+      }
       const urg   = card.querySelector('.diag-urg.selected');
 
       // Lock the button
@@ -533,7 +548,7 @@
         _honey: honey,
       };
       if (phone) payload.phone = phone;
-      if (zip)   payload.zip = zip;
+      payload.zip = zip;
       if (urg)   payload.timeline = urg.textContent.trim();
       if (notes) payload.message = notes;
       if (smsCheck && smsCheck.checked) payload.sms_consent = 'true';

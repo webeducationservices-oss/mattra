@@ -140,7 +140,8 @@
       qty: null,
       comboParts: [],     // multi-select for combo
       comboQty: {},       // { comboRim: 140, comboWall: 800, ... }
-      incomeTier: null
+      incomeTier: null,
+      zip: ''
     };
 
     function render() {
@@ -288,9 +289,13 @@
               </div>`
             ).join('')}
           </div>
+          <div class="bc-input-group">
+            <label for="bc-zip">ZIP code or town *</label>
+            <input type="text" id="bc-zip" value="${data.zip}" placeholder="e.g. 04240 or Lewiston" required>
+          </div>
           <div class="bc-nav">
             <button class="bc-btn bc-btn-back" data-action="back">&larr; Back</button>
-            <button class="bc-btn bc-btn-next" ${!data.incomeTier?'disabled':''} data-action="next">See My Estimate &rarr;</button>
+            <button class="bc-btn bc-btn-next" ${(!data.incomeTier || !data.zip.trim())?'disabled':''} data-action="next">See My Estimate &rarr;</button>
           </div>
         </div>
       `;
@@ -345,6 +350,7 @@
             recaptcha_token: rcToken,
             project_type: lineItems.map(li => li.label).join(', '),
             income_tier: tier.label,
+            zip: data.zip,
             estimated_cost: '$' + totalMin.toLocaleString() + ' – $' + totalMax.toLocaleString(),
             estimated_rebate: '$' + rebate.toLocaleString(),
             out_of_pocket: '$' + oopMin.toLocaleString() + ' – $' + oopMax.toLocaleString(),
@@ -475,6 +481,16 @@
         });
       }
 
+      // ZIP input (required before results)
+      const zipInput = root.querySelector('#bc-zip');
+      if (zipInput) {
+        zipInput.addEventListener('input', () => {
+          data.zip = zipInput.value;
+          const b = root.querySelector('[data-action="next"]');
+          if (b) b.disabled = !canAdvance();
+        });
+      }
+
       // Navigation
       root.querySelectorAll('[data-action]').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -488,6 +504,7 @@
             data.comboParts = [];
             data.comboQty = {};
             data.incomeTier = null;
+            data.zip = '';
             render();
           }
         });
@@ -500,7 +517,7 @@
         case 1:
           if (data.projectType === 'combo') return comboReady();
           return data.qty && parseFloat(data.qty) >= 10;
-        case 2: return !!data.incomeTier;
+        case 2: return !!data.incomeTier && !!data.zip.trim();
         default: return false;
       }
     }

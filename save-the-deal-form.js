@@ -321,6 +321,7 @@
     agent_email: '',
     brokerage: '',
     property_address: '',
+    zip: '',
     closing_date: '',
     details: '',
     preferred_contact: 'phone'
@@ -417,6 +418,10 @@
         <div class="std-field">
           <label for="std-address">Property address</label>
           <input type="text" id="std-address" placeholder="123 Main St, Portland, ME" />
+        </div>
+        <div class="std-field">
+          <label for="std-zip">ZIP code or town *</label>
+          <input type="text" id="std-zip" required placeholder="e.g. 04240 or Lewiston" />
         </div>
         <div class="std-field">
           <label for="std-closing">Closing date (if known)</label>
@@ -549,8 +554,16 @@
     card.querySelectorAll('.std-btn-next').forEach(btn => {
       btn.addEventListener('click', () => {
         if (current === 3) {
+          // ZIP is required
+          const zipEl = card.querySelector('#std-zip');
+          if (!zipEl.value.trim()) {
+            alert('Please enter the ZIP code or town for the property.');
+            zipEl.focus();
+            return;
+          }
           // Collect step 3 data
           formData.property_address = card.querySelector('#std-address').value;
+          formData.zip = zipEl.value.trim();
           formData.closing_date = card.querySelector('#std-closing').value;
           formData.details = card.querySelector('#std-details').value;
         }
@@ -580,6 +593,12 @@
       // Validation
       if (!formData.agent_name || !formData.agent_phone) {
         alert('Please provide your name and phone number.');
+        return;
+      }
+      if (!formData.zip) {
+        alert('Please enter the ZIP code or town for the property.');
+        showStep(3);
+        const z = card.querySelector('#std-zip'); if (z) z.focus();
         return;
       }
 
@@ -628,6 +647,7 @@
             issue_type: formData.issue_types.map(v => issueLabels[v] || v).join(', '),
             urgency: urgencyLabels[formData.urgency] || formData.urgency,
             property_address: formData.property_address,
+            zip: formData.zip,
             closing_date: formData.closing_date,
             details: formData.details,
             ...(typeof getSourceAttribution === 'function' ? getSourceAttribution() : {})

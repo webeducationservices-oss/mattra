@@ -135,7 +135,8 @@
       sqft: '',
       currentR: null,
       material: null,
-      incomeTier: null
+      incomeTier: null,
+      zip: ''
     };
 
     function render() {
@@ -254,9 +255,13 @@
               </div>`
             ).join('')}
           </div>
+          <div class="ac-input-group">
+            <label for="ac-zip">ZIP code or town *</label>
+            <input type="text" id="ac-zip" value="${data.zip}" placeholder="e.g. 04240 or Lewiston" required>
+          </div>
           <div class="ac-nav">
             <button class="ac-btn ac-btn-back" data-action="back">&larr; Back</button>
-            <button class="ac-btn ac-btn-next" ${!data.incomeTier?'disabled':''} data-action="next">See My Estimate &rarr;</button>
+            <button class="ac-btn ac-btn-next" ${(!data.incomeTier || !data.zip.trim())?'disabled':''} data-action="next">See My Estimate &rarr;</button>
           </div>
         </div>
       `;
@@ -311,6 +316,7 @@
             current_insulation: CURRENT_R[data.currentR].label,
             material: mat.label,
             income_tier: tier.label,
+            zip: data.zip,
             r_value_needed: 'R-' + rNeeded,
             estimated_cost: alreadyGood ? 'N/A — already insulated' : '$' + costMin.toLocaleString() + ' – $' + costMax.toLocaleString(),
             estimated_rebate: alreadyGood ? 'N/A' : '$' + rebate.toLocaleString(),
@@ -426,6 +432,16 @@
         });
       }
 
+      // ZIP input (required before results)
+      const zipInput = root.querySelector('#ac-zip');
+      if (zipInput) {
+        zipInput.addEventListener('input', () => {
+          data.zip = zipInput.value;
+          const b = root.querySelector('[data-action="next"]');
+          if (b) b.disabled = !canAdvance();
+        });
+      }
+
       // Navigation
       root.querySelectorAll('[data-action]').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -442,6 +458,7 @@
             data.currentR = null;
             data.material = null;
             data.incomeTier = null;
+            data.zip = '';
             render();
           }
         });
@@ -461,7 +478,7 @@
         case 0: return data.sqft && parseFloat(data.sqft) >= 100;
         case 1: return !!data.currentR;
         case 2: return !!data.material;
-        case 3: return !!data.incomeTier;
+        case 3: return !!data.incomeTier && !!data.zip.trim();
         default: return false;
       }
     }

@@ -122,7 +122,8 @@
       areas: [],      // multi-select
       foamType: null,
       sqftValues: {},  // { rimJoist: 150, basementWall: 800, ... }
-      incomeTier: null
+      incomeTier: null,
+      zip: ''
     };
 
     function render() {
@@ -251,9 +252,13 @@
               </div>`
             ).join('')}
           </div>
+          <div class="sf-input-group">
+            <label for="sf-zip">ZIP code or town *</label>
+            <input type="text" id="sf-zip" value="${data.zip}" placeholder="e.g. 04240 or Lewiston" required>
+          </div>
           <div class="sf-nav">
             <button class="sf-btn sf-btn-back" data-action="back">&larr; Back</button>
-            <button class="sf-btn sf-btn-next" ${!data.incomeTier?'disabled':''} data-action="next">See My Estimate &rarr;</button>
+            <button class="sf-btn sf-btn-next" ${(!data.incomeTier || !data.zip.trim())?'disabled':''} data-action="next">See My Estimate &rarr;</button>
           </div>
         </div>
       `;
@@ -305,6 +310,7 @@
             foam_type: foam.label,
             areas: lineItems.map(li => li.label).join(', '),
             income_tier: tier.label,
+            zip: data.zip,
             estimated_cost: '$' + totalMin.toLocaleString() + ' – $' + totalMax.toLocaleString(),
             estimated_rebate: '$' + rebate.toLocaleString(),
             out_of_pocket: '$' + oopMin.toLocaleString() + ' – $' + oopMax.toLocaleString(),
@@ -411,6 +417,16 @@
       const firstEmpty = root.querySelector('.sf-sqft-input:not([value])') || root.querySelector('.sf-sqft-input');
       if (firstEmpty && step === 2) firstEmpty.focus();
 
+      // ZIP input (required before results)
+      const zipInput = root.querySelector('#sf-zip');
+      if (zipInput) {
+        zipInput.addEventListener('input', () => {
+          data.zip = zipInput.value;
+          const b = root.querySelector('[data-action="next"]');
+          if (b) b.disabled = !canAdvance();
+        });
+      }
+
       // Navigation
       root.querySelectorAll('[data-action]').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -423,6 +439,7 @@
             data.foamType = null;
             data.sqftValues = {};
             data.incomeTier = null;
+            data.zip = '';
             render();
           }
         });
@@ -434,7 +451,7 @@
         case 0: return data.areas.length > 0;
         case 1: return !!data.foamType;
         case 2: return allSqftFilled();
-        case 3: return !!data.incomeTier;
+        case 3: return !!data.incomeTier && !!data.zip.trim();
         default: return false;
       }
     }

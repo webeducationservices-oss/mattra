@@ -126,7 +126,7 @@
     let tier = null;
     let selectedProjects = [];
     let homeSize = null;
-    let contact = { first_name: '', email: '', phone: '' };
+    let contact = { first_name: '', email: '', phone: '', zip: '' };
     let submitted = false;
 
     function render() {
@@ -247,6 +247,10 @@
             <label for="rc-phone">Phone <small style="font-weight:400;color:var(--brown-text,#706460)">(optional)</small></label>
             <input type="tel" id="rc-phone" inputmode="tel" value="${contact.phone}" placeholder="(207) 555-0000">
           </div>
+          <div class="rc-input-group">
+            <label for="rc-zip">ZIP code or town *</label>
+            <input type="text" id="rc-zip" value="${contact.zip}" placeholder="e.g. 04240 or Lewiston" required>
+          </div>
           <input type="text" name="_honey" style="display:none;" tabindex="-1" autocomplete="off" />
           <div class="rc-nav">
             <button class="rc-btn rc-btn-back" data-action="back">&larr; Back</button>
@@ -298,6 +302,7 @@
         first_name: contact.first_name,
         email: contact.email,
         phone: contact.phone || '',
+        zip: contact.zip,
         income_tier: r.t.label,
         rebate_percentage: Math.round(r.t.pct * 100) + '%',
         projects: projectNames,
@@ -414,6 +419,8 @@
         nameInput.addEventListener('input', () => { contact.first_name = nameInput.value; });
         emailInput.addEventListener('input', () => { contact.email = emailInput.value; });
         phoneInput.addEventListener('input', () => { contact.phone = phoneInput.value; });
+        const zipInput = root.querySelector('#rc-zip');
+        if (zipInput) zipInput.addEventListener('input', () => { contact.zip = zipInput.value; });
       }
 
       /* Navigation */
@@ -428,9 +435,12 @@
             if (email) contact.email = email.value.trim();
             const phone = root.querySelector('#rc-phone');
             if (phone) contact.phone = phone.value.trim();
-            if (!contact.first_name || !contact.email) {
+            const zipEl = root.querySelector('#rc-zip');
+            if (zipEl) contact.zip = zipEl.value.trim();
+            if (!contact.first_name || !contact.email || !contact.zip) {
               if (name && !contact.first_name) name.style.borderColor = '#e74c3c';
               if (email && !contact.email) email.style.borderColor = '#e74c3c';
+              if (zipEl && !contact.zip) zipEl.style.borderColor = '#e74c3c';
               return;
             }
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) {
@@ -445,7 +455,7 @@
           }
           if (action === 'next' && !btn.disabled) { step++; render(); }
           if (action === 'back') { step--; render(); }
-          if (action === 'restart') { step = 0; tier = null; selectedProjects = []; homeSize = null; contact = { first_name: '', email: '', phone: '' }; submitted = false; render(); }
+          if (action === 'restart') { step = 0; tier = null; selectedProjects = []; homeSize = null; contact = { first_name: '', email: '', phone: '', zip: '' }; submitted = false; render(); }
         });
       });
     }

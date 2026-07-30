@@ -142,9 +142,13 @@
             </div>`
           ).join('')}
         </div>
+        <div class="ce-input-group">
+          <label for="ce-zip">ZIP code or town *</label>
+          <input type="text" id="ce-zip" value="${data.zip || ''}" placeholder="e.g. 04240 or Lewiston" required>
+        </div>
         <div class="ce-nav">
           <button class="ce-btn ce-btn-back" data-action="back">&larr; Back</button>
-          <button class="ce-btn ce-btn-next" ${!data.incomeTier?'disabled':''} data-action="next">See My Estimate &rarr;</button>
+          <button class="ce-btn ce-btn-next" ${(!data.incomeTier || !(data.zip||'').trim())?'disabled':''} data-action="next">See My Estimate &rarr;</button>
         </div>
       </div>
     `;
@@ -246,7 +250,7 @@
       recaptchaAction: 'attic_estimator',
 
       initData() {
-        return { sqft: '', currentR: null, material: null, incomeTier: null };
+        return { sqft: '', currentR: null, material: null, incomeTier: null, zip: '' };
       },
 
       renderStep(step, data) {
@@ -394,7 +398,7 @@
           case 0: return data.sqft && parseFloat(data.sqft) >= 100;
           case 1: return !!data.currentR;
           case 2: return !!data.material;
-          case 3: return !!data.incomeTier;
+          case 3: return !!data.incomeTier && !!(data.zip||'').trim();
           default: return false;
         }
       },
@@ -406,6 +410,7 @@
           current_insulation: CURRENT_R[data.currentR].label,
           material: r.mat.label,
           income_tier: r.tier.label,
+          zip: data.zip,
           r_value_needed: 'R-' + r.rNeeded,
           estimated_cost: r.alreadyGood ? 'N/A — already insulated' : '$' + r.costMin.toLocaleString() + ' – $' + r.costMax.toLocaleString(),
           estimated_rebate: r.alreadyGood ? 'N/A' : '$' + r.rebate.toLocaleString(),
@@ -486,7 +491,7 @@
       recaptchaAction: 'spray_foam_estimator',
 
       initData() {
-        return { areas: [], foamType: null, sqftValues: {}, incomeTier: null };
+        return { areas: [], foamType: null, sqftValues: {}, incomeTier: null, zip: '' };
       },
 
       renderStep(step, data) {
@@ -628,7 +633,7 @@
           case 0: return data.areas.length > 0;
           case 1: return !!data.foamType;
           case 2: return allSqftFilled(data);
-          case 3: return !!data.incomeTier;
+          case 3: return !!data.incomeTier && !!(data.zip||'').trim();
           default: return false;
         }
       },
@@ -639,6 +644,7 @@
           foam_type: r.foam.label,
           areas: r.lineItems.map(li => li.label).join(', '),
           income_tier: r.tier.label,
+          zip: data.zip,
           estimated_cost: '$' + r.totalMin.toLocaleString() + ' – $' + r.totalMax.toLocaleString(),
           estimated_rebate: '$' + r.rebate.toLocaleString(),
           out_of_pocket: '$' + r.oopMin.toLocaleString() + ' – $' + r.oopMax.toLocaleString(),
@@ -739,7 +745,7 @@
       recaptchaAction: 'basement_estimator',
 
       initData() {
-        return { projectType: null, qty: null, comboParts: [], comboQty: {}, incomeTier: null };
+        return { projectType: null, qty: null, comboParts: [], comboQty: {}, incomeTier: null, zip: '' };
       },
 
       renderStep(step, data) {
@@ -925,7 +931,7 @@
           case 1:
             if (data.projectType === 'combo') return comboReady(data);
             return data.qty && parseFloat(data.qty) >= 10;
-          case 2: return !!data.incomeTier;
+          case 2: return !!data.incomeTier && !!(data.zip||'').trim();
           default: return false;
         }
       },
@@ -935,6 +941,7 @@
         return {
           project_type: r.lineItems.map(li => li.label).join(', '),
           income_tier: r.tier.label,
+          zip: data.zip,
           estimated_cost: '$' + r.totalMin.toLocaleString() + ' – $' + r.totalMax.toLocaleString(),
           estimated_rebate: '$' + r.rebate.toLocaleString(),
           out_of_pocket: '$' + r.oopMin.toLocaleString() + ' – $' + r.oopMax.toLocaleString(),
@@ -998,6 +1005,16 @@
           }
         });
       });
+
+      // ZIP is required before results — keep state + button in sync
+      const zipInput = root.querySelector('#ce-zip');
+      if (zipInput) {
+        zipInput.addEventListener('input', () => {
+          data.zip = zipInput.value;
+          const b = root.querySelector('[data-action="next"]');
+          if (b) b.disabled = !config.canAdvance(step, data);
+        });
+      }
 
       config.bindStep(root, step, data, render, advance);
     }
