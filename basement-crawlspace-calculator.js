@@ -16,6 +16,33 @@
     document.head.appendChild(s);
   }
 
+  /* reCAPTCHA token, never fatal: a blocked script or wrong key can reject OR never
+     settle, which would silently stop the estimate from ever being logged. Always
+     resolve within 8s — an empty token posts through as missing_recaptcha_token. */
+  function rcTokenSafe(action) {
+    try {
+      if (typeof grecaptcha === 'undefined' || typeof grecaptcha.execute !== 'function') {
+        return Promise.resolve('');
+      }
+      var settled = false;
+      return Promise.race([
+        Promise.resolve(grecaptcha.execute(BC_RC_KEY, { action: action })).then(
+          function (t) { settled = true; return t; },
+          function (e) { settled = true; console.warn('reCAPTCHA failed:', e); return ''; }
+        ),
+        new Promise(function (resolve) {
+          setTimeout(function () {
+            if (!settled) console.warn('reCAPTCHA timed out');
+            resolve('');
+          }, 8000);
+        })
+      ]).catch(function () { return ''; });
+    } catch (e) {
+      console.warn('reCAPTCHA failed:', e);
+      return Promise.resolve('');
+    }
+  }
+
   if (!document.getElementById('bc-calc-css')) {
     const style = document.createElement('style');
     style.id = 'bc-calc-css';
@@ -337,11 +364,7 @@
       if (!bcSubmitted) {
         bcSubmitted = true;
         (async () => {
-          let rcToken = '';
-          if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
-            try { rcToken = await grecaptcha.execute(BC_RC_KEY, { action: 'basement_estimator' }); }
-            catch (e) { console.warn('reCAPTCHA failed:', e); }
-          }
+          const rcToken = await rcTokenSafe('basement_estimator');
           const bcPayload = {
             site_slug: 'mattra',
             form_type: 'basement-crawlspace-estimator',

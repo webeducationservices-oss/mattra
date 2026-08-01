@@ -27,6 +27,35 @@
     document.addEventListener(evt, loadRecaptcha, { once: true, passive: true });
   });
 
+  /* ── reCAPTCHA token, never fatal ──
+     If the script is blocked (ad blockers) or the key is wrong, grecaptcha.execute
+     can reject OR never settle at all. Always resolve — an empty token posts through
+     as missing_recaptcha_token (rescuable from the Spam tab) instead of hanging the
+     visitor on a dead button forever. */
+  function rcTokenSafe(action) {
+    try {
+      if (typeof grecaptcha === 'undefined' || typeof grecaptcha.execute !== 'function') {
+        return Promise.resolve('');
+      }
+      var settled = false;
+      return Promise.race([
+        Promise.resolve(grecaptcha.execute(RC_SITE_KEY, { action: action })).then(
+          function (t) { settled = true; return t; },
+          function (e) { settled = true; console.warn('reCAPTCHA failed:', e); return ''; }
+        ),
+        new Promise(function (resolve) {
+          setTimeout(function () {
+            if (!settled) console.warn('reCAPTCHA timed out');
+            resolve('');
+          }, 8000);
+        })
+      ]).catch(function () { return ''; });
+    } catch (e) {
+      console.warn('reCAPTCHA failed:', e);
+      return Promise.resolve('');
+    }
+  }
+
   /* ── Form HTML ── */
   const FORM_HTML = `
     <div class="diag-card">
@@ -243,6 +272,8 @@
     .diag-summary dt{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text-light);margin-top:10px}
     .diag-summary dt:first-child{margin-top:0}
     .diag-summary dd{font-size:.85rem;color:var(--text-dark);margin:2px 0 0}
+    .diag-error{display:none;margin:14px 0 0;padding:12px 14px;border-radius:var(--radius);background:#fdecec;border:1px solid #e6b3b3;color:#8a2020;font-size:.8rem;line-height:1.5;text-align:left}
+    .diag-error a{color:#8a2020;font-weight:700;text-decoration:underline}
     .diag-sms-consent{margin-top:-4px;margin-bottom:12px}
     label.diag-checkbox{display:flex;gap:8px;align-items:flex-start;cursor:pointer;font-size:.72rem;font-weight:400;line-height:1.5;color:var(--text-light)}
     .diag-checkbox input[type="checkbox"]{width:auto;margin-top:3px;flex-shrink:0;accent-color:var(--green-primary)}
@@ -509,9 +540,36 @@
     });
 
     const submitBtn = card.querySelector('.diag-btn-submit');
+    const SUBMIT_LABEL = submitBtn.textContent;
+
+    /* Visible fallback so a failed send never silently swallows the lead */
+    function diagErrorEl() {
+      let err = card.querySelector('.diag-error');
+      if (!err) {
+        err = document.createElement('p');
+        err.className = 'diag-error';
+        err.setAttribute('role', 'alert');
+        err.innerHTML = 'We could not send that just now. Please call us at ' +
+          '<a href="tel:+12077776020">(207) 777-6020</a> and we’ll take your details over the phone.';
+        const nav = card.querySelector('[data-step="4"] .diag-nav');
+        nav.parentNode.insertBefore(err, nav);
+      }
+      return err;
+    }
+    function showSubmitError() {
+      const err = diagErrorEl();
+      err.style.display = 'block';
+      err.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    function hideSubmitError() {
+      const err = card.querySelector('.diag-error');
+      if (err) err.style.display = 'none';
+    }
+
     let diagSubmitting = false;
     submitBtn.addEventListener('click', async () => {
       if (diagSubmitting) return;
+      hideSubmitError();
       const first = card.querySelector('#diag-first').value.trim();
       const last  = card.querySelector('#diag-last').value.trim();
       const email = card.querySelector('#diag-email').value.trim();
@@ -561,25 +619,32 @@
         }
       }
 
-      // Get reCAPTCHA token if available
-      if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
-        try {
-          const rcToken = await grecaptcha.execute(RC_SITE_KEY, { action: 'diagnostic_form' });
-          payload.recaptcha_token = rcToken;
-        } catch (e) { console.warn('reCAPTCHA failed:', e); }
-      }
+      // Get reCAPTCHA token (never fatal — degrades to posting without a token)
+      payload.recaptcha_token = await rcTokenSafe('diagnostic_form');
 
       // Attach traffic-source attribution (spread last so it can't be clobbered)
       try { Object.assign(payload, getSourceAttribution()); } catch (e) { console.warn('source-attr error:', e); }
 
       // Submit to form-notify
+      let accepted = false;
       try {
-        await fetch('https://myaieditor.com/api/form-notify', {
+        const res = await fetch('https://myaieditor.com/api/form-notify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         });
+        const j = await res.json().catch(() => ({}));
+        accepted = res.ok && j.accepted !== false;
       } catch (e) { console.error('Form submit error:', e); }
+
+      // Only confirm once the server actually accepted the lead
+      if (!accepted) {
+        showSubmitError();
+        diagSubmitting = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = SUBMIT_LABEL;
+        return;
+      }
 
       // Fire GTM event for inline thank-you tracking
       window.dataLayer = window.dataLayer || [];
@@ -589,7 +654,6 @@
         form_location: window.location.pathname
       });
 
-      // Show confirmation regardless (don't block UX on network)
       showConfirm();
       goTo(5);
     });

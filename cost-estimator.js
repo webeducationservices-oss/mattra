@@ -98,12 +98,35 @@
   };
 
   /* ── Shared Helpers ──────────────────────────────────────────── */
-  async function submitEstimate(formType, recaptchaAction, fields) {
-    let rcToken = '';
-    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
-      try { rcToken = await grecaptcha.execute(CE_RC_KEY, { action: recaptchaAction }); }
-      catch (e) { console.warn('reCAPTCHA failed:', e); }
+  /* reCAPTCHA token, never fatal: a blocked script or wrong key can reject OR never
+     settle, which would silently stop the estimate from ever being logged. Always
+     resolve within 8s — an empty token posts through as missing_recaptcha_token. */
+  function rcTokenSafe(action) {
+    try {
+      if (typeof grecaptcha === 'undefined' || typeof grecaptcha.execute !== 'function') {
+        return Promise.resolve('');
+      }
+      var settled = false;
+      return Promise.race([
+        Promise.resolve(grecaptcha.execute(CE_RC_KEY, { action: action })).then(
+          function (t) { settled = true; return t; },
+          function (e) { settled = true; console.warn('reCAPTCHA failed:', e); return ''; }
+        ),
+        new Promise(function (resolve) {
+          setTimeout(function () {
+            if (!settled) console.warn('reCAPTCHA timed out');
+            resolve('');
+          }, 8000);
+        })
+      ]).catch(function () { return ''; });
+    } catch (e) {
+      console.warn('reCAPTCHA failed:', e);
+      return Promise.resolve('');
     }
+  }
+
+  async function submitEstimate(formType, recaptchaAction, fields) {
+    const rcToken = await rcTokenSafe(recaptchaAction);
     fetch('https://myaieditor.com/api/form-notify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

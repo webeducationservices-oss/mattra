@@ -18,6 +18,34 @@
     document.head.appendChild(s);
   }
 
+  /* ── reCAPTCHA token, never fatal ──
+     A blocked script or wrong key can reject OR never settle. Always resolve so the
+     POST still fires (an empty token is recorded as missing_recaptcha_token and stays
+     rescuable) instead of leaving the estimate stuck forever. */
+  function rcTokenSafe(action) {
+    try {
+      if (typeof grecaptcha === 'undefined' || typeof grecaptcha.execute !== 'function') {
+        return Promise.resolve('');
+      }
+      var settled = false;
+      return Promise.race([
+        Promise.resolve(grecaptcha.execute(RC_SITE_KEY, { action: action })).then(
+          function (t) { settled = true; return t; },
+          function (e) { settled = true; console.warn('reCAPTCHA failed:', e); return ''; }
+        ),
+        new Promise(function (resolve) {
+          setTimeout(function () {
+            if (!settled) console.warn('reCAPTCHA timed out');
+            resolve('');
+          }, 8000);
+        })
+      ]).catch(function () { return ''; });
+    } catch (e) {
+      console.warn('reCAPTCHA failed:', e);
+      return Promise.resolve('');
+    }
+  }
+
   /* ── CSS ──────────────────────────────────────────────────── */
   if (!document.getElementById('rebate-calc-css')) {
     const style = document.createElement('style');
@@ -128,6 +156,26 @@
     let homeSize = null;
     let contact = { first_name: '', email: '', phone: '', zip: '' };
     let submitted = false;
+    let sendStatus = 'pending'; // 'pending' | 'sent' | 'failed'
+
+    /* The "Sent to ..." line must reflect what the server actually did, not
+       what we hoped it would do. */
+    function paintSendStatus() {
+      const el = root.querySelector('.rc-send-status');
+      if (!el) return;
+      if (sendStatus === 'sent') {
+        el.style.color = 'var(--green-primary,#316b43)';
+        el.textContent = 'Sent to ' + contact.email;
+      } else if (sendStatus === 'failed') {
+        el.style.color = '#8a2020';
+        el.innerHTML = 'We could not email your estimate just now &mdash; your results are below. ' +
+          'Please call us at <a href="tel:+12077776020" style="color:#8a2020;font-weight:700">(207) 777-6020</a> ' +
+          'so we can pick this up with you.';
+      } else {
+        el.style.color = 'var(--green-primary,#316b43)';
+        el.textContent = 'Sending to ' + contact.email + '…';
+      }
+    }
 
     function render() {
       root.innerHTML = `
@@ -145,6 +193,7 @@
         </div>
       `;
       bindEvents();
+      paintSendStatus();
     }
 
     function renderStep() {
@@ -282,15 +331,12 @@
 
     async function submitResults() {
       if (submitted) return;
+      submitted = true; // guard immediately so a re-render can't double-post
       const r = calcResults();
       const projectNames = selectedProjects.map(k => PROJECTS[k].label).join(', ');
 
-      // Get reCAPTCHA token
-      let rcToken = '';
-      if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
-        try { rcToken = await grecaptcha.execute(RC_SITE_KEY, { action: 'rebate_calculator' }); }
-        catch (e) { console.warn('reCAPTCHA failed:', e); }
-      }
+      // Get reCAPTCHA token (never fatal — degrades to posting without a token)
+      const rcToken = await rcTokenSafe('rebate_calculator');
 
       const honey = root.querySelector('input[name="_honey"]');
       const data = {
@@ -316,16 +362,24 @@
         visitor_email_subject: 'Your Efficiency Maine Rebate Estimate \u2014 Mattra Inc.'
       };
       try { Object.assign(data, getSourceAttribution()); } catch (e) { console.warn('source-attr error:', e); }
+
+      let accepted = false;
       try {
-        await fetch('https://myaieditor.com/api/form-notify', {
+        const res = await fetch('https://myaieditor.com/api/form-notify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
+        const j = await res.json().catch(() => ({}));
+        accepted = res.ok && j.accepted !== false;
       } catch (err) {
         console.error('Rebate calculator submit error:', err);
       }
-      submitted = true;
+
+      // Only claim it was sent once the server actually accepted it
+      sendStatus = accepted ? 'sent' : 'failed';
+      paintSendStatus();
+      if (!accepted) return;
 
       // Fire GTM event for inline thank-you tracking
       window.dataLayer = window.dataLayer || [];
@@ -345,7 +399,7 @@
         <div class="rc-step active">
           <div class="rc-results">
             <div class="rc-results-badge">Your Rebate Estimate</div>
-            <p style="font-size:.85rem;color:var(--green-primary,#316b43);margin-bottom:16px">Sent to ${contact.email}</p>
+            <p class="rc-send-status" style="font-size:.85rem;color:var(--green-primary,#316b43);margin-bottom:16px">Sending to ${contact.email}&hellip;</p>
             <h3>Based on ${t.label.split('(')[0].trim()} Tier</h3>
             <div class="rc-results-grid">
               <div class="rc-result-box">
@@ -455,7 +509,7 @@
           }
           if (action === 'next' && !btn.disabled) { step++; render(); }
           if (action === 'back') { step--; render(); }
-          if (action === 'restart') { step = 0; tier = null; selectedProjects = []; homeSize = null; contact = { first_name: '', email: '', phone: '', zip: '' }; submitted = false; render(); }
+          if (action === 'restart') { step = 0; tier = null; selectedProjects = []; homeSize = null; contact = { first_name: '', email: '', phone: '', zip: '' }; submitted = false; sendStatus = 'pending'; render(); }
         });
       });
     }

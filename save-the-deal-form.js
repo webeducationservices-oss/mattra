@@ -22,10 +22,50 @@
     document.head.appendChild(s);
   }
 
+  /* ── reCAPTCHA token, never fatal ──
+     A blocked script or wrong key can reject OR never settle. Always resolve so the
+     POST still fires (an empty token is recorded as missing_recaptcha_token and stays
+     rescuable) instead of stranding the agent on a dead button. */
+  function rcTokenSafe(action) {
+    try {
+      if (typeof grecaptcha === 'undefined' || typeof grecaptcha.execute !== 'function') {
+        return Promise.resolve('');
+      }
+      var settled = false;
+      return Promise.race([
+        Promise.resolve(grecaptcha.execute(RC_SITE_KEY, { action: action })).then(
+          function (t) { settled = true; return t; },
+          function (e) { settled = true; console.warn('reCAPTCHA failed:', e); return ''; }
+        ),
+        new Promise(function (resolve) {
+          setTimeout(function () {
+            if (!settled) console.warn('reCAPTCHA timed out');
+            resolve('');
+          }, 8000);
+        })
+      ]).catch(function () { return ''; });
+    } catch (e) {
+      console.warn('reCAPTCHA failed:', e);
+      return Promise.resolve('');
+    }
+  }
+
   /* ── Inject CSS ── */
   const style = document.createElement('style');
   style.textContent = `
     /* ===== SAVE THE DEAL FORM ===== */
+    .std-error {
+      display: none;
+      margin: 14px 0 0;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: #fdecec;
+      border: 1px solid #e6b3b3;
+      color: #8a2020;
+      font-size: .82rem;
+      line-height: 1.5;
+    }
+    .std-error a { color: #8a2020; font-weight: 700; text-decoration: underline; }
     .std-card {
       background: #fff;
       border-radius: 12px;
@@ -579,9 +619,31 @@
 
     // Submit
     const submitBtn = card.querySelector('#std-submit');
+    const STD_SUBMIT_LABEL = submitBtn.innerHTML;
+
+    /* Visible fallback so a failed send never silently swallows the request */
+    function showStdError() {
+      let err = card.querySelector('.std-error');
+      if (!err) {
+        err = document.createElement('div');
+        err.className = 'std-error';
+        err.setAttribute('role', 'alert');
+        err.innerHTML = 'We could not send that just now. Please call us at ' +
+          '<a href="tel:+12077776020">(207) 777-6020</a> &mdash; priority requests are handled by phone within hours.';
+        submitBtn.parentNode.insertBefore(err, submitBtn.nextSibling);
+      }
+      err.style.display = 'block';
+      err.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    function hideStdError() {
+      const err = card.querySelector('.std-error');
+      if (err) err.style.display = 'none';
+    }
+
     let stdSubmitting = false;
     submitBtn.addEventListener('click', async () => {
       if (stdSubmitting) return;
+      hideStdError();
       // Collect step 4 data
       formData.agent_name = card.querySelector('#std-name').value.trim();
       formData.agent_phone = card.querySelector('#std-phone').value.trim();
@@ -620,13 +682,10 @@
         other: 'Other transaction issue'
       };
 
-      // Get reCAPTCHA token
-      let rcToken = '';
-      if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.execute === 'function') {
-        try { rcToken = await grecaptcha.execute(RC_SITE_KEY, { action: 'save_the_deal' }); }
-        catch (e) { console.warn('reCAPTCHA failed:', e); }
-      }
+      // Get reCAPTCHA token (never fatal — degrades to posting without a token)
+      const rcToken = await rcTokenSafe('save_the_deal');
 
+      let accepted = false;
       try {
         const res = await fetch('https://myaieditor.com/api/form-notify', {
           method: 'POST',
@@ -653,17 +712,29 @@
             ...(typeof getSourceAttribution === 'function' ? getSourceAttribution() : {})
           })
         });
-        // Fire GTM event for inline thank-you tracking
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: 'form_submission',
-          form_type: 'save-the-deal',
-          form_location: window.location.pathname
-        });
-        showStep('success');
+        const j = await res.json().catch(() => ({}));
+        accepted = res.ok && j.accepted !== false;
       } catch (err) {
-        showStep('success');
+        console.error('Save the deal submit error:', err);
       }
+
+      // Only confirm once the server actually accepted the request
+      if (!accepted) {
+        showStdError();
+        stdSubmitting = false;
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = STD_SUBMIT_LABEL;
+        return;
+      }
+
+      // Fire GTM event for inline thank-you tracking
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'form_submission',
+        form_type: 'save-the-deal',
+        form_location: window.location.pathname
+      });
+      showStep('success');
     });
   });
 
