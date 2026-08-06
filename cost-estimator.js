@@ -153,14 +153,14 @@
     return `
       <div class="ce-step active">
         <div class="ce-step-title">What is your household income level?</div>
-        <div class="ce-step-sub">This determines your Efficiency Maine rebate percentage. All information stays private.</div>
+        <div class="ce-step-sub">This determines your Efficiency Maine rebate. All information stays private.</div>
         <div class="ce-options">
-          ${Object.entries(REBATE_TIERS).map(([k, v]) =>
+          ${Object.keys(REBATE_TIERS).map((k) =>
             `<div class="ce-opt ${data.incomeTier===k?'selected':''}" data-val="${k}">
               <span class="ce-radio"></span>
               <span class="ce-label">
-                <strong>${v.label}</strong>
-                <small>Up to ${Math.round(v.pct * 100)}% back, max $${v.max.toLocaleString()}</small>
+                <strong>${MattraRebates.tierLabels()[k]}</strong>
+                <small>${MattraRebates.tierBlurb(k)}</small>
               </span>
             </div>`
           ).join('')}
@@ -187,7 +187,7 @@
         <div class="ce-result-box highlight">
           <div class="ce-result-label">Estimated Rebate</div>
           <div class="ce-result-value">$${rebate.toLocaleString()}</div>
-          <div class="ce-result-note">${Math.round(tier.pct * 100)}% &mdash; ${tier.label}</div>
+          <div class="ce-result-note">${MattraRebates.tierLabels()[tier.key] || tier.label}</div>
         </div>
       </div>
       <div class="ce-results-grid">
@@ -249,7 +249,7 @@
       const sqft = parseFloat(data.sqft) || 1200;
       const curR = CURRENT_R[data.currentR].value;
       const mat = MATERIALS[data.material];
-      const tier = REBATE_TIERS[data.incomeTier];
+      const tier = Object.assign({ key: data.incomeTier }, REBATE_TIERS[data.incomeTier]);
       const rNeeded = Math.max(TARGET_R - curR, 0);
       const inchesNeeded = Math.ceil(rNeeded / mat.rPerInch);
       const fullInches = Math.ceil(TARGET_R / mat.rPerInch);
@@ -257,12 +257,16 @@
       const costMin = Math.round(sqft * mat.costPerSqFt.min * depthFactor / 50) * 50;
       const costMax = Math.round(sqft * mat.costPerSqFt.max * depthFactor / 50) * 50;
       const costMid = Math.round((costMin + costMax) / 2);
-      const rebateRaw = Math.round(costMid * tier.pct);
-      const rebate = Math.min(rebateRaw, tier.max);
+      const rb = MattraRebates.compute({
+        tier: data.incomeTier,
+        projectCost: costMid,
+        zones: [{ type: 'attic', sqft: sqft }]
+      });
+      const rebate = rb.rebate;
       const oopMin = Math.max(costMin - rebate, 0);
       const oopMax = Math.max(costMax - rebate, 0);
       const alreadyGood = rNeeded <= 0;
-      return { sqft, curR, mat, tier, rNeeded, inchesNeeded, costMin, costMax, rebate, oopMin, oopMax, alreadyGood };
+      return { sqft, curR, mat, tier, rb, rNeeded, inchesNeeded, costMin, costMax, rebate, oopMin, oopMax, alreadyGood };
     }
 
     return {
@@ -474,7 +478,7 @@
 
     function calculate(data) {
       const foam = FOAM_TYPES[data.foamType];
-      const tier = REBATE_TIERS[data.incomeTier];
+      const tier = Object.assign({ key: data.incomeTier }, REBATE_TIERS[data.incomeTier]);
       let totalMin = 0, totalMax = 0;
       const lineItems = [];
 
@@ -494,8 +498,21 @@
       });
 
       const totalMid = Math.round((totalMin + totalMax) / 2);
-      const rebateRaw = Math.round(totalMid * tier.pct);
-      const rebate = Math.min(rebateRaw, tier.max);
+      /* Map spray-foam application areas onto Efficiency Maine rebate zones.
+         Rim joist is measured in LINEAR feet, so it can't be banded as an
+         insulation zone — it counts as basement air sealing instead. */
+      const sfZones = [], sfAir = [];
+      (data.areas || []).forEach(function (k) {
+        const sq = parseFloat((data.sqftValues || {})[k]) || 0;
+        if (k === 'atticRoof')        sfZones.push({ type: 'attic',    sqft: sq });
+        else if (k === 'wallCavity')  sfZones.push({ type: 'wall',     sqft: sq });
+        else if (k === 'basementWall')sfZones.push({ type: 'basement', sqft: sq });
+        else if (k === 'rimJoist')    sfAir.push('basement');
+      });
+      const rb = MattraRebates.compute({
+        tier: data.incomeTier, projectCost: totalMid, zones: sfZones, airSealing: sfAir
+      });
+      const rebate = rb.rebate;
       const oopMin = Math.max(totalMin - rebate, 0);
       const oopMax = Math.max(totalMax - rebate, 0);
 
@@ -727,7 +744,7 @@
     }
 
     function calculate(data) {
-      const tier = REBATE_TIERS[data.incomeTier];
+      const tier = Object.assign({ key: data.incomeTier }, REBATE_TIERS[data.incomeTier]);
       let totalMin = 0, totalMax = 0;
       const lineItems = [];
 
@@ -752,12 +769,29 @@
       }
 
       const totalMid = Math.round((totalMin + totalMax) / 2);
-      const rebateRaw = Math.round(totalMid * tier.pct);
-      const rebate = Math.min(rebateRaw, tier.max);
+      /* Every path in this calculator is part of ONE Basement zone, so the
+         rebate does NOT scale with how many parts are selected. Rim joist is
+         linear feet, so it counts as basement air sealing, not insulation. */
+      const bcZones = [], bcAir = [];
+      (function () {
+        const parts = data.projectType === 'combo'
+          ? (data.comboParts || []).map(function (k) { return { k: k, q: parseFloat((data.comboQty || {})[k]) || 0 }; })
+          : [{ k: data.projectType, q: parseFloat(data.qty) || 0 }];
+        let basementSqft = 0;
+        parts.forEach(function (p) {
+          if (p.k === 'rimJoist') bcAir.push('basement');
+          else basementSqft = Math.max(basementSqft, p.q);
+        });
+        if (basementSqft > 0) bcZones.push({ type: 'basement', sqft: basementSqft });
+      })();
+      const rb = MattraRebates.compute({
+        tier: data.incomeTier, projectCost: totalMid, zones: bcZones, airSealing: bcAir
+      });
+      const rebate = rb.rebate;
       const oopMin = Math.max(totalMin - rebate, 0);
       const oopMax = Math.max(totalMax - rebate, 0);
 
-      return { tier, totalMin, totalMax, rebate, oopMin, oopMax, lineItems };
+      return { tier, rb, totalMin, totalMax, rebate, oopMin, oopMax, lineItems };
     }
 
     return {
