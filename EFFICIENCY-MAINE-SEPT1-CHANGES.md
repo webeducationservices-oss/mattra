@@ -114,70 +114,38 @@ the branch. The NEIF/Green Bank financing line "up to 100% of project financed" 
 
 ## ⚠️ Remaining work before the Sept 1 merge
 
-### 1. The rebate calculators — PARTLY DONE (2026-08-06)
+### 1. The rebate calculators — ✅ DONE (2026-08-06)
 
-**Built and live on `main`: `rebate-rules.js`** — one source of truth holding *both*
-programs and switching itself on **Sept 1**. It ships safely today because it quotes
-today's numbers now and flips on its own, with no dependency on the branch merge.
+**`rebate-rules.js`** is now the single source of truth, holding *both* programs and
+switching itself on **Sept 1**. It ships safely today because it quotes today's numbers
+now and flips on its own — no dependency on the branch merge.
 
 It models what the old code could not: three size bands (**an area under 250 sq ft earns
-nothing** — the case a plain over/under-500 question gets wrong), the separate
-air-sealing rebate, one-rebate-per-area, mobile-home underbelly substitution, the
-$8,600 / $5,600 caps, and a clamp so a rebate never exceeds the cost of the work.
+nothing**), air sealing as its own rebate, one-rebate-per-area, mobile-home underbelly
+substitution, the $8,600 / $5,600 caps, and a clamp so a rebate never exceeds the cost
+of the work.
 
-- **Wired:** `cost-estimator.js` — the attic, spray-foam and basement calculators. They
-  derive the size band from square footage they already collect, so **no new question was
-  needed there**. Verified in-browser: the same attic job returns $1,440 in August and a
-  flat $4,000 in September.
-- **QA affordance:** set `window.MattraRebatesTestDate = '2026-09-15'` in the console to
-  preview September behaviour on any page today.
+- **`cost-estimator.js`** (attic, spray-foam, basement) derives the band from square
+  footage it already collects — no new question needed.
+- **`rebate-calculator.js`** collected no square footage, so it gained the required
+  question *"How much area are you insulating?"* (500+ / 250–499 / Under 250), asked once
+  per implied insulation zone, plus a mobile-home toggle. The step only appears under the
+  new program, so the flow stays short until it needs to be longer.
+- **Consolidated:** `attic-insulation-calculator.js`, `spray-foam-calculator.js` and
+  `basement-crawlspace-calculator.js` are retired (they were byte-level clones of blocks
+  inside `cost-estimator.js`); their four pages now mount `.cost-estimator` with the right
+  `data-type`. **Rebate percentages and caps that lived in five files now live in one.**
+- **Verified in-browser**, identical inputs (low income, attic + walls + air sealing,
+  500+ each): August → **$8,000** (80% of $11,400, capped, labeled as capped);
+  September → **$8,300** (attic $4,000 + wall $4,000 + attic air sealing $300).
+- **QA affordance:** `window.MattraRebatesTestDate = '2026-09-15'` in the console previews
+  September behaviour on any page today.
 
-**⚠️ Judgment call for Mattra to confirm:** rim joist is measured in *linear* feet, so it
+**⚠️ Judgment call still open for Mattra:** rim joist is measured in *linear* feet, so it
 cannot be banded against a sq-ft threshold. It is currently mapped to **basement air
 sealing ($100–$200)** rather than the Basement insulation zone ($1,000–$4,000). If
-Efficiency Maine treats rim-joist foam as basement insulation in practice, this mapping
-should change — it is worth real money on those jobs.
-
-**Still to wire — `rebate-calculator.js`** (the big one, embedded on 10 pages). It
-collects **no square footage at all**, so it needs the new required size question added
-per zone before the per-area math can run. Then retire the three standalone clones
-(`attic-insulation-calculator.js`, `spray-foam-calculator.js`,
-`basement-crawlspace-calculator.js`) and repoint their four pages at `cost-estimator.js`.
-
-### 1b. Original notes on the five duplicated tier tables
-
-The calculators still compute **percentage math** and would contradict the new copy —
-worse, they hand a visitor a specific personalized dollar figure and email it as a lead.
-
-The same tier table is duplicated in **five** files:
-
-| File | Embedded on |
-|---|---|
-| `rebate-calculator.js` | 10 pages |
-| `cost-estimator.js` | resources, calculators (serves 3 calculator types) |
-| `attic-insulation-calculator.js` | insulation/attic |
-| `spray-foam-calculator.js` | insulation/spray-foam |
-| `basement-crawlspace-calculator.js` | insulation/basement, insulation/crawl-space |
-
-Three of them are byte-level clones of blocks inside `cost-estimator.js`.
-**Recommended sequence: consolidate first** (retire the three standalone files, repoint
-their pages at `cost-estimator.js` with the right `data-type`), *then* change the math
-once. Editing five copies invites drift where two pages quote different numbers.
-
-Input readiness, easiest first:
-1. **Attic** — already collects real sq ft and the zone is fixed. Straight lookup. Ship first.
-2. **Spray foam** — has per-area sq ft and multi-zone selection; only `rimJoist`
-   (captured in *linear feet*) needs a decision — convert, or reclassify it as basement
-   **air sealing**.
-3. **Basement/crawl** — all paths collapse to the single Basement zone, so the current
-   combo-summing behavior must be **deleted**, not adjusted.
-4. **`rebate-calculator.js` — not currently possible.** It has **no square-footage input
-   at all**, only a whole-home size bucket, so the 250–499 vs 500+ band cannot be
-   derived. Needs new inputs before the new math can run. Biggest build, most embedded.
-
-Also missing everywhere: any mobile-home concept, the living-space air-sealing zone, the
-one-rebate-per-zone rule, and the $8,600/$5,600 cap clamp. New edge case: a zone under
-250 sq ft now earns **zero**, which no calculator can currently express.
+Efficiency Maine treats rim-joist foam as basement insulation in practice, change the
+mapping — it is worth real money on those jobs.
 
 ### 2. The infographic
 
