@@ -1,0 +1,46 @@
+name: Heads-up — rebate copy flips in 5 days
+
+# Fires before the automatic Sept 1 promotion so there is a human checkpoint.
+# The promotion runs whether or not anyone acts on this; the point is to catch
+# the two pieces of work that the automation cannot do for you.
+
+on:
+  schedule:
+    # 13:00 UTC on August 27 = 9:00am Eastern
+    - cron: '0 13 27 8 *'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open the pre-flip checklist
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'In 5 days: Efficiency Maine rebate copy goes live (Sept 1)',
+              body: [
+                'On **September 1** the `rebates-oct-2026` branch is merged into `main` automatically, and the site starts leading with the new per-zone Efficiency Maine rebates. Nothing is required for that to happen.',
+                '',
+                'Two things the automation *cannot* do, which should be finished first:',
+                '',
+                '- [ ] **Rebuild the rebate calculators.** They still run percentage math. Note `rebate-calculator.js` has no square-footage input at all, so it needs new inputs before the per-zone math can work. Consolidate the five duplicate tier tables first — see `EFFICIENCY-MAINE-SEPT1-CHANGES.md`.',
+                '- [ ] **Regenerate `/Images/blog/rebate-tiers-infographic.webp`.** It is baked artwork still showing 40% / 60% / 80%. The alt text is already fixed; the image is not.',
+                '',
+                'Optional, agreed scope:',
+                '- [ ] Blog post announcing the change',
+                '- [ ] Update the `Insulation – Efficiency Maine` Google Ads copy so the ads stop promising the old rebate after Oct 1',
+                '',
+                'Review the staged site: https://mattra-rebates-preview.vercel.app',
+                '',
+                'To go early, run the **Promote Efficiency Maine rebate copy** workflow by hand from the Actions tab.',
+                '',
+                '_Opened automatically by the rebate-flip-reminder workflow._'
+              ].join('\n')
+            });

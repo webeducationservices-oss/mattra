@@ -1,0 +1,145 @@
+name: Promote Efficiency Maine rebate copy (Sept 1)
+
+# Efficiency Maine's new per-zone insulation rebates apply to work completed on or
+# after 2026-10-01. A lead entering the pipeline in September cannot finish before
+# then, so the site switches to the new rules on Sept 1 — one month early.
+#
+# This runs itself so nobody has to remember the date.
+# It can also be run by hand any time from the Actions tab (Run workflow).
+
+on:
+  schedule:
+    # 09:00 UTC on September 1 = 5:00am Eastern, live before the business day
+    - cron: '0 9 1 9 *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Rebase and check only — do not merge or push'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    env:
+      BRANCH: rebates-oct-2026
+    steps:
+      - name: Check out full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Identify as the WES committer
+        # Vercel blocks a deploy when the committer email doesn't match a verified
+        # GitHub user (COMMIT_AUTHOR_REQUIRED), so this must stay as-is.
+        run: |
+          git config user.name  "Web Education Services"
+          git config user.email "webeducationservices@gmail.com"
+
+      - name: Confirm the staging branch exists
+        run: |
+          if ! git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            echo "::error::Branch $BRANCH not found on origin — nothing to promote."
+            exit 1
+          fi
+
+      - name: Rebase staged copy onto current main
+        id: rebase
+        run: |
+          set +e
+          git checkout "$BRANCH"
+          git rebase origin/main
+          if [ $? -ne 0 ]; then
+            echo "conflict=true" >> "$GITHUB_OUTPUT"
+            git rebase --abort || true
+            echo "::error::Rebase hit a conflict — the client likely edited these pages in MyAIEditor during August. Needs a human."
+            exit 1
+          fi
+          echo "conflict=false" >> "$GITHUB_OUTPUT"
+
+      - name: Guard — the staged copy must still be free of old-program claims
+        run: |
+          python3 - <<'PY'
+          import re, glob, sys
+          pat = re.compile(
+              r'(?:40|60|80)% of project cost'
+              r'|rebates? (?:cover|covering) (?:up to )?(?:40|60|80)%'
+              r'|up to (?:40|60|80)% back'
+              r'|40[–-]80%'
+              r'|100% of the insulation'
+              r'|100% rebate',
+              re.I)
+          bad = {}
+          for f in glob.glob('*.html') + glob.glob('insulation/*.html') + glob.glob('*.txt'):
+              s = open(f, encoding='utf-8', errors='replace').read()
+              hits = {m.group(0) for m in pat.finditer(s)}
+              if hits:
+                  bad[f] = hits
+          if bad:
+              for f, h in bad.items():
+                  print(f"::error file={f}::stale rebate claim(s): {sorted(h)}")
+              sys.exit(1)
+          print("OK - no old-program rebate claims found in the staged copy")
+          PY
+
+      - name: Merge into main and deploy
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          git checkout main
+          git merge --no-ff "$BRANCH" -m "Efficiency Maine: new per-zone rebate rules now live (scheduled Sept 1 promotion)"
+          git push origin main
+          git push --force-with-lease origin "$BRANCH"
+
+      - name: Leave a follow-up checklist
+        if: ${{ success() && inputs.dry_run != true }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Rebate copy promoted to production — 3 follow-ups',
+              body: [
+                'The scheduled Sept 1 promotion merged `rebates-oct-2026` into `main`. Production now leads with the new per-zone Efficiency Maine rebates.',
+                '',
+                '**Please confirm:**',
+                '- [ ] Production looks right — https://www.mattrainc.com/financing-rebates',
+                '- [ ] Revert the Vercel ignore-build command to main-only (it was widened so the staging branch could build a preview). See `EFFICIENCY-MAINE-SEPT1-CHANGES.md`.',
+                '- [ ] After **Oct 1**: the notice bar self-expires, but delete the `rebateNotice()` block from `components.js` and drop the "Already have a project underway?" note from the rebate pages.',
+                '',
+                '_Opened automatically by the rebate-flip-promote workflow._'
+              ].join('\n')
+            });
+
+      - name: Raise an issue if the promotion failed
+        if: ${{ failure() }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'ACTION NEEDED — Sept 1 rebate copy promotion FAILED',
+              body: [
+                'The scheduled promotion of `rebates-oct-2026` into `main` did not complete, so **the website is still showing the old percentage-based rebate figures**.',
+                '',
+                'Every lead arriving now will be paid under the new October 1 rules, so this needs a person today.',
+                '',
+                'Most likely cause: a merge conflict, because the client edited one of the rebate pages through MyAIEditor during August.',
+                '',
+                '**To fix by hand:**',
+                '```bash',
+                'cd Mattra',
+                'git fetch origin',
+                'git checkout rebates-oct-2026',
+                'git rebase origin/main      # resolve conflicts, keeping the NEW rebate copy',
+                'git checkout main && git merge --no-ff rebates-oct-2026 && git push',
+                '```',
+                '',
+                `[View the failed run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`
+              ].join('\n')
+            });
