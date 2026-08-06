@@ -260,6 +260,54 @@ function getSourceAttribution() {
   if (headerSlot)  headerSlot.outerHTML = HEADER;
   if (footerSlot)  footerSlot.outerHTML = FOOTER;
 
+  /* ── Efficiency Maine rebate-change notice (Oct 1, 2026) ──────
+     Shown on rebate-related pages only, until the program change
+     takes effect. Remove this block (and REBATE_NOTICE_PAGES) once
+     the new rules are the site-wide default. ────────────────── */
+  const REBATE_NOTICE_UNTIL = new Date('2026-10-01T00:00:00-04:00');
+  const REBATE_NOTICE_PAGES = [
+    'financing', 'rebate', 'efficiency-maine', 'insulation', 'air-sealing',
+    'calculators', 'resources', 'mobile-home', 'income-based'
+  ];
+  (function rebateNotice() {
+    if (new Date() >= REBATE_NOTICE_UNTIL) return;
+    const p = window.location.pathname.toLowerCase();
+    // Never show it on the changes page itself
+    if (p.indexOf('efficiency-maine-rebate-changes') !== -1) return;
+    const isHome = p === '/' || p === '/index.html' || p.endsWith('/index.html');
+    const match = isHome || REBATE_NOTICE_PAGES.some(k => p.indexOf(k) !== -1);
+    if (!match) return;
+
+    if (!document.getElementById('rebate-notice-css')) {
+      const st = document.createElement('style');
+      st.id = 'rebate-notice-css';
+      st.textContent = `
+        .rebate-notice{background:#fdf7e3;border-bottom:1px solid #ecdca6;padding:14px 0}
+        .rebate-notice .rn-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+        .rebate-notice .rn-tag{background:var(--gold-accent,#e7bb3a);color:var(--text-dark,#2c2c2c);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 10px;border-radius:100px;white-space:nowrap}
+        .rebate-notice p{margin:0;font-size:.92rem;color:var(--text-dark,#2c2c2c);line-height:1.5;flex:1;min-width:240px}
+        .rebate-notice a.rn-link{color:var(--green-primary,#316b43);font-weight:700;text-decoration:underline;white-space:nowrap}
+        @media(max-width:600px){.rebate-notice{padding:12px 0}.rebate-notice p{font-size:.86rem}}
+      `;
+      document.head.appendChild(st);
+    }
+
+    const bar = document.createElement('div');
+    bar.className = 'rebate-notice';
+    bar.innerHTML = `
+      <div class="rn-inner">
+        <span class="rn-tag">Heads up</span>
+        <p>Efficiency Maine insulation rebates change on <strong>October&nbsp;1, 2026</strong> &mdash; moving from a percentage of project cost to a set amount for each area of your home. Rebate amounts shown on this page apply to projects completed before then.</p>
+        <a class="rn-link" href="${b}efficiency-maine-rebate-changes-2026">See what's changing &rarr;</a>
+      </div>`;
+
+    const main = document.querySelector('main');
+    if (main) { main.insertBefore(bar, main.firstChild); return; }
+    const hdr = document.querySelector('header.site-header, .site-header');
+    if (hdr && hdr.parentNode) { hdr.parentNode.insertBefore(bar, hdr.nextSibling); return; }
+    document.body.insertBefore(bar, document.body.firstChild);
+  })();
+
   /* ── Favicon ─────────────────────────────────────────────── */
   if (!document.querySelector('link[rel="icon"]')) {
     const fav = document.createElement('link');
