@@ -73,6 +73,9 @@
       .rc-label{display:block}
       .rc-label strong{display:block;margin-bottom:2px}
       .rc-label small{font-size:.8rem;color:var(--brown-text,#706460)}
+      .rc-zone-row{margin-bottom:18px}
+      .rc-zone-name{font-weight:600;font-size:.92rem;margin-bottom:8px;color:var(--text-dark,#1a1a1a);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+      .rc-zone-pick{padding:6px 10px;border:2px solid rgba(0,0,0,.1);border-radius:6px;font-family:inherit;font-size:.85rem}
       .rc-input-group{margin-bottom:20px}
       .rc-input-group label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px;color:var(--text-dark,#1a1a1a)}
       .rc-input-group input,.rc-input-group select{width:100%;padding:12px 14px;border:2px solid rgba(0,0,0,.1);border-radius:8px;font-size:.95rem;font-family:inherit;transition:border-color .2s;box-sizing:border-box}
@@ -126,11 +129,8 @@
   }
 
   /* ── Data ─────────────────────────────────────────────────── */
-  const TIERS = {
-    low:      { label: 'Low Income (HEAP/SNAP)', pct: 0.80, max: 8000 },
-    moderate: { label: 'Moderate Income', pct: 0.60, max: 6000 },
-    any:      { label: 'Any Income', pct: 0.40, max: 4000 }
-  };
+  /* Labels only. Every rebate NUMBER comes from rebate-rules.js. */
+  const TIERS = MattraRebates.OLD_TIERS;
 
   const PROJECTS = {
     attic:     { label: 'Attic Insulation', min: 2000, max: 6000 },
@@ -140,6 +140,17 @@
     rimJoist:  { label: 'Rim Joist / Sill Plate', min: 1000, max: 3500 },
     spray:     { label: 'Spray Foam Insulation', min: 4000, max: 12000 }
   };
+
+  /* Which project selections map onto an Efficiency Maine rebate ZONE.
+     Air sealing is its own rebate, not a zone. Spray foam is a material,
+     so it only creates a zone when nothing else does. */
+  const PROJECT_ZONES = { attic: 'attic', walls: 'wall', basement: 'basement' };
+
+  const BANDS = [
+    { key: 'large', label: '500+ sq ft' },
+    { key: 'small', label: '250\u2013499 sq ft' },
+    { key: 'none',  label: 'Under 250 sq ft' }
+  ];
 
   const HOME_SIZES = {
     small:  { label: 'Under 1,200 sq ft', factor: 0.7 },
@@ -154,6 +165,9 @@
     let tier = null;
     let selectedProjects = [];
     let homeSize = null;
+    let zoneBands = {};        /* { attic:'large'|'small'|'none', ... } */
+    let sprayZone = 'basement'; /* only used when spray foam is the sole insulation pick */
+    let isMobileHome = false;
     let contact = { first_name: '', email: '', phone: '', zip: '' };
     let submitted = false;
     let sendStatus = 'pending'; // 'pending' | 'sent' | 'failed'
@@ -186,7 +200,7 @@
           </div>
           <div class="rc-body">
             <div class="rc-progress">
-              ${[0,1,2,3,4].map(i => `<span class="${i <= step ? 'done' : ''}"></span>`).join('')}
+              ${[0,1,2,3,4,5].map(i => `<span class="${i <= step ? 'done' : ''}"></span>`).join('')}
             </div>
             ${renderStep()}
           </div>
@@ -199,9 +213,10 @@
     function renderStep() {
       if (step === 0) return stepIncome();
       if (step === 1) return stepProjects();
-      if (step === 2) return stepHomeSize();
-      if (step === 3) return stepContact();
-      if (step === 4) return stepResults();
+      if (step === 2) { const z = stepZones(); return z !== null ? z : (step = 3, stepHomeSize()); }
+      if (step === 3) return stepHomeSize();
+      if (step === 4) return stepContact();
+      if (step === 5) return stepResults();
       return '';
     }
 
@@ -209,27 +224,27 @@
       return `
         <div class="rc-step active">
           <div class="rc-step-title">What is your household income level?</div>
-          <div class="rc-step-sub">This determines your rebate percentage. All information stays private.</div>
+          <div class="rc-step-sub">This determines your rebate. All information stays private.</div>
           <div class="rc-options">
             <div class="rc-opt ${tier==='low'?'selected':''}" data-val="low">
               <span class="rc-radio"></span>
               <span class="rc-label">
                 <strong>Low Income</strong>
-                <small>Participating in HEAP, SNAP, TANF, or income-based MaineCare — up to 80% back, max $8,000</small>
+                <small>Participating in HEAP, SNAP, TANF, or income-based MaineCare &mdash; ${MattraRebates.tierBlurb('low')}</small>
               </span>
             </div>
             <div class="rc-opt ${tier==='moderate'?'selected':''}" data-val="moderate">
               <span class="rc-radio"></span>
               <span class="rc-label">
                 <strong>Moderate Income</strong>
-                <small>AGI up to $70K (single) or $100K (married filing jointly) — up to 60% back, max $6,000</small>
+                <small>AGI up to $70K (single) or $100K (married filing jointly) &mdash; ${MattraRebates.tierBlurb('moderate')}</small>
               </span>
             </div>
             <div class="rc-opt ${tier==='any'?'selected':''}" data-val="any">
               <span class="rc-radio"></span>
               <span class="rc-label">
                 <strong>Any Income / Not Sure</strong>
-                <small>No income restrictions — up to 40% back, max $4,000</small>
+                <small>No income restrictions &mdash; ${MattraRebates.tierBlurb('any')}</small>
               </span>
             </div>
           </div>
@@ -253,6 +268,59 @@
           <div class="rc-nav">
             <button class="rc-btn rc-btn-back" data-action="back">&larr; Back</button>
             <button class="rc-btn rc-btn-next" ${selectedProjects.length===0?'disabled':''} data-action="next">Continue &rarr;</button>
+          </div>
+        </div>
+      `;
+    }
+
+    /* Zones the current selections imply, each needing a size answer. */
+    function activeZones() {
+      const zones = [];
+      Object.keys(PROJECT_ZONES).forEach(function (k) {
+        if (selectedProjects.indexOf(k) !== -1) {
+          zones.push({ key: k, type: PROJECT_ZONES[k], label: PROJECTS[k].label });
+        }
+      });
+      /* Spray foam is a material — it only needs its own zone if nothing else
+         already established one. */
+      if (!zones.length && selectedProjects.indexOf('spray') !== -1) {
+        zones.push({ key: 'spray', type: sprayZone, label: 'Spray Foam Insulation', needsZonePick: true });
+      }
+      return zones;
+    }
+
+    function zonesAnswered() {
+      const z = activeZones();
+      if (!z.length) return true;               /* air-sealing-only project */
+      return z.every(function (x) { return !!zoneBands[x.key]; });
+    }
+
+    /* NEW: the single question that drives the whole rebate under the Oct 1
+       rules — how much area is being insulated in each zone. Only shown when
+       the new program applies; before Sept 1 the old math needs cost, not area. */
+    function stepZones() {
+      const zones = activeZones();
+      if (!MattraRebates.isNewProgram() || !zones.length) return null;
+      return `
+        <div class="rc-step active">
+          <div class="rc-step-title">How much area are you insulating?</div>
+          <div class="rc-step-sub">Efficiency Maine pays a set amount for each area, based on how much of it is insulated. Areas under 250 sq ft do not qualify.</div>
+          ${zones.map(function (z) { return `
+            <div class="rc-zone-row">
+              <div class="rc-zone-name">${z.label}${z.needsZonePick ? `
+                <select class="rc-zone-pick" aria-label="Which area">
+                  <option value="attic"${sprayZone==='attic'?' selected':''}>in the attic</option>
+                  <option value="wall"${sprayZone==='wall'?' selected':''}>in the walls</option>
+                  <option value="basement"${sprayZone==='basement'?' selected':''}>in the basement</option>
+                </select>` : ''}</div>
+              <div class="rc-checks" style="margin-bottom:0;">
+                ${BANDS.map(function (b) { return `<div class="rc-check ${zoneBands[z.key]===b.key?'selected':''}" data-zone="${z.key}" data-band="${b.key}">${b.label}</div>`; }).join('')}
+              </div>
+            </div>`; }).join('')}
+          <div class="rc-check ${isMobileHome?'selected':''}" data-mobile="1" style="margin-top:6px;">This is a mobile home</div>
+          <div class="rc-nav">
+            <button class="rc-btn rc-btn-back" data-action="back">&larr; Back</button>
+            <button class="rc-btn rc-btn-next" ${zonesAnswered()?'':'disabled'} data-action="next">Continue &rarr;</button>
           </div>
         </div>
       `;
@@ -323,10 +391,24 @@
         lines.push({ label: p.label, range: '$' + lo.toLocaleString() + ' \u2013 $' + hi.toLocaleString() });
       });
       const midCost = Math.round((totalMin + totalMax) / 2);
-      const rawRebate = Math.round(midCost * t.pct);
-      const rebate = Math.min(rawRebate, t.max);
-      const outOfPocket = midCost - rebate;
-      return { t, totalMin, totalMax, midCost, rawRebate, rebate, outOfPocket, lines };
+
+      /* Rebate comes from the shared engine, which decides on its own whether
+         the pre- or post-Oct-1 program applies. */
+      const zones = activeZones().map(function (z) {
+        return { type: (z.key === 'spray' ? sprayZone : z.type), band: zoneBands[z.key] };
+      }).filter(function (z) { return !!z.band; });
+
+      const airSealing = [];
+      if (selectedProjects.indexOf('airSeal') !== -1) airSealing.push('attic');
+      if (selectedProjects.indexOf('rimJoist') !== -1) airSealing.push('basement');
+
+      const rb = MattraRebates.compute({
+        tier: tier, projectCost: midCost, zones: zones,
+        airSealing: airSealing, isMobileHome: isMobileHome
+      });
+      const rebate = rb.rebate;
+      const outOfPocket = Math.max(midCost - rebate, 0);
+      return { t, rb, totalMin, totalMax, midCost, rawRebate: rebate, rebate, outOfPocket, lines };
     }
 
     async function submitResults() {
@@ -350,7 +432,8 @@
         phone: contact.phone || '',
         zip: contact.zip,
         income_tier: r.t.label,
-        rebate_percentage: Math.round(r.t.pct * 100) + '%',
+        rebate_basis: r.rb.program === 'new' ? 'Per area (Oct 1, 2026 rules)' : Math.round(r.t.pct * 100) + '% of project cost',
+        rebate_detail: r.rb.breakdown.map(function (b) { return b.label + ': $' + b.amount.toLocaleString(); }).join(' | '),
         projects: projectNames,
         home_size: HOME_SIZES[homeSize].label,
         estimated_cost: '$' + r.midCost.toLocaleString(),
@@ -391,7 +474,7 @@
     }
 
     function stepResults() {
-      const { t, totalMin, totalMax, midCost, rawRebate, rebate, outOfPocket, lines } = calcResults();
+      const { t, rb, totalMin, totalMax, midCost, rawRebate, rebate, outOfPocket, lines } = calcResults();
 
       if (!submitted) { submitResults(); }
 
@@ -400,7 +483,7 @@
           <div class="rc-results">
             <div class="rc-results-badge">Your Rebate Estimate</div>
             <p class="rc-send-status" style="font-size:.85rem;color:var(--green-primary,#316b43);margin-bottom:16px">Sending to ${contact.email}&hellip;</p>
-            <h3>Based on ${t.label.split('(')[0].trim()} Tier</h3>
+            <h3>Based on ${rb.tierLabel.split('(')[0].trim()} Tier</h3>
             <div class="rc-results-grid">
               <div class="rc-result-box">
                 <div class="rc-result-label">Estimated Project Cost</div>
@@ -410,7 +493,7 @@
               <div class="rc-result-box highlight">
                 <div class="rc-result-label">Estimated Rebate</div>
                 <div class="rc-result-value">$${rebate.toLocaleString()}</div>
-                <div class="rc-result-note">${Math.round(t.pct * 100)}% back${rawRebate > t.max ? ' (capped at $' + t.max.toLocaleString() + ')' : ''}</div>
+                <div class="rc-result-note">${rb.tierLabel}${rb.capped ? ' (capped at $' + rb.cap.toLocaleString() + ')' : ''}</div>
               </div>
             </div>
             <div class="rc-results-grid">
@@ -426,7 +509,7 @@
             <div class="rc-breakdown">
               <h4>Project Breakdown</h4>
               ${lines.map(l => `<div class="rc-breakdown-row"><span>${l.label}</span><span>${l.range}</span></div>`).join('')}
-              <div class="rc-breakdown-row"><span>Estimated Rebate (${Math.round(t.pct * 100)}%)</span><span style="color:var(--green-primary,#316b43)">-$${rebate.toLocaleString()}</span></div>
+              <div class="rc-breakdown-row"><span>Estimated Rebate</span><span style="color:var(--green-primary,#316b43)">-$${rebate.toLocaleString()}</span></div>
               <div class="rc-breakdown-row"><span>Estimated Out-of-Pocket</span><span>$${outOfPocket.toLocaleString()}</span></div>
             </div>
             <p class="rc-disclaimer">These estimates are based on typical project costs and current Efficiency Maine rebate tiers. Actual costs and rebates depend on your home&rsquo;s conditions, project scope, and eligibility verification. Rebates are per building (lifetime limit). Mattra is a Registered Efficiency Maine Vendor and handles all rebate paperwork on your behalf.</p>
@@ -448,12 +531,25 @@
       root.querySelectorAll('.rc-options .rc-opt').forEach(el => {
         el.addEventListener('click', () => {
           if (step === 0) { tier = el.dataset.val; render(); }
-          if (step === 2) { homeSize = el.dataset.val; render(); }
+          if (step === 3) { homeSize = el.dataset.val; render(); }
         });
       });
 
+      /* Size band per zone + mobile-home toggle (size step) */
+      root.querySelectorAll('.rc-check[data-band]').forEach(el => {
+        el.addEventListener('click', () => {
+          zoneBands[el.dataset.zone] = el.dataset.band;
+          render();
+        });
+      });
+      root.querySelectorAll('.rc-check[data-mobile]').forEach(el => {
+        el.addEventListener('click', () => { isMobileHome = !isMobileHome; render(); });
+      });
+      const zonePick = root.querySelector('.rc-zone-pick');
+      if (zonePick) zonePick.addEventListener('change', () => { sprayZone = zonePick.value; render(); });
+
       /* Project multi-select */
-      root.querySelectorAll('.rc-check').forEach(el => {
+      root.querySelectorAll('.rc-check[data-val]').forEach(el => {
         el.addEventListener('click', () => {
           const v = el.dataset.val;
           if (selectedProjects.includes(v)) {
@@ -509,7 +605,7 @@
           }
           if (action === 'next' && !btn.disabled) { step++; render(); }
           if (action === 'back') { step--; render(); }
-          if (action === 'restart') { step = 0; tier = null; selectedProjects = []; homeSize = null; contact = { first_name: '', email: '', phone: '', zip: '' }; submitted = false; sendStatus = 'pending'; render(); }
+          if (action === 'restart') { step = 0; tier = null; selectedProjects = []; homeSize = null; zoneBands = {}; sprayZone = 'basement'; isMobileHome = false; contact = { first_name: '', email: '', phone: '', zip: '' }; submitted = false; sendStatus = 'pending'; render(); }
         });
       });
     }

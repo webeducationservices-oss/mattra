@@ -91,11 +91,9 @@
   }
 
   /* ── Shared Data ─────────────────────────────────────────────── */
-  const REBATE_TIERS = {
-    low:      { label: 'Low Income (HEAP/SNAP/TANF)', pct: 0.80, max: 8000 },
-    moderate: { label: 'Moderate Income', pct: 0.60, max: 6000 },
-    any:      { label: 'Any Income / Not Sure', pct: 0.40, max: 4000 }
-  };
+  /* Labels only. Every rebate NUMBER comes from rebate-rules.js — do not
+     re-add pct/max here, that duplication is what caused five copies to drift. */
+  const REBATE_TIERS = MattraRebates.OLD_TIERS;
 
   /* ── Shared Helpers ──────────────────────────────────────────── */
   /* reCAPTCHA token, never fatal: a blocked script or wrong key can reject OR never
