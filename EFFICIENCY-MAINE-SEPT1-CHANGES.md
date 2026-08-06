@@ -114,7 +114,37 @@ the branch. The NEIF/Green Bank financing line "up to 100% of project financed" 
 
 ## ⚠️ Remaining work before the Sept 1 merge
 
-### 1. The five rebate calculators (the big one)
+### 1. The rebate calculators — PARTLY DONE (2026-08-06)
+
+**Built and live on `main`: `rebate-rules.js`** — one source of truth holding *both*
+programs and switching itself on **Sept 1**. It ships safely today because it quotes
+today's numbers now and flips on its own, with no dependency on the branch merge.
+
+It models what the old code could not: three size bands (**an area under 250 sq ft earns
+nothing** — the case a plain over/under-500 question gets wrong), the separate
+air-sealing rebate, one-rebate-per-area, mobile-home underbelly substitution, the
+$8,600 / $5,600 caps, and a clamp so a rebate never exceeds the cost of the work.
+
+- **Wired:** `cost-estimator.js` — the attic, spray-foam and basement calculators. They
+  derive the size band from square footage they already collect, so **no new question was
+  needed there**. Verified in-browser: the same attic job returns $1,440 in August and a
+  flat $4,000 in September.
+- **QA affordance:** set `window.MattraRebatesTestDate = '2026-09-15'` in the console to
+  preview September behaviour on any page today.
+
+**⚠️ Judgment call for Mattra to confirm:** rim joist is measured in *linear* feet, so it
+cannot be banded against a sq-ft threshold. It is currently mapped to **basement air
+sealing ($100–$200)** rather than the Basement insulation zone ($1,000–$4,000). If
+Efficiency Maine treats rim-joist foam as basement insulation in practice, this mapping
+should change — it is worth real money on those jobs.
+
+**Still to wire — `rebate-calculator.js`** (the big one, embedded on 10 pages). It
+collects **no square footage at all**, so it needs the new required size question added
+per zone before the per-area math can run. Then retire the three standalone clones
+(`attic-insulation-calculator.js`, `spray-foam-calculator.js`,
+`basement-crawlspace-calculator.js`) and repoint their four pages at `cost-estimator.js`.
+
+### 1b. Original notes on the five duplicated tier tables
 
 The calculators still compute **percentage math** and would contradict the new copy —
 worse, they hand a visitor a specific personalized dollar figure and email it as a lead.
