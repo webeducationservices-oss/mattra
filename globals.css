@@ -1506,3 +1506,16 @@ p { margin-bottom: 1rem; }
     padding-top: 60px !important;
   }
 }
+
+/* Rebate tier math strip (Efficiency Maine per-area rebates) */
+.tier-math{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:16px 14px;margin:0 0 20px;}
+.tier-math .tm-cap{font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--brown-text);margin:0 0 12px;text-align:center;}
+.tier-math .tm-cap .tm-area{font-size:1.05rem;letter-spacing:.14em;color:var(--text-dark);}
+.tier-math .tm-row{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:6px 8px;}
+.tier-math .tm-item{display:flex;flex-direction:column;align-items:center;min-width:52px;}
+.tier-math .tm-n{font-size:1.02rem;font-weight:700;color:var(--text-dark);line-height:1.2;white-space:nowrap;}
+.tier-math .tm-z{font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;color:var(--brown-text);margin-top:3px;text-align:center;}
+.tier-math .tm-op{font-size:1rem;font-weight:700;color:var(--brown-text);line-height:1.2;padding-top:1px;}
+.tier-math .tm-total .tm-n{color:var(--green-primary);}
+.tier-math .tm-note{margin:12px 0 0;padding-top:10px;border-top:1px solid rgba(0,0,0,.07);font-size:.78rem;line-height:1.5;color:var(--brown-text);text-align:center;}
+.tier-math .tm-note strong{color:var(--green-primary);}
