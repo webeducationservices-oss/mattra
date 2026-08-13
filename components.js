@@ -89,7 +89,7 @@ function getSourceAttribution() {
 </div>`;
 
   /* ── Mega-menu active helpers ──────────────────────────── */
-  const serviceSlugs = ['mold','insulation','construction','consulting','services','ventilation','roofing','siding','demolition','waterproofing','rot-repair','water-damage','air-sealing','spray-foam','blown-in','crawl-space','energy-audit','blower-door','rodent','dehumidification','general-contracting','insulation-removal'];
+  const serviceSlugs = ['mold','insulation','construction','consulting','services','ventilation','roofing','siding','demolition','waterproofing','rot-repair','water-damage','air-sealing','spray-foam','blown-in','crawl-space','energy-audit','blower-door','rodent','dehumidification','general-contracting','insulation-removal','efficiency-maine'];
   const resourceSlugs = ['financing','rebates','resources','calculator','for-realtors','blog','glossary','mold-library'];
   function megaActive(slugs) { return slugs.some(s => path.includes(s)); }
 
@@ -131,6 +131,7 @@ function getSourceAttribution() {
           <div class="mega-col">
             <h5 class="mega-heading">Insulation</h5>
             <a href="${b}insulation.html">Insulation Overview</a>
+            <a href="${b}efficiency-maine.html">Efficiency Maine Rebates</a>
             <a href="${b}insulation/spray-foam.html">Spray Foam</a>
             <a href="${b}insulation/blown-in.html">Blown-In</a>
             <a href="${b}insulation/attic.html">Attic</a>
