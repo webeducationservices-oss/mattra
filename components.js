@@ -14,7 +14,7 @@
 function getSourceAttribution() {
   var KEY = 'wes_first_touch_source';
   var p = new URLSearchParams(window.location.search);
-  var hasFresh = p.has('utm_source') || p.has('gclid') || p.has('fbclid') || p.has('msclkid');
+  var hasFresh = p.has('utm_source') || p.has('gclid') || p.has('gbraid') || p.has('wbraid') || p.has('fbclid') || p.has('msclkid');
   if (!hasFresh) {
     try {
       var cached = JSON.parse(sessionStorage.getItem(KEY) || 'null');
@@ -25,7 +25,7 @@ function getSourceAttribution() {
   var utm_medium = (p.get('utm_medium') || '').toLowerCase();
   var utm_campaign = p.get('utm_campaign') || '';
   var utm_term = p.get('utm_term') || '';
-  var gclid = p.get('gclid'), fbclid = p.get('fbclid'), msclkid = p.get('msclkid');
+  var gclid = p.get('gclid') || p.get('gbraid') || p.get('wbraid'), fbclid = p.get('fbclid'), msclkid = p.get('msclkid');
   var ref = document.referrer || '';
   var refHost = ''; try { refHost = ref ? new URL(ref).hostname : ''; } catch (e) {}
   var offSite = ref && refHost && refHost !== window.location.hostname;
