@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, follow" />
+
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <title>Page Not Found — Mattra Inc.</title>
+  <meta name="description" content="That page could not be found. Explore Mattra's mold, insulation, construction, and consulting services for Maine homeowners, or call (207) 777-6020." />
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/montserrat-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/dm-serif-display-400.woff2" crossorigin>
+  <link rel="stylesheet" href="/globals.css" />
+  <style>
+    .nf-page { padding: 110px 0 90px; min-height: 58vh; }
+    .nf-wrap { max-width: 760px; margin: 0 auto; text-align: center; }
+    .nf-code {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(3.6rem, 12vw, 6rem); line-height: 1;
+      color: var(--green-primary); margin-bottom: 8px;
+    }
+    .nf-wrap h1 { font-size: clamp(1.5rem, 4vw, 2.1rem); margin-bottom: 14px; }
+    .nf-lead { font-size: 1.05rem; line-height: 1.7; color: var(--text-body); margin-bottom: 40px; }
+    .nf-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px; text-align: left; margin-bottom: 40px;
+    }
+    .nf-card {
+      display: block; padding: 20px 22px; background: var(--white);
+      border: 1px solid var(--border-light); border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm); text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .nf-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: rgba(49,107,67,.25); }
+    .nf-card strong { display: block; color: var(--text-dark); font-size: 1rem; margin-bottom: 5px; }
+    .nf-card span { display: block; color: var(--text-light); font-size: .87rem; line-height: 1.5; }
+    .nf-ctas { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+    @media (max-width: 600px) {
+      .nf-page { padding: 80px 0 60px; }
+      .nf-ctas .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+  <script src="/mae-edit-loader.js" defer></script>
+
+  <!-- Google Consent Mode (before GTM) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K4ZZ5RK');</script>
+
+  <!-- Make the 404 measurable: GA4 sees a page_not_found event with the dead path -->
+  <script>
+    window.dataLayer.push({
+      event: 'page_not_found',
+      broken_path: window.location.pathname + window.location.search,
+      referrer: document.referrer || '(none)'
+    });
+  </script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4ZZ5RK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div id="topbar"></div>
+<div id="header"></div>
+
+<main>
+<section class="nf-page">
+  <div class="container">
+    <div class="nf-wrap">
+      <div class="nf-code">404</div>
+      <h1>We couldn&rsquo;t find that page</h1>
+      <p class="nf-lead">The link may be out of date, or the page may have moved when we rebuilt the site. Here&rsquo;s where most people are headed &mdash; or just call us and we&rsquo;ll point you the right way.</p>
+
+      <div class="nf-grid">
+        <a class="nf-card" href="/mold/">
+          <strong>Mold &amp; Moisture</strong>
+          <span>Inspection, testing, and root-cause remediation across Maine.</span>
+        </a>
+        <a class="nf-card" href="/insulation/">
+          <strong>Insulation &amp; Air Sealing</strong>
+          <span>Attic, wall, basement, and crawl space &mdash; with Efficiency Maine rebates.</span>
+        </a>
+        <a class="nf-card" href="/construction/">
+          <strong>Construction &amp; Repair</strong>
+          <span>Rot repair, roofing, siding, water damage, and rebuilds.</span>
+        </a>
+        <a class="nf-card" href="/efficiency-maine/">
+          <strong>Efficiency Maine Rebates</strong>
+          <span>See what your home qualifies for and how the rebate works.</span>
+        </a>
+        <a class="nf-card" href="/diagnostic/">
+          <strong>Not sure what you need?</strong>
+          <span>Answer a few questions and we&rsquo;ll tell you where to start.</span>
+        </a>
+        <a class="nf-card" href="/blog/">
+          <strong>Guides &amp; Articles</strong>
+          <span>Straight answers on mold, insulation, and Maine home costs.</span>
+        </a>
+      </div>
+
+      <div class="nf-ctas">
+        <a href="/" class="btn btn-primary">Back to Home</a>
+        <a href="tel:+12077776020" class="btn btn-gold">Call (207) 777-6020</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div id="footer"></div>
+<script src="/components.js" defer></script>
+</body>
+</html>
