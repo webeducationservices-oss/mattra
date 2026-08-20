@@ -361,8 +361,8 @@
             <input type="email" id="rc-email" value="${contact.email}" placeholder="you@example.com" required>
           </div>
           <div class="rc-input-group">
-            <label for="rc-phone">Phone <small style="font-weight:400;color:var(--brown-text,#706460)">(optional)</small></label>
-            <input type="tel" id="rc-phone" inputmode="tel" value="${contact.phone}" placeholder="(207) 555-0000">
+            <label for="rc-phone">Phone *</label>
+            <input type="tel" id="rc-phone" inputmode="tel" value="${contact.phone}" placeholder="(207) 555-0000" required>
           </div>
           <div class="rc-input-group">
             <label for="rc-zip">ZIP code or town *</label>
@@ -587,10 +587,15 @@
             if (phone) contact.phone = phone.value.trim();
             const zipEl = root.querySelector('#rc-zip');
             if (zipEl) contact.zip = zipEl.value.trim();
-            if (!contact.first_name || !contact.email || !contact.zip) {
+            if (!contact.first_name || !contact.email || !contact.phone || !contact.zip) {
               if (name && !contact.first_name) name.style.borderColor = '#e74c3c';
               if (email && !contact.email) email.style.borderColor = '#e74c3c';
+              if (phone && !contact.phone) phone.style.borderColor = '#e74c3c';
               if (zipEl && !contact.zip) zipEl.style.borderColor = '#e74c3c';
+              return;
+            }
+            if (contact.phone.replace(/\D/g, '').length < 10) {
+              if (phone) phone.style.borderColor = '#e74c3c';
               return;
             }
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) {

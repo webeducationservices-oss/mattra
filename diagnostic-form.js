@@ -182,11 +182,11 @@
           <input type="email" id="diag-email" required placeholder="you@example.com" />
         </div>
         <div class="diag-field">
-          <label for="diag-phone">Phone</label>
-          <input type="tel" id="diag-phone" inputmode="tel" placeholder="(207) 555-0123" />
-          <span class="diag-hint">Optional, but helpful if it\u2019s urgent.</span>
+          <label for="diag-phone">Phone *</label>
+          <input type="tel" id="diag-phone" inputmode="tel" placeholder="(207) 555-0123" required />
+          <span class="diag-hint">So we can reach you quickly about your inspection.</span>
         </div>
-        <div class="diag-field diag-sms-consent" id="diag-sms-group" style="display:none">
+        <div class="diag-field diag-sms-consent" id="diag-sms-group">
           <label class="diag-checkbox">
             <input type="checkbox" id="diag-sms-consent" />
             <span>I agree to receive text messages from Mattra Inc., including appointment updates, service info, and promotional offers. Msg frequency varies. Msg & data rates may apply. Reply STOP to cancel, HELP for help. <a href="/privacy" target="_blank">Privacy Policy</a> & <a href="/terms" target="_blank">Terms</a></span>
@@ -530,12 +530,11 @@
       });
     });
 
-    // Show/hide SMS consent when phone is entered
+    // Phone is required, so the SMS consent box is always shown. Clear it if the
+    // field is emptied so we never send consent for a number we do not have.
     const phoneInput = card.querySelector('#diag-phone');
-    const smsGroup = card.querySelector('#diag-sms-group');
     phoneInput.addEventListener('input', () => {
       const hasPhone = phoneInput.value.replace(/\D/g, '').length >= 7;
-      smsGroup.style.display = hasPhone ? 'block' : 'none';
       if (!hasPhone) card.querySelector('#diag-sms-consent').checked = false;
     });
 
@@ -576,7 +575,11 @@
       if (!first || !email) { alert('Please enter at least your first name and email.'); return; }
       const phone = phoneInput.value.replace(/\D/g, '');
       const smsCheck = card.querySelector('#diag-sms-consent');
-      if (phone.length >= 7 && !smsCheck.checked) { alert('Please agree to receive text messages, or remove your phone number.'); return; }
+      if (phone.length < 10) {
+        alert('Please enter a phone number so we can reach you.');
+        phoneInput.focus();
+        return;
+      }
       const notes = card.querySelector('#diag-notes').value.trim();
       const zipEl = card.querySelector('#diag-zip');
       const zip   = zipEl.value.trim();
