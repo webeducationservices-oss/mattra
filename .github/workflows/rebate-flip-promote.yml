@@ -65,18 +65,36 @@ jobs:
         run: |
           python3 - <<'PY'
           import re, glob, sys
+          # Widened 2026-08-27. The previous pattern only matched the literal
+          # "40-80%" and never checked the dollar caps, so it passed clean while
+          # consulting/mold/calculators still said "40% to 80% ... up to $8,000".
+          # A guard that cannot fail is not a guard.
+          DASH = r'(?:\s*(?:to|through|&ndash;|&mdash;|[-\u2013\u2014])\s*)'
           pat = re.compile(
-              r'(?:40|60|80)% of project cost'
-              r'|rebates? (?:cover|covering) (?:up to )?(?:40|60|80)%'
-              r'|up to (?:40|60|80)% back'
-              r'|40[–-]80%'
+              r'(?:40|60|80)\s*%?' + DASH + r'(?:60|80|100)\s*%'   # 40-80%, 40% to 80%, 60&ndash;100%
+              r'|(?:40|60|80)% of (?:the )?project cost'
+              r'|rebates? (?:cover|covering|can cover|often cover) (?:up to )?(?:40|60|80)\s*%'
+              r'|up to (?:40|60|80)\s*% back'
               r'|100% of the insulation'
-              r'|100% rebate',
+              r'|100%\s*rebate'
+              # $8,000 only when it is being used as a REBATE CAP. A bare
+              # "$8,000" also appears in legitimate project-COST ranges like
+              # "expect to spend $3,000 to $8,000 before rebates".
+              r'|(?:up to|maximum of|max(?:imum)? of|capped at|cap of|caps of)[^.]{0,40}\$8,000'
+              r'|\$8,000\s*\(low'
+              r'|\$4,000,\s*\$6,000,?\s*(?:or\s*)?\$8,000',
               re.I)
+          # The one legitimate use: the labelled note telling people with a project
+          # already underway what the OLD program paid. Allowed only in that context.
+          ALLOW = re.compile(r'Projects completed before that date fall under the previous program', re.I)
           bad = {}
-          for f in glob.glob('*.html') + glob.glob('insulation/*.html') + glob.glob('*.txt'):
+          for f in sorted(glob.glob('**/*.html', recursive=True) + glob.glob('**/*.txt', recursive=True)):
               s = open(f, encoding='utf-8', errors='replace').read()
               hits = {m.group(0) for m in pat.finditer(s)}
+              if hits and ALLOW.search(s):
+                  # strip the sanctioned historical note, then re-scan
+                  stripped = re.sub(r'Projects completed before that date.{0,400}?(?:</p>|</div>)', '', s, flags=re.S|re.I)
+                  hits = {m.group(0) for m in pat.finditer(stripped)}
               if hits:
                   bad[f] = hits
           if bad:
