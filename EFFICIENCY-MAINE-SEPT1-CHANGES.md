@@ -1,5 +1,34 @@
 # Efficiency Maine Rebate Change — Staged Site Changes (Go Live Sept 1, 2026)
 
+> ## ✅ PROMOTED EARLY — 2026-08-27 (not Sept 1)
+>
+> Run by request. Both scheduled workflows are now **disabled_manually**;
+> nothing fires on Sept 1.
+>
+> **A parallel Claude session merged the branch at 08:59 ET while this session
+> was preparing the same promotion.** That merge shipped the copy but not the
+> three fixes still in flight, so production was self-contradictory for roughly
+> an hour. All three are now fixed and verified live (commit `aa2a4ee`):
+>
+> 1. `rebate-rules.js` still had `SWITCH_DATE = Sept 1`, so **every calculator
+>    computed the old percentage program while the page around it quoted the new
+>    per-area one.** Moved to Aug 27. Verified live: `isNewProgram() === true`,
+>    and any/moderate/low return $6,300 / $8,600 / $8,600, matching the tier cards.
+> 2. **Five pages still carried old-program claims**, including the **homepage**
+>    ("40% to 80% ... caps of $4,000, $6,000, or $8,000") and `mold.html`.
+>    Also `consulting.html`, `calculators.html`, `act-fast-...`.
+> 3. The **infographic** was still the baked 40/60/80% artwork. Regenerated.
+>
+> **The guard is why these survived.** Its regex matched only the literal
+> `40-80%` and never checked the dollar caps, so the dry run reported clean
+> while five pages were stale. It now also catches `40% to 80%`,
+> `40%&ndash;80%`, `40 to 100%` and `$8,000` **in cap context only** (so real
+> project-cost ranges like "spend $3,000 to $8,000 before rebates" still pass),
+> and scans every page recursively instead of root + `insulation/`.
+>
+> Verified live across 20 pages: the only remaining "up to $8,000" is the
+> deliberate historical note on the financing family, which is correct.
+
 **Internal working document. Not published to the website.**
 Owner: Justin Babcock / Web Education Services · Client: Mattra Inc. · Created 2026-08-06
 
