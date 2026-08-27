@@ -13,10 +13,14 @@
               separate air-sealing rebate. Applies to work COMPLETED
               on or after October 1, 2026.
 
-   The site flips to NEW on SWITCH_DATE (Sept 1, 2026) — one month
-   ahead of the program — because a lead entering the pipeline in
-   September cannot get a job finished before Oct 1, so they will be
-   paid under the new rules.
+   The site flips to NEW on SWITCH_DATE, ahead of the program itself,
+   because a lead entering the pipeline now cannot get a job finished
+   before Oct 1, so they will be paid under the new rules.
+
+   Moved from Sept 1 to Aug 27, 2026 when the copy rewrite was promoted
+   early. SWITCH_DATE must never lag the copy: if the pages quote the
+   new program while this still says Sept 1, the calculators contradict
+   every page they sit on.
 
    Override the date in any call (`opts.now`) to test either program.
    ============================================================= */
@@ -25,7 +29,7 @@
   'use strict';
 
   /* When the site starts quoting the new program. */
-  var SWITCH_DATE = new Date('2026-09-01T00:00:00-04:00');
+  var SWITCH_DATE = new Date('2026-08-27T00:00:00-04:00');
 
   /* ── OLD program: percentage of project cost, capped ─────── */
   var OLD_TIERS = {
