@@ -68,6 +68,23 @@ page (all canonical to `/financing-rebates`). Edited once, mirrored to all four.
 - Hero eyebrow, H1, subtitle, worked example, tier cards, eligibility copy, calculator
   promo, meta + OG + Service schema, and **both** copies of every FAQ answer (JSON-LD
   *and* the visible accordion — they duplicate each other and would otherwise disagree).
+- **Tier cards rebuilt (2026-08-13)** on `/financing` (+ its 3 mirrors) and
+  `/efficiency-maine`, after client review of the staging site:
+  - The stale `Display` placeholder label (pre-existing, also live in production
+    on all three cards) is gone, replaced by the real tier names.
+  - **All three cards headline `$8,600`**, the program cap, not a per-tier ceiling.
+    Per the client: always talk about $8,600. There are paths for an any-income
+    household to reach it that are too situational to put on a page, and Mattra
+    wants that conversation on the phone, not pre-empted by a smaller number.
+  - Each card carries a **per-AREA ledger**: attic + wall + basement + air sealing
+    = total, so the "every area earns its own rebate" claim is arithmetic the
+    homeowner can follow. Where the sum exceeds the cap ($9,450 moderate,
+    $12,600 low) the card says so plainly rather than hiding it.
+  - A banner above the cards states the real maximum, $8,600 ($5,600 mobile home).
+  - Ledger is stacked, not a horizontal equation: the cards are 168px wide inside
+    at desktop, so a one-line equation needed 328px and wrapped to 5 ragged lines.
+  - Removed the `Combined potential: up to $6,300` paragraph from
+    `efficiency-maine.html`, which framed $6,300 as the any-income ceiling.
 - Worked example re-derived: a $10,000 attic + air-sealing job (large attic zone) now
   shows $2,150 / $3,225 / $4,300 back and $7,850 / $6,775 / $5,700 remaining, with
   monthly figures rescaled at the same rate the page already used.
@@ -105,6 +122,13 @@ This was in the FAQ schema too, so Google could serve the wrong answer.
   `before-you-pay-for-mold-remediation-in-maine`.
 
 **`llms.txt`** — updated so AI assistants stop quoting "$8,000".
+
+**Shipped to `main` separately (live now, not gated to Sept 1):** `components.js`
+gained an **Efficiency Maine Rebates** link in the Insulation column of the Services
+mega menu. `/efficiency-maine` had no navigation entry at all despite being the
+highest-value rebate page on the site. The mega markup is shared with the mobile
+accordion, so one edit covers both, and `efficiency-maine` was added to
+`serviceSlugs` so the Services tab highlights on that page.
 
 **Verification:** a sitewide scan confirms **zero old-program rebate claims remain** on
 the branch. The NEIF/Green Bank financing line "up to 100% of project financed" is a
@@ -215,6 +239,9 @@ Two pillars, per the agreed angle:
    percentage. At the top end the new program pays **more** than the old one — $8,600 vs
    $8,000 (low), $8,600 vs $6,000 (moderate), $6,300 vs $4,000 (any income). This also
    matches Mattra's existing "one connected system, one team" brand.
+   **Note (2026-08-13):** $6,300 now appears only as the honest sum of a
+   three-area any-income job inside the ledger. It is never the headline. Every
+   card leads with the $8,600 cap, per the client.
 2. **It is simpler.** Flat amounts mean a homeowner knows their exact rebate **before**
    work starts — no percentage math, no waiting on a quote.
 
