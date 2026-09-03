@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<meta name="googlebot" content="noindex,nofollow">
+<title>Maine Demand Dossier | Mattra Inc. (Internal)</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@400;500;600;700&display=swap">
+<style>
+:root{
+ --ground:#f6f8f5;--surface:#fff;--surface2:#eef2ec;--line:#d9e2d7;
+ --ink:#16221a;--body:#3d4a41;--soft:#5d6b62;--faint:#7f8d84;
+ --green:#316b43;--forest:#2a5838;--deep:#1e3a28;--gold:#a8801a;--goldbg:#fbf3dc;
+ --good:#2f7a3a;--goodbg:#e6f2e6;--warn:#a86a12;--warnbg:#fbf0dc;--crit:#a33232;--critbg:#f9e6e6;
+ --p1:#dcebdf;--p2:#a9d0b3;--p3:#5fa473;--v1:#f3ede2;--v2:#eadfc6;--v3:#ddcba3;
+ --shadow:0 1px 2px rgba(22,34,26,.05),0 4px 14px rgba(22,34,26,.05);
+ --serif:'DM Serif Display',Georgia,serif;
+ --sans:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --ground:#101a13;--surface:#17241a;--surface2:#1e2f22;--line:#2c4132;
+ --ink:#eef3ee;--body:#c3d1c6;--soft:#9aab9f;--faint:#7d8f83;
+ --green:#6aa678;--forest:#83bb8e;--deep:#a9d4b1;--gold:#e7bb3a;--goldbg:#33290d;
+ --good:#6fbb79;--goodbg:#17301a;--warn:#dda43c;--warnbg:#332510;--crit:#e08585;--critbg:#331717;
+ --p1:#1d3524;--p2:#2f6641;--p3:#4d9463;--v1:#2a2618;--v2:#3a3116;--v3:#4a3d15;
+ --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);}}
+:root[data-theme="dark"]{
+ --ground:#101a13;--surface:#17241a;--surface2:#1e2f22;--line:#2c4132;
+ --ink:#eef3ee;--body:#c3d1c6;--soft:#9aab9f;--faint:#7d8f83;
+ --green:#6aa678;--forest:#83bb8e;--deep:#a9d4b1;--gold:#e7bb3a;--goldbg:#33290d;
+ --good:#6fbb79;--goodbg:#17301a;--warn:#dda43c;--warnbg:#332510;--crit:#e08585;--critbg:#331717;
+ --p1:#1d3524;--p2:#2f6641;--p3:#4d9463;--v1:#2a2618;--v2:#3a3116;--v3:#4a3d15;
+ --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--body);font-family:var(--sans);
+ font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+.wrap{max-width:1080px;margin:0 auto;padding:34px 20px 90px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:400;color:var(--ink);text-wrap:balance;margin:0}
+p{margin:0 0 13px}
+a{color:var(--green)}
+.mast{border-bottom:2px solid var(--forest);padding-bottom:18px;margin-bottom:14px}
+.bl{display:flex;align-items:center;gap:10px;margin-bottom:9px;flex-wrap:wrap}
+.mark{width:11px;height:11px;background:var(--forest);border-radius:2px}
+.kick{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--soft)}
+.conf{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+ background:var(--critbg);color:var(--crit);padding:3px 9px;border-radius:2px}
+h1{font-size:clamp(30px,5vw,43px);line-height:1.08}
+.sub{margin-top:10px;font-size:13px;color:var(--faint)}
+section{margin-top:42px}
+.sh{display:flex;align-items:baseline;gap:12px;margin-bottom:15px;padding-bottom:9px;
+ border-bottom:1px solid var(--line)}
+.sh h2{font-size:24px}
+.sh .n{font-family:var(--serif);font-size:15px;color:var(--gold)}
+.sh .t{font-size:11px;color:var(--faint);letter-spacing:.07em;text-transform:uppercase;
+ margin-left:auto;text-align:right}
+.lead{font-size:16.5px;color:var(--body)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);
+ border-radius:3px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-weight:700;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+ color:var(--faint);padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid var(--line)}
+td.n,th.n{text-align:right}
+tbody tr:last-child td{border-bottom:none}
+tbody th{font-weight:600;color:var(--ink);text-transform:none;font-size:12.5px;letter-spacing:0}
+/* calendar */
+.cal table{font-size:12px;min-width:900px}
+.cal thead th{writing-mode:vertical-rl;transform:rotate(180deg);height:112px;padding:8px 4px;
+ vertical-align:bottom;text-align:left;font-size:10.5px}
+.cal thead th:first-child{writing-mode:horizontal-tb;transform:none;height:auto;vertical-align:bottom}
+.cal tbody th{position:sticky;left:0;background:var(--surface);white-space:nowrap;
+ border-right:1px solid var(--line);font-size:12px;z-index:1}
+.cal td{text-align:center;padding:7px 4px;font-weight:600;color:var(--ink);min-width:46px}
+.cal .p1{background:var(--p1)}.cal .p2{background:var(--p2)}.cal .p3{background:var(--p3);color:#fff}
+:root[data-theme="dark"] .cal .p3{color:#eef3ee}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .cal .p3{color:#eef3ee}}
+.cal .v1{background:var(--v1)}.cal .v2{background:var(--v2)}.cal .v3{background:var(--v3)}
+.cal tr.now th,.cal tr.now td{box-shadow:inset 0 2px 0 var(--gold)}
+.tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+ background:var(--gold);color:#fff;padding:1px 5px;border-radius:2px;margin-left:6px}
+:root[data-theme="dark"] .tag{color:#101a13}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .tag{color:#101a13}}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--soft);margin:11px 0 0}
+.legend i{display:inline-block;width:22px;height:11px;border-radius:2px;margin-right:5px;
+ vertical-align:-1px;border:1px solid var(--line)}
+/* sparkline */
+.spark{display:flex;align-items:flex-end;gap:1.5px;height:34px}
+.spark i{display:block;width:5px;background:var(--line);border-radius:1px}
+.spark i.hi{background:var(--forest)} .spark i.lo{background:var(--v3)}
+.up{color:var(--good)}.dn{color:var(--crit)}.fl{color:var(--faint)}
+/* callouts + cards */
+.note{background:var(--surface2);border-left:3px solid var(--forest);padding:14px 17px;
+ border-radius:0 3px 3px 0;margin:17px 0;font-size:14px}
+.note.gold{border-left-color:var(--gold);background:var(--goldbg)}
+.note.warn{border-left-color:var(--warn);background:var(--warnbg)}
+.note b{color:var(--ink)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:17px 19px;
+ box-shadow:var(--shadow)}
+.card h4{font-size:17px;margin-bottom:8px}
+.card p{font-size:13.5px;margin-bottom:9px}
+.card .stat{font-family:var(--serif);font-size:29px;color:var(--forest);line-height:1}
+.card .lbl{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+ color:var(--faint);margin-bottom:6px}
+.play{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--forest);
+ border-radius:3px;padding:19px 22px;margin-bottom:14px;box-shadow:var(--shadow)}
+.play.a{border-left-color:var(--gold)}
+.play h3{font-size:20px;margin-bottom:5px}
+.play .why{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+ color:var(--faint);margin-bottom:11px}
+ul{margin:0 0 13px;padding-left:19px}li{margin-bottom:6px}
+.pill{display:inline-block;font-size:10.5px;font-weight:700;padding:2.5px 8px;border-radius:2px;
+ letter-spacing:.04em;margin-right:6px}
+.p-hi{background:var(--goodbg);color:var(--good)}
+.p-md{background:var(--warnbg);color:var(--warn)}
+.p-lo{background:var(--surface2);color:var(--soft)}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--faint)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
+ background:var(--surface2);padding:1.5px 5px;border-radius:2px;color:var(--ink)}
+@media(max-width:640px){.cal thead th{height:96px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="mast">
+  <div class="bl"><span class="mark"></span><span class="kick">Mattra Inc. &middot; Maine Demand Dossier</span>
+    <span class="conf">Internal</span></div>
+  <h1>What Maine is searching for, and when</h1>
+  <div class="sub">Generated September 3, 2026 &middot; Sources: Google Ads Keyword Planner (Maine, 47 months of
+    actual search volume), Google Trends (5 years weekly), Mattra's own Search Console (16 months),
+    Mattra's site and service inventory.</div>
+</div>
+
+<section>
+  <div class="sh"><span class="n">01</span><h2>The short version</h2><span class="t">if you read nothing else</span></div>
+
+  <div class="note gold"><b>Three things drive every recommendation in this dossier.</b><br><br>
+  <b>1. Google does not know Mattra does construction.</b> Over the last 12 months the site earned
+  19,667 search impressions for insulation and 16,003 for mold. For remodeling and construction it
+  earned <b>39</b>. For roofing, 145. For siding, zero. The construction side of the business is
+  effectively invisible, so remodels cannot come from organic search this year. Paid is the only
+  near-term lever.<br><br>
+  <b>2. The remodel money is in the word "contractor."</b> <code>bathroom remodel</code> costs $46.21
+  a click at competition index 33. <code>bathroom remodel contractors</code> costs <b>$14.83 at
+  competition index 8</b>, for 320 searches a month, and it is growing 114% year over year. The
+  hiring-intent variants are cheaper, higher intent, and almost unclaimed in Maine.<br><br>
+  <b>3. Ice dams are the biggest mispriced opportunity in the state, and they are a lottery.</b>
+  Combined ice dam and roof raking searches hit <b>6,800 in February 2025</b> and 3,200 in February
+  2026, at a top-of-page bid of <b>$0.24</b>. But February 2024 was 210. This is weather-triggered,
+  not calendar-triggered, and it needs a standing campaign that can scale in 48 hours rather than a
+  scheduled February budget.</div>
+
+  <div class="cards">
+    <div class="card"><div class="lbl">Right now, Sep 3 to 16</div>
+      <div class="stat">Mold + siding</div>
+      <p style="margin-top:9px">Both at their annual peak (index 130 and 133). Dehumidification is
+      still elevated at 153 but falling fast. Ice dams are at their floor.</p></div>
+    <div class="card"><div class="lbl">Next real turn</div>
+      <div class="stat">Oct 15</div>
+      <p style="margin-top:9px">Insulation and ventilation cross into peak as heating season starts,
+      and Efficiency Maine interest climbs into its own high.</p></div>
+    <div class="card"><div class="lbl">Biggest single window</div>
+      <div class="stat">Feb 4 to Mar 3</div>
+      <p style="margin-top:9px">Ice dam index 421 then 449, over four times its annual average, at
+      almost no competition. Everything else should give way to it.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><span class="n">02</span><h2>The fortnight map</h2><span class="t">Sep 2026 to Sep 2027</span></div>
+  <p class="lead">Every service line indexed against <b>its own</b> annual average, so 100 means
+  typical for that service and 200 means twice typical. Read across a row to plan a two-week
+  window; read down a column to see one service's year.</p>
+  <div class="note"><b>Compare rows, not columns.</b> A 150 in ice dams and a 150 in mold are not the
+  same number of people. Ice dams average about 960 searches a month statewide, mold about 850,
+  Efficiency Maine about 4,190. Volume and cost per click are in the next section.</div>
+  <div class="scroll cal">
+    <table>
+      <thead><tr><th>Two-week span</th><th abbr="Ice dams &amp; roof snow"><span>Ice dams &amp; roof snow</span></th><th abbr="Efficiency Maine"><span>Efficiency Maine</span></th><th abbr="Roofing"><span>Roofing</span></th><th abbr="Insulation"><span>Insulation</span></th><th abbr="Water &amp; waterproofing"><span>Water &amp; waterproofing</span></th><th abbr="Mold"><span>Mold</span></th><th abbr="Siding"><span>Siding</span></th><th abbr="Bath remodel"><span>Bath remodel</span></th><th abbr="Kitchen remodel"><span>Kitchen remodel</span></th><th abbr="Basement &amp; additions"><span>Basement &amp; additions</span></th><th abbr="General contracting"><span>General contracting</span></th><th abbr="Dehumidification"><span>Dehumidification</span></th><th abbr="Air sealing"><span>Air sealing</span></th><th abbr="Ventilation"><span>Ventilation</span></th></tr></thead>
+      <tbody><tr class=now><th scope="row">Sep 3-16<span class="tag">now</span></th><td class="v3">23</td><td class="n">102</td><td class="p1">121</td><td class="n">108</td><td class="v1">89</td><td class="p2">130</td><td class="p2">133</td><td class="n">106</td><td class="n">107</td><td class="n">96</td><td class="n">100</td><td class="p3">153</td><td class="v1">86</td><td class="p1">110</td></tr><tr><th scope="row">Sep 17-30</th><td class="v3">22</td><td class="n">103</td><td class="p1">113</td><td class="p1">110</td><td class="v1">79</td><td class="p2">132</td><td class="p2">140</td><td class="n">103</td><td class="p1">114</td><td class="n">91</td><td class="v1">90</td><td class="p2">125</td><td class="n">94</td><td class="p1">113</td></tr><tr><th scope="row">Oct 1-14</th><td class="v3">21</td><td class="n">106</td><td class="n">109</td><td class="p1">120</td><td class="v1">77</td><td class="p2">130</td><td class="p1">123</td><td class="n">104</td><td class="n">107</td><td class="n">94</td><td class="n">94</td><td class="n">108</td><td class="n">101</td><td class="p2">130</td></tr><tr><th scope="row">Oct 15-28</th><td class="v3">21</td><td class="p1">110</td><td class="n">105</td><td class="p2">129</td><td class="v2">74</td><td class="p2">127</td><td class="n">106</td><td class="n">106</td><td class="n">100</td><td class="n">96</td><td class="n">98</td><td class="v1">90</td><td class="n">108</td><td class="p2">146</td></tr><tr><th scope="row">Oct 29-Nov 11</th><td class="v3">26</td><td class="n">104</td><td class="n">94</td><td class="p2">133</td><td class="v2">68</td><td class="p1">113</td><td class="v1">90</td><td class="n">99</td><td class="n">98</td><td class="n">94</td><td class="v1">88</td><td class="v1">76</td><td class="n">103</td><td class="p1">118</td></tr><tr><th scope="row">Nov 12-25</th><td class="v3">31</td><td class="n">97</td><td class="v1">82</td><td class="p2">136</td><td class="v2">62</td><td class="n">98</td><td class="v2">74</td><td class="v1">90</td><td class="n">97</td><td class="n">92</td><td class="v1">76</td><td class="v2">63</td><td class="n">96</td><td class="v1">82</td></tr><tr><th scope="row">Nov 26-Dec 9</th><td class="v2">74</td><td class="n">92</td><td class="v1">77</td><td class="p2">130</td><td class="v1">78</td><td class="v1">88</td><td class="v2">62</td><td class="v1">82</td><td class="n">95</td><td class="v1">88</td><td class="v2">75</td><td class="v3">55</td><td class="n">95</td><td class="v2">66</td></tr><tr><th scope="row">Dec 10-23</th><td class="p2">133</td><td class="v1">87</td><td class="v2">75</td><td class="p1">121</td><td class="n">105</td><td class="v1">80</td><td class="v3">52</td><td class="v2">74</td><td class="n">92</td><td class="v1">84</td><td class="v1">77</td><td class="v3">49</td><td class="n">98</td><td class="v3">60</td></tr><tr><th scope="row">Dec 24-Jan 6</th><td class="p3">190</td><td class="v1">88</td><td class="v2">73</td><td class="p1">118</td><td class="p1">116</td><td class="v1">78</td><td class="v3">49</td><td class="v1">80</td><td class="n">95</td><td class="v1">90</td><td class="v1">85</td><td class="v3">47</td><td class="n">108</td><td class="v2">62</td></tr><tr><th scope="row">Jan 7-20</th><td class="p3">227</td><td class="n">96</td><td class="v2">66</td><td class="p2">129</td><td class="p2">125</td><td class="v1">85</td><td class="v3">52</td><td class="p1">111</td><td class="p1">110</td><td class="p1">116</td><td class="n">101</td><td class="v3">54</td><td class="p2">146</td><td class="v1">84</td></tr><tr><th scope="row">Jan 21-Feb 3</th><td class="p3">324</td><td class="n">101</td><td class="v2">74</td><td class="p1">120</td><td class="n">104</td><td class="v1">82</td><td class="v3">59</td><td class="p1">112</td><td class="n">109</td><td class="p1">120</td><td class="n">107</td><td class="v3">45</td><td class="p2">135</td><td class="v2">75</td></tr><tr><th scope="row">Feb 4-17</th><td class="p3">421</td><td class="n">107</td><td class="v1">82</td><td class="p1">111</td><td class="v1">83</td><td class="v1">80</td><td class="v2">66</td><td class="p1">112</td><td class="n">107</td><td class="p1">124</td><td class="p1">112</td><td class="v3">36</td><td class="p2">125</td><td class="v2">66</td></tr><tr><th scope="row">Feb 18-Mar 3</th><td class="p3">449</td><td class="p1">111</td><td class="v1">90</td><td class="n">102</td><td class="v1">80</td><td class="v1">80</td><td class="v2">75</td><td class="p1">111</td><td class="n">106</td><td class="p2">125</td><td class="p1">115</td><td class="v3">32</td><td class="p1">118</td><td class="v3">60</td></tr><tr><th scope="row">Mar 4-17</th><td class="p3">259</td><td class="p1">110</td><td class="n">100</td><td class="v1">90</td><td class="p2">131</td><td class="v1">87</td><td class="n">92</td><td class="n">107</td><td class="p1">110</td><td class="p1">120</td><td class="p1">113</td><td class="v3">46</td><td class="p1">121</td><td class="v2">65</td></tr><tr><th scope="row">Mar 18-31</th><td class="v1">80</td><td class="n">108</td><td class="n">109</td><td class="v1">78</td><td class="p3">177</td><td class="n">93</td><td class="n">108</td><td class="n">103</td><td class="p1">113</td><td class="p1">114</td><td class="p1">110</td><td class="v3">59</td><td class="p1">124</td><td class="v2">71</td></tr><tr><th scope="row">Apr 1-14</th><td class="v3">54</td><td class="n">100</td><td class="n">104</td><td class="v2">72</td><td class="p2">147</td><td class="n">94</td><td class="n">109</td><td class="n">94</td><td class="n">104</td><td class="n">106</td><td class="p1">111</td><td class="v3">56</td><td class="p1">115</td><td class="v1">80</td></tr><tr><th scope="row">Apr 15-28</th><td class="v3">28</td><td class="n">93</td><td class="n">98</td><td class="v2">64</td><td class="p1">118</td><td class="n">95</td><td class="p1">110</td><td class="v1">85</td><td class="n">94</td><td class="n">98</td><td class="p1">111</td><td class="v3">52</td><td class="n">107</td><td class="v1">89</td></tr><tr><th scope="row">Apr 29-May 12</th><td class="v3">21</td><td class="n">93</td><td class="n">108</td><td class="v2">66</td><td class="p1">123</td><td class="n">92</td><td class="p1">116</td><td class="v1">89</td><td class="v1">87</td><td class="n">92</td><td class="p1">111</td><td class="v2">69</td><td class="n">96</td><td class="n">99</td></tr><tr><th scope="row">May 13-26</th><td class="v3">16</td><td class="n">94</td><td class="p1">119</td><td class="v2">68</td><td class="p2">133</td><td class="v1">90</td><td class="p1">122</td><td class="n">95</td><td class="v1">79</td><td class="v1">87</td><td class="p1">111</td><td class="v1">89</td><td class="v1">83</td><td class="p1">110</td></tr><tr><th scope="row">May 27-Jun 9</th><td class="v3">16</td><td class="n">96</td><td class="p1">116</td><td class="v2">72</td><td class="p1">116</td><td class="v1">88</td><td class="p1">119</td><td class="n">100</td><td class="v1">82</td><td class="v1">88</td><td class="n">103</td><td class="p1">118</td><td class="v1">83</td><td class="p1">118</td></tr><tr><th scope="row">Jun 10-23</th><td class="v3">18</td><td class="n">98</td><td class="n">107</td><td class="v1">76</td><td class="v1">88</td><td class="v1">87</td><td class="p1">113</td><td class="n">105</td><td class="v1">88</td><td class="v1">90</td><td class="n">92</td><td class="p3">152</td><td class="v1">87</td><td class="p2">126</td></tr><tr><th scope="row">Jun 24-Jul 7</th><td class="v3">19</td><td class="n">100</td><td class="n">104</td><td class="v1">79</td><td class="v1">78</td><td class="n">95</td><td class="p1">117</td><td class="n">107</td><td class="n">96</td><td class="n">94</td><td class="n">93</td><td class="p3">187</td><td class="v1">84</td><td class="p2">138</td></tr><tr><th scope="row">Jul 8-21</th><td class="v3">19</td><td class="n">101</td><td class="n">108</td><td class="v1">80</td><td class="v1">82</td><td class="p1">110</td><td class="p2">130</td><td class="n">108</td><td class="n">104</td><td class="n">100</td><td class="n">103</td><td class="p3">223</td><td class="v1">76</td><td class="p3">155</td></tr><tr><th scope="row">Jul 22-Aug 4</th><td class="v3">20</td><td class="n">102</td><td class="p1">113</td><td class="v1">86</td><td class="v1">87</td><td class="p1">121</td><td class="p2">135</td><td class="n">109</td><td class="n">108</td><td class="n">103</td><td class="n">109</td><td class="p3">235</td><td class="v2">72</td><td class="p3">155</td></tr><tr><th scope="row">Aug 5-18</th><td class="v3">23</td><td class="n">101</td><td class="p1">122</td><td class="n">97</td><td class="n">95</td><td class="p1">124</td><td class="p2">129</td><td class="p1">110</td><td class="n">103</td><td class="n">103</td><td class="p1">110</td><td class="p3">208</td><td class="v2">75</td><td class="p2">128</td></tr><tr><th scope="row">Aug 19-Sep 1</th><td class="v3">25</td><td class="n">101</td><td class="p2">128</td><td class="n">107</td><td class="n">98</td><td class="p2">127</td><td class="p2">125</td><td class="p1">110</td><td class="n">100</td><td class="n">102</td><td class="n">109</td><td class="p3">180</td><td class="v1">78</td><td class="n">108</td></tr></tbody>
+    </table>
+  </div>
+  <div class="legend">
+    <span><i style="background:var(--p3)"></i>150+ hard peak</span>
+    <span><i style="background:var(--p2)"></i>125 to 149</span>
+    <span><i style="background:var(--p1)"></i>110 to 124</span>
+    <span><i style="background:var(--v1)"></i>76 to 90</span>
+    <span><i style="background:var(--v2)"></i>61 to 75</span>
+    <span><i style="background:var(--v3)"></i>60 and below</span>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><span class="n">03</span><h2>Service by service</h2><span class="t">Maine volume, cost and shape</span></div>
+  <p>Volume is total monthly searches across the keywords mapped to that line. Bid is the
+  volume-weighted top-of-page bid, which is what a click actually costs. Competition is Google's
+  0 to 100 index: <b>under 34 means most advertisers are ignoring it.</b></p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Service line</th><th class="n">Searches/mo</th><th class="n">Yr/yr</th>
+        <th>Peak</th><th>Trough</th><th class="n">Swing</th><th class="n">Top bid</th>
+        <th class="n">Comp</th><th>Jan to Dec</th></tr></thead>
+      <tbody><tr><th scope="row">Efficiency Maine rebates</th><td class="n">4,190</td><td class="n dn">-17%</td><td><b>Feb</b></td><td>Dec</td><td class="n">1.3x</td><td class="n">$24.24</td><td class="n">44</td><td><div class="spark"><i style="height:21px" class=""></i><i style="height:24px" class=""></i><i style="height:23px" class=""></i><i style="height:20px" class=""></i><i style="height:20px" class=""></i><i style="height:21px" class=""></i><i style="height:22px" class=""></i><i style="height:22px" class=""></i><i style="height:22px" class=""></i><i style="height:24px" class=""></i><i style="height:20px" class=""></i><i style="height:18px" class=""></i></div></td></tr><tr><th scope="row">Roofing</th><td class="n">1,560</td><td class="n dn">-6%</td><td><b>Aug</b></td><td>Jan</td><td class="n">1.8x</td><td class="n">$27.62</td><td class="n">51</td><td><div class="spark"><i style="height:15px" class="lo"></i><i style="height:19px" class=""></i><i style="height:24px" class=""></i><i style="height:21px" class=""></i><i style="height:26px" class=""></i><i style="height:22px" class=""></i><i style="height:24px" class=""></i><i style="height:28px" class="hi"></i><i style="height:24px" class=""></i><i style="height:23px" class=""></i><i style="height:17px" class=""></i><i style="height:16px" class="lo"></i></div></td></tr><tr><th scope="row">Remodel: kitchen</th><td class="n">1,470</td><td class="n dn">-13%</td><td><b>Sep</b></td><td>May</td><td class="n">1.5x</td><td class="n">$3.68</td><td class="n">42</td><td><div class="spark"><i style="height:24px" class=""></i><i style="height:23px" class=""></i><i style="height:24px" class=""></i><i style="height:20px" class=""></i><i style="height:17px" class=""></i><i style="height:20px" class=""></i><i style="height:24px" class=""></i><i style="height:21px" class=""></i><i style="height:25px" class=""></i><i style="height:21px" class=""></i><i style="height:21px" class=""></i><i style="height:19px" class=""></i></div></td></tr><tr><th scope="row">Attic &amp; wall insulation</th><td class="n">1,250</td><td class="n up">+10%</td><td><b>Nov</b></td><td>Apr</td><td class="n">2.1x</td><td class="n">$10.64</td><td class="n">68</td><td><div class="spark"><i style="height:27px" class=""></i><i style="height:22px" class=""></i><i style="height:17px" class=""></i><i style="height:14px" class="lo"></i><i style="height:15px" class="lo"></i><i style="height:17px" class=""></i><i style="height:17px" class=""></i><i style="height:23px" class=""></i><i style="height:24px" class=""></i><i style="height:28px" class="hi"></i><i style="height:30px" class="hi"></i><i style="height:25px" class=""></i></div></td></tr><tr><th scope="row">General contracting</th><td class="n">1,250</td><td class="n dn">-27%</td><td><b>Feb</b></td><td>Nov</td><td class="n">1.6x</td><td class="n">$16.94</td><td class="n">35</td><td><div class="spark"><i style="height:22px" class=""></i><i style="height:25px" class=""></i><i style="height:24px" class=""></i><i style="height:24px" class=""></i><i style="height:24px" class=""></i><i style="height:19px" class=""></i><i style="height:23px" class=""></i><i style="height:24px" class=""></i><i style="height:19px" class=""></i><i style="height:21px" class=""></i><i style="height:16px" class="lo"></i><i style="height:17px" class=""></i></div></td></tr><tr><th scope="row">Dehumidification &amp; air quality</th><td class="n">1,130</td><td class="n fl">-2%</td><td><b>Jul</b></td><td>Feb</td><td class="n">8.5x</td><td class="n">$4.25</td><td class="n">74</td><td><div class="spark"><i style="height:10px" class="lo"></i><i style="height:6px" class="lo"></i><i style="height:13px" class="lo"></i><i style="height:11px" class="lo"></i><i style="height:20px" class=""></i><i style="height:34px" class="hi"></i><i style="height:34px" class="hi"></i><i style="height:34px" class="hi"></i><i style="height:27px" class="hi"></i><i style="height:19px" class=""></i><i style="height:12px" class="lo"></i><i style="height:10px" class="lo"></i></div></td></tr><tr><th scope="row">Water &amp; waterproofing</th><td class="n">1,080</td><td class="n dn">-18%</td><td><b>Mar</b></td><td>Nov</td><td class="n">3.0x</td><td class="n">$25.02</td><td class="n">34</td><td><div class="spark"><i style="height:24px" class=""></i><i style="height:14px" class="lo"></i><i style="height:34px" class="hi"></i><i style="height:25px" class=""></i><i style="height:29px" class="hi"></i><i style="height:16px" class=""></i><i style="height:18px" class=""></i><i style="height:22px" class=""></i><i style="height:17px" class=""></i><i style="height:16px" class="lo"></i><i style="height:13px" class="lo"></i><i style="height:25px" class=""></i></div></td></tr><tr><th scope="row">Siding</th><td class="n">970</td><td class="n dn">-6%</td><td><b>Sep</b></td><td>Dec</td><td class="n">3.0x</td><td class="n">$8.95</td><td class="n">54</td><td><div class="spark"><i style="height:12px" class="lo"></i><i style="height:15px" class="lo"></i><i style="height:23px" class=""></i><i style="height:24px" class=""></i><i style="height:27px" class=""></i><i style="height:24px" class=""></i><i style="height:30px" class="hi"></i><i style="height:27px" class=""></i><i style="height:30px" class="hi"></i><i style="height:22px" class=""></i><i style="height:15px" class="lo"></i><i style="height:10px" class="lo"></i></div></td></tr><tr><th scope="row">Ice dams &amp; roof snow</th><td class="n">960</td><td class="n dn">-9%</td><td><b>Feb</b></td><td>May</td><td class="n">33.9x</td><td class="n">$0.24</td><td class="n">24</td><td><div class="spark"><i style="height:34px" class="hi"></i><i style="height:34px" class="hi"></i><i style="height:18px" class=""></i><i style="height:6px" class="lo"></i><i style="height:6px" class="lo"></i><i style="height:6px" class="lo"></i><i style="height:6px" class="lo"></i><i style="height:6px" class="lo"></i><i style="height:6px" class="lo"></i><i style="height:6px" class="lo"></i><i style="height:7px" class="lo"></i><i style="height:34px" class="hi"></i></div></td></tr><tr><th scope="row">Remodel: bathroom</th><td class="n">900</td><td class="n up">+21%</td><td><b>Feb</b></td><td>Dec</td><td class="n">1.6x</td><td class="n">$24.46</td><td class="n">54</td><td><div class="spark"><i style="height:24px" class=""></i><i style="height:24px" class=""></i><i style="height:22px" class=""></i><i style="height:18px" class=""></i><i style="height:21px" class=""></i><i style="height:23px" class=""></i><i style="height:23px" class=""></i><i style="height:24px" class=""></i><i style="height:22px" class=""></i><i style="height:23px" class=""></i><i style="height:19px" class=""></i><i style="height:15px" class="lo"></i></div></td></tr><tr><th scope="row">Mold</th><td class="n">850</td><td class="n dn">-28%</td><td><b>Sep</b></td><td>Dec</td><td class="n">1.7x</td><td class="n">$41.22</td><td class="n">58</td><td><div class="spark"><i style="height:18px" class=""></i><i style="height:17px" class=""></i><i style="height:20px" class=""></i><i style="height:20px" class=""></i><i style="height:19px" class=""></i><i style="height:18px" class=""></i><i style="height:26px" class=""></i><i style="height:27px" class="hi"></i><i style="height:29px" class="hi"></i><i style="height:27px" class="hi"></i><i style="height:20px" class=""></i><i style="height:16px" class=""></i></div></td></tr><tr><th scope="row">Remodel: basement &amp; additions</th><td class="n">610</td><td class="n fl">-1%</td><td><b>Feb</b></td><td>Dec</td><td class="n">1.6x</td><td class="n">$6.06</td><td class="n">31</td><td><div class="spark"><i style="height:25px" class=""></i><i style="height:27px" class="hi"></i><i style="height:25px" class=""></i><i style="height:21px" class=""></i><i style="height:18px" class=""></i><i style="height:20px" class=""></i><i style="height:22px" class=""></i><i style="height:22px" class=""></i><i style="height:20px" class=""></i><i style="height:21px" class=""></i><i style="height:19px" class=""></i><i style="height:17px" class=""></i></div></td></tr><tr><th scope="row">Basement &amp; crawl space</th><td class="n">280</td><td class="n fl">-2%</td><td><b>Dec</b></td><td>May</td><td class="n">1.6x</td><td class="n">$16.81</td><td class="n">66</td><td><div class="spark"><i style="height:27px" class=""></i><i style="height:19px" class=""></i><i style="height:17px" class=""></i><i style="height:17px" class=""></i><i style="height:17px" class=""></i><i style="height:19px" class=""></i><i style="height:20px" class=""></i><i style="height:19px" class=""></i><i style="height:21px" class=""></i><i style="height:27px" class="hi"></i><i style="height:27px" class=""></i><i style="height:27px" class="hi"></i></div></td></tr><tr><th scope="row">Ventilation</th><td class="n">250</td><td class="n up">+22%</td><td><b>Jul</b></td><td>Dec</td><td class="n">2.9x</td><td class="n">$26.09</td><td class="n">72</td><td><div class="spark"><i style="height:17px" class=""></i><i style="height:12px" class="lo"></i><i style="height:15px" class="lo"></i><i style="height:19px" class=""></i><i style="height:24px" class=""></i><i style="height:28px" class="hi"></i><i style="height:34px" class="hi"></i><i style="height:23px" class=""></i><i style="height:24px" class=""></i><i style="height:32px" class="hi"></i><i style="height:15px" class="lo"></i><i style="height:12px" class="lo"></i></div></td></tr><tr><th scope="row">Mobile home</th><td class="n">190</td><td class="n dn">-20%</td><td><b>May</b></td><td>Feb</td><td class="n">2.2x</td><td class="n">$1.40</td><td class="n">92</td><td><div class="spark"><i style="height:13px" class="lo"></i><i style="height:12px" class="lo"></i><i style="height:16px" class=""></i><i style="height:25px" class=""></i><i style="height:28px" class="hi"></i><i style="height:26px" class=""></i><i style="height:26px" class=""></i><i style="height:26px" class=""></i><i style="height:28px" class="hi"></i><i style="height:25px" class=""></i><i style="height:18px" class=""></i><i style="height:13px" class="lo"></i></div></td></tr><tr><th scope="row">Air sealing &amp; energy audit</th><td class="n">170</td><td class="n up">+36%</td><td><b>Jan</b></td><td>Jul</td><td class="n">2.0x</td><td class="n">$13.11</td><td class="n">26</td><td><div class="spark"><i style="height:30px" class="hi"></i><i style="height:25px" class=""></i><i style="height:27px" class=""></i><i style="height:23px" class=""></i><i style="height:17px" class=""></i><i style="height:19px" class=""></i><i style="height:15px" class="lo"></i><i style="height:16px" class=""></i><i style="height:20px" class=""></i><i style="height:24px" class=""></i><i style="height:20px" class=""></i><i style="height:21px" class=""></i></div></td></tr><tr><th scope="row">Demolition</th><td class="n">100</td><td class="n fl">-2%</td><td><b>Jul</b></td><td>Dec</td><td class="n">2.6x</td><td class="n">$7.36</td><td class="n">22</td><td><div class="spark"><i style="height:20px" class=""></i><i style="height:19px" class=""></i><i style="height:22px" class=""></i><i style="height:18px" class=""></i><i style="height:20px" class=""></i><i style="height:29px" class="hi"></i><i style="height:33px" class="hi"></i><i style="height:23px" class=""></i><i style="height:15px" class="lo"></i><i style="height:25px" class=""></i><i style="height:21px" class=""></i><i style="height:12px" class="lo"></i></div></td></tr><tr><th scope="row">Rot &amp; structural repair</th><td class="n">80</td><td class="n fl">-1%</td><td><b>Jul</b></td><td>Feb</td><td class="n">2.6x</td><td class="n">$0.00</td><td class="n">47</td><td><div class="spark"><i style="height:17px" class=""></i><i style="height:12px" class="lo"></i><i style="height:16px" class=""></i><i style="height:23px" class=""></i><i style="height:27px" class="hi"></i><i style="height:25px" class=""></i><i style="height:31px" class="hi"></i><i style="height:26px" class=""></i><i style="height:26px" class=""></i><i style="height:21px" class=""></i><i style="height:22px" class=""></i><i style="height:13px" class="lo"></i></div></td></tr></tbody>
+    </table>
+  </div>
+  <div class="note warn"><b>Treat the year-over-year column with suspicion.</b> Most lines are down,
+  several by 30% or more, and that pattern is too broad to be real demand collapse across every
+  trade at once. The likelier cause is Google's AI Overviews absorbing informational searches, which
+  suppresses reported volume without removing the customer. Use it to compare lines against each
+  other, not as evidence the market shrank.</div>
+</section>
+
+<section>
+  <div class="sh"><span class="n">04</span><h2>The three plays</h2><span class="t">ranked by return per dollar</span></div>
+
+  <div class="play a">
+    <h3>1. Own ice dam season, but as a standing trap rather than a booked campaign</h3>
+    <div class="why">Highest intent, lowest competition, and it maps straight into the core business</div>
+    <p>Maine ice dam and roof raking volume by month, actual searches:</p>
+    <div class="scroll"><table>
+      <thead><tr><th>February</th><th class="n">2023</th><th class="n">2024</th><th class="n">2025</th><th class="n">2026</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">ice dam</th><td class="n">390</td><td class="n">70</td><td class="n">2,400</td><td class="n">1,300</td></tr>
+        <tr><th scope="row">roof raking</th><td class="n">590</td><td class="n">140</td><td class="n">4,400</td><td class="n">1,900</td></tr>
+      </tbody></table></div>
+    <p style="margin-top:13px">Two of the last four winters produced a genuine surge and two produced
+    almost nothing. Google Trends confirms the mechanism: over five years, ice dam interest in the
+    climate-matched Boston market was essentially flat except for a single five-week run from late
+    January 2026, when it went from nothing to peak and back.</p>
+    <p><b>Why this is a Mattra job and not a snow-removal job.</b> Ice dams are caused by heat escaping
+    into the attic and melting snow that refreezes at the eaves. The people advertising against these
+    terms sell roof raking, which removes the symptom. Mattra sells the diagnosis: attic insulation,
+    air sealing and ventilation. An ice dam lead in February is an insulation job with a deadline and
+    a homeowner who has just watched water come through a ceiling.</p>
+    <ul>
+      <li>Build the campaign and the landing page <b>now</b>, in September, while it is cheap and quiet.</li>
+      <li>Run it year round at a floor budget of a few dollars a day so quality score and history accrue.</li>
+      <li>Set a rule to raise the cap hard within 48 hours of the first freeze-thaw event, not on a date.</li>
+      <li>Landing page has to answer the panic question first, then sell the permanent fix.</li>
+    </ul>
+    <span class="pill p-hi">Top bid $0.24</span><span class="pill p-hi">Competition 24</span><span class="pill p-md">Weather dependent</span>
+  </div>
+
+  <div class="play">
+    <h3>2. Buy the remodel hiring terms, not the remodel research terms</h3>
+    <div class="why">The stated business goal, and the cheapest route into it</div>
+    <div class="scroll"><table>
+      <thead><tr><th>Keyword</th><th class="n">Searches/mo</th><th class="n">Competition</th><th class="n">Top bid</th><th class="n">Yr/yr</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">bathroom remodel <b>contractors</b></th><td class="n">320</td><td class="n">8</td><td class="n">$14.83</td><td class="n up">+114%</td></tr>
+        <tr><th scope="row">bathroom remodel</th><td class="n">260</td><td class="n">33</td><td class="n">$46.21</td><td class="n dn">-44%</td></tr>
+        <tr><th scope="row">contractor for kitchen remodel</th><td class="n">210</td><td class="n">4</td><td class="n">$0.00</td><td class="n up">+23%</td></tr>
+        <tr><th scope="row">basement finish contractors</th><td class="n">170</td><td class="n">8</td><td class="n">$0.00</td><td class="n up">+26%</td></tr>
+        <tr><th scope="row">sheetrock contractors</th><td class="n">170</td><td class="n">11</td><td class="n">$0.00</td><td class="n dn">-35%</td></tr>
+        <tr><th scope="row">home addition contractor</th><td class="n">110</td><td class="n">9</td><td class="n">$0.00</td><td class="n fl">-2%</td></tr>
+      </tbody></table></div>
+    <p style="margin-top:13px">The generic research terms are expensive, contested and shrinking. The
+    hiring terms are cheap, unclaimed and growing. A <code>$0.00</code> top-of-page bid means Google
+    has no meaningful auction data because nobody in Maine is bidding.</p>
+    <div class="note"><b>Timing splits in two, and it is worth exploiting.</b> Generic
+    <code>bathroom remodel</code> peaks in <b>February</b>, when people are indoors planning. But
+    <code>bathroom remodel contractors</code> peaks in <b>June</b>, when they are ready to hire. Put
+    content and remarketing against the February planners, and put the ad budget against the June
+    hirers.</p>
+    <p><b>The blocker is the site, not the budget.</b> Mattra has no kitchen, bathroom, basement
+    finishing or addition page. <code>/construction</code> mentions remodels only as something that
+    uncovers rot. Sending "bathroom remodel contractors" traffic to a page about moisture diagnosis
+    will convert badly no matter how cheap the click is. <b>Build the pages before buying the
+    clicks.</b></p>
+    <span class="pill p-hi">Competition 4 to 11</span><span class="pill p-md">Needs landing pages first</span>
+  </div>
+
+  <div class="play">
+    <h3>3. Take the summer basement moisture season seriously</h3>
+    <div class="why">Highest-volume seasonal swing on the board, and Mattra already sells it</div>
+    <p>Dehumidification and air quality swings <b>8.5x</b> across the year, peaking hard from late
+    June through August. <code>dehumidifier basement</code> alone is 1,000 searches a month in Maine
+    at a $4.40 top bid. Mattra already lists whole-home dehumidification as a service, and the
+    Maine summer basement is the exact conversation that leads to crawl space encapsulation, vapor
+    barriers and mold work.</p>
+    <p>This year that window has closed. It reopens around <b>June 10</b> and runs to <b>mid August</b>,
+    which is also when mold searches climb. Treat them as one campaign, since they are the same
+    customer with the same damp basement.</p>
+    <span class="pill p-hi">1,130 searches/mo</span><span class="pill p-hi">$4.25 bid</span><span class="pill p-lo">Next window June 10</span>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><span class="n">05</span><h2>Peaks and valleys</h2><span class="t">what to do in each</span></div>
+  <div class="cards">
+    <div class="card"><h4>In a peak</h4>
+      <ul style="margin-top:8px">
+        <li>Raise budget caps before the peak starts, not during it. Google's learning phase costs days you do not have in a five-week window.</li>
+        <li>Bid on the panic term and sell the permanent fix on the page.</li>
+        <li>Answer the phone. Paid converts by phone as often as by form at Mattra, and peak callers do not leave voicemails.</li>
+        <li>Do not add new keywords mid-peak. Test in the valley so the peak runs on proven copy.</li>
+      </ul></div>
+    <div class="card"><h4>In a valley</h4>
+      <ul style="margin-top:8px">
+        <li>Build the next peak's landing pages and ad copy. September is the right month to build the February ice dam campaign.</li>
+        <li>Publish content against terms that peak later. Organic takes months, so write about ice dams in autumn.</li>
+        <li>Keep a floor budget running so account history and quality score survive.</li>
+        <li>Chase reviews. 61 reviews at 4.9 is good and cheap to improve when the crews are less busy.</li>
+      </ul></div>
+  </div>
+  <div class="note"><b>A structural warning about Maine.</b> Nine of the eighteen service lines here
+  peak between December and March, when field work is hardest and daylight is shortest. The demand
+  calendar and the delivery calendar are close to inverted. The lines that peak in winter are mostly
+  <b>diagnostic and interior</b> work, which is exactly what can be sold in February and delivered
+  through the spring. Selling a February ice dam customer an April attic job is the model that fits
+  this state.</div>
+</section>
+
+<section>
+  <div class="sh"><span class="n">06</span><h2>Method and limits</h2><span class="t">so the numbers can be checked</span></div>
+  <ul>
+    <li><b>Volume and seasonality: Google Ads Keyword Planner</b>, geo-targeted to Maine
+      (<code>geoTargetConstants/21154</code>), 47 months from September 2022 to July 2026, 154 keywords.
+      Seasonal indices are a ratio-to-moving-average decomposition: a 12-month centred moving average
+      estimates trend, each month is divided by it, and the median ratio per calendar month becomes
+      the index. That separates season from trend, which a single year of data cannot do.</li>
+    <li><b>Keyword Planner volumes are bucketed by Google</b> (values land on 70, 90, 110, 140, 170,
+      210, 260, 320). Treat them as ranges, not counts. Ratios between keywords are reliable;
+      precise absolute volumes are not.</li>
+    <li><b>Google Trends</b> supplied sub-monthly timing over five years of weekly data. Maine-level
+      Trends is too sparse for niche terms, returning zero for most weeks, so the shape checks used
+      Massachusetts as a climate-matched, denser proxy. Where this dossier cites Trends it is for
+      <b>timing</b>, never for volume.</li>
+    <li><b>Mattra's own position: Google Search Console</b>, <code>sc-domain:mattrainc.com</code>,
+      16 months, 800 distinct queries.</li>
+    <li><b>Service lines were mapped only to work Mattra actually sells</b>, checked against the site
+      and <code>llms.txt</code>. Heat pumps, gutters, decks, windows, chimneys and stoves all show
+      strong Maine demand and are deliberately excluded, because Mattra does not offer them. Heat
+      pump rebate terms alone are 720 searches a month and are already blocked as negatives.</li>
+    <li><b>The fortnight figures are interpolated from monthly indices.</b> They are accurate to
+      within a week or so at the turns, which is the right resolution for budget planning and the
+      wrong resolution for claiming a specific day.</li>
+    <li><b>Not modelled:</b> competitor ad activity, actual close rates by service, crew capacity, and
+      the revenue per job that would turn these demand indices into a profit ranking. A high-volume
+      cheap-click line is not automatically the most profitable one.</li>
+  </ul>
+</section>
+
+<footer>
+  Mattra Inc. internal research dossier. Not linked from the site, excluded from
+  <code>sitemap.xml</code>, and served <code>noindex, nofollow, noarchive</code> behind an access code.
+  Prepared by Web Education Services.
+</footer>
+
+</div>
+</body>
+</html>
