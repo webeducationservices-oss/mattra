@@ -466,7 +466,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
 
     var next = step.querySelector('.est-next');
-    if (next) next.addEventListener('click', function () { if (!next.disabled) go(cur + 1); });
+    if (next) next.addEventListener('click', function () {
+      /* Belt and braces on reCAPTCHA. The listeners above cover every real input
+         path (pointerdown, keydown, touchstart), but if any of them is ever missed
+         the token comes back empty and form-notify drops the lead to the Spam tab.
+         Advancing a step proves the visitor is real and leaves plenty of time for
+         the script to load before they reach the send button. */
+      loadRc();
+      if (!next.disabled) go(cur + 1);
+    });
     var back = step.querySelector('.est-back');
     if (back) back.addEventListener('click', function () { go(Math.max(0, cur - 1)); });
   });
@@ -501,6 +509,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
     clearErr();
     sending = true; btn.disabled = true; btn.textContent = 'Sending...';
+    /* Last resort: if grecaptcha still is not here, load it and wait briefly rather
+       than posting a token-less submission that would be silently binned. */
+    if (typeof grecaptcha === 'undefined') {
+      loadRc();
+      for (var w = 0; w < 12 && typeof grecaptcha === 'undefined'; w++) {
+        await new Promise(function (r) { setTimeout(r, 250); });
+      }
+    }
 
     var payload = {
       site_slug: 'mattra',
