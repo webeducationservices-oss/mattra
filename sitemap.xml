@@ -509,10 +509,4 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://www.mattrainc.com/research/</loc>
-    <lastmod>2026-09-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
 </urlset>
