@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- ===== SEO ===== -->
+  <title>QuickBooks Connection — Mattra Inc.</title>
+  <meta name="description" content="Status of the read-only QuickBooks Online connection used for Mattra Inc. revenue reporting." />
+  <link rel="canonical" href="https://www.mattrainc.com/qb/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="QuickBooks Connection — Mattra Inc." />
+  <meta property="og:description" content="Status of the read-only QuickBooks Online connection used for Mattra Inc. revenue reporting." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.mattrainc.com/qb/" />
+
+  <!-- Fonts (self-hosted via globals.css) -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/montserrat-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/dm-serif-display-400.woff2" crossorigin>
+
+  <link rel="stylesheet" href="/globals.css" />
+
+  <style>
+    .qb-page { padding: 72px 0 96px; background: var(--off-white); }
+    .qb-wrap { max-width: 720px; margin: 0 auto; background: #fff;
+      border: 1px solid rgba(0,0,0,.08); border-radius: var(--radius); padding: 40px 38px; }
+    .qb-eyebrow { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+      font-weight: 700; color: var(--brown-text); margin: 0 0 10px; }
+    .qb-wrap h1 { margin: 0 0 12px; }
+    .qb-lede { color: var(--brown-text); line-height: 1.65; margin: 0 0 28px; }
+    .qb-wrap h2 { font-size: 1.12rem; margin: 26px 0 10px; color: var(--text-dark); }
+    .qb-wrap p, .qb-wrap li { color: var(--brown-text); line-height: 1.7; }
+    .qb-wrap ul { padding-left: 20px; margin: 0; }
+    .qb-wrap li { margin-bottom: 8px; }
+    .qb-note { background: #fdf7e3; border-left: 4px solid var(--gold-accent);
+      border-radius: var(--radius); padding: 16px 20px; margin-bottom: 8px; }
+    .qb-note p { margin: 0; color: var(--text-dark); }
+    .qb-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .btn-outline { background: transparent; border: 2px solid var(--green-primary);
+      color: var(--green-primary); }
+    @media (max-width: 640px) { .qb-wrap { padding: 28px 22px; } .qb-page { padding: 44px 0 64px; } }
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4ZZ5RK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div id="topbar"></div>
+<div id="header"></div>
+
+<main>
+<section class="qb-page">
+  <div class="container">
+    <div class="qb-wrap">
+      <p class="qb-eyebrow">Integrations</p>
+      <h1>QuickBooks Online</h1>
+      <p class="qb-lede">A read-only connection between Mattra Inc. QuickBooks Online and our reporting, used to measure which marketing actually produces invoiced work.</p>
+
+      <h2>What this connection can do</h2>
+      <ul>
+        <li>Read customers, invoices, estimates and payments.</li>
+        <li><strong>Nothing is ever written back.</strong> It cannot create, change or delete anything in QuickBooks.</li>
+        <li>Figures are used in the Mattra marketing report so lead sources are measured against revenue, not form fills.</li>
+      </ul>
+      <h2>Who can see it</h2>
+      <p>Access is limited to Mattra Inc. and Web Education Services, the marketing partner that prepares the reporting. The data is never sold, and it is not shared with advertising platforms.</p>
+      <div class="qb-actions">
+        <a href="/qb/connect/" class="btn btn-gold">Connect or reconnect</a>
+        <a href="/qb/disconnected/" class="btn btn-outline">Disconnect</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div id="footer"></div>
+<script src="/components.js" defer></script>
+</body>
+</html>
