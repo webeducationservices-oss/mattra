@@ -86,14 +86,18 @@ jobs:
               re.I)
           # The one legitimate use: the labelled note telling people with a project
           # already underway what the OLD program paid. Allowed only in that context.
-          ALLOW = re.compile(r'Projects completed before that date fall under the previous program', re.I)
+          # Anchored on 'the previous program' rather than the full sentence: the
+          # wording of this note changed on Oct 1 (it moved from future to past
+          # tense) and the old literal silently stopped matching, which tripped
+          # the guard on copy that was correct.
+          ALLOW = re.compile(r'(?:fall under|is still paid under|fell under) the previous program', re.I)
           bad = {}
           for f in sorted(glob.glob('**/*.html', recursive=True) + glob.glob('**/*.txt', recursive=True)):
               s = open(f, encoding='utf-8', errors='replace').read()
               hits = {m.group(0) for m in pat.finditer(s)}
               if hits and ALLOW.search(s):
                   # strip the sanctioned historical note, then re-scan
-                  stripped = re.sub(r'Projects completed before that date.{0,400}?(?:</p>|</div>)', '', s, flags=re.S|re.I)
+                  stripped = re.sub(r'(?:Projects completed|Work finished) before that date.{0,400}?(?:</p>|</div>)', '', s, flags=re.S|re.I)
                   hits = {m.group(0) for m in pat.finditer(stripped)}
               if hits:
                   bad[f] = hits
