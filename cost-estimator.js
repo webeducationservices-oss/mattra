@@ -237,7 +237,8 @@
       none:  { label: 'No insulation / bare joists', value: 0 },
       low:   { label: 'Thin layer (R-5 to R-10)', value: 7 },
       mid:   { label: 'Moderate (R-11 to R-19)', value: 15 },
-      fair:  { label: 'Decent but below code (R-20 to R-30)', value: 25 },
+      fair:  { label: 'Close to the limit (R-20 to R-21)', value: 21 },
+      high:  { label: 'Already above R-21 (R-22 to R-30)', value: 26 },
       unsure:{ label: 'Not sure', value: 10 }
     };
 
@@ -258,13 +259,14 @@
       const rb = MattraRebates.compute({
         tier: data.incomeTier,
         projectCost: costMid,
-        zones: [{ type: 'attic', sqft: sqft }]
+        zones: [{ type: 'attic', sqft: sqft, existingR: data.currentR === 'unsure' ? undefined : curR }]
       });
       const rebate = rb.rebate;
+      const aboveLimit = data.currentR !== 'unsure' && curR > MattraRebates.MAX_PRE_R.attic;
       const oopMin = Math.max(costMin - rebate, 0);
       const oopMax = Math.max(costMax - rebate, 0);
       const alreadyGood = rNeeded <= 0;
-      return { sqft, curR, mat, tier, rb, rNeeded, inchesNeeded, costMin, costMax, rebate, oopMin, oopMax, alreadyGood };
+      return { sqft, curR, mat, tier, rb, rNeeded, inchesNeeded, costMin, costMax, rebate, oopMin, oopMax, alreadyGood, aboveLimit };
     }
 
     return {
@@ -300,7 +302,7 @@
           case 1: return `
             <div class="ce-step active">
               <div class="ce-step-title">What's currently in your attic?</div>
-              <div class="ce-step-sub">This helps us estimate how much insulation needs to be added to reach Maine's R-49 target.</div>
+              <div class="ce-step-sub">This helps us estimate how much insulation needs to be added to reach Maine's R-49 target. The Efficiency Maine rebate only covers attics with R-21 or less already in place.</div>
               <div class="ce-options">
                 ${Object.entries(CURRENT_R).map(([k, v]) =>
                   `<div class="ce-opt ${data.currentR===k?'selected':''}" data-val="${k}">
@@ -370,6 +372,8 @@
                   <div class="ce-results-badge">Your Estimate</div>
                   <h3>Attic Insulation Cost Estimate</h3>
                   ${renderCostGrid(r.costMin, r.costMax, r.rebate, r.tier, r.oopMin, r.oopMax)}
+                  ${r.aboveLimit ? `<div class="ce-disclaimer"><strong>Why the rebate is $0:</strong> Efficiency Maine only pays for attic space that has R-21 or less of existing insulation. An attic at about R-${r.curR} is above that limit. Insulation can still be worth doing, and the free assessment will measure what you actually have.</div>` : ''}
+                  ${data.currentR === 'unsure' ? `<div class="ce-disclaimer"><strong>One thing to confirm:</strong> the rebate only applies when your existing attic insulation is R-21 or less. We measure that at the free assessment.</div>` : ''}
                   <div class="ce-breakdown">
                     <h4>Project Details</h4>
                     <div class="ce-breakdown-row"><span>Attic Area</span><span>${r.sqft.toLocaleString()} sq ft</span></div>
@@ -623,8 +627,7 @@
                     <div class="ce-breakdown-row"><span>Total Estimated Cost</span><span>$${r.totalMin.toLocaleString()} &ndash; $${r.totalMax.toLocaleString()}</span></div>
                   </div>
                   <div class="ce-disclaimer">
-                    <strong>Note:</strong> This is a planning estimate based on typical Maine spray foam pricing. Actual costs depend on site access, surface preparation, existing conditions, and project complexity. A free in-home assessment provides an exact quote with confirmed rebate eligibility.
-                  </div>
+                    <strong>Note:</strong> This is a planning estimate based on typical Maine spray foam pricing. Actual costs depend on site access, surface preparation, existing conditions, and project complexity. A free in-home assessment provides an exact quote with confirmed rebate eligibility. The Efficiency Maine rebate only covers space with R-5 or less of existing insulation (R-11 or less for a mobile home underbelly), which we confirm at the free assessment.</div>
                   ${renderResultsCTA()}
                 </div>
               </div>
@@ -913,8 +916,7 @@
                     <div class="ce-breakdown-row"><span>Total Estimated Cost</span><span>$${r.totalMin.toLocaleString()} &ndash; $${r.totalMax.toLocaleString()}</span></div>
                   </div>
                   <div class="ce-disclaimer">
-                    <strong>Note:</strong> This is a planning estimate based on typical Maine pricing for basement insulation and crawl space encapsulation. Actual costs depend on site access, existing conditions, moisture levels, and project complexity. Crawl space encapsulation pricing includes vapor barrier, sealed vents, wall insulation, and basic moisture management. A free in-home assessment provides an exact quote with confirmed rebate eligibility.
-                  </div>
+                    <strong>Note:</strong> This is a planning estimate based on typical Maine pricing for basement insulation and crawl space encapsulation. Actual costs depend on site access, existing conditions, moisture levels, and project complexity. Crawl space encapsulation pricing includes vapor barrier, sealed vents, wall insulation, and basic moisture management. A free in-home assessment provides an exact quote with confirmed rebate eligibility. The Efficiency Maine rebate only covers space with R-5 or less of existing insulation (R-11 or less for a mobile home underbelly), which we confirm at the free assessment.</div>
                   ${renderResultsCTA()}
                 </div>
               </div>

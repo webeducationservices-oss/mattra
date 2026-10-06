@@ -2,6 +2,8 @@
   "cleanUrls": true,
   "trailingSlash": true,
   "redirects": [
+    { "source": "/act-fast-maine-rebates-for-insulation-are-limited-secure-yours-before-july-s-budget", "destination": "/efficiency-maine-rebate-changes-2026/", "statusCode": 301 },
+    { "source": "/act-fast-maine-rebates-for-insulation-are-limited-secure-yours-before-july-s-budget/", "destination": "/efficiency-maine-rebate-changes-2026/", "statusCode": 301 },
     { "source": "/other-services", "destination": "/services/", "statusCode": 301 },
     { "source": "/other-services/", "destination": "/services/", "statusCode": 301 },
     { "source": "/services/energy-audit", "destination": "/other-services/energy-audit/", "statusCode": 301 },

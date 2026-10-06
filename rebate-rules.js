@@ -59,6 +59,11 @@
   };
 
   /* Lifetime totals, per building */
+  /* Efficiency Maine pays only for the part of a zone whose existing
+     (pre-upgrade) effective R-value is at or below these limits. Source:
+     Weatherization Requirements Checklist, effective 2026-10-01. */
+  var MAX_PRE_R = { attic: 21, wall: 5, basement: 5, underbelly: 11 };
+
   var NEW_CAPS = { standard: 8600, mobile: 5600 };
 
   var NEW_TIER_LABELS = {
@@ -177,6 +182,29 @@
       /* one insulation rebate per zone, per building — never pay twice */
       if (seen[type]) return;
 
+      /* Mobile home WALLS are not rebate-eligible (the brochure footnote:
+         'Excludes mobile home walls'). Without this a mobile home with walls
+         and an underbelly was quoted $600 more than the program pays. */
+      if (opts.isMobileHome && type === 'wall') {
+        breakdown.push({ label: 'Wall insulation: not rebate-eligible in a mobile home', amount: 0 });
+        seen[type] = true;
+        return;
+      }
+
+      /* The rebate only covers space whose EXISTING insulation is at or
+         below the limit. Callers pass existingR (a number) when they know it;
+         when it is unknown we do not guess, we quote and leave the
+         assessment to confirm. */
+      var maxR = MAX_PRE_R[type];
+      if (isFinite(parseFloat(z.existingR)) && parseFloat(z.existingR) > maxR) {
+        breakdown.push({
+          label: ZONE_LABELS[type] + ' insulation: existing insulation is above the R-' + maxR + ' program limit',
+          amount: 0
+        });
+        seen[type] = true;
+        return;
+      }
+
       var band = z.band || bandFor(z.sqft);
       if (band === 'none') {
         breakdown.push({ label: ZONE_LABELS[type] + ' — under 250 sq ft, no rebate', amount: 0 });
@@ -237,6 +265,7 @@
   }
 
   root.MattraRebates = {
+    MAX_PRE_R: MAX_PRE_R,
     SWITCH_DATE: SWITCH_DATE,
     isNewProgram: isNewProgram,
     bandFor: bandFor,

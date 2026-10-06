@@ -166,6 +166,7 @@
     let selectedProjects = [];
     let homeSize = null;
     let zoneBands = {};        /* { attic:'large'|'small'|'none', ... } */
+    let zoneInsul = {};        /* { attic:'ok'|'above'|'unsure', ... } existing insulation vs the program limit */
     let sprayZone = 'basement'; /* only used when spray foam is the sole insulation pick */
     let isMobileHome = false;
     let contact = { first_name: '', email: '', phone: '', zip: '' };
@@ -298,6 +299,14 @@
     /* NEW: the single question that drives the whole rebate under the Oct 1
        rules — how much area is being insulated in each zone. Only shown when
        the new program applies; before Sept 1 the old math needs cost, not area. */
+    /* The program only pays for space whose EXISTING insulation is at or
+       below these R-values (Weatherization Requirements Checklist). */
+    function zoneLimit(z) {
+      const t = (z.key === 'spray' ? sprayZone : z.type);
+      if (t === 'basement' && isMobileHome) return { r: MattraRebates.MAX_PRE_R.underbelly, what: 'underbelly' };
+      return { r: MattraRebates.MAX_PRE_R[t], what: t };
+    }
+
     function stepZones() {
       const zones = activeZones();
       if (!MattraRebates.isNewProgram() || !zones.length) return null;
@@ -316,8 +325,15 @@
               <div class="rc-checks" style="margin-bottom:0;">
                 ${BANDS.map(function (b) { return `<div class="rc-check ${zoneBands[z.key]===b.key?'selected':''}" data-zone="${z.key}" data-band="${b.key}">${b.label}</div>`; }).join('')}
               </div>
+              <div class="rc-step-sub" style="margin:10px 0 6px;font-size:.82rem;">What is in there now? The rebate only covers space with R-${zoneLimit(z).r} or less of existing insulation.</div>
+              <div class="rc-checks" style="margin-bottom:0;">
+                <div class="rc-check ${zoneInsul[z.key]==='ok'?'selected':''}" data-zone="${z.key}" data-ins="ok">R-${zoneLimit(z).r} or less</div>
+                <div class="rc-check ${zoneInsul[z.key]==='above'?'selected':''}" data-zone="${z.key}" data-ins="above">More than R-${zoneLimit(z).r}</div>
+                <div class="rc-check ${zoneInsul[z.key]==='unsure'?'selected':''}" data-zone="${z.key}" data-ins="unsure">Not sure</div>
+              </div>
             </div>`; }).join('')}
           <div class="rc-check ${isMobileHome?'selected':''}" data-mobile="1" style="margin-top:6px;">This is a mobile home</div>
+          ${isMobileHome && activeZones().some(function (z) { return z.type === 'wall'; }) ? '<div class="rc-step-sub" style="margin-top:8px;font-size:.82rem;">Mobile home walls are not covered by the rebate. Only the underbelly is.</div>' : ''}
           <div class="rc-nav">
             <button class="rc-btn rc-btn-back" data-action="back">&larr; Back</button>
             <button class="rc-btn rc-btn-next" ${zonesAnswered()?'':'disabled'} data-action="next">Continue &rarr;</button>
@@ -395,7 +411,13 @@
       /* Rebate comes from the shared engine, which decides on its own whether
          the pre- or post-Oct-1 program applies. */
       const zones = activeZones().map(function (z) {
-        return { type: (z.key === 'spray' ? sprayZone : z.type), band: zoneBands[z.key] };
+        const lim = zoneLimit(z).r;
+        return {
+          type: (z.key === 'spray' ? sprayZone : z.type),
+          band: zoneBands[z.key],
+          /* 'above' blocks the rebate for that area; 'ok' and 'not sure' do not */
+          existingR: zoneInsul[z.key] === 'above' ? lim + 1 : undefined
+        };
       }).filter(function (z) { return !!z.band; });
 
       const airSealing = [];
@@ -512,6 +534,7 @@
               <div class="rc-breakdown-row"><span>Estimated Rebate</span><span style="color:var(--green-primary,#316b43)">-$${rebate.toLocaleString()}</span></div>
               <div class="rc-breakdown-row"><span>Estimated Out-of-Pocket</span><span>$${outOfPocket.toLocaleString()}</span></div>
             </div>
+            ${(rb.breakdown || []).filter(function (b) { return b.amount === 0 && /above the R-|not rebate-eligible|under 250/.test(b.label); }).map(function (b) { return `<p class="rc-disclaimer" style="margin-top:10px;"><strong>Not counted in the rebate:</strong> ${b.label}.</p>`; }).join('')}
             <p class="rc-disclaimer">These estimates are based on typical project costs and current Efficiency Maine rebate tiers. Actual costs and rebates depend on your home&rsquo;s conditions, project scope, and eligibility verification. Rebates are per building (lifetime limit). Mattra is a Registered Efficiency Maine Vendor and handles all rebate paperwork on your behalf.</p>
             <div class="rc-cta-group">
               <a href="/diagnostic" class="rc-cta-primary">Get a Free Written Estimate</a>
@@ -541,6 +564,9 @@
           zoneBands[el.dataset.zone] = el.dataset.band;
           render();
         });
+      });
+      root.querySelectorAll('.rc-check[data-ins]').forEach(el => {
+        el.addEventListener('click', () => { zoneInsul[el.dataset.zone] = el.dataset.ins; render(); });
       });
       root.querySelectorAll('.rc-check[data-mobile]').forEach(el => {
         el.addEventListener('click', () => { isMobileHome = !isMobileHome; render(); });
@@ -610,7 +636,7 @@
           }
           if (action === 'next' && !btn.disabled) { step++; render(); }
           if (action === 'back') { step--; render(); }
-          if (action === 'restart') { step = 0; tier = null; selectedProjects = []; homeSize = null; zoneBands = {}; sprayZone = 'basement'; isMobileHome = false; contact = { first_name: '', email: '', phone: '', zip: '' }; submitted = false; sendStatus = 'pending'; render(); }
+          if (action === 'restart') { step = 0; tier = null; selectedProjects = []; homeSize = null; zoneBands = {}; zoneInsul = {}; sprayZone = 'basement'; isMobileHome = false; contact = { first_name: '', email: '', phone: '', zip: '' }; submitted = false; sendStatus = 'pending'; render(); }
         });
       });
     }

@@ -90,7 +90,7 @@ function getSourceAttribution() {
 
   /* ── Mega-menu active helpers ──────────────────────────── */
   const serviceSlugs = ['mold','insulation','construction','consulting','services','ventilation','roofing','siding','demolition','waterproofing','rot-repair','water-damage','air-sealing','spray-foam','blown-in','crawl-space','energy-audit','blower-door','rodent','dehumidification','general-contracting','insulation-removal','efficiency-maine'];
-  const resourceSlugs = ['financing','rebates','resources','calculator','for-realtors','blog','glossary','mold-library'];
+  const resourceSlugs = ['financing','rebates','resources','calculator','for-realtors','blog','glossary','mold-library','home-energy-loans','green-bank'];
   function megaActive(slugs) { return slugs.some(s => path.includes(s)); }
 
   const chevron = `<svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5L5 6 7.5 3.5"/></svg>`;
@@ -175,6 +175,8 @@ function getSourceAttribution() {
           <div class="mega-col">
             <h5 class="mega-heading">Financing &amp; Rebates</h5>
             <a href="${b}financing-rebates.html">Financing &amp; Rebates</a>
+            <a href="${b}home-energy-loans.html">Home Energy Loans</a>
+            <a href="${b}efficiency-maine-green-bank.html">Efficiency Maine Green Bank</a>
             <a href="${b}rebate-calculator.html">Rebate Calculator</a>
             <a href="${b}for-realtors.html">For Realtors</a>
           </div>
@@ -229,6 +231,7 @@ function getSourceAttribution() {
       <div class="footer-col">
         <h4>Resources</h4>
         <a href="${b}financing-rebates.html">Financing &amp; Rebates</a>
+        <a href="${b}home-energy-loans.html">Home Energy Loans</a>
         <a href="${b}rebate-calculator.html">Rebate Calculator</a>
         <a href="${b}for-realtors.html">For Realtors</a>
         <a href="${b}blog.html">Blog</a>
