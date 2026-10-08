@@ -43,14 +43,21 @@
 
   /* ---------- state ---------- */
   var D = { housing: '', size: '', first: '', last: '', address: '', town: '', zip: '', phone: '', owner: '',
-            benefits: '', filing: '', agi: '', area: '', heat: '', fuel: '', email: '', loanId: '', sms: false };
+            stories: '', benefits: '', filing: '', agi: '', area: '', heat: '', fuel: '', email: '', loanId: '', sms: false };
   var step = 0, sending = false, partialSent = false, rendered = false;
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-  var HOUSING = { single: 'Single-family home', mobile: 'Mobile or manufactured home', multi: 'Multi-unit building (2 to 4 units)' };
+  var HOUSING = { single: 'Single-family home', mobile: 'Mobile or manufactured home', duplex: 'Duplex (2 units)' };
   var SIZES = [
     { v: 'u800',  t: 'Under 800 sq ft' }, { v: '800',  t: '800 to 1,499 sq ft' },
     { v: '1500',  t: '1,500 to 2,499 sq ft' }, { v: '2500', t: '2,500 sq ft or more' }
+  ];
+  /* Midpoint of each size choice, used to estimate the footprint. */
+  var SIZE_MID = { u800: 650, '800': 1150, '1500': 2000, '2500': 3000 };
+  var STORIES = [
+    { v: 'one',  t: 'One story', sub: 'Ranch or single level' },
+    { v: 'cape', t: 'One and a half', sub: 'Cape with rooms upstairs' },
+    { v: 'two',  t: 'Two stories or more', sub: '' }
   ];
   var HEATS = [
     { v: 90,  t: 'Under $125' }, { v: 175, t: '$125 to $225' }, { v: 275, t: '$225 to $325' },
@@ -59,7 +66,10 @@
   var FUELS = ['Heating oil', 'Propane', 'Electric or heat pump', 'Natural gas', 'Wood or pellets', 'Other'];
 
   /* ---------- tier + figures ---------- */
+  /* Low and moderate income rebates need the home to be the owner's
+     primary residence, so a rental or seasonal home is always any income. */
   function tier() {
+    if (D.owner === 'ownother') return 'any';
     if (D.benefits === 'yes') return 'low';
     if (D.agi === 'under') return 'moderate';
     return 'any';
@@ -69,10 +79,20 @@
   function figures() {
     var t = tier(), mobile = D.housing === 'mobile';
     var area = D.area === 'basement' ? 'basement' : 'attic';
-    var band = (D.size === 'u800' && !mobile) ? 'small' : 'large';
+    /* Efficiency Maine sizes a zone by the square feet insulated, which for
+       an attic or basement follows the footprint, not the living space. A
+       700 sq ft ranch has about a 700 sq ft attic (500+, the large rebate).
+       A cape's attic includes its kneewalls and slopes, so it runs larger
+       than its footprint. Mobile homes: the underbelly is always 500+. */
+    var size = SIZE_MID[D.size] || 1150;
+    var floors = area === 'attic'
+      ? ({ one: 1, cape: 1.2, two: 2 }[D.stories] || 1)
+      : ({ one: 1, cape: 1.5, two: 2 }[D.stories] || 1);
+    var sqft = mobile ? 800 : Math.round(size / floors);
     var rb = MattraRebates.compute({
       tier: t, projectCost: PROJECT_COST, isMobileHome: mobile,
-      zones: [{ type: area, band: band }]
+      zones: [{ type: area, sqft: sqft }],
+      airSealing: [area === 'attic' ? 'attic' : 'basement']
     });
     var rebate = rb.rebate, loan = Math.max(0, PROJECT_COST - rebate);
     var loans = LOANS.filter(function (l) { return t === 'any' ? !l.income : l.income || l.id === '5y'; })
@@ -80,7 +100,8 @@
     loans.sort(function (a, b) { return a.pay - b.pay; });
     var pick = loans.filter(function (x) { return x.l.id === D.loanId; })[0] || loans[0];
     var heat = Number(D.heat) || 0;
-    return { tier: t, rebate: rebate, loan: loan, loans: loans, pick: pick,
+    if (loan === 0) { loans = []; pick = null; }
+    return { tier: t, rebate: rebate, loan: loan, loans: loans, pick: pick, zoneSqft: sqft, breakdown: rb.breakdown,
              saveLow: Math.round(heat * SAVE_LOW), saveHigh: Math.round(heat * SAVE_HIGH) };
   }
 
@@ -118,6 +139,15 @@
   document.head.appendChild(css);
 
   /* ---------- helpers ---------- */
+  /* Steps a visitor does not need: no income questions for a rental or
+     seasonal home, and no tax question once a benefit answer settles it. */
+  function skipped(name) {
+    if ((name === 'benefits' || name === 'income') && D.owner === 'ownother') return true;
+    if (name === 'income' && D.benefits === 'yes') return true;
+    return false;
+  }
+  function next() { do { step += 1; } while (step < STEPS.length - 1 && skipped(STEPS[step])); render(); }
+  function back() { do { step -= 1; } while (step > 0 && skipped(STEPS[step])); render(); }
   var STEPS = ['housing', 'size', 'name', 'contact', 'benefits', 'income', 'project', 'heat', 'phone', 'results'];
   function opt(label, key, val, sub, cur) {
     return '<button type="button" class="sc-opt" data-k="' + key + '" data-v="' + esc(val) + '" aria-pressed="' + (cur === val) + '">' + label + (sub ? '<small>' + sub + '</small>' : '') + '</button>';
@@ -130,7 +160,7 @@
       '<div class="sc-err" id="sc-err" role="alert"></div>' +
       (showBack && step > 0 ? '<div class="sc-nav"><button type="button" class="sc-back" id="sc-back">Back</button></div>' : '') + '</div>';
     var b = document.getElementById('sc-back');
-    if (b) b.addEventListener('click', function () { step -= (STEPS[step] === 'project' && D.benefits === 'yes') ? 2 : 1; render(); });
+    if (b) b.addEventListener('click', back);
     if (rendered) { var top = ROOT.getBoundingClientRect().top; if (top < 0 || top > window.innerHeight * 0.4) window.scrollTo({ top: Math.max(0, top + window.pageYOffset - 16), behavior: 'smooth' }); }
     rendered = true;
   }
@@ -140,7 +170,7 @@
       b.addEventListener('click', function () {
         D[key] = b.getAttribute('data-v');
         ROOT.querySelectorAll('.sc-opt[data-k="' + key + '"]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-        if (advance !== false) setTimeout(function () { step += 1; render(); }, 180);
+        if (advance !== false) setTimeout(next, 180);
       });
     });
   }
@@ -183,21 +213,22 @@
     var p = {
       site_slug: 'mattra', form_type: formType,
       first_name: D.first, last_name: D.last, phone: D.phone, address: D.address, city: D.town, state: 'ME', zip: D.zip,
-      lead_page: 'energy-savings-check', homeowner: D.owner === 'own' ? 'Owns the home' : 'Rents (not eligible)',
-      housing_type: HOUSING[D.housing] || '', home_size: (SIZES.filter(function (s) { return s.v === D.size; })[0] || {}).t || '',
+      lead_page: 'energy-savings-check', homeowner: { own: 'Owns it, primary residence', ownother: 'Owns it, rental or seasonal (any income only)', rent: 'Rents (not eligible)' }[D.owner] || '',
+      housing_type: HOUSING[D.housing] || '', home_size: ((SIZES.filter(function (s) { return s.v === D.size; })[0] || {}).t || '') + (D.stories ? ', ' + (STORIES.filter(function (s) { return s.v === D.stories; })[0] || {}).t : ''),
       financing_interest: 'Yes, tell me more', _honey: '', _ts: LOAD_TS
     };
-    if (D.owner === 'own') {
-      p.receives_benefits = D.benefits === 'yes' ? 'Yes (SNAP, HEAP, TANF or MaineCare)' : 'No';
+    if (D.owner === 'own' || D.owner === 'ownother') {
+      if (D.owner === 'own') p.receives_benefits = D.benefits === 'yes' ? 'Yes (SNAP, HEAP, TANF or MaineCare)' : 'No';
       if (D.filing) p.filing_status = D.filing === 'joint' ? 'Married filing jointly' : 'Single or other';
       if (D.agi) p.agi_range = { under: 'Under the Efficiency Maine limit', over: 'Over the limit', unsure: 'Not sure' }[D.agi];
-      if (D.benefits) p.estimated_income_tier = TIER_NAME[tier()];
+      if (D.benefits || D.owner === 'ownother') p.estimated_income_tier = TIER_NAME[tier()];
       if (D.area) p.project_area = D.area;
     }
     if (D.email) p.email = D.email;
     if (f) {
       p.example_project_cost = String(PROJECT_COST); p.rebate_estimate = String(f.rebate); p.loan_estimate = String(f.loan);
-      p.loan_option = f.pick ? f.pick.l.name + ': about ' + money(f.pick.pay) + '/mo' : '';
+      p.loan_option = f.pick ? f.pick.l.name + ': about ' + money(f.pick.pay) + '/mo' : 'No loan needed, rebate covers the example project';
+      p.rebate_breakdown = (f.breakdown || []).map(function (b) { return b.label + ' ' + money(b.amount); }).join('; ');
       p.monthly_heating_cost = String(D.heat || ''); p.heating_fuel = D.fuel || '';
       p.savings_estimate_monthly = money(f.saveLow) + ' to ' + money(f.saveHigh);
       p.next_step = f.tier === 'any' ? 'Green Bank account and application' : 'Income verification, then Green Bank application';
@@ -225,13 +256,22 @@
     housing: function () {
       frame('<h2>What kind of home do you have?</h2><p class="sc-help">Maine has different opportunities for different homes, so we start here.</p><div class="sc-opts">' +
         opt('Single-family home', 'housing', 'single', '', D.housing) + opt('Mobile or manufactured home', 'housing', 'mobile', '', D.housing) +
-        opt('Multi-unit building', 'housing', 'multi', '2 to 4 units', D.housing) + '</div>');
+        opt('Duplex', 'housing', 'duplex', 'Two units', D.housing) + '</div>');
       pickOne('housing');
     },
     size: function () {
-      frame('<h2>About how big is your home?</h2><p class="sc-help">Living space is fine. A rough guess works.</p><div class="sc-opts two">' +
-        SIZES.map(function (s) { return opt(s.t, 'size', s.v, '', D.size); }).join('') + '</div>', true);
-      pickOne('size');
+      var mobile = D.housing === 'mobile';
+      frame('<h2>About how big is your home?</h2><p class="sc-help">Living space is fine. A rough guess works.' + (mobile ? '' : ' Rebates are sized by the area insulated, so the number of stories matters too.') + '</p>' +
+        '<div class="sc-opts two">' + SIZES.map(function (s) { return opt(s.t, 'size', s.v, '', D.size); }).join('') + '</div>' +
+        (mobile ? '' : '<div class="sc-f" style="margin-top:18px"><label>How many stories?</label><div class="sc-opts">' +
+          STORIES.map(function (s) { return opt(s.t, 'stories', s.v, s.sub, D.stories); }).join('') + '</div></div>' +
+          '<div class="sc-nav"><button class="sc-btn" id="sc-next" type="button">Continue</button></div>'), true);
+      if (mobile) { D.stories = ''; pickOne('size'); return; }
+      pickOne('size', false); pickOne('stories', false);
+      document.getElementById('sc-next').addEventListener('click', function () {
+        if (!D.size || !D.stories) return err('Please pick a size and the number of stories.');
+        next();
+      });
     },
     name: function () {
       frame('<h2>What should we call you?</h2><p class="sc-help">So your results are addressed to the right person.</p>' +
@@ -241,7 +281,7 @@
       document.getElementById('sc-next').addEventListener('click', function () {
         var f = document.getElementById('sc-first').value.trim();
         if (!f) return err('Please add your first name.');
-        D.first = f; D.last = document.getElementById('sc-last').value.trim(); step += 1; render();
+        D.first = f; D.last = document.getElementById('sc-last').value.trim(); next();
       });
     },
     contact: function () {
@@ -249,7 +289,11 @@
         '<div class="sc-f"><label for="sc-addr">Home street address *</label><input type="text" id="sc-addr" autocomplete="address-line1" value="' + esc(D.address) + '"></div>' +
         '<div class="sc-row"><div class="sc-f"><label for="sc-town">Town *</label><input type="text" id="sc-town" autocomplete="address-level2" value="' + esc(D.town) + '"></div>' +
         '<div class="sc-f"><label for="sc-zip">ZIP code *</label><input type="text" id="sc-zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" value="' + esc(D.zip) + '"></div></div>' +
-        '<div class="sc-f"><label>Do you own this home? *</label><div class="sc-opts two">' + opt('I own it', 'owner', 'own', '', D.owner) + opt('I rent it', 'owner', 'rent', '', D.owner) + '</div></div>' +
+        '<div class="sc-f"><label>Do you own this home? *</label><div class="sc-opts">' +
+          opt('I own it and live here year-round', 'owner', 'own', 'My primary residence', D.owner) +
+          opt('I own it, but it is a rental or seasonal home', 'owner', 'ownother', 'Qualifies at the any-income level only', D.owner) +
+          opt('I rent it', 'owner', 'rent', '', D.owner) + '</div>' +
+        '<p class="sc-fine" style="margin-top:8px">Higher low- and moderate-income rebates and the income-based loan are for the owner&rsquo;s primary residence only.</p></div>' +
         '<div class="sc-nav"><button class="sc-btn" id="sc-next" type="button">Continue</button></div>', true);
       pickOne('owner', false);
       document.getElementById('sc-next').addEventListener('click', function () {
@@ -262,7 +306,7 @@
         D.address = a; D.town = t; D.zip = z;
         if (D.owner === 'rent') { step = -1; return render(); }
         if (!/^0(39|4[0-9])/.test(z)) { step = -2; return render(); }
-        step += 1; render();
+        next();
       });
     },
     phone: function () {
@@ -282,7 +326,7 @@
         partialSent = await post('savings-check-partial', figures(), 'savings_check_partial');
         track('lead_partial', { form_type: 'savings-check-partial', accepted: partialSent });
         btn.disabled = false; btn.textContent = 'Show my results';
-        step += 1; render();
+        next();
       });
     },
     benefits: function () {
@@ -290,7 +334,7 @@
         opt('Yes, at least one of them', 'benefits', 'yes', '', D.benefits) + opt('No, none of these', 'benefits', 'no', '', D.benefits) + opt('Not sure', 'benefits', 'no', 'We will check at the estimate', '') + '</div>', true);
       pickOne('benefits', false);
       ROOT.querySelectorAll('.sc-opt[data-k="benefits"]').forEach(function (b) {
-        b.addEventListener('click', function () { setTimeout(function () { step = D.benefits === 'yes' ? step + 2 : step + 1; render(); }, 180); });
+        b.addEventListener('click', function () { setTimeout(next, 180); });
       });
     },
     income: function () {
@@ -303,7 +347,7 @@
       ROOT.querySelectorAll('.sc-opt[data-k="filing"]').forEach(function (b) { b.addEventListener('click', function () { var l = document.getElementById('sc-agi-l'); if (l) l.textContent = 'Is your household AGI below ' + (D.filing === 'joint' ? '$100,000' : '$70,000') + '?'; }); });
       document.getElementById('sc-next').addEventListener('click', function () {
         if (!D.filing || !D.agi) return err('Please answer both questions. "Not sure" is fine.');
-        step += 1; render();
+        next();
       });
     },
     project: function () {
@@ -322,30 +366,37 @@
       pickOne('heat', false); pickOne('fuel', false);
       document.getElementById('sc-next').addEventListener('click', function () {
         if (!D.heat || !D.fuel) return err('Please pick a monthly amount and your main heat source.');
-        step += 1; render();
+        next();
       });
     },
     results: function () {
       var f = figures(), pick = f.pick;
-      var netLow = f.saveLow - Math.round(pick.pay), netHigh = f.saveHigh - Math.round(pick.pay);
-      var thin = netLow < 0;
+      var noLoan = !pick;
+      var pay = noLoan ? 0 : Math.round(pick.pay);
+      var netLow = f.saveLow - pay, netHigh = f.saveHigh - pay;
+      var thin = !noLoan && netLow < 0;
       var inc = f.tier !== 'any';
       track('lead_results_view', { form_type: 'savings-check', tier: f.tier });
       var loanCards = f.loans.map(function (x) {
         return '<button type="button" class="sc-opt" data-k="loanId" data-v="' + x.l.id + '" aria-pressed="' + (x.l.id === pick.l.id) + '">' + esc(x.l.name) + '<small>About ' + money(x.pay) + ' a month' + (x === f.loans[0] ? ' (lowest payment)' : '') + '</small></button>';
       }).join('');
-      var headline = thin
+      var headline = noLoan
+        ? '<div class="sc-net"><p style="margin:0 0 4px">Your estimated rebate covers this example project</p><div class="n">' + money(f.saveLow) + ' to ' + money(f.saveHigh) + ' a month*</div><p>Estimated heating savings, with no loan payment needed in this example.</p></div>'
+        : thin
         ? '<div class="sc-net"><p style="margin:0 0 4px">Estimated heating savings</p><div class="n">' + money(f.saveLow) + ' to ' + money(f.saveHigh) + ' a month*</div><p>Against a loan payment of about ' + money(pick.pay) + ' a month. A longer term lowers the payment, and we will go over the best fit with you.</p></div>'
         : '<div class="sc-net"><p style="margin:0 0 4px">After your loan payment, you could come out</p><div class="n">' + money(netLow) + ' to ' + money(netHigh) + ' a month ahead*</div><p>Estimated heating savings of ' + money(f.saveLow) + ' to ' + money(f.saveHigh) + ' a month, minus a payment of about ' + money(pick.pay) + '.</p></div>';
       frame('<h2>' + esc(D.first) + ', here is your estimate</h2><p class="sc-help">Based on a $5,000 ' + (D.area === 'basement' ? (D.housing === 'mobile' ? 'underbelly' : 'basement') : 'attic') + ' project. Estimates only.</p>' +
         headline +
         '<div class="sc-big"><div class="sc-stat"><div class="n">' + money(f.rebate) + '</div><div class="l">Estimated Efficiency Maine rebate' + (inc ? ' (' + TIER_NAME[f.tier].toLowerCase() + ', needs verification)' : '') + '</div></div>' +
-        '<div class="sc-stat gold"><div class="n">' + money(f.loan) + '</div><div class="l">Left to finance, about ' + money(pick.pay) + ' a month</div></div></div>' +
-        '<p class="sc-help" style="margin:4px 0 6px;font-weight:700;color:var(--text-dark,#2c2c2c)">Pick a loan to compare</p>' +
-        '<div class="sc-loans">' + loanCards + '</div>' +
+        (noLoan
+          ? '<div class="sc-stat gold"><div class="n">$0</div><div class="l">Left to finance in this example</div></div></div>'
+          : '<div class="sc-stat gold"><div class="n">' + money(f.loan) + '</div><div class="l">Left to finance, about ' + money(pick.pay) + ' a month</div></div></div>' +
+            '<p class="sc-help" style="margin:4px 0 6px;font-weight:700;color:var(--text-dark,#2c2c2c)">Pick a loan to compare</p>' +
+            '<div class="sc-loans">' + loanCards + '</div>') +
+        (D.owner === 'ownother' ? '<p class="sc-fine" style="margin-top:0">Because this is a rental or seasonal home, the any-income rebate applies. Higher income-based rebates are for primary residences only.</p>' : '') +
         '<div class="sc-call"><strong>Next step: a free on-site estimate.</strong> These numbers use a $5,000 example. We will call you to schedule your estimate and give you a real price before you commit to anything.</div>' +
-        '<div class="sc-f"><label for="sc-email">Where should we send these results and your application link? *</label><input type="email" id="sc-email" autocomplete="email" value="' + esc(D.email) + '"></div>' +
-        '<div class="sc-nav"><button class="sc-btn go" id="sc-send" type="button">Email my results and start my application</button></div>' +
+        '<div class="sc-f"><label for="sc-email">Where should we send these results' + (noLoan ? '' : ' and your application link') + '? *</label><input type="email" id="sc-email" autocomplete="email" value="' + esc(D.email) + '"></div>' +
+        '<div class="sc-nav"><button class="sc-btn go" id="sc-send" type="button">' + (noLoan ? 'Email my results' : 'Email my results and start my application') + '</button></div>' +
         '<p class="sc-fine">*Savings assume a 20% to 30% reduction in heating cost and are estimates, not guarantees. ENERGY STAR reports a 15% average. Mattra is not the lender. See the important information at the bottom of this page.</p>', true);
       pickOne('loanId', false);
       ROOT.querySelectorAll('.sc-opt[data-k="loanId"]').forEach(function (b) { b.addEventListener('click', function () { var m = document.getElementById('sc-email'); D.email = m ? m.value : D.email; render(); }); });
@@ -357,22 +408,23 @@
         var btn = this; btn.disabled = true; btn.textContent = 'Sending...';
         var ok = await post('savings-check-complete', figures(), 'savings_check_complete');
         sending = false;
-        if (!ok) { btn.disabled = false; btn.textContent = 'Email my results and start my application'; return err('That did not go through. Please call us at ' + PHONE + ' and we will take the details by phone.'); }
+        if (!ok) { btn.disabled = false; btn.textContent = noLoan ? 'Email my results' : 'Email my results and start my application'; return err('That did not go through. Please call us at ' + PHONE + ' and we will take the details by phone.'); }
         track('form_submission', { form_type: 'savings-check-complete' });
         step = 99; render();
       });
     },
     done: function () {
-      var f = figures(), inc = f.tier !== 'any';
+      var f = figures(), inc = f.tier !== 'any', noLoan = !f.pick;
       var primary = inc ? URL_VERIFY : URL_REGISTER;
       ROOT.innerHTML = '<div class="sc-card" role="status"><h2>You are all set, ' + esc(D.first) + '.</h2>' +
         '<p class="sc-help">Your results are on their way to ' + esc(D.email) + '. Here is what happens next:</p>' +
         '<ol style="padding-left:20px;line-height:1.7;margin:0 0 14px">' +
-        (inc ? '<li><strong>Verify your income</strong> with Efficiency Maine. The higher rebate and the income-based loan both need it.</li><li><strong>Then create your Green Bank account</strong> and start the loan application.</li>'
+        (noLoan ? '<li><strong>Verify your income</strong> with Efficiency Maine. The higher rebate needs it.</li>'
+          : inc ? '<li><strong>Verify your income</strong> with Efficiency Maine. The higher rebate and the income-based loan both need it.</li><li><strong>Then create your Green Bank account</strong> and start the loan application.</li>'
              : '<li><strong>Create your Green Bank account</strong> and start the loan application. It takes a few minutes.</li>') +
         '<li><strong>We will call you from ' + PHONE + '</strong> to schedule your free estimate.</li>' +
-        '<li>The loan must be approved <strong>before</strong> work starts.</li></ol>' +
-        '<a class="sc-btn go" href="' + primary + '" target="_blank" rel="noopener">' + (inc ? 'Verify my income with Efficiency Maine' : 'Start my Green Bank application') + '</a>' +
+        (noLoan ? '' : '<li>The loan must be approved <strong>before</strong> work starts.</li>') + '</ol>' +
+        ((inc || !noLoan) ? '<a class="sc-btn go" href="' + primary + '" target="_blank" rel="noopener">' + (inc ? 'Verify my income with Efficiency Maine' : 'Start my Green Bank application') + '</a>' : '') +
         '<p class="sc-fine">This opens Efficiency Maine&rsquo;s website, which Mattra does not control. Mattra is not the lender and does not submit your application. Applying does not obligate you to Mattra, and nothing is approved until Efficiency Maine says so. Questions? Call ' + PHONE + '.</p></div>';
       window.scrollTo({ top: Math.max(0, ROOT.getBoundingClientRect().top + window.pageYOffset - 70), behavior: 'smooth' });
     },
