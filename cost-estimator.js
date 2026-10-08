@@ -167,6 +167,14 @@
           <label for="ce-zip">ZIP code or town *</label>
           <input type="text" id="ce-zip" value="${data.zip || ''}" placeholder="e.g. 04240 or Lewiston" required>
         </div>
+        <div class="ce-input-group">
+          <label>Interested in financing?</label>
+          <div class="ce-options" style="grid-template-columns:1fr 1fr;">
+            ${['Yes, tell me more', 'No', 'Already started', 'Not sure'].map((o) =>
+              `<div class="ce-opt ${data.financing===o?'selected':''}" data-fin="${o}"><span class="ce-radio"></span><span class="ce-label"><strong>${o}</strong></span></div>`
+            ).join('')}
+          </div>
+        </div>
         <div class="ce-nav">
           <button class="ce-btn ce-btn-back" data-action="back">&larr; Back</button>
           <button class="ce-btn ce-btn-next" ${(!data.incomeTier || !(data.zip||'').trim())?'disabled':''} data-action="next">See My Estimate &rarr;</button>
@@ -407,7 +415,7 @@
           });
         }
 
-        root.querySelectorAll('.ce-opt').forEach(opt => {
+        root.querySelectorAll('.ce-opt:not([data-fin])').forEach(opt => {
           opt.addEventListener('click', () => {
             const val = opt.dataset.val;
             if (step === 1) data.currentR = val;
@@ -440,6 +448,7 @@
           material: r.mat.label,
           income_tier: r.tier.label,
           zip: data.zip,
+          ...(data.financing ? { financing_interest: data.financing } : {}),
           r_value_needed: 'R-' + r.rNeeded,
           estimated_cost: r.alreadyGood ? 'N/A — already insulated' : '$' + r.costMin.toLocaleString() + ' – $' + r.costMax.toLocaleString(),
           estimated_rebate: r.alreadyGood ? 'N/A' : '$' + r.rebate.toLocaleString(),
@@ -686,6 +695,7 @@
           areas: r.lineItems.map(li => li.label).join(', '),
           income_tier: r.tier.label,
           zip: data.zip,
+          ...(data.financing ? { financing_interest: data.financing } : {}),
           estimated_cost: '$' + r.totalMin.toLocaleString() + ' – $' + r.totalMax.toLocaleString(),
           estimated_rebate: '$' + r.rebate.toLocaleString(),
           out_of_pocket: '$' + r.oopMin.toLocaleString() + ' – $' + r.oopMax.toLocaleString(),
@@ -929,7 +939,7 @@
 
       bindStep(root, step, data, render) {
         if (step === 0) {
-          root.querySelectorAll('.ce-opt').forEach(opt => {
+          root.querySelectorAll('.ce-opt:not([data-fin])').forEach(opt => {
             opt.addEventListener('click', () => {
               data.projectType = opt.dataset.val;
               data.qty = null;
@@ -973,7 +983,7 @@
         });
 
         if (step === 2) {
-          root.querySelectorAll('.ce-opt').forEach(opt => {
+          root.querySelectorAll('.ce-opt:not([data-fin])').forEach(opt => {
             opt.addEventListener('click', () => {
               data.incomeTier = opt.dataset.val;
               render();
@@ -999,6 +1009,7 @@
           project_type: r.lineItems.map(li => li.label).join(', '),
           income_tier: r.tier.label,
           zip: data.zip,
+          ...(data.financing ? { financing_interest: data.financing } : {}),
           estimated_cost: '$' + r.totalMin.toLocaleString() + ' – $' + r.totalMax.toLocaleString(),
           estimated_rebate: '$' + r.rebate.toLocaleString(),
           out_of_pocket: '$' + r.oopMin.toLocaleString() + ' – $' + r.oopMax.toLocaleString(),
@@ -1060,6 +1071,15 @@
             Object.assign(data, fresh);
             render();
           }
+        });
+      });
+
+      // Optional financing answer (shared by all three estimators)
+      root.querySelectorAll('.ce-opt[data-fin]').forEach((el) => {
+        el.addEventListener('click', () => {
+          const z = root.querySelector('#ce-zip'); if (z) data.zip = z.value;
+          data.financing = (data.financing === el.dataset.fin) ? '' : el.dataset.fin;
+          render();
         });
       });
 

@@ -332,11 +332,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="est-two">
               <div class="est-field"><label for="est-email">Email *</label>
                 <input type="email" id="est-email" autocomplete="email" required /></div>
-              <div class="est-field"><label for="est-phone">Phone</label>
-                <input type="tel" id="est-phone" autocomplete="tel" /></div>
+              <div class="est-field"><label for="est-phone">Phone *</label>
+                <input type="tel" id="est-phone" autocomplete="tel" inputmode="tel" required /></div>
             </div>
             <div class="est-field"><label for="est-notes">Anything else we should know?</label>
               <textarea id="est-notes" placeholder="Optional. Photos help too, you can reply to our email with them."></textarea></div>
+            <div class="est-field"><label>Interested in financing?</label>
+              <div class="est-opts two" data-single="financing">
+                <button type="button" class="est-opt radio" data-v="Yes, tell me more"><span class="tick">&#10003;</span>Yes, tell me more</button>
+                <button type="button" class="est-opt radio" data-v="No"><span class="tick">&#10003;</span>No</button>
+                <button type="button" class="est-opt radio" data-v="Already started"><span class="tick">&#10003;</span>Already started</button>
+                <button type="button" class="est-opt radio" data-v="Not sure"><span class="tick">&#10003;</span>Not sure</button>
+              </div></div>
             <!-- Honeypot. MUST be named _honey. Never name it website/company/url:
                  form-notify rejects those and autofill destroys real leads. -->
             <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off"
@@ -507,6 +514,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (!email || email.indexOf('@') < 1 || email.indexOf('.') < 0) {
       showErr('Please check the email address, we could not read that one.'); document.getElementById('est-email').focus(); return;
     }
+    if (phone.replace(/\D/g, '').length < 10) {
+      showErr('Please add a phone number so the estimating team can reach you.'); document.getElementById('est-phone').focus(); return;
+    }
     clearErr();
     sending = true; btn.disabled = true; btn.textContent = 'Sending...';
     /* Last resort: if grecaptcha still is not here, load it and wait briefly rather
@@ -531,6 +541,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       message: notes,
       _honey: root.querySelector('input[name="_honey"]').value
     };
+    if (answers.financing) payload.financing_interest = answers.financing;
     try { Object.assign(payload, getSourceAttribution()); } catch (e) { console.warn('source-attr:', e); }
     payload.recaptcha_token = await rcToken('mold_estimate');
 

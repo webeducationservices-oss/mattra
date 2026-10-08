@@ -384,6 +384,18 @@
     }
   };
 
+  /* Every step-2 card ends with the same financing question, so nobody has to
+     be asked about money in a different way depending on what they picked first.
+     It is optional: it is skipped by checkNext(), so it can never be the only
+     thing that enables Continue. */
+  const FINANCING_QUESTION = {
+    label: 'Interested in financing?', field: 'financing_interest', options: [
+      { v:'yes', l:'Yes, tell me more' }, { v:'no', l:'No' },
+      { v:'already', l:'Already started' }, { v:'notsure', l:'Not sure' }
+    ]
+  };
+  Object.keys(TEMPLATES).forEach(k => TEMPLATES[k].questions.push(FINANCING_QUESTION));
+
   const CONCERN_LABELS = {
     mold: 'Mold / moisture', energy: 'High energy bills / cold rooms', water: 'Water damage',
     realestate: 'Buying or selling', repairs: 'Repairs / renovation',
@@ -480,7 +492,10 @@
       if (n === 1) btn.disabled = !active.querySelector('.diag-opt.selected');
       else if (n === 2) {
         let has = false;
-        active.querySelectorAll('.diag-options').forEach(g => { if (g.querySelector('.diag-opt.selected')) has = true; });
+        active.querySelectorAll('.diag-options').forEach(g => {
+          if (g.dataset.field === 'financing_interest') return;
+          if (g.querySelector('.diag-opt.selected')) has = true;
+        });
         active.querySelectorAll('textarea').forEach(t => { if (t.value.trim()) has = true; });
         btn.disabled = !has;
       }

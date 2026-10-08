@@ -364,7 +364,8 @@
     zip: '',
     closing_date: '',
     details: '',
-    preferred_contact: 'phone'
+    preferred_contact: 'phone',
+    financing_interest: ''
   };
 
   /* ── HTML ── */
@@ -513,6 +514,23 @@
             </label>
           </div>
         </div>
+        <div class="std-field">
+          <label>Interested in financing?</label>
+          <div class="std-field-row" style="margin-top:6px;flex-wrap:wrap;">
+            <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer;">
+              <input type="radio" name="std-financing" value="Yes, tell me more" style="width:auto;padding:0;" /> Yes, tell me more
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer;">
+              <input type="radio" name="std-financing" value="No" style="width:auto;padding:0;" /> No
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer;">
+              <input type="radio" name="std-financing" value="Already started" style="width:auto;padding:0;" /> Already started
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer;">
+              <input type="radio" name="std-financing" value="Not sure" style="width:auto;padding:0;" /> Not sure
+            </label>
+          </div>
+        </div>
         <input type="text" name="_honey" style="display:none;" tabindex="-1" autocomplete="off" />
         <button class="std-btn-submit" id="std-submit">Send Priority Request &rarr;</button>
         <div class="std-trust">
@@ -650,6 +668,8 @@
       formData.agent_email = card.querySelector('#std-email').value.trim();
       formData.brokerage = card.querySelector('#std-brokerage').value.trim();
       formData.preferred_contact = card.querySelector('input[name="std-contact-pref"]:checked').value;
+      const finEl = card.querySelector('input[name="std-financing"]:checked');
+      formData.financing_interest = finEl ? finEl.value : '';
       const honey = card.querySelector('input[name="_honey"]').value;
 
       // Validation
@@ -703,6 +723,7 @@
             agent_email: formData.agent_email,
             brokerage: formData.brokerage,
             preferred_contact: formData.preferred_contact,
+            ...(formData.financing_interest ? { financing_interest: formData.financing_interest } : {}),
             issue_type: formData.issue_types.map(v => issueLabels[v] || v).join(', '),
             urgency: urgencyLabels[formData.urgency] || formData.urgency,
             property_address: formData.property_address,

@@ -170,6 +170,7 @@
     let sprayZone = 'basement'; /* only used when spray foam is the sole insulation pick */
     let isMobileHome = false;
     let contact = { first_name: '', email: '', phone: '', zip: '' };
+    let financing = '';        /* optional: 'Yes, tell me more' | 'No' | 'Already started' | 'Not sure' */
     let submitted = false;
     let sendStatus = 'pending'; // 'pending' | 'sent' | 'failed'
 
@@ -384,6 +385,12 @@
             <label for="rc-zip">ZIP code or town *</label>
             <input type="text" id="rc-zip" value="${contact.zip}" placeholder="e.g. 04240 or Lewiston" required>
           </div>
+          <div class="rc-input-group">
+            <label>Interested in financing?</label>
+            <div class="rc-checks" style="margin-bottom:0;">
+              ${['Yes, tell me more', 'No', 'Already started', 'Not sure'].map(function (o) { return `<div class="rc-check ${financing===o?'selected':''}" data-fin="${o}">${o}</div>`; }).join('')}
+            </div>
+          </div>
           <input type="text" name="_honey" style="display:none;" tabindex="-1" autocomplete="off" />
           <div class="rc-nav">
             <button class="rc-btn rc-btn-back" data-action="back">&larr; Back</button>
@@ -453,6 +460,7 @@
         email: contact.email,
         phone: contact.phone || '',
         zip: contact.zip,
+        ...(financing ? { financing_interest: financing } : {}),
         income_tier: r.t.label,
         rebate_basis: r.rb.program === 'new' ? 'Per area (Oct 1, 2026 rules)' : Math.round(r.t.pct * 100) + '% of project cost',
         rebate_detail: r.rb.breakdown.map(function (b) { return b.label + ': $' + b.amount.toLocaleString(); }).join(' | '),
@@ -568,6 +576,15 @@
       root.querySelectorAll('.rc-check[data-ins]').forEach(el => {
         el.addEventListener('click', () => { zoneInsul[el.dataset.zone] = el.dataset.ins; render(); });
       });
+      root.querySelectorAll('.rc-check[data-fin]').forEach(el => {
+        el.addEventListener('click', () => {
+          /* capture what is typed so the re-render does not wipe it */
+          const n = root.querySelector('#rc-name'), e = root.querySelector('#rc-email'), ph = root.querySelector('#rc-phone'), z = root.querySelector('#rc-zip');
+          if (n) contact.first_name = n.value; if (e) contact.email = e.value; if (ph) contact.phone = ph.value; if (z) contact.zip = z.value;
+          financing = (financing === el.dataset.fin) ? '' : el.dataset.fin;
+          render();
+        });
+      });
       root.querySelectorAll('.rc-check[data-mobile]').forEach(el => {
         el.addEventListener('click', () => { isMobileHome = !isMobileHome; render(); });
       });
@@ -636,7 +653,7 @@
           }
           if (action === 'next' && !btn.disabled) { step++; render(); }
           if (action === 'back') { step--; render(); }
-          if (action === 'restart') { step = 0; tier = null; selectedProjects = []; homeSize = null; zoneBands = {}; zoneInsul = {}; sprayZone = 'basement'; isMobileHome = false; contact = { first_name: '', email: '', phone: '', zip: '' }; submitted = false; sendStatus = 'pending'; render(); }
+          if (action === 'restart') { step = 0; tier = null; selectedProjects = []; homeSize = null; zoneBands = {}; zoneInsul = {}; sprayZone = 'basement'; isMobileHome = false; contact = { first_name: '', email: '', phone: '', zip: '' }; financing = ''; submitted = false; sendStatus = 'pending'; render(); }
         });
       });
     }
