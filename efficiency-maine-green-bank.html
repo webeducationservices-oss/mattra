@@ -11,7 +11,7 @@
 
   <!-- ===== SEO ===== -->
   <title>Efficiency Maine Green Bank Explained | Mattra</title>
-  <meta name="description" content="What the Efficiency Maine Green Bank is, which financing programs it includes, and which are for Maine homeowners. A plain-language guide." />
+  <meta name="description" content="What the Efficiency Maine Green Bank is, which loans are for Maine homeowners, and what your monthly payment could be. Try the planner." />
   <link rel="canonical" href="https://www.mattrainc.com/efficiency-maine-green-bank/" />
 
   <!-- Open Graph -->
@@ -90,6 +90,8 @@
 
   <link rel="stylesheet" href="/globals.css">
   <script src="/components.js" defer></script>
+  <script src="/rebate-rules.js"></script>
+  <script src="/green-bank-planner.js" defer></script>
   <script src="/diagnostic-form.js" defer></script>
   <script src="/mae-edit-loader.js" async></script>
 
@@ -149,6 +151,23 @@
     .faq-list details { border-bottom:1px solid var(--border-light); padding:14px 0; }
     .faq-list summary { cursor:pointer; font-weight:700; color:var(--text-dark); }
     .faq-list details p { margin:10px 0 0; color:var(--text-body); }
+
+    .gb-ex { display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:26px 0 10px; }
+    .gb-ex-card { background:#fff; border:1px solid var(--border-light); border-top:5px solid var(--green-primary); border-radius:var(--radius-lg); padding:24px; box-shadow:var(--shadow-md); }
+    .gb-ex-card.low { border-top-color:var(--gold-accent); }
+    .gb-ex-tag { font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; font-weight:800; color:var(--text-light); }
+    .gb-ex-card h3 { margin:6px 0 14px; font-size:1.2rem; }
+    .gb-ex-bar { display:flex; height:34px; border-radius:9px; overflow:hidden; font-size:.78rem; font-weight:700; color:#fff; }
+    .gb-ex-bar span { display:flex; align-items:center; justify-content:center; white-space:nowrap; overflow:hidden; }
+    .gb-ex-bar .r { background:var(--green-primary); } .gb-ex-bar .l { background:#c99a14; }
+    .gb-ex-list { list-style:none; padding:0; margin:14px 0 0; }
+    .gb-ex-list li { display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px solid var(--border-light); font-size:.92rem; }
+    .gb-ex-pay { margin-top:18px; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+    .gb-ex-pay .n { font-family:'DM Serif Display',serif; font-size:3rem; line-height:1; color:var(--green-primary); }
+    .gb-ex-pay .u { font-weight:700; color:var(--text-dark); }
+    .gb-ex-sub { font-size:.86rem; color:var(--text-body); margin:8px 0 0; }
+    .gb-ex-fine { font-size:.82rem; color:var(--text-light); }
+    @media (max-width: 768px) { .gb-ex { grid-template-columns:1fr; } }
     @media (max-width: 768px) {
       .gb-grid { grid-template-columns:1fr; }
       .compare, .zone-grid { grid-template-columns:1fr; }
@@ -187,8 +206,66 @@
         <div class="tag">Mobile home owners</div>
         <h3>Mobile Home Initiative Loans</h3>
         <p>Loans for people taking part in the Mobile Home Initiative, which helps owners of mobile homes switch to whole-home heat pump systems. If your home does not qualify for the heat pump because of heat loss or underbelly damage, insulation rebates of up to $5,600 may come first.</p>
-        <a class="more" href="https://www.efficiencymaine.com/green-bank/" target="_blank" rel="noopener">Learn more at Efficiency Maine</a>
+        <a class="more" href="https://www.efficiencymaine.com/mobile-home-initiative-loans/" target="_blank" rel="noopener">Learn more at Efficiency Maine</a>
       </div>
+    </div>
+
+
+    <h2 id="payment-examples">What your monthly payment could look like</h2>
+    <p>The rebate lowers the cost of the job. A Green Bank loan can cover what is left, so you can finish a project with little or nothing out of pocket. Here are two examples with real numbers, followed by a planner where you can plug in your own.</p>
+
+    <div class="gb-ex">
+      <div class="gb-ex-card">
+        <div class="gb-ex-tag">Any income</div>
+        <h3>A $5,000 attic job</h3>
+        <div class="gb-ex-bar"><span class="r" style="width:40%">$2,000 rebate</span><span class="l" style="width:60%">$3,000 loan</span></div>
+        <ul class="gb-ex-list">
+          <li><span>Project cost</span><strong>$5,000</strong></li>
+          <li><span>Efficiency Maine rebate (500+ sq ft attic)</span><strong>&minus;$2,000</strong></li>
+          <li><span>You finance, unsecured</span><strong>$3,000</strong></li>
+          <li><span>Out of pocket once the rebate is applied</span><strong>$0</strong></li>
+        </ul>
+        <div class="gb-ex-pay"><span class="n">$58</span><span class="u">a month for 5 years</span></div>
+        <p class="gb-ex-sub">60 payments at 5.99% APR. Interest comes to about $486.</p>
+      </div>
+      <div class="gb-ex-card low">
+        <div class="gb-ex-tag">Low income (verified)</div>
+        <h3>The same $5,000 job</h3>
+        <div class="gb-ex-bar"><span class="r" style="width:80%">$4,000 rebate</span><span class="l" style="width:20%">$1,000</span></div>
+        <ul class="gb-ex-list">
+          <li><span>Project cost</span><strong>$5,000</strong></li>
+          <li><span>Efficiency Maine rebate (500+ sq ft attic)</span><strong>&minus;$4,000</strong></li>
+          <li><span>You finance, income-based loan</span><strong>$1,000</strong></li>
+          <li><span>Out of pocket once the rebate is applied</span><strong>$0</strong></li>
+        </ul>
+        <div class="gb-ex-pay"><span class="n">$11</span><span class="u">a month for 10 years</span></div>
+        <p class="gb-ex-sub">120 payments at 5.99% APR. Interest comes to about $337. At moderate income the rebate is $3,000, which leaves $2,000 to finance, about $22 a month.</p>
+      </div>
+    </div>
+    <p class="gb-ex-fine">Examples assume a single attic of 500 square feet or more with existing insulation within the program limit, and a loan equal to the cost left after the estimated rebate. Your rebate and your payment depend on your home, your income tier, and Efficiency Maine&rsquo;s approval. See the important information below.</p>
+
+    <div id="gb-planner"></div>
+
+    <div class="gbp-fine" id="gb-disclosures">
+      <h4>Important information</h4>
+      <ol>
+        <li><strong>Mattra is not the lender.</strong> Home Energy Loans are made and serviced by the Efficiency Maine Green Bank, a program of the Efficiency Maine Trust. Mattra Inc. does not make, fund, or approve these loans and cannot promise that any loan will be approved.</li>
+        <li><strong>These are estimates, not offers.</strong> The examples and the planner are illustrations. They are not a quote, a loan offer, a credit decision, or a commitment to lend. Your actual payment, rate, and terms are set by Efficiency Maine when you apply, and can differ from what is shown.</li>
+        <li><strong>How payments are estimated.</strong> Loans use fixed-rate simple interest calculated on an Actual/360 basis, with level monthly payments of principal and interest. We estimate each payment on that basis and round to the nearest dollar. Total interest and total repaid are approximate and can vary with your payment dates.</li>
+        <li><strong>Rates and terms can change.</strong> The rates and limits shown are Efficiency Maine&rsquo;s as of October 2026. Programs, rates, and incentives are subject to change or termination without notice. Confirm current terms at <a href="https://www.efficiencymaine.com/home-energy-loans/" target="_blank" rel="noopener">efficiencymaine.com/home-energy-loans</a> or at (866) 376-2463 (say you are calling about loans and financing).</li>
+        <li><strong>Credit approval is required.</strong> Efficiency Maine reviews every application. Standard loans require a maximum debt-to-income ratio of 55% and a minimum average FICO score of 620. The income-based loan allows up to 70% debt-to-income and a minimum average FICO score of 580, with a $7,500 maximum. A record of past delinquency, default, or write-off may result in denial. Each borrower has a maximum total of unsecured borrowing from the Green Bank across all residential programs.</li>
+        <li><strong>The loan is unsecured, and it is still a loan.</strong> There is no lien on your home, but you are personally responsible for repaying it. You will be asked to sign a loan agreement and promissory note. Read them before you sign.</li>
+        <li><strong>Efficiency Maine takes a security interest in your rebate.</strong> If you borrow, Efficiency Maine holds a security interest in any Efficiency Maine rebate or incentive payable to you. It will notify you and your contractor before it uses that interest.</li>
+        <li><strong>Fees.</strong> There is no application fee and no prepayment fee. The 1-year 0% APR loan carries a $500 origination fee, which is not included in the monthly payment shown. A $25 fee applies to each non-sufficient funds payment, and a late payment fee of 5% of the amount due or $10, whichever is less.</li>
+        <li><strong>Rebate estimates are not guaranteed.</strong> The rebate shown follows Efficiency Maine&rsquo;s rules for work completed on or after October 1, 2026, and assumes the work is done by a Residential Registered Vendor, each area meets the minimum size you selected, existing insulation is within the program limits (attic R-21, wall and basement R-5), and the $8,600 lifetime limit ($5,600 for a mobile home) has room left. The rebate cannot exceed the cost of the work. Efficiency Maine decides the final amount after your claim. Low-income rebates are paid to the contractor. For other tiers, ask Mattra how your rebate will be applied.</li>
+        <li><strong>The loan cannot be more than your net project cost.</strong> The maximum loan is the total project cost less your anticipated rebate. Other project costs, such as health and safety work, can make up no more than 25% of the amount financed.</li>
+        <li><strong>Income-based loans need verification first.</strong> Moderate and low income households must request eligibility verification from Efficiency Maine and receive approval within the year before they start the loan application. The home must be your principal residence in Maine.</li>
+        <li><strong>Who can borrow, and for what.</strong> The borrower must own the property or have an ownership interest in it, and both the project property and the borrower&rsquo;s principal residence must be in Maine. The property must be a single-family house, two-unit duplex, mobile home, or condominium unit. Loans pay for qualifying insulation, air sealing, and heat pumps. Windows are not eligible.</li>
+        <li><strong>Not available after the fact.</strong> Financing is only for work that has not been done yet. It cannot be used for a completed project, so the loan has to be approved before the work starts.</li>
+        <li><strong>Your information.</strong> What you enter here goes to Mattra Inc. to respond to your request. It is not sent to Efficiency Maine or the Green Bank. When you continue to Efficiency Maine&rsquo;s website, you leave Mattra&rsquo;s site and Efficiency Maine&rsquo;s terms and privacy policy apply. See Mattra&rsquo;s <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms</a>.</li>
+        <li><strong>Contact and text messages.</strong> By submitting the form you agree that Mattra may contact you by phone or email about your request. Text messages are sent only if you check the optional box, and consent is not a condition of any purchase.</li>
+        <li><strong>General information only.</strong> This page is not financial, tax, or legal advice. Talk with Efficiency Maine or a qualified advisor about your own situation. Example project prices are hypothetical, and Mattra&rsquo;s actual quote depends on your home.</li>
+      </ol>
     </div>
 
     <h2>For businesses, municipalities, and care facilities</h2>
@@ -216,7 +293,7 @@
         <div class="tag">Care facilities</div>
         <h3>Long-Term Care Facility Loans</h3>
         <p>Two targeted offerings for long-term care facilities: one to finance the balance of qualifying electrification project costs, and another to finance energy audits.</p>
-        <a class="more" href="https://www.efficiencymaine.com/green-bank/" target="_blank" rel="noopener">Learn more at Efficiency Maine</a>
+        <a class="more" href="https://www.efficiencymaine.com/long-term-care-facility-loans/" target="_blank" rel="noopener">Learn more at Efficiency Maine</a>
       </div>
     </div>
 
