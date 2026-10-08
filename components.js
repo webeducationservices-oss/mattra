@@ -264,6 +264,16 @@ function getSourceAttribution() {
   if (headerSlot)  headerSlot.outerHTML = HEADER;
   if (footerSlot)  footerSlot.outerHTML = FOOTER;
 
+  /* ── Self-expiring content ────────────────────────────────────
+     Any element carrying data-expires="<ISO date>" removes itself
+     once that moment passes, so time-limited notes never outlive
+     their purpose. A dated reminder issue cleans the markup out of
+     the source afterwards. ──────────────────────────────────── */
+  document.querySelectorAll('[data-expires]').forEach(function (el) {
+    const t = new Date(el.getAttribute('data-expires'));
+    if (!isNaN(t) && new Date() >= t) el.remove();
+  });
+
   /* ── Favicon ─────────────────────────────────────────────── */
   if (!document.querySelector('link[rel="icon"]')) {
     const fav = document.createElement('link');

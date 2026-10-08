@@ -1,0 +1,49 @@
+name: Remove expired time-limited notes
+
+# Elements marked data-expires hide themselves in the browser once their date
+# passes (see components.js). This opens one issue after the earliest expiry so
+# the dead markup gets deleted from the source too.
+#
+# Expiries today:
+#   2027-04-01  "Finished a project before October 1?" note, in the four
+#               byte-identical financing pages. Work finished before Oct 1, 2026
+#               can be claimed for six months, so the old-rules note is useful
+#               until about March 31, 2027.
+
+on:
+  schedule:
+    # 13:00 UTC on April 1 = 9:00am Eastern. Cron has no year field, so the
+    # script below only acts in 2027 and ignores every other April 1.
+    - cron: '0 13 1 4 *'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open the cleanup issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const year = new Date().getUTCFullYear();
+            if (year !== 2027 && context.eventName !== 'workflow_dispatch') {
+              core.info(`Year is ${year}, nothing to do.`);
+              return;
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Delete the expired "Finished a project before October 1?" note',
+              body: [
+                'The note stopped showing to visitors on its own at midnight on April 1, 2027. This is just the source cleanup.',
+                '',
+                '- [ ] In `financing-rebates.html`, find the `<div data-expires="2027-04-01...">` block and delete it.',
+                '- [ ] Copy the file over its three byte-identical mirrors: `rebates.html`, `financing.html`, `income-based-eligibility-verification.html`.',
+                '- [ ] Run `grep -rl "data-expires" --include="*.html" .` to see if any other expired notes remain.',
+                '',
+                'Why this date: Efficiency Maine allows a claim up to six months after the work is finished. Anything completed on September 30, 2026 can be claimed until about March 31, 2027, and those jobs are paid under the old percentage rules.',
+              ].join('\n'),
+            });
