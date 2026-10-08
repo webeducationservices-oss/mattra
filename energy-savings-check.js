@@ -44,7 +44,8 @@
   /* ---------- state ---------- */
   var D = { housing: '', size: '', first: '', last: '', address: '', town: '', zip: '', phone: '', owner: '',
             benefits: '', filing: '', agi: '', area: '', heat: '', fuel: '', email: '', loanId: '', sms: false };
-  var step = 0, sending = false, partialSent = false;
+  var step = 0, sending = false, partialSent = false, rendered = false;
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
   var HOUSING = { single: 'Single-family home', mobile: 'Mobile or manufactured home', multi: 'Multi-unit building (2 to 4 units)' };
   var SIZES = [
@@ -89,7 +90,7 @@
   '#sc-app{--g:var(--green-primary,#316b43);--gd:var(--green-dark,#1e3a28);--au:var(--gold-accent,#e7bb3a);font-family:inherit;color:var(--text-body,#4a4a4a)}' +
   '.sc-card{background:#fff;border-radius:18px;box-shadow:0 14px 44px rgba(0,0,0,.14);padding:28px 26px 30px}' +
   '.sc-bar{height:7px;background:#e8ecee;border-radius:99px;overflow:hidden;margin-bottom:6px}.sc-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--g),var(--au));transition:width .35s}' +
-  '.sc-count{font-size:.78rem;color:var(--text-light,#6b6b6b);margin-bottom:18px}' +
+  '.sc-count{font-size:.82rem;font-weight:600;color:var(--g);margin-bottom:16px;min-height:1em}' +
   '.sc-card h2{font-size:1.45rem;line-height:1.25;color:var(--text-dark,#2c2c2c);margin:0 0 6px}' +
   '.sc-help{margin:0 0 18px;font-size:.95rem;line-height:1.55;color:var(--text-light,#6b6b6b)}' +
   '.sc-opts{display:grid;gap:10px}.sc-opts.two{grid-template-columns:1fr 1fr}' +
@@ -109,15 +110,15 @@
   '.sc-stat{border-radius:14px;padding:16px;background:#f0f7f2;text-align:center}.sc-stat.gold{background:#fdf7e3}' +
   '.sc-stat .n{font-family:"DM Serif Display","DM Serif Fallback",serif;font-size:1.9rem;line-height:1.1;color:var(--g)}.sc-stat.gold .n{color:#8a6a00}' +
   '.sc-stat .l{font-size:.8rem;margin-top:4px;color:var(--text-body,#4a4a4a)}' +
-  '.sc-net{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:14px;padding:20px;text-align:center;margin:14px 0}' +
-  '.sc-net .n{font-family:"DM Serif Display","DM Serif Fallback",serif;font-size:2.2rem;color:var(--au);line-height:1.1}.sc-net p{margin:6px 0 0;color:rgba(255,255,255,.92);font-size:.95rem;line-height:1.5}' +
+  '.sc-net{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:16px;padding:22px 18px;text-align:center;margin:6px 0 16px;box-shadow:0 10px 26px rgba(30,58,40,.28)}' +
+  '.sc-net .n{font-family:"DM Serif Display","DM Serif Fallback",serif;font-size:2.4rem;color:var(--au);line-height:1.1}.sc-net p{margin:6px 0 0;color:rgba(255,255,255,.92);font-size:.95rem;line-height:1.5}' +
   '.sc-call{background:#fdf7e3;border-left:4px solid var(--au);border-radius:8px;padding:13px 16px;margin:14px 0;font-size:.92rem;color:var(--text-dark,#2c2c2c);line-height:1.55}' +
   '.sc-loans{display:grid;gap:10px;margin:12px 0}' +
-  '@media(max-width:560px){.sc-card{padding:22px 16px 24px}.sc-opts.two,.sc-row,.sc-big{grid-template-columns:1fr}}';
+  '@media(max-width:560px){.sc-card{padding:20px 16px 22px}.sc-card h2{font-size:1.25rem}.sc-net .n{font-size:1.9rem}.sc-opts.two,.sc-row,.sc-big{grid-template-columns:1fr}}';
   document.head.appendChild(css);
 
   /* ---------- helpers ---------- */
-  var STEPS = ['housing', 'size', 'name', 'contact', 'benefits', 'income', 'project', 'heat', 'results'];
+  var STEPS = ['housing', 'size', 'name', 'contact', 'benefits', 'income', 'project', 'heat', 'phone', 'results'];
   function opt(label, key, val, sub, cur) {
     return '<button type="button" class="sc-opt" data-k="' + key + '" data-v="' + esc(val) + '" aria-pressed="' + (cur === val) + '">' + label + (sub ? '<small>' + sub + '</small>' : '') + '</button>';
   }
@@ -125,12 +126,13 @@
     var pct = Math.round((step / (STEPS.length - 1)) * 100);
     ROOT.innerHTML = '<div class="sc-card" role="group" aria-label="Savings check">' +
       '<div class="sc-bar"><i style="width:' + Math.max(pct, 6) + '%"></i></div>' +
-      '<div class="sc-count">Step ' + (step + 1) + ' of ' + STEPS.length + '</div>' + inner +
+      '<div class="sc-count">' + (step === 0 ? 'Takes about 2 minutes. Free, no obligation.' : (step >= STEPS.length - 4 && step < STEPS.length - 1) ? 'Almost done' : '&nbsp;') + '</div>' + inner +
       '<div class="sc-err" id="sc-err" role="alert"></div>' +
       (showBack && step > 0 ? '<div class="sc-nav"><button type="button" class="sc-back" id="sc-back">Back</button></div>' : '') + '</div>';
     var b = document.getElementById('sc-back');
     if (b) b.addEventListener('click', function () { step -= (STEPS[step] === 'project' && D.benefits === 'yes') ? 2 : 1; render(); });
-    window.scrollTo({ top: Math.max(0, ROOT.getBoundingClientRect().top + window.pageYOffset - 70), behavior: 'smooth' });
+    if (rendered) { var top = ROOT.getBoundingClientRect().top; if (top < 0 || top > window.innerHeight * 0.4) window.scrollTo({ top: Math.max(0, top + window.pageYOffset - 16), behavior: 'smooth' }); }
+    rendered = true;
   }
   function err(t) { var e = document.getElementById('sc-err'); e.textContent = t; e.className = 'sc-err on'; }
   function pickOne(key, advance) {
@@ -243,34 +245,43 @@
       });
     },
     contact: function () {
-      frame('<h2>Where is the home, ' + esc(D.first) + '?</h2><p class="sc-help">We use this to confirm your area and to call you about your free estimate. We do not share it or sell it.</p>' +
+      frame('<h2>Where is the home, ' + esc(D.first) + '?</h2><p class="sc-help">Rebates depend on where the home is and who owns it. We never share or sell your information.</p>' +
         '<div class="sc-f"><label for="sc-addr">Home street address *</label><input type="text" id="sc-addr" autocomplete="address-line1" value="' + esc(D.address) + '"></div>' +
         '<div class="sc-row"><div class="sc-f"><label for="sc-town">Town *</label><input type="text" id="sc-town" autocomplete="address-level2" value="' + esc(D.town) + '"></div>' +
         '<div class="sc-f"><label for="sc-zip">ZIP code *</label><input type="text" id="sc-zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" value="' + esc(D.zip) + '"></div></div>' +
-        '<div class="sc-f"><label for="sc-phone">Best phone number *</label><input type="tel" id="sc-phone" inputmode="tel" autocomplete="tel" value="' + esc(D.phone) + '"></div>' +
         '<div class="sc-f"><label>Do you own this home? *</label><div class="sc-opts two">' + opt('I own it', 'owner', 'own', '', D.owner) + opt('I rent it', 'owner', 'rent', '', D.owner) + '</div></div>' +
-        '<label class="sc-fine" style="display:flex;gap:9px;align-items:flex-start"><input type="checkbox" id="sc-sms" style="margin-top:3px"' + (D.sms ? ' checked' : '') + '><span>I agree to receive text messages from Mattra Inc. about my request, appointment updates, and offers. Msg frequency varies. Msg &amp; data rates may apply. Reply STOP to cancel, HELP for help. Optional, and not a condition of any purchase. <a href="/privacy/" target="_blank" rel="noopener">Privacy</a> &amp; <a href="/terms/" target="_blank" rel="noopener">Terms</a>.</span></label>' +
-        '<p class="sc-fine">By continuing you agree that Mattra Inc. may contact you by phone or email about your request.</p>' +
         '<div class="sc-nav"><button class="sc-btn" id="sc-next" type="button">Continue</button></div>', true);
       pickOne('owner', false);
-      document.getElementById('sc-next').addEventListener('click', async function () {
+      document.getElementById('sc-next').addEventListener('click', function () {
         var a = document.getElementById('sc-addr').value.trim(), t = document.getElementById('sc-town').value.trim(),
-            z = document.getElementById('sc-zip').value.trim(), p = document.getElementById('sc-phone').value.trim();
+            z = document.getElementById('sc-zip').value.trim();
         if (!a) return err('Please add the street address of the home.');
         if (!t) return err('Please add the town.');
         if (!/^\d{5}$/.test(z)) return err('Please enter a 5-digit ZIP code.');
-        if (p.replace(/\D/g, '').length < 10) return err('Please add a phone number with area code so we can reach you.');
         if (!D.owner) return err('Please tell us whether you own or rent the home.');
-        D.address = a; D.town = t; D.zip = z; D.phone = p; D.sms = document.getElementById('sc-sms').checked;
-        var btn = this; btn.disabled = true; btn.textContent = 'Saving...';
-        /* Save the lead now. If it fails we still let them continue; the final
-           step saves everything again and shows the call-us message if that fails too. */
-        partialSent = await post('savings-check-partial', null, 'savings_check_partial');
-        track('lead_partial', { form_type: 'savings-check-partial', accepted: partialSent });
-        btn.disabled = false; btn.textContent = 'Continue';
+        D.address = a; D.town = t; D.zip = z;
         if (D.owner === 'rent') { step = -1; return render(); }
-        var outOfState = !/^0(39|4[0-9])/.test(z);
-        if (outOfState) { step = -2; return render(); }
+        if (!/^0(39|4[0-9])/.test(z)) { step = -2; return render(); }
+        step += 1; render();
+      });
+    },
+    phone: function () {
+      frame('<h2>Your results are ready, ' + esc(D.first) + '.</h2>' +
+        '<p class="sc-help"><strong style="color:var(--text-dark,#2c2c2c)">Where should we call to book your free on-site estimate?</strong> That visit turns these example numbers into your real rebate and price. On the same call we can help you with the Green Bank application.</p>' +
+        '<div class="sc-f"><label for="sc-phone">Best phone number *</label><input type="tel" id="sc-phone" inputmode="tel" autocomplete="tel" value="' + esc(D.phone) + '"></div>' +
+        '<label class="sc-fine" style="display:flex;gap:9px;align-items:flex-start"><input type="checkbox" id="sc-sms" style="margin-top:3px"' + (D.sms ? ' checked' : '') + '><span>Text me too. I agree to receive text messages from Mattra Inc. about my request, appointment updates, and offers. Msg frequency varies. Msg &amp; data rates may apply. Reply STOP to cancel, HELP for help. Optional, and not a condition of any purchase. <a href="/privacy/" target="_blank" rel="noopener">Privacy</a> &amp; <a href="/terms/" target="_blank" rel="noopener">Terms</a>.</span></label>' +
+        '<p class="sc-fine"><strong>A local Mattra team member calls from ' + PHONE + '.</strong> No call center, and we never share or sell your number. By continuing you agree that Mattra Inc. may contact you by phone or email about your request.</p>' +
+        '<div class="sc-nav"><button class="sc-btn go" id="sc-next" type="button">Show my results</button></div>', true);
+      document.getElementById('sc-next').addEventListener('click', async function () {
+        var p = document.getElementById('sc-phone').value.trim();
+        if (p.replace(/\D/g, '').length < 10) return err('Please add a phone number with area code, so we can schedule your free estimate.');
+        D.phone = p; D.sms = document.getElementById('sc-sms').checked;
+        var btn = this; btn.disabled = true; btn.textContent = 'One moment...';
+        /* Save the lead now, before results. If it fails we still show results;
+           the email step saves everything again and shows the call-us message if that fails too. */
+        partialSent = await post('savings-check-partial', figures(), 'savings_check_partial');
+        track('lead_partial', { form_type: 'savings-check-partial', accepted: partialSent });
+        btn.disabled = false; btn.textContent = 'Show my results';
         step += 1; render();
       });
     },
@@ -307,7 +318,7 @@
       frame('<h2>What do you spend on heat each month?</h2><p class="sc-help">Think of a yearly average, not just the winter peak. This lets us show your savings next to your payment.</p>' +
         '<div class="sc-opts two">' + HEATS.map(function (h) { return opt(h.t, 'heat', String(h.v), '', String(D.heat)); }).join('') + '</div>' +
         '<div class="sc-f"><label>Main heat source</label><div class="sc-opts two">' + FUELS.map(function (f) { return opt(f, 'fuel', f, '', D.fuel); }).join('') + '</div></div>' +
-        '<div class="sc-nav"><button class="sc-btn" id="sc-next" type="button">Show my results</button></div>', true);
+        '<div class="sc-nav"><button class="sc-btn" id="sc-next" type="button">Continue</button></div>', true);
       pickOne('heat', false); pickOne('fuel', false);
       document.getElementById('sc-next').addEventListener('click', function () {
         if (!D.heat || !D.fuel) return err('Please pick a monthly amount and your main heat source.');
@@ -323,18 +334,19 @@
       var loanCards = f.loans.map(function (x) {
         return '<button type="button" class="sc-opt" data-k="loanId" data-v="' + x.l.id + '" aria-pressed="' + (x.l.id === pick.l.id) + '">' + esc(x.l.name) + '<small>About ' + money(x.pay) + ' a month' + (x === f.loans[0] ? ' (lowest payment)' : '') + '</small></button>';
       }).join('');
+      var headline = thin
+        ? '<div class="sc-net"><p style="margin:0 0 4px">Estimated heating savings</p><div class="n">' + money(f.saveLow) + ' to ' + money(f.saveHigh) + ' a month*</div><p>Against a loan payment of about ' + money(pick.pay) + ' a month. A longer term lowers the payment, and we will go over the best fit with you.</p></div>'
+        : '<div class="sc-net"><p style="margin:0 0 4px">After your loan payment, you could come out</p><div class="n">' + money(netLow) + ' to ' + money(netHigh) + ' a month ahead*</div><p>Estimated heating savings of ' + money(f.saveLow) + ' to ' + money(f.saveHigh) + ' a month, minus a payment of about ' + money(pick.pay) + '.</p></div>';
       frame('<h2>' + esc(D.first) + ', here is your estimate</h2><p class="sc-help">Based on a $5,000 ' + (D.area === 'basement' ? (D.housing === 'mobile' ? 'underbelly' : 'basement') : 'attic') + ' project. Estimates only.</p>' +
+        headline +
         '<div class="sc-big"><div class="sc-stat"><div class="n">' + money(f.rebate) + '</div><div class="l">Estimated Efficiency Maine rebate' + (inc ? ' (' + TIER_NAME[f.tier].toLowerCase() + ', needs verification)' : '') + '</div></div>' +
-        '<div class="sc-stat gold"><div class="n">' + money(pick.pay) + '</div><div class="l">Estimated monthly loan payment on ' + money(f.loan) + '</div></div></div>' +
+        '<div class="sc-stat gold"><div class="n">' + money(f.loan) + '</div><div class="l">Left to finance, about ' + money(pick.pay) + ' a month</div></div></div>' +
+        '<p class="sc-help" style="margin:4px 0 6px;font-weight:700;color:var(--text-dark,#2c2c2c)">Pick a loan to compare</p>' +
         '<div class="sc-loans">' + loanCards + '</div>' +
-        '<div class="sc-big"><div class="sc-stat"><div class="n">' + money(f.saveLow) + ' to ' + money(f.saveHigh) + '</div><div class="l">Estimated heating savings per month*</div></div>' +
-        '<div class="sc-stat gold"><div class="n">' + money(pick.pay) + '</div><div class="l">Loan payment per month</div></div></div>' +
-        '<div class="sc-net"><div class="n">' + (thin ? 'About ' + money(Math.abs(netLow)) + ' a month difference at the low end' : 'About ' + money(netLow) + ' to ' + money(netHigh) + ' a month ahead*') + '</div>' +
-        '<p>' + (thin ? 'At the low end your savings come close to the payment. A longer term brings the payment down, and we will go over the best fit with you.' : 'That is your estimated savings minus your loan payment. In this example the rebate and the loan add up to the full project cost. We confirm exactly how the rebate is applied at your estimate.') + '</p></div>' +
         '<div class="sc-call"><strong>Next step: a free on-site estimate.</strong> These numbers use a $5,000 example. We will call you to schedule your estimate and give you a real price before you commit to anything.</div>' +
         '<div class="sc-f"><label for="sc-email">Where should we send these results and your application link? *</label><input type="email" id="sc-email" autocomplete="email" value="' + esc(D.email) + '"></div>' +
-        '<div class="sc-nav"><button class="sc-btn go" id="sc-send" type="button">Email me my results and start my application</button></div>' +
-        '<p class="sc-fine">*Savings assume a 20% to 30% reduction in heating cost and are estimates, not guarantees. ENERGY STAR reports a 15% average. Mattra is not the lender. See the important information below this page.</p>', true);
+        '<div class="sc-nav"><button class="sc-btn go" id="sc-send" type="button">Email my results and start my application</button></div>' +
+        '<p class="sc-fine">*Savings assume a 20% to 30% reduction in heating cost and are estimates, not guarantees. ENERGY STAR reports a 15% average. Mattra is not the lender. See the important information at the bottom of this page.</p>', true);
       pickOne('loanId', false);
       ROOT.querySelectorAll('.sc-opt[data-k="loanId"]').forEach(function (b) { b.addEventListener('click', function () { var m = document.getElementById('sc-email'); D.email = m ? m.value : D.email; render(); }); });
       document.getElementById('sc-send').addEventListener('click', async function () {
@@ -345,7 +357,7 @@
         var btn = this; btn.disabled = true; btn.textContent = 'Sending...';
         var ok = await post('savings-check-complete', figures(), 'savings_check_complete');
         sending = false;
-        if (!ok) { btn.disabled = false; btn.textContent = 'Email me my results and start my application'; return err('That did not go through. Please call us at ' + PHONE + ' and we will take the details by phone.'); }
+        if (!ok) { btn.disabled = false; btn.textContent = 'Email my results and start my application'; return err('That did not go through. Please call us at ' + PHONE + ' and we will take the details by phone.'); }
         track('form_submission', { form_type: 'savings-check-complete' });
         step = 99; render();
       });
@@ -366,11 +378,24 @@
     },
     renter: function () {
       ROOT.innerHTML = '<div class="sc-card" role="status"><h2>Thanks, ' + esc(D.first) + '.</h2>' +
-        '<p class="sc-help">Efficiency Maine&rsquo;s insulation rebates and Green Bank loans are for homeowners, so we cannot run an estimate for a rental. If you are the owner of the building or this changes, call us at <a href="tel:+12077776020">' + PHONE + '</a>. We have saved your details so a team member can follow up if there is another way to help.</p></div>';
+        '<p class="sc-help">Efficiency Maine&rsquo;s insulation rebates and Green Bank loans are for homeowners, so we cannot run an estimate for a rental. If your landlord might be interested, or you buy a home later, leave your number and we will reach out to help.</p>' +
+        '<div class="sc-f"><label for="sc-rphone">Phone number</label><input type="tel" id="sc-rphone" inputmode="tel" autocomplete="tel"></div>' +
+        '<div class="sc-err" id="sc-err" role="alert"></div>' +
+        '<div class="sc-nav"><button class="sc-btn" id="sc-rsave" type="button">Keep me posted</button></div>' +
+        '<p class="sc-fine">Or call us at <a href="tel:+12077776020">' + PHONE + '</a>.</p></div>';
+      document.getElementById('sc-rsave').addEventListener('click', async function () {
+        var p = document.getElementById('sc-rphone').value.trim();
+        if (p.replace(/\D/g, '').length < 10) return err('Please add a phone number with area code.');
+        D.phone = p; this.disabled = true; this.textContent = 'Saving...';
+        var ok = await post('savings-check-partial', null, 'savings_check_partial');
+        track('lead_partial', { form_type: 'savings-check-partial', accepted: ok, renter: true });
+        if (!ok) { this.disabled = false; this.textContent = 'Keep me posted'; return err('That did not go through. Please call us at ' + PHONE + '.'); }
+        this.closest('.sc-nav').outerHTML = '<p class="sc-help"><strong>Saved.</strong> Thank you, we will be in touch.</p>';
+      });
     },
     outside: function () {
       ROOT.innerHTML = '<div class="sc-card" role="status"><h2>Thanks, ' + esc(D.first) + '.</h2>' +
-        '<p class="sc-help">These rebates and loans are for homes in Maine, and that ZIP code looks like it is outside our area. If it is a Maine home, call us at <a href="tel:+12077776020">' + PHONE + '</a> and we will sort it out. We have saved your details.</p></div>';
+        '<p class="sc-help">These rebates and loans are for homes in Maine, and that ZIP code looks like it is outside our area. If it is a Maine home, call us at <a href="tel:+12077776020">' + PHONE + '</a> and we will sort it out.</p></div>';
     }
   };
 
