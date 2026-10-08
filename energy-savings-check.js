@@ -2,11 +2,12 @@
    Maine Insulation Savings Check (stand-alone ad landing page)
    Mounts into <div id="sc-app"> on /energy-savings-check/.
 
-   Flow: housing -> size -> name -> address + phone + owner -> benefits
-         -> income -> project -> heating cost -> results -> email.
-   The lead is saved the moment the address/phone step is continued
-   (form_type savings-check-partial), so abandoned visitors still reach
-   the team. The email step saves the full record (savings-check-complete).
+   Flow: housing -> size + stories -> name -> address + ownership
+         -> benefits -> income -> project -> heating cost -> phone -> results -> email.
+   The lead is saved at the phone step (form_type savings-check-partial),
+   just before results, so it already carries the estimate. The email step
+   saves the full record (savings-check-complete). Rental or seasonal owners
+   skip the income steps (any income only); renters can leave a number.
 
    Money rules match green-bank-planner.js: rebate from rebate-rules.js,
    Actual/360 simple-interest payments, the same four Green Bank loans.
