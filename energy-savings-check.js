@@ -50,11 +50,15 @@
 
   var HOUSING = { single: 'Single-family home', mobile: 'Mobile or manufactured home', duplex: 'Duplex (2 units)' };
   var SIZES = [
-    { v: 'u800',  t: 'Under 800 sq ft' }, { v: '800',  t: '800 to 1,499 sq ft' },
-    { v: '1500',  t: '1,500 to 2,499 sq ft' }, { v: '2500', t: '2,500 sq ft or more' }
+    { v: 'u500',  t: 'Under 500 sq ft' }, { v: '500',  t: '500 to 799 sq ft' },
+    { v: '800',   t: '800 to 1,499 sq ft' }, { v: '1500', t: '1,500 to 2,499 sq ft' },
+    { v: '2500',  t: '2,500 sq ft or more' }
   ];
-  /* Midpoint of each size choice, used to estimate the footprint. */
-  var SIZE_MID = { u800: 650, '800': 1150, '1500': 2000, '2500': 3000 };
+  /* Midpoint of each size choice, used to estimate the footprint. The first
+     two straddle 500 sq ft on purpose: that is where Efficiency Maine splits
+     the small (250-499) and large (500+) zone rebates, so a small home has to
+     be able to land below it. */
+  var SIZE_MID = { u500: 400, '500': 650, '800': 1150, '1500': 2000, '2500': 3000 };
   var STORIES = [
     { v: 'one',  t: 'One story', sub: 'Ranch or single level' },
     { v: 'cape', t: 'One and a half', sub: 'Cape with rooms upstairs' },
@@ -292,9 +296,8 @@
         '<div class="sc-f"><label for="sc-zip">ZIP code *</label><input type="text" id="sc-zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" value="' + esc(D.zip) + '"></div></div>' +
         '<div class="sc-f"><label>Do you own this home? *</label><div class="sc-opts">' +
           opt('I own it and live here year-round', 'owner', 'own', 'My primary residence', D.owner) +
-          opt('I own it, but it is a rental or seasonal home', 'owner', 'ownother', 'Qualifies at the any-income level only', D.owner) +
-          opt('I rent it', 'owner', 'rent', '', D.owner) + '</div>' +
-        '<p class="sc-fine" style="margin-top:8px">Higher low- and moderate-income rebates and the income-based loan are for the owner&rsquo;s primary residence only.</p></div>' +
+          opt('I own it, but it is a rental or seasonal home', 'owner', 'ownother', 'Qualifies at the any-income level only', D.owner) + '</div>' +
+        '<p class="sc-fine" style="margin-top:8px">These rebates are paid to the property owner, so renters do not qualify. If you rent, ask your landlord to run this check. Higher low- and moderate-income rebates and the income-based loan are for the owner&rsquo;s primary residence only.</p></div>' +
         '<div class="sc-nav"><button class="sc-btn" id="sc-next" type="button">Continue</button></div>', true);
       pickOne('owner', false);
       document.getElementById('sc-next').addEventListener('click', function () {
@@ -303,9 +306,8 @@
         if (!a) return err('Please add the street address of the home.');
         if (!t) return err('Please add the town.');
         if (!/^\d{5}$/.test(z)) return err('Please enter a 5-digit ZIP code.');
-        if (!D.owner) return err('Please tell us whether you own or rent the home.');
+        if (!D.owner) return err('Please choose how you own this home.');
         D.address = a; D.town = t; D.zip = z;
-        if (D.owner === 'rent') { step = -1; return render(); }
         if (!/^0(39|4[0-9])/.test(z)) { step = -2; return render(); }
         next();
       });
