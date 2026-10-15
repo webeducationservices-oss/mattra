@@ -48,7 +48,7 @@
   var step = 0, sending = false, partialSent = false, rendered = false;
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-  var HOUSING = { single: 'Single-family home', mobile: 'Mobile or manufactured home', duplex: 'Duplex (2 units)' };
+  var HOUSING = { single: 'Single-family home', duplex: 'Duplex (2 units)', multi: 'Multifamily (3 or more units)', mobile: 'Mobile or manufactured home' };
   var SIZES = [
     { v: 'u500',  t: 'Under 500 sq ft' }, { v: '500',  t: '500 to 799 sq ft' },
     { v: '800',   t: '800 to 1,499 sq ft' }, { v: '1500', t: '1,500 to 2,499 sq ft' },
@@ -147,13 +147,16 @@
   /* Steps a visitor does not need: no income questions for a rental or
      seasonal home, and no tax question once a benefit answer settles it. */
   function skipped(name) {
+    /* Three or more units goes through Efficiency Maine's multifamily program,
+       so none of the residential sizing or income questions apply. */
+    if (D.housing === 'multi') return ['size', 'benefits', 'income', 'project', 'heat'].indexOf(name) > -1;
     if ((name === 'benefits' || name === 'income') && D.owner === 'ownother') return true;
     if (name === 'income' && D.benefits === 'yes') return true;
     return false;
   }
   function next() { do { step += 1; } while (step < STEPS.length - 1 && skipped(STEPS[step])); render(); }
   function back() { do { step -= 1; } while (step > 0 && skipped(STEPS[step])); render(); }
-  var STEPS = ['housing', 'size', 'name', 'contact', 'benefits', 'income', 'project', 'heat', 'phone', 'results'];
+  var STEPS = ['housing', 'size', 'name', 'contact', 'benefits', 'income', 'project', 'heat', 'results'];
   function opt(label, key, val, sub, cur) {
     return '<button type="button" class="sc-opt" data-k="' + key + '" data-v="' + esc(val) + '" aria-pressed="' + (cur === val) + '">' + label + (sub ? '<small>' + sub + '</small>' : '') + '</button>';
   }
@@ -222,7 +225,7 @@
       housing_type: HOUSING[D.housing] || '', home_size: ((SIZES.filter(function (s) { return s.v === D.size; })[0] || {}).t || '') + (D.stories ? ', ' + (STORIES.filter(function (s) { return s.v === D.stories; })[0] || {}).t : ''),
       financing_interest: 'Yes, tell me more', _honey: '', _ts: LOAD_TS
     };
-    if (D.owner === 'own' || D.owner === 'ownother') {
+    if (D.housing !== 'multi' && (D.owner === 'own' || D.owner === 'ownother')) {
       if (D.owner === 'own') p.receives_benefits = D.benefits === 'yes' ? 'Yes (SNAP, HEAP, TANF or MaineCare)' : 'No';
       if (D.filing) p.filing_status = D.filing === 'joint' ? 'Married filing jointly' : 'Single or other';
       if (D.agi) p.agi_range = { under: 'Under the Efficiency Maine limit', over: 'Over the limit', unsure: 'Not sure' }[D.agi];
@@ -260,8 +263,10 @@
   var VIEWS = {
     housing: function () {
       frame('<h2>What kind of home do you have?</h2><p class="sc-help">Maine has different opportunities for different homes, so we start here.</p><div class="sc-opts">' +
-        opt('Single-family home', 'housing', 'single', '', D.housing) + opt('Mobile or manufactured home', 'housing', 'mobile', '', D.housing) +
-        opt('Duplex', 'housing', 'duplex', 'Two units', D.housing) + '</div>');
+        opt('Single-family home', 'housing', 'single', '', D.housing) +
+        opt('Duplex', 'housing', 'duplex', 'Two units', D.housing) +
+        opt('Three units or more', 'housing', 'multi', 'A different Efficiency Maine program', D.housing) +
+        opt('Mobile or manufactured home', 'housing', 'mobile', '', D.housing) + '</div>');
       pickOne('housing');
     },
     size: function () {
@@ -298,37 +303,33 @@
           opt('I own it and live here year-round', 'owner', 'own', 'My primary residence', D.owner) +
           opt('I own it, but it is a rental or seasonal home', 'owner', 'ownother', 'Qualifies at the any-income level only', D.owner) + '</div>' +
         '<p class="sc-fine" style="margin-top:8px">These rebates are paid to the property owner, so renters do not qualify. If you rent, ask your landlord to run this check. Higher low- and moderate-income rebates and the income-based loan are for the owner&rsquo;s primary residence only.</p></div>' +
+        '<div class="sc-row"><div class="sc-f"><label for="sc-phone">Best phone number *</label><input type="tel" id="sc-phone" inputmode="tel" autocomplete="tel" value="' + esc(D.phone) + '"></div>' +
+        '<div class="sc-f"><label for="sc-email">Email *</label><input type="email" id="sc-email" autocomplete="email" value="' + esc(D.email) + '"></div></div>' +
+        '<p class="sc-fine" style="margin-top:6px">So we can send your results' + (D.housing === 'multi' ? ' and have a representative reach out about the building' : ' and book your free on-site estimate') + '.</p>' +
+        '<label class="sc-fine" style="display:flex;gap:9px;align-items:flex-start"><input type="checkbox" id="sc-sms" style="margin-top:3px"' + (D.sms ? ' checked' : '') + '><span>Text me too. I agree to receive text messages from Mattra Inc. about my request, appointment updates, and offers. Msg frequency varies. Msg &amp; data rates may apply. Reply STOP to cancel, HELP for help. Optional, and not a condition of any purchase. <a href="/privacy/" target="_blank" rel="noopener">Privacy</a> &amp; <a href="/terms/" target="_blank" rel="noopener">Terms</a>.</span></label>' +
+        '<p class="sc-fine"><strong>A local Mattra team member calls from ' + PHONE + '.</strong> No call center, and we never share or sell your number. By continuing you agree that Mattra Inc. may contact you by phone or email about your request.</p>' +
         '<div class="sc-nav"><button class="sc-btn" id="sc-next" type="button">Continue</button></div>', true);
       pickOne('owner', false);
-      document.getElementById('sc-next').addEventListener('click', function () {
+      document.getElementById('sc-next').addEventListener('click', async function () {
         var a = document.getElementById('sc-addr').value.trim(), t = document.getElementById('sc-town').value.trim(),
-            z = document.getElementById('sc-zip').value.trim();
+            z = document.getElementById('sc-zip').value.trim(),
+            p = document.getElementById('sc-phone').value.trim(),
+            m = document.getElementById('sc-email').value.trim();
         if (!a) return err('Please add the street address of the home.');
         if (!t) return err('Please add the town.');
         if (!/^\d{5}$/.test(z)) return err('Please enter a 5-digit ZIP code.');
         if (!D.owner) return err('Please choose how you own this home.');
-        D.address = a; D.town = t; D.zip = z;
+        if (p.replace(/\D/g, '').length < 10) return err('Please add a phone number with area code, so we can send your results.');
+        if (m.indexOf('@') < 1 || m.indexOf('.', m.indexOf('@')) < 0) return err('Please check the email address, we could not read that one.');
+        D.address = a; D.town = t; D.zip = z; D.phone = p; D.email = m;
+        D.sms = document.getElementById('sc-sms').checked;
         if (!/^0(39|4[0-9])/.test(z)) { step = -2; return render(); }
-        next();
-      });
-    },
-    phone: function () {
-      frame('<h2>Your results are ready, ' + esc(D.first) + '.</h2>' +
-        '<p class="sc-help"><strong style="color:var(--text-dark,#2c2c2c)">Where should we call to book your free on-site estimate?</strong> That visit turns these example numbers into your real rebate and price. On the same call we can help you with the Green Bank application.</p>' +
-        '<div class="sc-f"><label for="sc-phone">Best phone number *</label><input type="tel" id="sc-phone" inputmode="tel" autocomplete="tel" value="' + esc(D.phone) + '"></div>' +
-        '<label class="sc-fine" style="display:flex;gap:9px;align-items:flex-start"><input type="checkbox" id="sc-sms" style="margin-top:3px"' + (D.sms ? ' checked' : '') + '><span>Text me too. I agree to receive text messages from Mattra Inc. about my request, appointment updates, and offers. Msg frequency varies. Msg &amp; data rates may apply. Reply STOP to cancel, HELP for help. Optional, and not a condition of any purchase. <a href="/privacy/" target="_blank" rel="noopener">Privacy</a> &amp; <a href="/terms/" target="_blank" rel="noopener">Terms</a>.</span></label>' +
-        '<p class="sc-fine"><strong>A local Mattra team member calls from ' + PHONE + '.</strong> No call center, and we never share or sell your number. By continuing you agree that Mattra Inc. may contact you by phone or email about your request.</p>' +
-        '<div class="sc-nav"><button class="sc-btn go" id="sc-next" type="button">Show my results</button></div>', true);
-      document.getElementById('sc-next').addEventListener('click', async function () {
-        var p = document.getElementById('sc-phone').value.trim();
-        if (p.replace(/\D/g, '').length < 10) return err('Please add a phone number with area code, so we can schedule your free estimate.');
-        D.phone = p; D.sms = document.getElementById('sc-sms').checked;
+        /* Save a reachable lead the moment we have a phone and an email, so
+           someone who abandons the rest of the flow still gets their results. */
         var btn = this; btn.disabled = true; btn.textContent = 'One moment...';
-        /* Save the lead now, before results. If it fails we still show results;
-           the email step saves everything again and shows the call-us message if that fails too. */
-        partialSent = await post('savings-check-partial', figures(), 'savings_check_partial');
-        track('lead_partial', { form_type: 'savings-check-partial', accepted: partialSent });
-        btn.disabled = false; btn.textContent = 'Show my results';
+        partialSent = await post('savings-check-partial', null, 'savings_check_partial');
+        track('lead_partial', { form_type: 'savings-check-partial', accepted: partialSent, stage: 'contact', multifamily: D.housing === 'multi' });
+        btn.disabled = false; btn.textContent = 'Continue';
         next();
       });
     },
@@ -372,6 +373,40 @@
         next();
       });
     },
+    multi: function () {
+      track('lead_results_view', { form_type: 'savings-check-multifamily' });
+      frame('<h2>' + esc(D.first) + ', your building qualifies for a different program</h2>' +
+        '<p class="sc-help">Efficiency Maine puts buildings with three or more units through its multifamily program instead of the residential one. The incentive is larger.</p>' +
+        '<div class="sc-net"><p style="margin:0 0 4px">Multifamily weatherization incentive</p><div class="n">Up to $10,000</div>' +
+        '<p>50% of project cost, capped at $5,000 per attic and $5,000 per basement.</p></div>' +
+        '<div class="sc-call"><strong>Complete your application and a Mattra representative will reach out</strong> to walk you through the multifamily rebate process.</div>' +
+        '<div class="sc-f"><label for="sc-email">Where should we send your application details? *</label><input type="email" id="sc-email" autocomplete="email" value="' + esc(D.email) + '"></div>' +
+        '<div class="sc-nav"><button class="sc-btn go" id="sc-send" type="button">Complete my application</button></div>' +
+        '<p class="sc-fine">Incentive amounts are set by Efficiency Maine and subject to their requirements and approval. <a href="https://www.efficiencymaine.com/at-work/multifamily/" target="_blank" rel="noopener">See the multifamily program</a>. Mattra does not set or approve incentives.</p>', true);
+      document.getElementById('sc-send').addEventListener('click', async function () {
+        if (sending) return;
+        var e = document.getElementById('sc-email').value.trim();
+        if (e.indexOf('@') < 1 || e.indexOf('.', e.indexOf('@')) < 0) return err('Please check the email address, we could not read that one.');
+        D.email = e; sending = true;
+        var btn = this; btn.disabled = true; btn.textContent = 'Sending...';
+        var ok = await post('savings-check-complete', null, 'savings_check_complete');
+        sending = false;
+        if (!ok) { btn.disabled = false; btn.textContent = 'Complete my application'; return err('That did not go through. Please call us at ' + PHONE + ' and we will take the details by phone.'); }
+        track('form_submission', { form_type: 'savings-check-multifamily' });
+        step = 99; render();
+      });
+    },
+    multiDone: function () {
+      ROOT.innerHTML = '<div class="sc-card" role="status"><h2>You are all set, ' + esc(D.first) + '.</h2>' +
+        '<p class="sc-help">You qualify for a different program at Efficiency Maine, the one for buildings with three or more units. Your details are on their way to ' + esc(D.email) + '.</p>' +
+        '<p class="sc-help">Now that your application is complete, a Mattra representative will reach out and walk you through the rebate process.</p>' +
+        '<ol style="padding-left:20px;line-height:1.7;margin:0 0 14px">' +
+        '<li><strong>We will call you from ' + PHONE + '</strong> to go over the building and the scope of work.</li>' +
+        '<li><strong>We handle the multifamily paperwork</strong> with Efficiency Maine.</li>' +
+        '<li><strong>Nothing is approved</strong> until Efficiency Maine approves it.</li></ol>' +
+        '<a class="sc-btn go" href="https://www.efficiencymaine.com/at-work/multifamily/" target="_blank" rel="noopener">Read about the multifamily program</a>' +
+        '<p class="sc-fine">This opens Efficiency Maine&rsquo;s website, which Mattra does not control. Questions? Call ' + PHONE + '.</p></div>';
+    },
     results: function () {
       var f = figures(), pick = f.pick;
       var noLoan = !pick;
@@ -398,7 +433,7 @@
             '<div class="sc-loans">' + loanCards + '</div>') +
         (D.owner === 'ownother' ? '<p class="sc-fine" style="margin-top:0">Because this is a rental or seasonal home, the any-income rebate applies. Higher income-based rebates are for primary residences only.</p>' : '') +
         '<div class="sc-call"><strong>Next step: a free on-site estimate.</strong> These numbers use a $5,000 example. We will call you to schedule your estimate and give you a real price before you commit to anything.</div>' +
-        '<div class="sc-f"><label for="sc-email">Where should we send these results' + (noLoan ? '' : ' and your application link') + '? *</label><input type="email" id="sc-email" autocomplete="email" value="' + esc(D.email) + '"></div>' +
+        '<div class="sc-f"><label for="sc-email">Send my results' + (noLoan ? '' : ' and application link') + ' to *</label><input type="email" id="sc-email" autocomplete="email" value="' + esc(D.email) + '"></div>' +
         '<div class="sc-nav"><button class="sc-btn go" id="sc-send" type="button">' + (noLoan ? 'Email my results' : 'Email my results and start my application') + '</button></div>' +
         '<p class="sc-fine">*Savings assume a 20% to 30% reduction in heating cost and are estimates, not guarantees. ENERGY STAR reports a 15% average. Mattra is not the lender. See the important information at the bottom of this page.</p>', true);
       pickOne('loanId', false);
@@ -457,7 +492,9 @@
   function render() {
     if (step === -1) return VIEWS.renter();
     if (step === -2) return VIEWS.outside();
-    if (step === 99) return VIEWS.done();
+    var multi = D.housing === 'multi';
+    if (step === 99) return multi ? VIEWS.multiDone() : VIEWS.done();
+    if (STEPS[step] === 'results' && multi) return VIEWS.multi();
     VIEWS[STEPS[step]]();
   }
   render();
