@@ -275,7 +275,10 @@
       financing_interest: 'Yes, tell me more', _honey: '', _ts: LOAD_TS
     };
     if (D.housing !== 'multi' && (D.owner === 'own' || D.owner === 'ownother')) {
-      if (D.owner === 'own') p.receives_benefits = D.benefits === 'yes' ? 'Yes (SNAP, HEAP, TANF or MaineCare)' : 'No';
+      /* Only record an answer we actually have. The early save at the address
+         step runs before the SNAP question, and a blank must not be filed as
+         'No' or a low-income household gets quoted the any-income rebate. */
+      if (D.owner === 'own' && D.benefits) p.receives_benefits = D.benefits === 'yes' ? 'Yes (SNAP, HEAP, TANF or MaineCare)' : 'No';
       if (D.filing) p.filing_status = D.filing === 'joint' ? 'Married filing jointly' : 'Single or other';
       if (D.agi) p.agi_range = { under: 'Under the Efficiency Maine limit', over: 'Over the limit', unsure: 'Not sure' }[D.agi];
       if (D.benefits || D.owner === 'ownother') p.estimated_income_tier = TIER_NAME[tier()];
