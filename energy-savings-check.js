@@ -190,6 +190,26 @@
   function next() { do { step += 1; } while (step < STEPS.length - 1 && skipped(STEPS[step])); render(); }
   function back() { do { step -= 1; } while (step > 0 && skipped(STEPS[step])); render(); }
   var STEPS = ['housing', 'size', 'name', 'contact', 'project', 'benefits', 'income', 'heat', 'results'];
+  /* Phone, email and the SMS consent live in one helper because two cards
+     collect them now: the address card for a house, and the final card for a
+     multifamily building. Two copies of consent text drift apart. */
+  function contactFields(note) {
+    return '<div class="sc-row"><div class="sc-f"><label for="sc-phone">Best phone number *</label><input type="tel" id="sc-phone" inputmode="tel" autocomplete="tel" value="' + esc(D.phone) + '"></div>' +
+      '<div class="sc-f"><label for="sc-email">Email *</label><input type="email" id="sc-email" autocomplete="email" value="' + esc(D.email) + '"></div></div>' +
+      (note ? '<p class="sc-fine" style="margin-top:6px">' + note + '</p>' : '') +
+      '<label class="sc-fine" style="display:flex;gap:9px;align-items:flex-start"><input type="checkbox" id="sc-sms" style="margin-top:3px"' + (D.sms ? ' checked' : '') + '><span>Text me too. I agree to receive text messages from Mattra Inc. about my request, appointment updates, and offers. Msg frequency varies. Msg &amp; data rates may apply. Reply STOP to cancel, HELP for help. Optional, and not a condition of any purchase. <a href="/privacy/" target="_blank" rel="noopener">Privacy</a> &amp; <a href="/terms/" target="_blank" rel="noopener">Terms</a>.</span></label>' +
+        '<p class="sc-fine"><strong>A local Mattra team member calls from ' + PHONE + '.</strong> No call center, and we never share or sell your number. By continuing you agree that Mattra Inc. may contact you by phone or email about your request.</p>';
+  }
+  /* Returns an error string, or null and commits the values to D. */
+  function readContactFields() {
+    var p = document.getElementById('sc-phone').value.trim(),
+        m = document.getElementById('sc-email').value.trim();
+    if (p.replace(/\D/g, '').length < 10) return 'Please add a phone number with area code, so we can reach you.';
+    if (m.indexOf('@') < 1 || m.indexOf('.', m.indexOf('@')) < 0) return 'Please check the email address, we could not read that one.';
+    D.phone = p; D.email = m;
+    var c = document.getElementById('sc-sms'); if (c) D.sms = c.checked;
+    return null;
+  }
   function optOn(label, key, val, sub, on) {
     return '<button type="button" class="sc-opt" data-k="' + key + '" data-v="' + esc(val) + '" aria-pressed="' + (!!on) + '">' + label + (sub ? '<small>' + sub + '</small>' : '') + '</button>';
   }
@@ -347,7 +367,8 @@
       });
     },
     contact: function () {
-      frame('<h2>Where is the home, ' + esc(D.first) + '?</h2><p class="sc-help">Rebates depend on where the home is and who owns it. We never share or sell your information.</p>' +
+      var multi = D.housing === 'multi';
+      frame('<h2>Where is the ' + (multi ? 'building' : 'home') + ', ' + esc(D.first) + '?</h2><p class="sc-help">Rebates depend on where the home is and who owns it. We never share or sell your information.</p>' +
         '<div class="sc-f"><label for="sc-addr">Home street address *</label><input type="text" id="sc-addr" autocomplete="address-line1" value="' + esc(D.address) + '"></div>' +
         '<div class="sc-row"><div class="sc-f"><label for="sc-town">Town *</label><input type="text" id="sc-town" autocomplete="address-level2" value="' + esc(D.town) + '"></div>' +
         '<div class="sc-f"><label for="sc-zip">ZIP code *</label><input type="text" id="sc-zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" value="' + esc(D.zip) + '"></div></div>' +
@@ -355,33 +376,19 @@
           opt('I own it and live here year-round', 'owner', 'own', 'My primary residence', D.owner) +
           opt('I own it, but it is a rental or seasonal home', 'owner', 'ownother', 'Qualifies at the any-income level only', D.owner) + '</div>' +
         '<p class="sc-fine" style="margin-top:8px">These rebates are paid to the property owner, so renters do not qualify. If you rent, ask your landlord to run this check. Higher low- and moderate-income rebates and the income-based loan are for the owner&rsquo;s primary residence only.</p></div>' +
-        '<div class="sc-row"><div class="sc-f"><label for="sc-phone">Best phone number *</label><input type="tel" id="sc-phone" inputmode="tel" autocomplete="tel" value="' + esc(D.phone) + '"></div>' +
-        '<div class="sc-f"><label for="sc-email">Email *</label><input type="email" id="sc-email" autocomplete="email" value="' + esc(D.email) + '"></div></div>' +
-        '<p class="sc-fine" style="margin-top:6px">So we can send your results' + (D.housing === 'multi' ? ' and have a representative reach out about the building' : ' and book your free on-site estimate') + '.</p>' +
-        '<label class="sc-fine" style="display:flex;gap:9px;align-items:flex-start"><input type="checkbox" id="sc-sms" style="margin-top:3px"' + (D.sms ? ' checked' : '') + '><span>Text me too. I agree to receive text messages from Mattra Inc. about my request, appointment updates, and offers. Msg frequency varies. Msg &amp; data rates may apply. Reply STOP to cancel, HELP for help. Optional, and not a condition of any purchase. <a href="/privacy/" target="_blank" rel="noopener">Privacy</a> &amp; <a href="/terms/" target="_blank" rel="noopener">Terms</a>.</span></label>' +
-        '<p class="sc-fine"><strong>A local Mattra team member calls from ' + PHONE + '.</strong> No call center, and we never share or sell your number. By continuing you agree that Mattra Inc. may contact you by phone or email about your request.</p>' +
         '<div class="sc-nav"><button class="sc-btn" id="sc-next" type="button">Continue</button></div>', true);
       pickOne('owner', false);
-      document.getElementById('sc-next').addEventListener('click', async function () {
+      document.getElementById('sc-next').addEventListener('click', function () {
         var a = document.getElementById('sc-addr').value.trim(), t = document.getElementById('sc-town').value.trim(),
-            z = document.getElementById('sc-zip').value.trim(),
-            p = document.getElementById('sc-phone').value.trim(),
-            m = document.getElementById('sc-email').value.trim();
-        if (!a) return err('Please add the street address of the home.');
+            z = document.getElementById('sc-zip').value.trim();
+        if (!a) return err('Please add the street address of the ' + (multi ? 'building' : 'home') + '.');
         if (!t) return err('Please add the town.');
         if (!/^\d{5}$/.test(z)) return err('Please enter a 5-digit ZIP code.');
-        if (!D.owner) return err('Please choose how you own this home.');
-        if (p.replace(/\D/g, '').length < 10) return err('Please add a phone number with area code, so we can send your results.');
-        if (m.indexOf('@') < 1 || m.indexOf('.', m.indexOf('@')) < 0) return err('Please check the email address, we could not read that one.');
-        D.address = a; D.town = t; D.zip = z; D.phone = p; D.email = m;
-        D.sms = document.getElementById('sc-sms').checked;
+        if (!D.owner) return err('Please choose how you own this ' + (multi ? 'building' : 'home') + '.');
+        D.address = a; D.town = t; D.zip = z;
         if (!/^0(39|4[0-9])/.test(z)) { step = -2; return render(); }
-        /* Save a reachable lead the moment we have a phone and an email, so
-           someone who abandons the rest of the flow still gets their results. */
-        var btn = this; btn.disabled = true; btn.textContent = 'One moment...';
-        partialSent = await post('savings-check-partial', null, 'savings_check_partial');
-        track('lead_partial', { form_type: 'savings-check-partial', accepted: partialSent, stage: 'contact', multifamily: D.housing === 'multi' });
-        btn.disabled = false; btn.textContent = 'Continue';
+        /* Phone and email are asked on the final card for both paths, so
+           there is nothing reachable to save at this point. */
         next();
       });
     },
@@ -440,14 +447,13 @@
         '<div class="sc-net"><p style="margin:0 0 4px">Multifamily weatherization incentive</p><div class="n">Up to $10,000</div>' +
         '<p>50% of project cost, capped at $5,000 per attic and $5,000 per basement.</p></div>' +
         '<div class="sc-call"><strong>Complete your application and a Mattra representative will reach out</strong> to walk you through the multifamily rebate process.</div>' +
-        '<div class="sc-f"><label for="sc-email">Where should we send your application details? *</label><input type="email" id="sc-email" autocomplete="email" value="' + esc(D.email) + '"></div>' +
+        contactFields('So we can send your application details and have a representative reach out about the building.') +
         '<div class="sc-nav"><button class="sc-btn go" id="sc-send" type="button">Complete my application</button></div>' +
         '<p class="sc-fine">Incentive amounts are set by Efficiency Maine and subject to their requirements and approval. <a href="https://www.efficiencymaine.com/at-work/multifamily/" target="_blank" rel="noopener">See the multifamily program</a>. Mattra does not set or approve incentives.</p>', true);
       document.getElementById('sc-send').addEventListener('click', async function () {
         if (sending) return;
-        var e = document.getElementById('sc-email').value.trim();
-        if (e.indexOf('@') < 1 || e.indexOf('.', e.indexOf('@')) < 0) return err('Please check the email address, we could not read that one.');
-        D.email = e; sending = true;
+        var bad = readContactFields(); if (bad) return err(bad);
+        sending = true;
         var btn = this; btn.disabled = true; btn.textContent = 'Sending...';
         var ok = await post('savings-check-complete', null, 'savings_check_complete');
         sending = false;
@@ -493,16 +499,20 @@
             '<div class="sc-loans">' + loanCards + '</div>') +
         (D.owner === 'ownother' ? '<p class="sc-fine" style="margin-top:0">Because this is a rental or seasonal home, the any-income rebate applies. Higher income-based rebates are for primary residences only.</p>' : '') +
         '<div class="sc-call"><strong>Next step: a free on-site estimate.</strong> These numbers use a ' + money(f.cost) + ' example. We will call you to schedule your estimate and give you a real price before you commit to anything.</div>' +
-        '<div class="sc-f"><label for="sc-email">Send my results' + (noLoan ? '' : ' and application link') + ' to *</label><input type="email" id="sc-email" autocomplete="email" value="' + esc(D.email) + '"></div>' +
+        contactFields('So we can send your results' + (noLoan ? '' : ' and application link') + ' and book your free on-site estimate.') +
         '<div class="sc-nav"><button class="sc-btn go" id="sc-send" type="button">' + (noLoan ? 'Email my results' : 'Email my results and start my application') + '</button></div>' +
         '<p class="sc-fine">*Savings assume a 20% to 30% reduction in heating cost and are estimates, not guarantees. ENERGY STAR reports a 15% average. Mattra is not the lender. See the important information at the bottom of this page.</p>', true);
       pickOne('loanId', false);
-      ROOT.querySelectorAll('.sc-opt[data-k="loanId"]').forEach(function (b) { b.addEventListener('click', function () { var m = document.getElementById('sc-email'); D.email = m ? m.value : D.email; render(); }); });
+      /* Picking a loan re-renders, so keep anything already typed. */
+      ROOT.querySelectorAll('.sc-opt[data-k="loanId"]').forEach(function (b) { b.addEventListener('click', function () {
+        var m = document.getElementById('sc-email'), p = document.getElementById('sc-phone'), c = document.getElementById('sc-sms');
+        if (m) D.email = m.value; if (p) D.phone = p.value; if (c) D.sms = c.checked;
+        render();
+      }); });
       document.getElementById('sc-send').addEventListener('click', async function () {
         if (sending) return;
-        var e = document.getElementById('sc-email').value.trim();
-        if (e.indexOf('@') < 1 || e.indexOf('.', e.indexOf('@')) < 0) return err('Please check the email address, we could not read that one.');
-        D.email = e; sending = true;
+        var bad = readContactFields(); if (bad) return err(bad);
+        sending = true;
         var btn = this; btn.disabled = true; btn.textContent = 'Sending...';
         var ok = await post('savings-check-complete', figures(), 'savings_check_complete');
         sending = false;
