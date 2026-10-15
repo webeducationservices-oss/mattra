@@ -11,8 +11,9 @@
 
    Money rules match green-bank-planner.js: rebate from rebate-rules.js,
    Actual/360 simple-interest payments, the same four Green Bank loans.
-   The estimate is ALWAYS a single $5,000 example project. Real prices
-   are set at an on-site estimate, and the page says so.
+   The visitor picks one or more zones (attic, basement or underbelly,
+   exterior walls). The example project costs PROJECT_COST per zone chosen.
+   Real prices are set at an on-site estimate, and the page says so.
    ============================================================= */
 (function () {
   'use strict';
@@ -44,7 +45,7 @@
 
   /* ---------- state ---------- */
   var D = { housing: '', size: '', first: '', last: '', address: '', town: '', zip: '', phone: '', owner: '',
-            stories: '', benefits: '', filing: '', agi: '', area: '', heat: '', fuel: '', email: '', loanId: '', sms: false };
+            stories: '', benefits: '', filing: '', agi: '', areas: [], heat: '', fuel: '', email: '', loanId: '', sms: false };
   var step = 0, sending = false, partialSent = false, rendered = false;
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
@@ -81,32 +82,64 @@
   }
   var TIER_NAME = { any: 'Any income', moderate: 'Moderate income', low: 'Low income' };
 
+  var ZONE_WORDS = { attic: 'the attic', basement: 'the basement', underbelly: 'the underbelly', wall: 'exterior walls' };
+  /* The zones the visitor picked, translated to what the program actually
+     pays on: a mobile home's basement zone is its underbelly, and mobile
+     home walls are excluded outright. "Not sure" estimates an attic. */
+  function zoneTypes() {
+    var mobile = D.housing === 'mobile';
+    var list = (D.areas || []).filter(function (z) { return z !== 'unsure'; });
+    if (mobile) {
+      list = list.map(function (z) { return z === 'basement' ? 'underbelly' : z; })
+                 .filter(function (z) { return z !== 'wall'; });
+    }
+    return list.length ? list : ['attic'];
+  }
+  function zonePhrase(types) {
+    var w = types.map(function (z) { return ZONE_WORDS[z] || z; });
+    return w.length < 2 ? w[0] : w.slice(0, -1).join(', ') + ' and ' + w[w.length - 1];
+  }
+
   function figures() {
     var t = tier(), mobile = D.housing === 'mobile';
-    var area = D.area === 'basement' ? 'basement' : 'attic';
+    var types = zoneTypes();
     /* Efficiency Maine sizes a zone by the square feet insulated, which for
        an attic or basement follows the footprint, not the living space. A
        700 sq ft ranch has about a 700 sq ft attic (500+, the large rebate).
        A cape's attic includes its kneewalls and slopes, so it runs larger
-       than its footprint. Mobile homes: the underbelly is always 500+. */
+       than its footprint. Mobile homes: the underbelly is always 500+.
+       Walls are passed as the large band rather than a computed area: any
+       real house clears 500 sq ft of wall, and guessing a wall area would
+       invent a number the program does not ask us for. */
     var size = SIZE_MID[D.size] || 1150;
-    var floors = area === 'attic'
-      ? ({ one: 1, cape: 1.2, two: 2 }[D.stories] || 1)
-      : ({ one: 1, cape: 1.5, two: 2 }[D.stories] || 1);
-    var sqft = mobile ? 800 : Math.round(size / floors);
-    var rb = MattraRebates.compute({
-      tier: t, projectCost: PROJECT_COST, isMobileHome: mobile,
-      zones: [{ type: area, sqft: sqft }],
-      airSealing: [area === 'attic' ? 'attic' : 'basement']
+    var atticFloors = ({ one: 1, cape: 1.2, two: 2 }[D.stories] || 1);
+    var lowerFloors = ({ one: 1, cape: 1.5, two: 2 }[D.stories] || 1);
+    var zones = types.map(function (type) {
+      if (type === 'underbelly') return { type: 'underbelly', sqft: 800 };
+      if (type === 'wall') return { type: 'wall', band: 'large' };
+      return { type: type, sqft: Math.round(size / (type === 'attic' ? atticFloors : lowerFloors)) };
     });
-    var rebate = rb.rebate, loan = Math.max(0, PROJECT_COST - rebate);
+    /* Air sealing only where the program names it plainly. We do not assume
+       living-space air sealing for a wall job, which would overstate. */
+    var seal = [];
+    types.forEach(function (type) {
+      if (type === 'attic') seal.push('attic');
+      if (type === 'basement' || type === 'underbelly') seal.push('basement');
+    });
+    var cost = PROJECT_COST * zones.length;
+    var rb = MattraRebates.compute({
+      tier: t, projectCost: cost, isMobileHome: mobile,
+      zones: zones, airSealing: seal
+    });
+    var rebate = rb.rebate, loan = Math.max(0, cost - rebate);
     var loans = LOANS.filter(function (l) { return t === 'any' ? !l.income : l.income || l.id === '5y'; })
       .map(function (l) { return { l: l, pay: payment(loan, l.apr, l.years) }; });
     loans.sort(function (a, b) { return a.pay - b.pay; });
     var pick = loans.filter(function (x) { return x.l.id === D.loanId; })[0] || loans[0];
     var heat = Number(D.heat) || 0;
     if (loan === 0) { loans = []; pick = null; }
-    return { tier: t, rebate: rebate, loan: loan, loans: loans, pick: pick, zoneSqft: sqft, breakdown: rb.breakdown,
+    return { tier: t, rebate: rebate, loan: loan, loans: loans, pick: pick, breakdown: rb.breakdown,
+             cost: cost, zoneTypes: types, zonePhrase: zonePhrase(types), capped: rb.capped, cap: rb.cap,
              saveLow: Math.round(heat * SAVE_LOW), saveHigh: Math.round(heat * SAVE_HIGH) };
   }
 
@@ -156,7 +189,23 @@
   }
   function next() { do { step += 1; } while (step < STEPS.length - 1 && skipped(STEPS[step])); render(); }
   function back() { do { step -= 1; } while (step > 0 && skipped(STEPS[step])); render(); }
-  var STEPS = ['housing', 'size', 'name', 'contact', 'benefits', 'income', 'project', 'heat', 'results'];
+  var STEPS = ['housing', 'size', 'name', 'contact', 'project', 'benefits', 'income', 'heat', 'results'];
+  function optOn(label, key, val, sub, on) {
+    return '<button type="button" class="sc-opt" data-k="' + key + '" data-v="' + esc(val) + '" aria-pressed="' + (!!on) + '">' + label + (sub ? '<small>' + sub + '</small>' : '') + '</button>';
+  }
+  function pickMany(key) {
+    ROOT.querySelectorAll('.sc-opt[data-k="' + key + '"]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-v'), cur = (D[key] || []).slice();
+        if (v === 'unsure') { D[key] = cur.indexOf('unsure') > -1 ? [] : ['unsure']; }
+        else {
+          cur = cur.filter(function (x) { return x !== 'unsure'; });
+          D[key] = cur.indexOf(v) > -1 ? cur.filter(function (x) { return x !== v; }) : cur.concat([v]);
+        }
+        render();
+      });
+    });
+  }
   function opt(label, key, val, sub, cur) {
     return '<button type="button" class="sc-opt" data-k="' + key + '" data-v="' + esc(val) + '" aria-pressed="' + (cur === val) + '">' + label + (sub ? '<small>' + sub + '</small>' : '') + '</button>';
   }
@@ -230,11 +279,11 @@
       if (D.filing) p.filing_status = D.filing === 'joint' ? 'Married filing jointly' : 'Single or other';
       if (D.agi) p.agi_range = { under: 'Under the Efficiency Maine limit', over: 'Over the limit', unsure: 'Not sure' }[D.agi];
       if (D.benefits || D.owner === 'ownother') p.estimated_income_tier = TIER_NAME[tier()];
-      if (D.area) p.project_area = D.area;
+      if ((D.areas || []).length) p.project_area = (D.areas.indexOf('unsure') > -1 ? 'Not sure (attic assumed)' : zoneTypes().join(', '));
     }
     if (D.email) p.email = D.email;
     if (f) {
-      p.example_project_cost = String(PROJECT_COST); p.rebate_estimate = String(f.rebate); p.loan_estimate = String(f.loan);
+      p.example_project_cost = String(f.cost); p.rebate_estimate = String(f.rebate); p.loan_estimate = String(f.loan);
       p.loan_option = f.pick ? f.pick.l.name + ': about ' + money(f.pick.pay) + '/mo' : 'No loan needed, rebate covers the example project';
       p.rebate_breakdown = (f.breakdown || []).map(function (b) { return b.label + ' ' + money(b.amount); }).join('; ');
       p.monthly_heating_cost = String(D.heat || ''); p.heating_fuel = D.fuel || '';
@@ -355,12 +404,20 @@
       });
     },
     project: function () {
-      var mobile = D.housing === 'mobile';
-      frame('<h2>Where would you start?</h2><p class="sc-help">Most homes begin with one area. A typical attic or ' + (mobile ? 'underbelly' : 'basement') + ' project runs about $5,000, so that is what we will estimate.</p><div class="sc-opts">' +
-        opt('Attic', 'area', 'attic', 'Usually about $5,000', D.area) + opt(mobile ? 'Underbelly (under the home)' : 'Basement or crawl space', 'area', 'basement', 'Usually about $5,000', D.area) +
-        opt('Not sure yet', 'area', 'attic', 'We will use the attic example', '') + '</div>' +
-        '<p class="sc-fine">This is an example only. Your real price is set at an on-site estimate, and we will call you to schedule it.</p>', true);
-      pickOne('area');
+      var mobile = D.housing === 'mobile', sel = D.areas || [];
+      function on(v) { return sel.indexOf(v) > -1; }
+      frame('<h2>Where would you start?</h2><p class="sc-help">Pick every area you are considering. You can choose more than one, and each area earns its own rebate.</p><div class="sc-opts">' +
+        optOn('Attic', 'areas', 'attic', '', on('attic')) +
+        optOn(mobile ? 'Underbelly (under the home)' : 'Basement or crawl space', 'areas', 'basement', '', on('basement')) +
+        (mobile ? '' : optOn('Exterior walls', 'areas', 'wall', '', on('wall'))) +
+        optOn('Not sure yet', 'areas', 'unsure', 'We will estimate an attic project', on('unsure')) + '</div>' +
+        '<p class="sc-fine">Your real scope and price are set at an on-site estimate, and we will call you to schedule it.</p>' +
+        '<div class="sc-nav"><button class="sc-btn" id="sc-next" type="button">Continue</button></div>', true);
+      pickMany('areas');
+      document.getElementById('sc-next').addEventListener('click', function () {
+        if (!(D.areas || []).length) return err('Please pick at least one area, or choose Not sure yet.');
+        next();
+      });
     },
     heat: function () {
       frame('<h2>What do you spend on heat each month?</h2><p class="sc-help">Think of a yearly average, not just the winter peak. This lets us show your savings next to your payment.</p>' +
@@ -423,7 +480,7 @@
         : thin
         ? '<div class="sc-net"><p style="margin:0 0 4px">Estimated heating savings</p><div class="n">' + money(f.saveLow) + ' to ' + money(f.saveHigh) + ' a month*</div><p>Against a loan payment of about ' + money(pick.pay) + ' a month. A longer term lowers the payment, and we will go over the best fit with you.</p></div>'
         : '<div class="sc-net"><p style="margin:0 0 4px">After your loan payment, you could come out</p><div class="n">' + money(netLow) + ' to ' + money(netHigh) + ' a month ahead*</div><p>Estimated heating savings of ' + money(f.saveLow) + ' to ' + money(f.saveHigh) + ' a month, minus a payment of about ' + money(pick.pay) + '.</p></div>';
-      frame('<h2>' + esc(D.first) + ', here is your estimate</h2><p class="sc-help">Based on a $5,000 ' + (D.area === 'basement' ? (D.housing === 'mobile' ? 'underbelly' : 'basement') : 'attic') + ' project. Estimates only.</p>' +
+      frame('<h2>' + esc(D.first) + ', here is your estimate</h2><p class="sc-help">Based on an example project covering ' + f.zonePhrase + ', about ' + money(f.cost) + '. Estimates only.</p>' +
         headline +
         '<div class="sc-big"><div class="sc-stat"><div class="n">' + money(f.rebate) + '</div><div class="l">Estimated Efficiency Maine rebate' + (inc ? ' (' + TIER_NAME[f.tier].toLowerCase() + ', needs verification)' : '') + '</div></div>' +
         (noLoan
@@ -432,7 +489,7 @@
             '<p class="sc-help" style="margin:4px 0 6px;font-weight:700;color:var(--text-dark,#2c2c2c)">Pick a loan to compare</p>' +
             '<div class="sc-loans">' + loanCards + '</div>') +
         (D.owner === 'ownother' ? '<p class="sc-fine" style="margin-top:0">Because this is a rental or seasonal home, the any-income rebate applies. Higher income-based rebates are for primary residences only.</p>' : '') +
-        '<div class="sc-call"><strong>Next step: a free on-site estimate.</strong> These numbers use a $5,000 example. We will call you to schedule your estimate and give you a real price before you commit to anything.</div>' +
+        '<div class="sc-call"><strong>Next step: a free on-site estimate.</strong> These numbers use a ' + money(f.cost) + ' example. We will call you to schedule your estimate and give you a real price before you commit to anything.</div>' +
         '<div class="sc-f"><label for="sc-email">Send my results' + (noLoan ? '' : ' and application link') + ' to *</label><input type="email" id="sc-email" autocomplete="email" value="' + esc(D.email) + '"></div>' +
         '<div class="sc-nav"><button class="sc-btn go" id="sc-send" type="button">' + (noLoan ? 'Email my results' : 'Email my results and start my application') + '</button></div>' +
         '<p class="sc-fine">*Savings assume a 20% to 30% reduction in heating cost and are estimates, not guarantees. ENERGY STAR reports a 15% average. Mattra is not the lender. See the important information at the bottom of this page.</p>', true);
