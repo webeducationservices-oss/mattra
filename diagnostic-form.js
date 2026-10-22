@@ -502,7 +502,7 @@
     }
 
     /* ── Navigation ── */
-    function goTo(n) {
+    function goTo(n, quiet) {
       state.step = n;
       steps.forEach(s => s.classList.remove('active'));
       card.querySelector(`[data-step="${n}"]`).classList.add('active');
@@ -512,7 +512,7 @@
         if (i === n - 1 && n <= totalSteps) d.classList.add('active');
         if (n === 5) d.classList.add('done');
       });
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (!quiet) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     card.querySelectorAll('.diag-btn-next').forEach(btn => {
@@ -544,6 +544,25 @@
         if (n > 1) goTo(n - 1);
       });
     });
+
+    /* Opt-in preset for intent-matched landing pages. data-concern="mold"
+       opens on that concern's questions instead of asking what describes the
+       situation, and data-where="attic" pre-selects where it is. Pages without
+       the attributes are untouched, and Back still returns to step 1. Uses a
+       quiet goTo so the page does not jump to the form on load. */
+    const preset = container.getAttribute('data-concern');
+    if (preset && TEMPLATES[preset]) {
+      const s1 = card.querySelector('[data-step="1"] .diag-opt[data-value="' + preset + '"]');
+      if (s1) s1.classList.add('selected');
+      state.concern = preset;
+      renderStep2(preset);
+      (container.getAttribute('data-where') || '').split(',').map(v => v.trim()).filter(Boolean).forEach(v => {
+        const b = card.querySelector('#diag-step2 .diag-opt[data-value="' + v + '"]');
+        if (b) b.classList.add('selected');
+      });
+      goTo(2, true);
+      checkNext();
+    }
 
     // Phone is required, so the SMS consent box is always shown. Clear it if the
     // field is emptied so we never send consent for a number we do not have.
