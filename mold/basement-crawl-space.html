@@ -134,14 +134,18 @@
       'analytics_storage':'granted'
     });
   </script>
-  <!-- Google Tag Manager. Loaded normally, not idle-delayed: calls are about 70% of
-       mold conversions, and a delayed container misses a visitor who taps the phone
-       number in their first few seconds. -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  <!-- Google Tag Manager. Not idle-delayed: calls are about 70% of mold conversions,
+       and a container that waits seconds misses a visitor who taps the phone number
+       right away. It starts one frame after the first paint instead, so the page text
+       shows before the tag scripts run. A frame is a few dozen milliseconds. -->
+  <script>(function(){var started=false;function loadGTM(){if(started)return;started=true;
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-K4ZZ5RK');</script>
+  })(window,document,'script','dataLayer','GTM-K4ZZ5RK');}
+  if(document.visibilityState==='hidden'||!window.requestAnimationFrame){loadGTM();return;}
+  requestAnimationFrame(function(){setTimeout(loadGTM,0);});setTimeout(loadGTM,1000);})();</script>
   <!-- myaieditor inline-edit loader (no-op for real visitors) -->
   <script src="/mae-edit-loader.js" async></script>
 </head>
