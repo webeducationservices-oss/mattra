@@ -10,6 +10,66 @@
 
 (function () {
 
+  /* ── Traffic-source attribution fallback ──────────────────────
+     The submit handler spreads getSourceAttribution() into the payload, but
+     that function lives in components.js. Pages that use this form without the
+     site chrome (the /lp/ ad landing pages) never load components.js, so the
+     call threw, the try/catch swallowed it, and every lead arrived with no
+     analytics_source or first_url. Same code and same sessionStorage key as
+     components.js, defined only when missing, and run at load so the gclid or
+     utm on the landing URL is captured before anything can strip it. */
+  if (typeof window.getSourceAttribution !== 'function') {
+  window.getSourceAttribution = function () {
+    var KEY = 'wes_first_touch_source';
+    var p = new URLSearchParams(window.location.search);
+    var hasFresh = p.has('utm_source') || p.has('gclid') || p.has('gbraid') || p.has('wbraid') || p.has('fbclid') || p.has('msclkid');
+    if (!hasFresh) {
+      try {
+        var cached = JSON.parse(sessionStorage.getItem(KEY) || 'null');
+        if (cached) return cached;
+      } catch (e) {}
+    }
+    var utm_source = (p.get('utm_source') || '').toLowerCase();
+    var utm_medium = (p.get('utm_medium') || '').toLowerCase();
+    var utm_campaign = p.get('utm_campaign') || '';
+    var utm_term = p.get('utm_term') || '';
+    var gclid = p.get('gclid') || p.get('gbraid') || p.get('wbraid'), fbclid = p.get('fbclid'), msclkid = p.get('msclkid');
+    var ref = document.referrer || '';
+    var refHost = ''; try { refHost = ref ? new URL(ref).hostname : ''; } catch (e) {}
+    var offSite = ref && refHost && refHost !== window.location.hostname;
+    var src = 'DIRECT_TRAFFIC', d1 = '', d2 = '';
+
+    if (gclid)        { src = 'PAID_SEARCH'; d1 = 'google'; d2 = utm_term || utm_campaign || gclid; }
+    else if (msclkid) { src = 'PAID_SEARCH'; d1 = 'bing';   d2 = utm_term || utm_campaign || msclkid; }
+    else if (fbclid)  { src = 'PAID_SOCIAL'; d1 = utm_source || 'facebook'; d2 = utm_campaign || fbclid; }
+    else if (utm_source) {
+      if (utm_medium === 'email' || utm_source === 'hs_email') { src = 'EMAIL_MARKETING'; d1 = utm_source; d2 = utm_campaign; }
+      else if (utm_medium === 'cpc' || utm_medium === 'ppc' || utm_medium === 'paid') {
+        src = /google|bing|yahoo/.test(utm_source) ? 'PAID_SEARCH' : 'PAID_SOCIAL';
+        d1 = utm_source; d2 = utm_term || utm_campaign;
+      }
+      else if (utm_medium === 'social' || utm_medium === 'social_media') { src = 'SOCIAL_MEDIA'; d1 = utm_source; d2 = utm_campaign; }
+      else if (utm_medium === 'referral') { src = 'REFERRALS'; d1 = utm_source; d2 = utm_campaign; }
+      else { src = 'OTHER_CAMPAIGNS'; d1 = utm_source; d2 = utm_campaign; }
+    } else if (offSite) {
+      if (/^(www\.)?(google|bing|duckduckgo|yahoo|ecosia)\.[a-z.]+$/i.test(refHost)) { src = 'ORGANIC_SEARCH'; d1 = refHost.replace(/^www\./,'').split('.')[0]; }
+      else if (/^(www\.)?(facebook|instagram|twitter|x|linkedin|tiktok|pinterest|reddit|youtube|t)\.com$/i.test(refHost)) { src = 'SOCIAL_MEDIA'; d1 = refHost.replace(/^www\./,'').split('.')[0]; }
+      else { src = 'REFERRALS'; d1 = refHost; }
+    }
+
+    var result = {
+      analytics_source: src,
+      analytics_source_data_1: d1,
+      analytics_source_data_2: d2,
+      first_referrer: ref,
+      first_url: window.location.href
+    };
+    try { sessionStorage.setItem(KEY, JSON.stringify(result)); } catch (e) {}
+    return result;
+  };
+  }
+  try { window.getSourceAttribution(); } catch (e) {}
+
   /* ── Load reCAPTCHA v3 on first user interaction (deferred for perf) ── */
   const RC_SITE_KEY = '6Lck8aQsAAAAALMA-T6nwfkSf7bv4K-mOhkszeKh';
   var rcLoaded = false;
