@@ -10,6 +10,66 @@
 
 (function () {
 
+  /* ── Traffic-source attribution fallback ──────────────────────
+     The submit handler spreads getSourceAttribution() into the payload, but
+     that function lives in components.js. Pages that use this form without the
+     site chrome (the /lp/ ad landing pages) never load components.js, so the
+     call threw, the try/catch swallowed it, and every lead arrived with no
+     analytics_source or first_url. Same code and same sessionStorage key as
+     components.js, defined only when missing, and run at load so the gclid or
+     utm on the landing URL is captured before anything can strip it. */
+  if (typeof window.getSourceAttribution !== 'function') {
+  window.getSourceAttribution = function () {
+    var KEY = 'wes_first_touch_source';
+    var p = new URLSearchParams(window.location.search);
+    var hasFresh = p.has('utm_source') || p.has('gclid') || p.has('gbraid') || p.has('wbraid') || p.has('fbclid') || p.has('msclkid');
+    if (!hasFresh) {
+      try {
+        var cached = JSON.parse(sessionStorage.getItem(KEY) || 'null');
+        if (cached) return cached;
+      } catch (e) {}
+    }
+    var utm_source = (p.get('utm_source') || '').toLowerCase();
+    var utm_medium = (p.get('utm_medium') || '').toLowerCase();
+    var utm_campaign = p.get('utm_campaign') || '';
+    var utm_term = p.get('utm_term') || '';
+    var gclid = p.get('gclid') || p.get('gbraid') || p.get('wbraid'), fbclid = p.get('fbclid'), msclkid = p.get('msclkid');
+    var ref = document.referrer || '';
+    var refHost = ''; try { refHost = ref ? new URL(ref).hostname : ''; } catch (e) {}
+    var offSite = ref && refHost && refHost !== window.location.hostname;
+    var src = 'DIRECT_TRAFFIC', d1 = '', d2 = '';
+
+    if (gclid)        { src = 'PAID_SEARCH'; d1 = 'google'; d2 = utm_term || utm_campaign || gclid; }
+    else if (msclkid) { src = 'PAID_SEARCH'; d1 = 'bing';   d2 = utm_term || utm_campaign || msclkid; }
+    else if (fbclid)  { src = 'PAID_SOCIAL'; d1 = utm_source || 'facebook'; d2 = utm_campaign || fbclid; }
+    else if (utm_source) {
+      if (utm_medium === 'email' || utm_source === 'hs_email') { src = 'EMAIL_MARKETING'; d1 = utm_source; d2 = utm_campaign; }
+      else if (utm_medium === 'cpc' || utm_medium === 'ppc' || utm_medium === 'paid') {
+        src = /google|bing|yahoo/.test(utm_source) ? 'PAID_SEARCH' : 'PAID_SOCIAL';
+        d1 = utm_source; d2 = utm_term || utm_campaign;
+      }
+      else if (utm_medium === 'social' || utm_medium === 'social_media') { src = 'SOCIAL_MEDIA'; d1 = utm_source; d2 = utm_campaign; }
+      else if (utm_medium === 'referral') { src = 'REFERRALS'; d1 = utm_source; d2 = utm_campaign; }
+      else { src = 'OTHER_CAMPAIGNS'; d1 = utm_source; d2 = utm_campaign; }
+    } else if (offSite) {
+      if (/^(www\.)?(google|bing|duckduckgo|yahoo|ecosia)\.[a-z.]+$/i.test(refHost)) { src = 'ORGANIC_SEARCH'; d1 = refHost.replace(/^www\./,'').split('.')[0]; }
+      else if (/^(www\.)?(facebook|instagram|twitter|x|linkedin|tiktok|pinterest|reddit|youtube|t)\.com$/i.test(refHost)) { src = 'SOCIAL_MEDIA'; d1 = refHost.replace(/^www\./,'').split('.')[0]; }
+      else { src = 'REFERRALS'; d1 = refHost; }
+    }
+
+    var result = {
+      analytics_source: src,
+      analytics_source_data_1: d1,
+      analytics_source_data_2: d2,
+      first_referrer: ref,
+      first_url: window.location.href
+    };
+    try { sessionStorage.setItem(KEY, JSON.stringify(result)); } catch (e) {}
+    return result;
+  };
+  }
+  try { window.getSourceAttribution(); } catch (e) {}
+
   /* ── Load reCAPTCHA v3 on first user interaction (deferred for perf) ── */
   const RC_SITE_KEY = '6Lck8aQsAAAAALMA-T6nwfkSf7bv4K-mOhkszeKh';
   var rcLoaded = false;
@@ -502,7 +562,7 @@
     }
 
     /* ── Navigation ── */
-    function goTo(n) {
+    function goTo(n, quiet) {
       state.step = n;
       steps.forEach(s => s.classList.remove('active'));
       card.querySelector(`[data-step="${n}"]`).classList.add('active');
@@ -512,7 +572,7 @@
         if (i === n - 1 && n <= totalSteps) d.classList.add('active');
         if (n === 5) d.classList.add('done');
       });
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (!quiet) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     card.querySelectorAll('.diag-btn-next').forEach(btn => {
@@ -544,6 +604,25 @@
         if (n > 1) goTo(n - 1);
       });
     });
+
+    /* Opt-in preset for intent-matched landing pages. data-concern="mold"
+       opens on that concern's questions instead of asking what describes the
+       situation, and data-where="attic" pre-selects where it is. Pages without
+       the attributes are untouched, and Back still returns to step 1. Uses a
+       quiet goTo so the page does not jump to the form on load. */
+    const preset = container.getAttribute('data-concern');
+    if (preset && TEMPLATES[preset]) {
+      const s1 = card.querySelector('[data-step="1"] .diag-opt[data-value="' + preset + '"]');
+      if (s1) s1.classList.add('selected');
+      state.concern = preset;
+      renderStep2(preset);
+      (container.getAttribute('data-where') || '').split(',').map(v => v.trim()).filter(Boolean).forEach(v => {
+        const b = card.querySelector('#diag-step2 .diag-opt[data-value="' + v + '"]');
+        if (b) b.classList.add('selected');
+      });
+      goTo(2, true);
+      checkNext();
+    }
 
     // Phone is required, so the SMS consent box is always shown. Clear it if the
     // field is emptied so we never send consent for a number we do not have.
