@@ -589,10 +589,34 @@
       .resources-grid { grid-template-columns: 1fr; gap: 20px; }
     }
 
+
+    /* ===== 30-YEAR SEAL ===== */
+    .seal30 { position: absolute; z-index: 3; top: 50%; margin-top: -150px; right: max(28px, calc((100vw - 1280px) / 2 + 24px)); width: 178px; height: 178px; display: block; border-radius: 50%;
+      transform: rotate(-12deg); filter: drop-shadow(0 10px 22px rgba(0,0,0,.35)); animation: seal30in .9s cubic-bezier(.2,.9,.25,1.25) .3s both; transition: transform .3s; }
+    .seal30:hover { transform: rotate(-4deg) scale(1.04); }
+    @keyframes seal30in { from { opacity: 0; transform: rotate(-200deg) scale(.4); } to { opacity: 1; transform: rotate(-12deg) scale(1); } }
+    @media (prefers-reduced-motion: reduce) { .seal30 { animation: none; } }
+    @media (max-width: 1240px) { .seal30 { width: 140px; height: 140px; margin-top: -170px; right: 20px; } }
+    @media (max-width: 1060px) { .seal30 { width: 104px; height: 104px; top: 22px; margin-top: 0; right: 16px; } .hero .container { padding-top: 120px; } }
+
+    /* ===== GRATITUDE ===== */
+    .gratitude { background: linear-gradient(160deg, #fbf7ea 0%, #ffffff 60%); }
+    .gratitude-inner { max-width: 860px; margin: 0 auto; text-align: center; }
+    .gratitude h2 { margin-bottom: 18px; }
+    .gratitude p { font-size: 1.08rem; line-height: 1.8; color: var(--text-body); }
+    .gratitude .thanks { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--green-primary); margin: 26px 0 4px; }
+    .gratitude .sig { font-weight: 600; color: var(--text-dark); }
+    .grat-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 34px auto 26px; max-width: 760px; }
+    .grat-stat { background: var(--white); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 20px 14px; box-shadow: var(--shadow-sm); }
+    .grat-stat .n { font-family: 'DM Serif Display', serif; font-size: 2.1rem; line-height: 1.1; color: var(--green-primary); }
+    .grat-stat .l { font-size: .88rem; color: var(--text-light); margin-top: 4px; }
+    @media (max-width: 640px) { .grat-stats { grid-template-columns: 1fr; } }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 640px) {
       .hero { min-height: 480px; }
-      .hero .container { padding-top: 60px; }
+      section.hero > .container { padding-top: 116px !important; }
+      .seal30 { width: 92px; height: 92px; top: 14px; right: 14px; }
     }
   </style>
   <!-- myaieditor inline-edit loader (no-op for real visitors) -->
@@ -648,6 +672,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        srcset="/Images/hero-maine-home-mobile.webp 600w, /Images/hero-maine-home.webp 1200w"
        sizes="100vw"
        alt="" class="hero-bg-img" width="1200" height="654" fetchpriority="high">
+  <a href="/about/" class="seal30" aria-label="Celebrating 30 years helping Maine homeowners, 1996 to 2026">
+    <svg viewBox="0 0 200 200" width="100%" height="100%" aria-hidden="true" focusable="false">
+          <defs>
+            <radialGradient id="seal30g" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#f7dc7c"/><stop offset=".55" stop-color="#e7bb3a"/><stop offset="1" stop-color="#b98d16"/></radialGradient>
+            <path id="seal30top" d="M 41.02,141.3 A 72,72 0 1 1 158.98,141.3"/>
+            <path id="seal30bot" d="M 33.32,138.5 A 77,77 0 0 0 166.68,138.5"/>
+          </defs>
+          <circle cx="100" cy="100" r="97" fill="#1e3a28"/>
+          <circle cx="100" cy="100" r="91" fill="url(#seal30g)"/>
+          <circle cx="100" cy="100" r="87" fill="none" stroke="#1e3a28" stroke-width="1.2" stroke-dasharray="2 3" opacity=".5"/>
+          <circle cx="100" cy="100" r="54" fill="#1e3a28"/>
+          <text font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="12.5" letter-spacing="2.2" fill="#1e3a28"><textPath href="#seal30top" startOffset="50%" text-anchor="middle">HELPING MAINE HOMEOWNERS</textPath></text>
+          <text font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="12.5" letter-spacing="3" fill="#1e3a28"><textPath href="#seal30bot" startOffset="50%" text-anchor="middle">1996 &#183; 2026</textPath></text>
+          <text x="100" y="106" text-anchor="middle" font-family="'DM Serif Display', Georgia, serif" font-size="50" fill="#f3cf5c">30</text>
+          <text x="100" y="128" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="12.5" letter-spacing="3.5" fill="#ffffff">YEARS</text>
+        </svg>
+  </a>
   <div class="container">
     <div class="hero-content">
     <h1>Mold. Cold Rooms. High Energy Bills. They&rsquo;re All Connected.</h1>
@@ -916,6 +957,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Google Reviews Button -->
     <div style="text-align: center; margin-top: 32px;">
       <a href="https://www.google.com/maps/place/Mattra+Inc./@44.1064599,-70.2147642,17z/data=!4m8!3m7!1s0x4cb26ea7a18eacb9:0x6deb83debf19867e!8m2!3d44.1064599!4d-70.2147642!9m1!1b1!16s%2Fg%2F1hc30tm53?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" class="btn btn-primary btn-arrow">See All Our Google Reviews</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GRATITUDE ===== -->
+<section class="section gratitude" id="gratitude">
+  <div class="container">
+    <div class="gratitude-inner">
+      <span class="section-label">30 Years of Gratitude</span>
+      <h2>Our People and Our Clients Made These 30 Years Possible</h2>
+      <p>Thirty years of Maine homes happened because of the people on our crews who show up in a January cold snap, crawl through attics and basements most folks never see, and leave every home better than they found it. Their hard work is the reason Mattra is still here.</p>
+      <p>It happened because of you, too. Every homeowner who trusted us with their home, sent a neighbor our way, or took a minute to leave a review helped build this company, one job at a time.</p>
+      <div class="grat-stats">
+        <div class="grat-stat"><div class="n">1996</div><div class="l">Serving Maine since</div></div>
+        <div class="grat-stat"><div class="n">30 Years</div><div class="l">Helping Maine homeowners</div></div>
+        <div class="grat-stat"><div class="n">4.9 Stars</div><div class="l">From our Google reviews</div></div>
+      </div>
+      <p class="thanks">To our team and to every client: thank you.</p>
+      <p class="sig">The Mattra Team</p>
+      <div style="display:flex;justify-content:center;margin-top:20px">
+        <a href="/careers/" class="btn btn-primary btn-arrow">We're Hiring: Join the Team</a>
+      </div>
     </div>
   </div>
 </section>

@@ -192,6 +192,7 @@ function getSourceAttribution() {
       </div>
 
       ${nav('about', 'About', 'about/')}
+      ${nav('careers', 'We&rsquo;re Hiring', 'careers/')}
       ${nav('contact', 'Contact', 'contact/')}
       <a href="${b}contact/" class="mobile-menu-cta">Free Consultation</a>
     </nav>
@@ -243,6 +244,7 @@ function getSourceAttribution() {
         <a href="tel:+12077776020">(207) 777-6020</a>
         <a href="${b}contact/">Contact Form</a>
         <a href="${b}about/">About Us</a>
+        <a href="${b}careers/">Careers</a>
         <a href="${b}service-areas/">Service Areas</a>
         <a href="${b}privacy/">Privacy Policy</a>
       </div>
