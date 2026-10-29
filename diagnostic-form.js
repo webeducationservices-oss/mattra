@@ -10,6 +10,66 @@
 
 (function () {
 
+  /* ── Traffic-source attribution fallback ──────────────────────
+     The submit handler spreads getSourceAttribution() into the payload, but
+     that function lives in components.js. Pages that use this form without the
+     site chrome (the /lp/ ad landing pages) never load components.js, so the
+     call threw, the try/catch swallowed it, and every lead arrived with no
+     analytics_source or first_url. Same code and same sessionStorage key as
+     components.js, defined only when missing, and run at load so the gclid or
+     utm on the landing URL is captured before anything can strip it. */
+  if (typeof window.getSourceAttribution !== 'function') {
+  window.getSourceAttribution = function () {
+    var KEY = 'wes_first_touch_source';
+    var p = new URLSearchParams(window.location.search);
+    var hasFresh = p.has('utm_source') || p.has('gclid') || p.has('gbraid') || p.has('wbraid') || p.has('fbclid') || p.has('msclkid');
+    if (!hasFresh) {
+      try {
+        var cached = JSON.parse(sessionStorage.getItem(KEY) || 'null');
+        if (cached) return cached;
+      } catch (e) {}
+    }
+    var utm_source = (p.get('utm_source') || '').toLowerCase();
+    var utm_medium = (p.get('utm_medium') || '').toLowerCase();
+    var utm_campaign = p.get('utm_campaign') || '';
+    var utm_term = p.get('utm_term') || '';
+    var gclid = p.get('gclid') || p.get('gbraid') || p.get('wbraid'), fbclid = p.get('fbclid'), msclkid = p.get('msclkid');
+    var ref = document.referrer || '';
+    var refHost = ''; try { refHost = ref ? new URL(ref).hostname : ''; } catch (e) {}
+    var offSite = ref && refHost && refHost !== window.location.hostname;
+    var src = 'DIRECT_TRAFFIC', d1 = '', d2 = '';
+
+    if (gclid)        { src = 'PAID_SEARCH'; d1 = 'google'; d2 = utm_term || utm_campaign || gclid; }
+    else if (msclkid) { src = 'PAID_SEARCH'; d1 = 'bing';   d2 = utm_term || utm_campaign || msclkid; }
+    else if (fbclid)  { src = 'PAID_SOCIAL'; d1 = utm_source || 'facebook'; d2 = utm_campaign || fbclid; }
+    else if (utm_source) {
+      if (utm_medium === 'email' || utm_source === 'hs_email') { src = 'EMAIL_MARKETING'; d1 = utm_source; d2 = utm_campaign; }
+      else if (utm_medium === 'cpc' || utm_medium === 'ppc' || utm_medium === 'paid') {
+        src = /google|bing|yahoo/.test(utm_source) ? 'PAID_SEARCH' : 'PAID_SOCIAL';
+        d1 = utm_source; d2 = utm_term || utm_campaign;
+      }
+      else if (utm_medium === 'social' || utm_medium === 'social_media') { src = 'SOCIAL_MEDIA'; d1 = utm_source; d2 = utm_campaign; }
+      else if (utm_medium === 'referral') { src = 'REFERRALS'; d1 = utm_source; d2 = utm_campaign; }
+      else { src = 'OTHER_CAMPAIGNS'; d1 = utm_source; d2 = utm_campaign; }
+    } else if (offSite) {
+      if (/^(www\.)?(google|bing|duckduckgo|yahoo|ecosia)\.[a-z.]+$/i.test(refHost)) { src = 'ORGANIC_SEARCH'; d1 = refHost.replace(/^www\./,'').split('.')[0]; }
+      else if (/^(www\.)?(facebook|instagram|twitter|x|linkedin|tiktok|pinterest|reddit|youtube|t)\.com$/i.test(refHost)) { src = 'SOCIAL_MEDIA'; d1 = refHost.replace(/^www\./,'').split('.')[0]; }
+      else { src = 'REFERRALS'; d1 = refHost; }
+    }
+
+    var result = {
+      analytics_source: src,
+      analytics_source_data_1: d1,
+      analytics_source_data_2: d2,
+      first_referrer: ref,
+      first_url: window.location.href
+    };
+    try { sessionStorage.setItem(KEY, JSON.stringify(result)); } catch (e) {}
+    return result;
+  };
+  }
+  try { window.getSourceAttribution(); } catch (e) {}
+
   /* ── Load reCAPTCHA v3 on first user interaction (deferred for perf) ── */
   const RC_SITE_KEY = '6Lck8aQsAAAAALMA-T6nwfkSf7bv4K-mOhkszeKh';
   var rcLoaded = false;
@@ -69,35 +129,28 @@
       <!-- STEP 1 -->
       <div class="diag-step active" data-step="1">
         <h3 class="diag-title">What best describes your situation?</h3>
-        <p class="diag-subtitle">Pick whatever feels closest — you can always add details later.</p>
+        <p class="diag-subtitle">Pick whatever feels closest. You can always add details later.</p>
         <div class="diag-options" data-field="concern">
           <button class="diag-opt" data-value="mold">
-            <span class="diag-opt-icon">&#x1F4A7;</span>
             <span class="diag-opt-text">Mold or moisture<span class="diag-opt-desc">Visible mold, musty smell, dampness</span></span>
           </button>
           <button class="diag-opt" data-value="energy">
-            <span class="diag-opt-icon">&#x2744;&#xFE0F;</span>
             <span class="diag-opt-text">High energy bills / cold rooms<span class="diag-opt-desc">Drafts, ice dams, uneven temps</span></span>
           </button>
           <button class="diag-opt" data-value="water">
-            <span class="diag-opt-icon">&#x1F6B0;</span>
             <span class="diag-opt-text">Water damage<span class="diag-opt-desc">Leaks, flooding, staining</span></span>
           </button>
           <button class="diag-opt" data-value="realestate">
-            <span class="diag-opt-icon">&#x1F3E0;</span>
             <span class="diag-opt-text">Buying or selling<span class="diag-opt-desc">Inspection findings, transaction support</span></span>
           </button>
           <button class="diag-opt" data-value="repairs">
-            <span class="diag-opt-icon">&#x1F527;</span>
             <span class="diag-opt-text">Repairs or renovation<span class="diag-opt-desc">Rot, roofing, siding, structure</span></span>
           </button>
           <button class="diag-opt" data-value="specific">
-            <span class="diag-opt-icon">&#x1F50D;</span>
             <span class="diag-opt-text">Specific service<span class="diag-opt-desc">Insulation, energy audit, etc.</span></span>
           </button>
           <button class="diag-opt diag-opt-full" data-value="notsure">
-            <span class="diag-opt-icon">&#x1F914;</span>
-            <span class="diag-opt-text">Not sure — need guidance<span class="diag-opt-desc">That\u2019s fine. We\u2019ll figure it out together.</span></span>
+            <span class="diag-opt-text">Not sure, need guidance<span class="diag-opt-desc">That\u2019s fine. We\u2019ll figure it out together.</span></span>
           </button>
         </div>
         <div class="diag-nav">
@@ -166,7 +219,7 @@
       <!-- STEP 4 -->
       <div class="diag-step" data-step="4">
         <h3 class="diag-title">How can we reach you?</h3>
-        <p class="diag-subtitle">We\u2019ll get back within one business day — usually sooner.</p>
+        <p class="diag-subtitle">We\u2019ll get back within one business day, usually sooner.</p>
         <div class="diag-form-row">
           <div class="diag-field">
             <label for="diag-first">First name *</label>
@@ -194,7 +247,7 @@
         </div>
         <div class="diag-field">
           <label for="diag-notes">Anything else?</label>
-          <textarea id="diag-notes" placeholder="No worries if not \u2014 we\u2019ll cover everything when we talk."></textarea>
+          <textarea id="diag-notes" placeholder="No worries if not. We\u2019ll cover everything when we talk."></textarea>
         </div>
         <input type="text" name="_honey" style="display:none;" tabindex="-1" autocomplete="off" />
         <div class="diag-nav">
@@ -238,7 +291,6 @@
     .diag-opt{display:flex;align-items:center;gap:10px;padding:12px 14px;border:2px solid var(--border-light);border-radius:var(--radius);cursor:pointer;background:var(--white);text-align:left;font-family:'Montserrat',sans-serif;font-size:.82rem;font-weight:500;color:var(--text-dark);line-height:1.35;transition:all .2s}
     .diag-opt:hover{border-color:var(--green-primary);background:rgba(49,107,67,.03)}
     .diag-opt.selected{border-color:var(--green-primary);background:rgba(49,107,67,.06);box-shadow:0 0 0 1px var(--green-primary)}
-    .diag-opt-icon{font-size:1.2rem;flex-shrink:0;width:28px;text-align:center}
     .diag-opt-text{flex:1}
     .diag-opt-desc{display:block;font-size:.72rem;font-weight:400;color:var(--text-light);margin-top:1px}
     .diag-opt-full{grid-column:1/-1}
@@ -294,9 +346,9 @@
       subtitle: 'Check all that apply.',
       questions: [
         { label: 'Where are you noticing it?', field: 'mold_where', multi: true, options: [
-          { v:'basement', i:'&#x1F3DA;', l:'Basement' }, { v:'bathroom', i:'&#x1F6BF;', l:'Bathroom' },
-          { v:'attic', i:'&#x2302;', l:'Attic' }, { v:'crawlspace', i:'&#x1F573;', l:'Crawl space' },
-          { v:'walls', i:'&#x1F9F1;', l:'Walls / ceiling' }, { v:'notsure', i:'&#x2753;', l:'Not sure' }
+          { v:'basement', l:'Basement' }, { v:'bathroom', l:'Bathroom' },
+          { v:'attic', l:'Attic' }, { v:'crawlspace', l:'Crawl space' },
+          { v:'walls', l:'Walls / ceiling' }, { v:'notsure', l:'Not sure' }
         ]},
         { label: 'How long have you noticed it?', field: 'mold_duration', options: [
           { v:'just', l:'Just noticed' }, { v:'weeks', l:'A few weeks' },
@@ -309,9 +361,9 @@
       subtitle: 'Check all that apply.',
       questions: [
         { label: 'What\u2019s happening?', field: 'energy_symptoms', multi: true, options: [
-          { v:'cold', i:'&#x2744;', l:'Cold rooms' }, { v:'bills', i:'&#x1F4B0;', l:'High heating bills' },
-          { v:'drafts', i:'&#x1F32C;', l:'Drafts / air leaks' }, { v:'icedams', i:'&#x1F9CA;', l:'Ice dams' },
-          { v:'uneven', i:'&#x1F321;', l:'Uneven temps' }, { v:'other', i:'&#x2026;', l:'Something else' }
+          { v:'cold', l:'Cold rooms' }, { v:'bills', l:'High heating bills' },
+          { v:'drafts', l:'Drafts / air leaks' }, { v:'icedams', l:'Ice dams' },
+          { v:'uneven', l:'Uneven temps' }, { v:'other', l:'Something else' }
         ]},
         { label: 'Interested in Efficiency Maine rebates?', field: 'energy_rebates', options: [
           { v:'yes', l:'Yes, tell me more' }, { v:'already', l:'Already started' }, { v:'notsure', l:'Not sure what that is' }
@@ -323,8 +375,8 @@
       subtitle: 'This helps us understand urgency.',
       questions: [
         { label: 'How urgent?', field: 'water_urgency', options: [
-          { v:'active', i:'&#x1F6A8;', l:'Active leak / flooding' }, { v:'recent', i:'&#x26A0;', l:'Recent damage' },
-          { v:'past', i:'&#x1F4C5;', l:'Past damage, still visible' }, { v:'prevent', i:'&#x1F6E1;', l:'Preventative' }
+          { v:'active', l:'Active leak / flooding' }, { v:'recent', l:'Recent damage' },
+          { v:'past', l:'Past damage, still visible' }, { v:'prevent', l:'Preventative' }
         ]},
         { label: 'Where\u2019s the issue?', field: 'water_where', multi: true, options: [
           { v:'basement', l:'Basement' }, { v:'roof', l:'Roof' }, { v:'walls', l:'Walls' },
@@ -337,7 +389,7 @@
       subtitle: 'We work with buyers, sellers, and agents every day.',
       questions: [
         { label: 'Your role?', field: 're_role', options: [
-          { v:'buyer', i:'&#x1F3E0;', l:'Buying' }, { v:'seller', i:'&#x1F4B5;', l:'Selling' }, { v:'agent', i:'&#x1F4BC;', l:'I\u2019m an agent' }
+          { v:'buyer', l:'Buying' }, { v:'seller', l:'Selling' }, { v:'agent', l:'I\u2019m an agent' }
         ]},
         { label: 'Timeline?', field: 're_timeline', options: [
           { v:'urgent', l:'Closing soon \u2014 urgent' }, { v:'month', l:'Within a month' }, { v:'exploring', l:'Just exploring' }
@@ -350,13 +402,13 @@
     },
     repairs: {
       title: 'What kind of work?',
-      subtitle: 'Check all that apply — many are connected.',
+      subtitle: 'Check all that apply. Many are connected.',
       questions: [
         { label: 'Select all that apply', field: 'repair_type', multi: true, options: [
-          { v:'rot', i:'&#x1FAB5;', l:'Rot repair' }, { v:'roofing', i:'&#x1F3E0;', l:'Roofing' },
-          { v:'siding', i:'&#x1F9F1;', l:'Siding' }, { v:'waterproof', i:'&#x1F4A7;', l:'Waterproofing' },
-          { v:'general', i:'&#x1F527;', l:'General contracting' }, { v:'demolition', i:'&#x1F3D7;', l:'Demolition' },
-          { v:'other', i:'&#x2026;', l:'Something else' }
+          { v:'rot', l:'Rot repair' }, { v:'roofing', l:'Roofing' },
+          { v:'siding', l:'Siding' }, { v:'waterproof', l:'Waterproofing' },
+          { v:'general', l:'General contracting' }, { v:'demolition', l:'Demolition' },
+          { v:'other', l:'Something else' }
         ]}
       ]
     },
@@ -379,7 +431,7 @@
       subtitle: 'Just tell us what you\u2019ve been noticing.',
       questions: [
         { label: 'Describe what\u2019s going on', field: 'notsure_desc', type: 'textarea',
-          placeholder: 'e.g. "My basement smells musty in summer" or "Our heating bill doubled" \u2014 anything helps.' }
+          placeholder: 'e.g. "My basement smells musty in summer" or "Our heating bill doubled." Anything helps.' }
       ]
     }
   };
@@ -439,9 +491,8 @@
           html += `<div class="diag-field"><label>${q.label}</label>
             <div class="diag-options"${cols} data-field="${q.field}" ${q.multi ? 'data-multi="true"' : ''}>`;
           q.options.forEach(o => {
-            const icon = o.i ? `<span class="diag-opt-icon">${o.i}</span>` : '';
             const chk = q.multi ? '<span class="diag-check"></span>' : '';
-            html += `<button class="diag-opt${q.multi ? ' multi' : ''}" data-value="${o.v}">${icon}${chk}<span class="diag-opt-text">${o.l}</span></button>`;
+            html += `<button class="diag-opt${q.multi ? ' multi' : ''}" data-value="${o.v}">${chk}<span class="diag-opt-text">${o.l}</span></button>`;
           });
           html += '</div></div>';
         }
@@ -502,7 +553,7 @@
     }
 
     /* ── Navigation ── */
-    function goTo(n) {
+    function goTo(n, quiet) {
       state.step = n;
       steps.forEach(s => s.classList.remove('active'));
       card.querySelector(`[data-step="${n}"]`).classList.add('active');
@@ -512,7 +563,7 @@
         if (i === n - 1 && n <= totalSteps) d.classList.add('active');
         if (n === 5) d.classList.add('done');
       });
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (!quiet) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     card.querySelectorAll('.diag-btn-next').forEach(btn => {
@@ -544,6 +595,25 @@
         if (n > 1) goTo(n - 1);
       });
     });
+
+    /* Opt-in preset for intent-matched landing pages. data-concern="mold"
+       opens on that concern's questions instead of asking what describes the
+       situation, and data-where="attic" pre-selects where it is. Pages without
+       the attributes are untouched, and Back still returns to step 1. Uses a
+       quiet goTo so the page does not jump to the form on load. */
+    const preset = container.getAttribute('data-concern');
+    if (preset && TEMPLATES[preset]) {
+      const s1 = card.querySelector('[data-step="1"] .diag-opt[data-value="' + preset + '"]');
+      if (s1) s1.classList.add('selected');
+      state.concern = preset;
+      renderStep2(preset);
+      (container.getAttribute('data-where') || '').split(',').map(v => v.trim()).filter(Boolean).forEach(v => {
+        const b = card.querySelector('#diag-step2 .diag-opt[data-value="' + v + '"]');
+        if (b) b.classList.add('selected');
+      });
+      goTo(2, true);
+      checkNext();
+    }
 
     // Phone is required, so the SMS consent box is always shown. Clear it if the
     // field is emptied so we never send consent for a number we do not have.
