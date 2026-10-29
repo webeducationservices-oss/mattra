@@ -146,6 +146,7 @@ function getSourceAttribution() {
             <a href="${b}construction/">Construction Overview</a>
             <a href="${b}construction/rot-repair/">Rot Repair</a>
             <a href="${b}construction/demolition/">Demolition</a>
+            <a href="${b}water-damage-restoration/">Water Damage Restoration</a>
             <a href="${b}construction/water-damage/">Water Damage Repair</a>
             <a href="${b}construction/basement-waterproofing/">Basement Waterproofing</a>
             <a href="${b}construction/roofing/">Roofing</a>
