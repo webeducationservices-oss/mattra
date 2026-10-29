@@ -83,7 +83,7 @@ function getSourceAttribution() {
     <span>Serving All of Maine &nbsp;&middot;&nbsp; Lewiston &middot; Portland &middot; Augusta &middot; Bangor</span>
     <div class="topbar-right">
       <a href="tel:+12077776020">(207) 777-6020</a>
-      <a href="${b}contact.html" class="topbar-cta">Free Consultation</a>
+      <a href="${b}contact/" class="topbar-cta">Free Consultation</a>
     </div>
   </div>
 </div>`;
@@ -99,12 +99,12 @@ function getSourceAttribution() {
   const HEADER = `
 <header class="site-header">
   <div class="header-inner">
-    <a href="${b}index.html" class="logo" aria-label="Mattra Inc. home">
+    <a href="${b}" class="logo" aria-label="Mattra Inc. home">
       <img src="${b}Images/MATTRA-LOGO-4ab44f66-1920w.webp" alt="Mattra Inc. Logo" width="167" height="52">
     </a>
     <nav class="main-nav" id="main-nav" aria-label="Main navigation">
       <div class="mobile-menu-top">
-        <a href="${b}index.html" class="mobile-menu-logo" aria-label="Mattra Inc. home">
+        <a href="${b}" class="mobile-menu-logo" aria-label="Mattra Inc. home">
           <img src="${b}Images/MATTRA-LOGO-4ab44f66-1920w.webp" alt="Mattra Inc." width="167" height="52">
         </a>
         <button type="button" class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
@@ -115,7 +115,7 @@ function getSourceAttribution() {
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         (207) 777-6020
       </a>
-      ${nav('home', 'Home', 'index.html')}
+      ${nav('home', 'Home', '')}
 
       <!-- Services Mega Dropdown -->
       <div class="nav-dropdown${megaActive(serviceSlugs) ? ' active' : ''}">
@@ -123,47 +123,47 @@ function getSourceAttribution() {
         <div class="mega-panel mega-4col">
           <div class="mega-col">
             <h5 class="mega-heading">Mold</h5>
-            <a href="${b}mold.html">Mold Overview</a>
-            <a href="${b}mold/inspection-testing.html">Inspection &amp; Testing</a>
-            <a href="${b}mold/removal-remediation.html">Removal &amp; Remediation</a>
-            <a href="${b}mold/basement-crawl-space.html">Basement &amp; Crawl Space</a>
-            <a href="${b}mold/real-estate-transactions.html">Real Estate Transactions</a>
+            <a href="${b}mold/">Mold Overview</a>
+            <a href="${b}mold/inspection-testing/">Inspection &amp; Testing</a>
+            <a href="${b}mold/removal-remediation/">Removal &amp; Remediation</a>
+            <a href="${b}mold/basement-crawl-space/">Basement &amp; Crawl Space</a>
+            <a href="${b}mold/real-estate-transactions/">Real Estate Transactions</a>
           </div>
           <div class="mega-col">
             <h5 class="mega-heading">Insulation</h5>
-            <a href="${b}insulation.html">Insulation Overview</a>
-            <a href="${b}efficiency-maine.html">Efficiency Maine Rebates</a>
-            <a href="${b}insulation/spray-foam.html">Spray Foam</a>
-            <a href="${b}insulation/blown-in.html">Blown-In</a>
-            <a href="${b}insulation/attic.html">Attic</a>
-            <a href="${b}insulation/basement.html">Basement</a>
-            <a href="${b}insulation/air-sealing.html">Air Sealing</a>
-            <a href="${b}insulation/wall.html">Wall</a>
-            <a href="${b}insulation/crawl-space.html">Crawl Space</a>
+            <a href="${b}insulation/">Insulation Overview</a>
+            <a href="${b}efficiency-maine/">Efficiency Maine Rebates</a>
+            <a href="${b}insulation/spray-foam/">Spray Foam</a>
+            <a href="${b}insulation/blown-in/">Blown-In</a>
+            <a href="${b}insulation/attic/">Attic</a>
+            <a href="${b}insulation/basement/">Basement</a>
+            <a href="${b}insulation/air-sealing/">Air Sealing</a>
+            <a href="${b}insulation/wall/">Wall</a>
+            <a href="${b}insulation/crawl-space/">Crawl Space</a>
           </div>
           <div class="mega-col">
             <h5 class="mega-heading">Construction</h5>
-            <a href="${b}construction.html">Construction Overview</a>
-            <a href="${b}construction/rot-repair.html">Rot Repair</a>
-            <a href="${b}construction/demolition.html">Demolition</a>
-            <a href="${b}construction/water-damage.html">Water Damage Repair</a>
-            <a href="${b}construction/basement-waterproofing.html">Basement Waterproofing</a>
-            <a href="${b}construction/roofing.html">Roofing</a>
-            <a href="${b}construction/siding.html">Siding</a>
-            <a href="${b}construction/repair-rebuild.html">Repair &amp; Rebuild</a>
+            <a href="${b}construction/">Construction Overview</a>
+            <a href="${b}construction/rot-repair/">Rot Repair</a>
+            <a href="${b}construction/demolition/">Demolition</a>
+            <a href="${b}construction/water-damage/">Water Damage Repair</a>
+            <a href="${b}construction/basement-waterproofing/">Basement Waterproofing</a>
+            <a href="${b}construction/roofing/">Roofing</a>
+            <a href="${b}construction/siding/">Siding</a>
+            <a href="${b}construction/repair-rebuild/">Repair &amp; Rebuild</a>
           </div>
           <div class="mega-col">
             <h5 class="mega-heading">Consulting &amp; Other</h5>
-            <a href="${b}consulting.html">Consulting Overview</a>
-            <a href="${b}other-services/energy-audit.html">Energy Audit</a>
-            <a href="${b}other-services/blower-door-testing.html">Blower Door Testing</a>
-            <a href="${b}other-services/general-contracting.html">General Contracting</a>
-            <a href="${b}construction/ventilation.html">Ventilation</a>
-            <a href="${b}services.html">All Services</a>
+            <a href="${b}consulting/">Consulting Overview</a>
+            <a href="${b}other-services/energy-audit/">Energy Audit</a>
+            <a href="${b}other-services/blower-door-testing/">Blower Door Testing</a>
+            <a href="${b}other-services/general-contracting/">General Contracting</a>
+            <a href="${b}construction/ventilation/">Ventilation</a>
+            <a href="${b}services/">All Services</a>
             <div class="mega-cta-card">
               <strong>Not sure where to start?</strong>
               <p>Book a free consultation and we'll assess your home.</p>
-              <a href="${b}contact.html" class="mega-cta-btn">Free Consultation</a>
+              <a href="${b}contact/" class="mega-cta-btn">Free Consultation</a>
             </div>
           </div>
         </div>
@@ -175,27 +175,27 @@ function getSourceAttribution() {
         <div class="mega-panel mega-2col">
           <div class="mega-col">
             <h5 class="mega-heading">Financing &amp; Rebates</h5>
-            <a href="${b}financing-rebates.html">Financing &amp; Rebates</a>
-            <a href="${b}home-energy-loans.html">Home Energy Loans</a>
-            <a href="${b}efficiency-maine-green-bank.html">Efficiency Maine Green Bank</a>
-            <a href="${b}rebate-calculator.html">Rebate Calculator</a>
-            <a href="${b}for-realtors.html">For Realtors</a>
+            <a href="${b}financing-rebates/">Financing &amp; Rebates</a>
+            <a href="${b}home-energy-loans/">Home Energy Loans</a>
+            <a href="${b}efficiency-maine-green-bank/">Efficiency Maine Green Bank</a>
+            <a href="${b}rebate-calculator/">Rebate Calculator</a>
+            <a href="${b}for-realtors/">For Realtors</a>
           </div>
           <div class="mega-col">
             <h5 class="mega-heading">Learn</h5>
-            <a href="${b}resources.html">Resources Hub</a>
-            <a href="${b}blog.html">Blog</a>
-            <a href="${b}mold-library.html">Mold Glossary</a>
-            <a href="${b}service-areas.html">Service Areas</a>
+            <a href="${b}resources/">Resources Hub</a>
+            <a href="${b}blog/">Blog</a>
+            <a href="${b}mold-library/">Mold Glossary</a>
+            <a href="${b}service-areas/">Service Areas</a>
           </div>
         </div>
       </div>
 
-      ${nav('about', 'About', 'about.html')}
-      ${nav('contact', 'Contact', 'contact.html')}
-      <a href="${b}contact.html" class="mobile-menu-cta">Free Consultation</a>
+      ${nav('about', 'About', 'about/')}
+      ${nav('contact', 'Contact', 'contact/')}
+      <a href="${b}contact/" class="mobile-menu-cta">Free Consultation</a>
     </nav>
-    <a href="${b}contact.html" class="header-cta">Get Started</a>
+    <a href="${b}contact/" class="header-cta">Get Started</a>
     <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -208,7 +208,7 @@ function getSourceAttribution() {
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="${b}index.html" class="logo" aria-label="Mattra Inc. home">
+        <a href="${b}" class="logo" aria-label="Mattra Inc. home">
           <img src="${b}Images/MATTRA-LOGO-FOOTER.webp" alt="Mattra Inc. Logo" width="154" height="48">
         </a>
         <p>Maine&rsquo;s whole-home experts. 30 years of mold remediation, insulation, and construction services backed by building science.</p>
@@ -223,35 +223,35 @@ function getSourceAttribution() {
       </div>
       <div class="footer-col">
         <h4>Services</h4>
-        <a href="${b}mold.html">Mold Remediation</a>
-        <a href="${b}insulation.html">Insulation</a>
-        <a href="${b}construction.html">Construction</a>
-        <a href="${b}consulting.html">Consulting</a>
-        <a href="${b}services.html">Other Services</a>
+        <a href="${b}mold/">Mold Remediation</a>
+        <a href="${b}insulation/">Insulation</a>
+        <a href="${b}construction/">Construction</a>
+        <a href="${b}consulting/">Consulting</a>
+        <a href="${b}services/">Other Services</a>
       </div>
       <div class="footer-col">
         <h4>Resources</h4>
-        <a href="${b}financing-rebates.html">Financing &amp; Rebates</a>
-        <a href="${b}home-energy-loans.html">Home Energy Loans</a>
-        <a href="${b}rebate-calculator.html">Rebate Calculator</a>
-        <a href="${b}for-realtors.html">For Realtors</a>
-        <a href="${b}blog.html">Blog</a>
-        <a href="${b}resources.html">Resources</a>
+        <a href="${b}financing-rebates/">Financing &amp; Rebates</a>
+        <a href="${b}home-energy-loans/">Home Energy Loans</a>
+        <a href="${b}rebate-calculator/">Rebate Calculator</a>
+        <a href="${b}for-realtors/">For Realtors</a>
+        <a href="${b}blog/">Blog</a>
+        <a href="${b}resources/">Resources</a>
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
         <a href="tel:+12077776020">(207) 777-6020</a>
-        <a href="${b}contact.html">Contact Form</a>
-        <a href="${b}about.html">About Us</a>
-        <a href="${b}service-areas.html">Service Areas</a>
-        <a href="${b}privacy.html">Privacy Policy</a>
+        <a href="${b}contact/">Contact Form</a>
+        <a href="${b}about/">About Us</a>
+        <a href="${b}service-areas/">Service Areas</a>
+        <a href="${b}privacy/">Privacy Policy</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; ${new Date().getFullYear()} Mattra Inc. All rights reserved.</span>
       <span>
-        <a href="${b}privacy.html">Privacy Policy</a> &nbsp;&middot;&nbsp;
-        <a href="${b}terms.html">Terms of Service</a>
+        <a href="${b}privacy/">Privacy Policy</a> &nbsp;&middot;&nbsp;
+        <a href="${b}terms/">Terms of Service</a>
       </span>
     </div>
   </div>
