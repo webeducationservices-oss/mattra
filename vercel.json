@@ -8,6 +8,8 @@
     { "source": "/other-services/", "destination": "/services/", "statusCode": 301 },
     { "source": "/services/energy-audit", "destination": "/other-services/energy-audit/", "statusCode": 301 },
     { "source": "/services/energy-audit/", "destination": "/other-services/energy-audit/", "statusCode": 301 },
+    { "source": "/services/blower-door-testing", "destination": "/other-services/blower-door-testing/", "statusCode": 301 },
+    { "source": "/services/blower-door-testing/", "destination": "/other-services/blower-door-testing/", "statusCode": 301 },
     { "source": "/how-did-we-do", "destination": "/contact/", "statusCode": 301 },
     { "source": "/how-did-we-do/", "destination": "/contact/", "statusCode": 301 },
     { "source": "/review-us", "destination": "/contact/", "statusCode": 301 },

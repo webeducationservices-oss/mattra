@@ -254,7 +254,8 @@ function getSourceAttribution() {
       <span>&copy; ${new Date().getFullYear()} Mattra Inc. All rights reserved.</span>
       <span>
         <a href="${b}privacy/">Privacy Policy</a> &nbsp;&middot;&nbsp;
-        <a href="${b}terms/">Terms of Service</a>
+        <a href="${b}terms/">Terms of Service</a> &nbsp;&middot;&nbsp;
+        <a href="${b}sitemap/">Site Map</a>
       </span>
     </div>
   </div>
