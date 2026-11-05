@@ -1,0 +1,89 @@
+name: Publish scheduled blog posts
+
+# Blog posts are written ahead of time into _scheduled/ with a publish date.
+# Every morning this checks for posts whose date has arrived, publishes them
+# (root page + blog index card + sitemap), switches on every internal link that
+# was waiting for them, and pushes to main so Vercel deploys.
+#
+# Run it by hand from the Actions tab (Run workflow); tick dry_run to see what
+# would publish without changing anything.
+
+on:
+  schedule:
+    # 11:00 UTC = 6:00am Eastern in winter, 7:00am in summer
+    - cron: '0 11 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Report what would publish, change nothing'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: publish-scheduled-posts
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Identify as the WES committer
+        # Vercel blocks a deploy when the committer email doesn't match a verified
+        # GitHub user (COMMIT_AUTHOR_REQUIRED), so this must stay as-is.
+        run: |
+          git config user.name  "Web Education Services"
+          git config user.email "webeducationservices@gmail.com"
+
+      - name: Publish anything that is due
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python3 _scheduled/publish_scheduled.py --dry-run
+          else
+            python3 _scheduled/publish_scheduled.py
+          fi
+
+      - name: Commit and push
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing published today."
+            exit 0
+          fi
+          git commit -m "Blog: publish scheduled post(s) $(TZ=America/New_York date +%F)"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep 10
+          done
+          echo "::error::Could not push after 3 tries"
+          exit 1
+
+      - name: Raise an issue if publishing failed
+        if: ${{ failure() }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Scheduled blog post did not publish',
+              body: [
+                'The daily publish-scheduled-posts run failed, so a post that was due today is not live.',
+                '',
+                'To publish by hand:',
+                '```bash',
+                'cd Mattra && git pull',
+                'python3 _scheduled/publish_scheduled.py --dry-run   # see what is due',
+                'python3 _scheduled/publish_scheduled.py',
+                'git add -A && git commit -m "Blog: publish scheduled post" && git push',
+                '```',
+                '',
+                `[View the failed run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`
+              ].join('\n')
+            });
