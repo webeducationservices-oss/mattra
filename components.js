@@ -395,3 +395,11 @@ function getSourceAttribution() {
     });
   });
 })();
+
+/* Google Ads website call tracking (forwarding number for ad visitors) */
+(function () {
+  var s = document.createElement('script');
+  s.src = '/call-tracking.js';
+  s.async = true;
+  document.head.appendChild(s);
+})();
