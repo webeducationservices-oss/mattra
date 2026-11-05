@@ -361,6 +361,31 @@ function getSourceAttribution() {
     });
   });
 
+  /* Keep a desktop mega panel inside the screen. It is centered under its
+     trigger, so on a narrow desktop window (1025 to ~1250px) the 4-column
+     Services panel used to run off the left edge. Measure it centered,
+     then shift it just enough to sit 16px inside the viewport. */
+  function placeMega(dropdown) {
+    const panel = dropdown.querySelector('.mega-panel');
+    if (!panel || window.innerWidth <= 1024) return;
+    panel.style.setProperty('--mega-shift', '0px');
+    const r = panel.getBoundingClientRect();
+    if (!r.width) return;
+    const vw = document.documentElement.clientWidth, pad = 16;
+    let shift = 0;
+    if (r.left < pad) shift = pad - r.left;
+    else if (r.right > vw - pad) shift = (vw - pad) - r.right;
+    panel.style.setProperty('--mega-shift', Math.round(shift) + 'px');
+  }
+  document.querySelectorAll('.nav-dropdown').forEach(d => {
+    d.addEventListener('mouseenter', () => placeMega(d));
+    d.addEventListener('focusin', () => placeMega(d));
+    d.querySelector('.nav-dropdown-trigger').addEventListener('click', () => placeMega(d));
+  });
+  window.addEventListener('resize', () => document.querySelectorAll('.nav-dropdown').forEach(d => {
+    const p = d.querySelector('.mega-panel'); if (p) p.style.removeProperty('--mega-shift');
+  }), { passive: true });
+
   // Close mega menu when clicking outside
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.nav-dropdown') && !e.target.closest('.mobile-toggle')) {
