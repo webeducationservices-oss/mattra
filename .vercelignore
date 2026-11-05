@@ -1,2 +1,6 @@
 # Internal working docs — versioned with the project, never served on the website
 *.md
+
+# Scheduled blog drafts and their publisher: never served (published by .github/workflows/publish-scheduled-posts.yml)
+_scheduled/
+.github/

@@ -228,6 +228,7 @@ function getSourceAttribution() {
         <a href="${b}mold/">Mold Remediation</a>
         <a href="${b}insulation/">Insulation</a>
         <a href="${b}construction/">Construction</a>
+        <a href="${b}water-damage-restoration/">Water Damage Restoration</a>
         <a href="${b}consulting/">Consulting</a>
         <a href="${b}services/">Other Services</a>
       </div>
