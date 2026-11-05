@@ -610,7 +610,10 @@
     .grat-stat { background: var(--white); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 20px 14px; box-shadow: var(--shadow-sm); }
     .grat-stat .n { font-family: 'DM Serif Display', serif; font-size: 2.1rem; line-height: 1.1; color: var(--green-primary); }
     .grat-stat .l { font-size: .88rem; color: var(--text-light); margin-top: 4px; }
-    @media (max-width: 640px) { .grat-stats { grid-template-columns: 1fr; } }
+    .grat-team { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; max-width: 760px; margin: 30px auto 8px; }
+    .grat-team img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 3px solid var(--white); box-shadow: var(--shadow-sm); }
+    .grat-team-cap { font-size: .9rem !important; color: var(--text-light) !important; margin: 4px 0 0; }
+    @media (max-width: 640px) { .grat-stats { grid-template-columns: 1fr; } .grat-team { grid-template-columns: repeat(4, 1fr); gap: 8px; } }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 640px) {
@@ -925,7 +928,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div class="efficiency-img">
-        <img src="/Images/about-section-new.webp" alt="Mattra Inc. team serving Maine homeowners" loading="lazy" width="1200" height="654" />
+        <img src="/Images/team/mattra-team-mosaic.webp" alt="Members of the Mattra Inc. team, Lewiston, Maine" loading="lazy" width="1200" height="800" />
       </div>
     </div>
   </div>
@@ -969,6 +972,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2>Our People and Our Clients Made These 30 Years Possible</h2>
       <p>Thirty years of Maine homes happened because of the people on our crews who show up in a January cold snap, crawl through attics and basements most folks never see, and leave every home better than they found it. Their hard work is the reason Mattra is still here.</p>
       <p>It happened because of you, too. Every homeowner who trusted us with their home, sent a neighbor our way, or took a minute to leave a review helped build this company, one job at a time.</p>
+      <div class="grat-team" aria-label="The Mattra team"><img src="/Images/team/team-1374.webp" alt="Mattra team member" width="480" height="480" loading="lazy"><img src="/Images/team/team-1396.webp" alt="Mattra team member" width="480" height="480" loading="lazy"><img src="/Images/team/team-1407.webp" alt="Mattra team member" width="480" height="480" loading="lazy"><img src="/Images/team/team-1420.webp" alt="Mattra team member" width="480" height="480" loading="lazy"><img src="/Images/team/team-1423.webp" alt="Mattra team member" width="480" height="480" loading="lazy"><img src="/Images/team/team-1435.webp" alt="Mattra team member" width="480" height="480" loading="lazy"><img src="/Images/team/team-1440.webp" alt="Mattra team member" width="480" height="480" loading="lazy"><img src="/Images/team/team-1459.webp" alt="Mattra team member" width="480" height="480" loading="lazy"><img src="/Images/team/team-1469.webp" alt="Mattra team member" width="480" height="480" loading="lazy"><img src="/Images/team/team-1474.webp" alt="Mattra team member" width="480" height="480" loading="lazy"><img src="/Images/team/team-1483.webp" alt="Mattra team member" width="480" height="480" loading="lazy"><img src="/Images/team/team-1522.webp" alt="Mattra team member" width="480" height="480" loading="lazy"></div>
+      <p class="grat-team-cap">Some of the people who make it happen.</p>
       <div class="grat-stats">
         <div class="grat-stat"><div class="n">1996</div><div class="l">Serving Maine since</div></div>
         <div class="grat-stat"><div class="n">30 Years</div><div class="l">Helping Maine homeowners</div></div>
