@@ -57,6 +57,10 @@
     .pay-row span.sub { display: block; font-size: .85rem; color: var(--text-light); }
     .pay-row .amt { font-family: 'DM Serif Display', serif; font-size: 1.45rem; color: var(--green-primary); white-space: nowrap; }
 
+    .crew-strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+    .crew-strip img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 14px; box-shadow: var(--shadow-sm); }
+    .crew-cap { text-align: center; font-size: .9rem; color: var(--text-light); margin-top: 12px; }
+    @media (max-width: 760px) { .crew-strip { grid-template-columns: repeat(3, 1fr); gap: 8px; } }
     .apply-wrap { max-width: 720px; margin: 28px auto 0; }
     .eeo { font-size: .85rem; color: var(--text-light); text-align: center; margin-top: 22px; }
 
@@ -152,6 +156,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>Warmer homes, lower heating bills and healthier air for Maine families. You'll see the difference you make.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="crew-strip" aria-label="The Mattra crew"><img src="/Images/team/crew-1379.webp" alt="Mattra crew member" width="400" height="500" loading="lazy"><img src="/Images/team/crew-1412.webp" alt="Mattra crew member" width="400" height="500" loading="lazy"><img src="/Images/team/crew-1430.webp" alt="Mattra crew member" width="400" height="500" loading="lazy"><img src="/Images/team/crew-1461.webp" alt="Mattra crew member" width="400" height="500" loading="lazy"><img src="/Images/team/crew-1503.webp" alt="Mattra crew member" width="400" height="500" loading="lazy"><img src="/Images/team/crew-1486.webp" alt="Mattra crew member" width="400" height="500" loading="lazy"></div>
+    <p class="crew-cap">The crew you'd be working alongside.</p>
   </div>
 </section>
 
