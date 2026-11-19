@@ -658,6 +658,12 @@
       const last  = card.querySelector('#diag-last').value.trim();
       const email = card.querySelector('#diag-email').value.trim();
       if (!first || !email) { alert('Please enter at least your first name and email.'); return; }
+      // A typo like "name@gmail com" passes the browser check but GoHighLevel rejects it
+      if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)) {
+        alert('Please check your email address. It looks like it has a typo.');
+        card.querySelector('#diag-email').focus();
+        return;
+      }
       const phone = phoneInput.value.replace(/\D/g, '');
       const smsCheck = card.querySelector('#diag-sms-consent');
       if (phone.length < 10) {
