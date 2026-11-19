@@ -189,8 +189,8 @@
       '<h2 id="mch-title">Our office is closed right now</h2>' +
       '<p class="mch-intro">We are open ' + HOURS_TEXT + '.' + (when ? ' We open again <strong>' + esc(when) + '</strong>.' : '') + '</p>' +
       '<ul class="mch-opts">' +
-        '<li><button type="button" class="mch-opt is-primary" data-mch="callback"><span class="mch-opt-ic">' + ICON.message + '</span><span><span class="mch-opt-t">Request a call back</span><span class="mch-opt-s">Leave your number and we will call you when we open.</span></span></button></li>' +
-        '<li><a class="mch-opt" href="/contact/" data-mch="estimate"><span class="mch-opt-ic">' + ICON.calendar + '</span><span><span class="mch-opt-t">Book a free consultation</span><span class="mch-opt-s">Tell us about your project online in a few minutes.</span></span></a></li>' +
+        '<li><a class="mch-opt is-primary" href="/contact/#diagnostic" data-mch="estimate"><span class="mch-opt-ic">' + ICON.calendar + '</span><span><span class="mch-opt-t">Tell Us What&rsquo;s Going On</span><span class="mch-opt-s">Answer a few quick questions online and we will follow up.</span></span></a></li>' +
+        '<li><button type="button" class="mch-opt" data-mch="callback"><span class="mch-opt-ic">' + ICON.message + '</span><span><span class="mch-opt-t">Request a call back</span><span class="mch-opt-s">Leave your number and we will call you when we open.</span></span></button></li>' +
         '<li><a class="mch-opt" href="' + esc(telHref) + '" data-mch="call" data-mch-skip="1"><span class="mch-opt-ic">' + ICON.phone + '</span><span><span class="mch-opt-t">Call anyway and leave a message</span><span class="mch-opt-s">' + esc(phoneText(telHref)) + '. We return messages when the office opens.</span></span></a></li>' +
       '</ul>';
     focusFirst();
